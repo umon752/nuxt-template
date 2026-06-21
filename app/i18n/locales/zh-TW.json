@@ -1,0 +1,69 @@
+{
+  "site": {
+    "name": "網站名稱",
+    "shortName": "網站名稱",
+    "description": "網站描述"
+  },
+
+  "common": {
+    "readMore": "查看更多",
+    "submit": "送出"
+  },
+
+  "pages": {
+    "home": {
+      "meta": {
+        "title": "首頁",
+        "description": "首頁描述"
+      }
+    },
+
+    "about": {
+      "meta": {
+        "title": "關於我們",
+        "description": "關於我們描述"
+      },
+      "hero": {
+        "title": "關於我們",
+        "description": "..."
+      }
+    },
+
+    "sample": {
+      "meta": {
+        "title": "範例頁",
+        "description": "範例頁描述"
+      }
+    }
+  },
+
+  "components": {
+    "pagination": {
+      "prev": "上一頁",
+      "next": "下一頁"
+    },
+
+    "datepicker": {
+      "today": "今天"
+    },
+
+    "contactForm": {
+      "name": "姓名",
+      "email": "電子郵件"
+    }
+  },
+
+  "error": {
+    "backToHome": "回到首頁",
+
+    "404": {
+      "title": "頁面不存在",
+      "description": "你瀏覽的頁面可能已被移除或網址輸入錯誤。"
+    },
+
+    "500": {
+      "title": "系統發生錯誤",
+      "description": "目前系統發生問題，請稍後再試。"
+    }
+  }
+}
