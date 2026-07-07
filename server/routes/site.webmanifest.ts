@@ -1,20 +1,11 @@
-import zhTW from '~/i18n/locales/zh-TW.json'
-// import en from '~/i18n/locales/en.json'
-
-const messages = {
-  'zh-TW': zhTW,
-  // en,
-} as const
+import { getLocale } from '../utils/getLocale'
+import { getMessages } from '../utils/getMessages'
+import { getSiteUrl } from '../utils/getSiteUrl'
 
 export default defineEventHandler((event) => {
-  const config = useRuntimeConfig()
-  const siteUrl = String(config.public.siteUrl).replace(/\/$/, '')
-
-  const query = getQuery(event)
-  const cookieLang = getCookie(event, 'i18n_redirected')
-  const locale = String(query.lang || cookieLang || 'zh-TW') as keyof typeof messages
-
-  const message = messages[locale] ?? messages['zh-TW']
+  const siteUrl = getSiteUrl()
+  const locale = getLocale(event)
+  const message = getMessages(locale)
 
   setResponseHeader(event, 'Content-Type', 'application/manifest+json')
 

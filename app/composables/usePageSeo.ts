@@ -1,3 +1,5 @@
+import { usePageMeta } from './usePageMeta'
+
 interface PageSeoOptions {
   title?: string
   description?: string
@@ -6,27 +8,22 @@ interface PageSeoOptions {
 }
 
 export function usePageSeo(options: PageSeoOptions = {}) {
-  const config = useRuntimeConfig()
-  const route = useRoute()
-  const { t } = useI18n()
-
-  const siteUrl = config.public.siteUrl.replace(/\/$/, '')
-  const siteName = t('site.name')
+  const { siteName, siteDescription, buildUrl, buildImage, buildTitle } = usePageMeta()
 
   const title = options.title
-  const description = options.description ?? t('site.description')
-  const image = options.image ?? `${siteUrl}/images/og-image.jpg`
+  const description = options.description ?? siteDescription
+  const image = options.image ?? buildImage()
   const type = options.type ?? 'website'
 
-  const socialTitle = title ? `${title}｜${siteName}` : siteName
+  const socialTitle = buildTitle(title)
 
   useSeoMeta({
     title,
-    titleTemplate: (pageTitle) => (pageTitle ? `${pageTitle}｜${siteName}` : siteName),
+    titleTemplate: (pageTitle) => buildTitle(pageTitle),
     description,
     ogTitle: socialTitle,
     ogSiteName: siteName,
-    ogUrl: `${siteUrl}${route.path}`,
+    ogUrl: buildUrl(),
     ogDescription: description,
     ogImage: image,
     ogType: type,

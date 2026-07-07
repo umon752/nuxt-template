@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from '@tailwindcss/vite'
+const siteUrl = import.meta.env.NUXT_PUBLIC_SITE_URL ?? ''
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -15,21 +16,47 @@ export default defineNuxtConfig({
     typeCheck: true,
   },
 
-  modules: ['@nuxt/eslint', '@nuxtjs/i18n'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxtjs/i18n',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+    'nuxt-schema-org',
+    'nuxt-security',
+  ],
+
   i18n: {
+    langDir: '../app/i18n/locales',
     locales: [
-      { code: 'zh-TW', language: 'zh-Hant' },
-      { code: 'en', language: 'en-US' },
-      { code: 'ja', language: 'ja' },
+      {
+        code: 'zh-TW',
+        language: 'zh-Hant',
+        file: 'zh-TW.json',
+      },
+      // {
+      //   code: 'en',
+      //   language: 'en-US',
+      //   file: 'en.json',
+      // },
+      // {
+      //   code: 'ja',
+      //   language: 'ja',
+      //   file: 'ja.json',
+      // },
     ],
     defaultLocale: 'zh-TW',
   },
+
+  site: {
+    url: siteUrl,
+  },
+
   runtimeConfig: {
     public: {
-      siteUrl: '',
-      i18n: {
-        baseUrl: '',
-      },
+      siteUrl,
+      // i18n: {
+      //   baseUrl: '',
+      // },
     },
   },
 
@@ -39,10 +66,6 @@ export default defineNuxtConfig({
         {
           name: 'viewport',
           content: 'width=device-width, initial-scale=1',
-        },
-        {
-          name: 'robots',
-          content: 'index,follow',
         },
       ],
 
@@ -61,6 +84,72 @@ export default defineNuxtConfig({
           href: '/images/favicon/apple-touch-icon.png',
         },
       ],
+    },
+  },
+
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        // 預設
+        'default-src': ["'self'"],
+
+        // HTML <base>
+        'base-uri': ["'self'"],
+
+        // object/embed
+        'object-src': ["'none'"],
+
+        // iframe
+        'frame-src': [
+          "'self'",
+          'https://www.youtube.com',
+          'https://www.youtube-nocookie.com',
+          'https://www.google.com', // Google Maps Embed
+        ],
+
+        // 圖片
+        'img-src': [
+          "'self'",
+          'data:',
+          'blob:',
+          'https:',
+          'https://www.google-analytics.com',
+          'https://www.googletagmanager.com',
+          'https://maps.gstatic.com',
+        ],
+
+        // CSS
+        'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+
+        // Font
+        'font-src': ["'self'", 'data:', 'https://fonts.gstatic.com'],
+
+        // Script
+        'script-src': [
+          "'self'",
+          'https://www.googletagmanager.com',
+          'https://www.google-analytics.com',
+          'https://maps.googleapis.com',
+        ],
+
+        // XHR / fetch / websocket
+        'connect-src': [
+          "'self'",
+          'https://www.google-analytics.com',
+          'https://www.googletagmanager.com',
+          'https://maps.googleapis.com',
+          'https://maps.gstatic.com',
+        ],
+
+        // Video / Audio
+        'media-src': ["'self'", 'blob:'],
+
+        // form submit
+        'form-action': ["'self'"],
+
+        // 防止 Clickjacking
+        'frame-ancestors': ["'self'"],
+      },
     },
   },
 })
