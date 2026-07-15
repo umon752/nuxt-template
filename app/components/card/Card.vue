@@ -5,7 +5,7 @@
     <div class="relative aspect-video w-full overflow-hidden">
       <img
         class="absolute top-1/2 left-1/2 h-full w-full translate-x-[-50%] translate-y-[-50%] object-cover object-center"
-        src="/images/test-img.jpg"
+        src="/images/nopic.png"
         alt=""
       />
     </div>

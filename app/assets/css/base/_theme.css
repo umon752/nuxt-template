@@ -1,0 +1,63 @@
+/* @font-face {
+  font-family: 'Uniform';
+  src: url('../fonts/Uniform.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+} */
+
+@theme {
+  /* breakpoint */
+  --breakpoint-*: initial; /* 覆蓋預設斷點 */
+  --breakpoint-tiny: 375px;
+  --breakpoint-xs: 414px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+  --breakpoint-jumbo: 1620px;
+
+  /* color (base 500) */
+  --color-main-50: #fdf8ed;
+  --color-main-100: #f7eace;
+  --color-main-200: #efd298;
+  --color-main-300: #e7b762;
+  --color-main-400: #e19f3e;
+  --color-main-500: #d9822b;
+  --color-main-600: #bf6120;
+  --color-main-700: #9f451e;
+  --color-main-800: #82371e;
+  --color-main-900: #6b2e1c;
+  --color-main-950: #3d160b;
+
+  --color-minor-50: #f1faf9;
+  --color-minor-100: #dbf2f1;
+  --color-minor-200: #bce5e3;
+  --color-minor-300: #8fd3d1;
+  --color-minor-400: #58b8b7;
+  --color-minor-500: #3c9e9e;
+  --color-minor-600: #358185;
+  --color-minor-700: #306a6e;
+  --color-minor-800: #2e585c;
+  --color-minor-900: #2a4a4f;
+  --color-minor-950: #183034;
+
+  --color-accent: #f7d8c5;
+  --color-error: #ef4444;
+
+  /* font-family */
+  --font-base: 'Noto Sans TC', sans-serif;
+  /* --font-en: 'Uniform', sans-serif; */
+
+  /* font-size */
+  --text-h1: 3.5rem;
+  --text-h2: 3rem;
+  --text-h3: 2.5rem;
+  --text-h4: 2rem;
+  --text-h5: 1.5rem;
+  --text-h6: 1rem;
+
+  /* border-radius */
+  --radius-pill: 12.5rem;
+}

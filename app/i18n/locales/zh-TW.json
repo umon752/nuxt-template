@@ -5,6 +5,15 @@
     "description": "網站描述"
   },
 
+  "header": {
+    "menu": {
+      "ariaLabel": "主選單"
+    },
+    "hamburger": {
+      "ariaLabel": "切換主選單"
+    }
+  },
+
   "common": {
     "readMore": "查看更多",
     "submit": "送出"

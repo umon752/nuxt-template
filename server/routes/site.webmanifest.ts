@@ -1,6 +1,6 @@
-import { getLocale } from '../utils/getLocale'
-import { getMessages } from '../utils/getMessages'
-import { getSiteUrl } from '../utils/getSiteUrl'
+import { getLocale } from '#server/utils/getLocale'
+import { getMessages } from '#server/utils/getMessages'
+import { getSiteUrl } from '#server/utils/getSiteUrl'
 
 export default defineEventHandler((event) => {
   const siteUrl = getSiteUrl()

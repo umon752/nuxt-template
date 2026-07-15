@@ -1,0 +1,18 @@
+@layer utilities {
+  .container-fluid {
+    @apply mx-auto w-full max-w-640;
+  }
+
+  /* 覆蓋 Tailwind 的 container */
+  .container {
+    @apply xxl:max-w-330 mx-auto w-full max-w-[calc(100%-(var(--margin-gutter-mob)*2))] px-0 sm:max-w-135 md:max-w-180 lg:max-w-240 xl:max-w-285;
+
+    @media (min-width: 1536px) {
+      max-width: calc(100% - (var(--margin-gutter) * 2));
+    }
+
+    @media (min-width: 2000px) {
+      max-width: 1830px;
+    }
+  }
+}

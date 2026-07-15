@@ -1,0 +1,138 @@
+@layer utilities {
+  /* 文字隱藏在背景圖 */
+  .u-text-hidden {
+    @apply overflow-hidden bg-contain bg-center bg-no-repeat indent-[101%] whitespace-nowrap;
+  }
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 1.25),
+    only screen and (min--moz-device-pixel-ratio: 1.25),
+    only screen and (-o-min-device-pixel-ratio: 1.25/1),
+    only screen and (min-device-pixel-ratio: 1.25),
+    only screen and (min-resolution: 200dpi),
+    only screen and (min-resolution: 1.25dppx) {
+    .u-text-hidden-2x {
+      @apply overflow-hidden bg-contain bg-center bg-no-repeat indent-[101%] whitespace-nowrap;
+    }
+  }
+
+  /* 圖片 */
+  .u-bg-cover {
+    @apply bg-cover bg-center bg-no-repeat;
+  }
+
+  .u-bg-contain {
+    @apply bg-contain bg-center bg-no-repeat;
+  }
+
+  .u-bg-fixed {
+    @apply h-screen w-full bg-cover bg-fixed bg-center bg-no-repeat;
+  }
+
+  .u-img-cover {
+    @apply object-cover object-center;
+  }
+
+  .u-img-contain {
+    @apply object-contain object-center;
+  }
+
+  /* 比例圖圖片/影片 */
+  .u-ratio {
+    @apply relative w-full overflow-hidden;
+  }
+
+  .u-ratio-bg {
+    @apply absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-white bg-cover bg-center bg-no-repeat;
+  }
+  .u-ratio-img {
+    @apply absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 object-cover;
+  }
+
+  /* 排版 */
+  .u-poa-center {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .u-pof-center {
+    @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+
+  /* 捲軸 */
+  /* 隱藏捲軸 */
+  .u-scrollbar-hidden {
+    @apply scrollbar-none;
+    /* -ms-overflow-style: none;
+    scrollbar-width: none; */
+  }
+
+  .u-scrollbar-hidden::-webkit-scrollbar {
+    @apply hidden bg-transparent;
+  }
+
+  .u-scrollbar-hidden::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .u-scrollbar-hidden::-webkit-scrollbar-thumb {
+    @apply bg-transparent;
+  }
+
+  .u-scrollbar-hidden::-webkit-scrollbar-thumb:hover {
+    @apply bg-transparent;
+  }
+
+  /* 自訂捲軸樣式 */
+  .u-scrollbar {
+    @apply overflow-y-scroll;
+  }
+
+  .u-scrollbar::-webkit-scrollbar {
+    @apply h-[var(--scrollbar-width)] w-[var(--scrollbar-width)];
+  }
+
+  .u-scrollbar::-webkit-scrollbar-button {
+    @apply hidden h-[var(--scrollbar-width)] w-[var(--scrollbar-width)];
+  }
+
+  .u-scrollbar::-webkit-scrollbar-track {
+    @apply rounded-pill border-0 bg-[var(--scrollbar-track)];
+  }
+
+  .u-scrollbar::-webkit-scrollbar-thumb {
+    @apply rounded-pill cursor-pointer border-0 bg-[var(--scrollbar-thumb)];
+  }
+
+  .u-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-[var(--scrollbar-thumb)];
+  }
+
+  /* Firefox 捲軸樣式 */
+  @supports (-moz-appearance: none) {
+    .u-scrollbar {
+      @apply scrollbar-thin scrollbar-thumb-[var(--scrollbar-thumb)] scrollbar-track-[var(--scrollbar-track)];
+      /* scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); */
+    }
+  }
+
+  /* 點擊範圍 */
+  .u-link-range {
+    @apply absolute top-0 left-0 block h-full w-full;
+  }
+
+  /* 無障礙第一個導盲磚使用 (快速跳至主要內容區塊) */
+  /* .u-focus-only {
+    @apply w-auto h-auto fixed top-0 left-0 rounded-[5px] bg-main-500 text-white p-[10px] z-[9999];
+    transform: translate3d(0, -110%, 0);
+  transition: transform var(--transition-duration, 300ms) var(--transition-timing, linear);
+
+    &:hover {
+      @apply text-white;
+    }
+
+    &:focus {
+      @apply w-auto h-auto;
+      transform: translate3d(0, 0, 0);
+    }
+  } */
+}

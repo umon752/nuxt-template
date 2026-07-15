@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSiteSchema } from './composables/useSiteSchema'
+import { useSiteSchema } from '~/composables/useSiteSchema'
 const { locale } = useI18n()
 const i18nHead = useLocaleHead()
 

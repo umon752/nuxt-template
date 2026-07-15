@@ -1,4 +1,4 @@
-import zhTW from '../../app/i18n/locales/zh-TW.json'
+import zhTW from '~/i18n/locales/zh-TW.json'
 
 export const messages = {
   'zh-TW': zhTW,

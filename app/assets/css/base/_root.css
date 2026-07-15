@@ -1,0 +1,17 @@
+:root {
+  /* 設計稿寬度 */
+  --design-width: 1440;
+
+  /* gutter */
+  /* 隔線系統間距 */
+  --gutter: 30px;
+  --gutter-mob: 10px;
+  /* 容器左右留白間距 */
+  --margin-gutter: 80px;
+  --margin-gutter-mob: 20px;
+
+  /* 捲軸 */
+  --scrollbar-width: 6px;
+  --scrollbar-track: rgba(0, 0, 0, 0.1);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.7);
+}

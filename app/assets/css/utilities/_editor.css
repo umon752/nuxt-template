@@ -1,0 +1,74 @@
+@layer utilities {
+  /* 編輯器內容樣式 */
+  .editor {
+    @apply font-base h-screen touch-manipulation overflow-x-hidden break-words hyphens-auto antialiased;
+    image-rendering: auto;
+    /* https://css-tricks.com/almanac/properties/t/text-box/ */
+    text-box: trim-both cap alphabetic;
+
+    & h2,
+    & h3,
+    & h4,
+    & h5,
+    & h6 {
+      @apply mb-2.5 font-bold md:mb-5;
+    }
+
+    & h2 {
+      @apply text-h2;
+    }
+
+    & h3 {
+      @apply text-h3;
+    }
+
+    & h4 {
+      @apply text-h4;
+    }
+
+    & h5 {
+      @apply text-h5;
+    }
+
+    & h6 {
+      @apply text-h6;
+    }
+
+    & p {
+      @apply text-base;
+    }
+
+    & a {
+      @apply text-main-500 underline;
+    }
+
+    & img {
+      @apply inline-block;
+    }
+
+    & ul,
+    & ol {
+      @apply ps-1.5;
+    }
+
+    & ul {
+      list-style: revert;
+    }
+
+    /* 取消 bootstrap 表格設定 */
+    & table {
+      caption-side: initial;
+      border-collapse: initial;
+    }
+
+    & tbody,
+    & td,
+    & tfoot,
+    & th,
+    & thead,
+    & tr {
+      border-style: inherit;
+      border-width: inherit;
+    }
+  }
+}

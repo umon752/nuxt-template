@@ -1,4 +1,4 @@
-import { usePageMeta } from './usePageMeta'
+import { usePageMeta } from '~/composables/usePageMeta'
 
 export function useSiteSchema() {
   const { siteName, siteUrl, siteDescription } = usePageMeta()

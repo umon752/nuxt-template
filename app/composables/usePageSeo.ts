@@ -1,4 +1,4 @@
-import { usePageMeta } from './usePageMeta'
+import { usePageMeta } from '~/composables/usePageMeta'
 
 interface PageSeoOptions {
   title?: string

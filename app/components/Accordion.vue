@@ -15,6 +15,10 @@
  */
 
 // 定義 Accordion 項目的型別
+import clsx from 'clsx'
+import { twMerge } from 'tailwind-merge'
+import { getCurrentInstance } from 'vue'
+
 export type TAccordionItem = {
   title?: string
   content?: string
@@ -49,7 +53,26 @@ const props = defineProps({
     type: Array as () => number[],
     default: () => [],
   },
+  titleClass: {
+    // 支援字串 / 物件 / 陣列，讓使用者可以傳入自訂 class 覆蓋預設樣式
+    type: [String, Object, Array],
+    default: '',
+  },
+  contentClass: {
+    // 支援字串 / 物件 / 陣列，讓使用者可以傳入自訂 class 覆蓋預設樣式
+    type: [String, Object, Array],
+    default: '',
+  },
 })
+
+const mergedTitleClass = computed(() =>
+  twMerge(clsx('w-full px-4 py-3 text-left', props.titleClass))
+)
+
+// instance uid 用於產生在多個 Accordion 元件間不會衝突的 id
+const _instanceUid = getCurrentInstance()?.uid ?? Math.floor(Math.random() * 1e9)
+
+const mergedContentClass = computed(() => twMerge(clsx('px-4 py-3', props.contentClass)))
 
 const emit = defineEmits<{
   toggle: [index: number, isActive: boolean]
@@ -132,17 +155,15 @@ defineExpose<TAccordionInstance>({
 </script>
 
 <template>
-  <div
-    v-for="(item, index) in items"
-    :key="index"
-    class="accordion-item"
-    :class="{ 'is-active': activeItems.has(index) }"
-  >
+  <div v-for="(item, index) in items" :key="index" :class="{ 'is-active': activeItems.has(index) }">
     <!-- Accordion 按鈕 -->
     <button
       type="button"
-      class="accordion-btn w-full px-4 py-3 text-left font-medium transition-colors hover:bg-gray-50"
+      :class="mergedTitleClass"
       @click="toggle(index)"
+      :aria-expanded="activeItems.has(index)"
+      :aria-controls="`accordion-content-${_instanceUid}-${index}`"
+      :id="`accordion-button-${_instanceUid}-${index}`"
     >
       <slot name="title" :item="item" :index="index" :is-active="activeItems.has(index)">
         {{ item.title }}
@@ -153,9 +174,12 @@ defineExpose<TAccordionInstance>({
     <div
       class="grid transition-[grid-template-rows] duration-500 ease-in-out"
       :class="activeItems.has(index) ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
+      :id="`accordion-content-${_instanceUid}-${index}`"
+      role="region"
+      :aria-labelledby="`accordion-button-${_instanceUid}-${index}`"
     >
       <div class="overflow-hidden" :class="{ 'animate-overflow': activeItems.has(index) }">
-        <div class="px-4 py-3">
+        <div :class="mergedContentClass">
           <slot name="content" :item="item" :index="index">
             {{ item.content }}
           </slot>

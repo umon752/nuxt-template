@@ -1,1 +1,19 @@
 @import 'tailwindcss';
+
+@layer theme, base, components, utilities;
+
+/* Base Layer */
+@import './base/_theme.css';
+@import './base/_root.css';
+@import './base/_base.css';
+
+/* Components Layer */
+@import './components/_icon.css';
+
+/* Utilities Layer */
+@import './utilities/_utilities.css';
+@import './utilities/_container.css';
+@import './utilities/_editor.css';
+
+/* Modules Layer */
+/* Layout Layer */

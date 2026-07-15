@@ -1,4 +1,4 @@
-import { usePageMeta } from './usePageMeta'
+import { usePageMeta } from '~/composables/usePageMeta'
 
 type PageSchemaType = 'WebPage' | 'Article' | 'Product' | 'FAQPage'
 

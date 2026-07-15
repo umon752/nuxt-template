@@ -3,7 +3,7 @@
 <template>
   <header>
     <div class="container">
-      <PageBanner banner="/images/test-img.jpg" />
+      <PageBanner banner="/images/nopic.png" />
       <PageTitle title="頁面標題" />
       <Breadcrumb />
     </div>

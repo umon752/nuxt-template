@@ -127,6 +127,8 @@ export default defineNuxtConfig({
         // Script
         'script-src': [
           "'self'",
+          "'strict-dynamic'",
+          "'nonce-{{nonce}}'",
           'https://www.googletagmanager.com',
           'https://www.google-analytics.com',
           'https://maps.googleapis.com',

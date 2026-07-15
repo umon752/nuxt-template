@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3'
 
-import { messages, type TLocale } from './getMessages'
+import { messages, type TLocale } from '#server/utils/getMessages'
 
 export function getLocale(event: H3Event): TLocale {
   const query = getQuery(event)
