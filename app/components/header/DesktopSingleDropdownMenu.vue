@@ -20,8 +20,6 @@ const props = withDefaults(
   }
 )
 
-console.log('props', props.item)
-
 const hasChildren = computed(() => Boolean(props.item.children?.length))
 const panelRef = ref<HTMLElement | null>(null)
 const isNested = computed(() => props.nested)

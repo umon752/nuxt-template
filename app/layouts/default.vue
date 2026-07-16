@@ -1,8 +1,10 @@
 <template>
   <div class="flex min-h-screen flex-col">
     <div class="shrink-0">
+      <A11ySkipLink />
       <Header />
-      <main>
+      <main id="main-content" tabindex="-1">
+        <A11yAccessKeyLink id="AC" target="#main-content" accesskey="C" label-key="a11y.main" />
         <slot />
       </main>
     </div>

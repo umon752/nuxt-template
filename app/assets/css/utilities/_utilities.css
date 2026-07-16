@@ -119,20 +119,4 @@
   .u-link-range {
     @apply absolute top-0 left-0 block h-full w-full;
   }
-
-  /* 無障礙第一個導盲磚使用 (快速跳至主要內容區塊) */
-  /* .u-focus-only {
-    @apply w-auto h-auto fixed top-0 left-0 rounded-[5px] bg-main-500 text-white p-[10px] z-[9999];
-    transform: translate3d(0, -110%, 0);
-  transition: transform var(--transition-duration, 300ms) var(--transition-timing, linear);
-
-    &:hover {
-      @apply text-white;
-    }
-
-    &:focus {
-      @apply w-auto h-auto;
-      transform: translate3d(0, 0, 0);
-    }
-  } */
 }

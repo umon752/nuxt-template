@@ -17,7 +17,21 @@ export function usePageMeta(): TPageMeta {
   const siteName = t('site.name')
   const siteDescription = t('site.description')
 
-  const buildUrl = (url?: string) => String(url ?? `${siteUrl}${route.path}`)
+  const buildUrl = (url?: string) => {
+    const targetUrl = url ?? route.path
+
+    if (/^https?:\/\//.test(targetUrl)) {
+      return String(targetUrl)
+    }
+
+    if (!targetUrl) {
+      return String(siteUrl)
+    }
+
+    const normalizedPath = targetUrl.startsWith('/') ? targetUrl : `/${targetUrl}`
+
+    return `${siteUrl}${normalizedPath}`
+  }
   const buildImage = (image?: string) => String(image ?? `${siteUrl}/images/og-image.jpg`)
   const buildTitle = (pageTitle?: string) => (pageTitle ? `${pageTitle}｜${siteName}` : siteName)
 

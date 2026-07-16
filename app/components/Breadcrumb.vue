@@ -1,19 +1,33 @@
+<script setup lang="ts">
+import type { TBreadcrumbItem } from '../types/breadcrumb'
+
+const props = withDefaults(
+  defineProps<{
+    items?: TBreadcrumbItem[]
+  }>(),
+  {
+    items: () => [],
+  }
+)
+</script>
+
 <template>
-  <nav>
-    <ol class="flex flex-wrap gap-4">
+  <nav v-if="props.items.length" :aria-label="$t('components.breadcrumb.ariaLabel')">
+    <ol class="flex flex-wrap items-center gap-2">
       <li
-        class="relative before:absolute before:top-1/2 before:-right-2 before:-translate-y-1/2 before:content-['/']"
+        v-for="(item, index) in props.items"
+        :key="`${item.href ?? item.title}-${index}`"
+        class="flex items-center gap-2"
       >
-        <a class="item__link" href="./">首頁</a>
+        <template v-if="index === props.items.length - 1">
+          <span aria-current="page">{{ item.title }}</span>
+        </template>
+        <template v-else>
+          <NuxtLink v-if="item.href" :to="item.href">{{ item.title }}</NuxtLink>
+          <span v-else>{{ item.title }}</span>
+          <span aria-hidden="true">/</span>
+        </template>
       </li>
-      <li
-        class="relative before:absolute before:top-1/2 before:-right-2 before:-translate-y-1/2 before:content-['/']"
-      >
-        <a class="item__link" href="#!">第二層</a>
-      </li>
-      <li class="">當前頁面</li>
     </ol>
   </nav>
 </template>
-
-<style></style>

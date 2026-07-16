@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import type { TAccordionInstance } from '~/components/Accordion.vue'
-const { t } = useI18n()
 
 usePageSeo({
-  title: t('sample.meta.title'),
-  description: t('sample.meta.description'),
+  title: $t('pages.sample.meta.title'),
+  description: $t('pages.sample.meta.description'),
+})
+
+usePageSchema({
+  type: 'WebPage',
+  name: $t('pages.sample.meta.title'),
+  description: $t('pages.sample.meta.description'),
 })
 
 const accordionItems = [
@@ -50,7 +55,7 @@ const accordionRef = ref<TAccordionInstance | null>(null)
         <span>{{ isActive ? '-' : '+' }}</span>
       </template>
       <template #content="{ item }">
-        <div v-html="item.content"></div>
+        <div>{{ item.content }}</div>
       </template>
     </Accordion>
 

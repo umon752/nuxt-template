@@ -8,11 +8,11 @@ const props = defineProps<{
 const is404 = computed(() => props.error.statusCode === 404)
 
 const title = computed(() => {
-  return is404.value ? t('error.404.title') : t('error.500.title')
+  return is404.value ? $t('error.404.title') : $t('error.500.title')
 })
 
 const description = computed(() => {
-  return is404.value ? t('error.404.description') : t('error.500.description')
+  return is404.value ? $t('error.404.description') : $t('error.500.description')
 })
 
 const handleClearError = () => {
@@ -28,7 +28,7 @@ const handleClearError = () => {
     <h1>{{ title }}</h1>
     <p>{{ description }}</p>
     <button type="button" @click="handleClearError">
-      {{ t('error.backToHome') }}
+      {{ $t('error.backToHome') }}
     </button>
   </main>
 </template>

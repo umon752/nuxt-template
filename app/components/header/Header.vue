@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { siteConfig } from '~/config/site'
-
-const { t } = useI18n()
 const route = useRoute()
 const { menuItems } = useMenu()
 const changeBreakpoint = ref('md')
@@ -35,20 +33,22 @@ watch(
 
 <template>
   <header
+    id="U"
     role="banner"
     class="group sticky top-0 z-40 bg-white py-2 shadow-lg"
     :class="{ 'is-open': isMobileMenuOpen }"
   >
+    <A11yAccessKeyLink id="AU" target="#U" accesskey="U" label-key="a11y.header" />
     <div class="container">
       <div class="flex items-center justify-between gap-2">
         <NuxtLink
           :to="homeData?.href || '/'"
-          :aria-label="`${homeData?.title || t('site.name')}`"
+          :aria-label="homeData?.title || $t('site.name')"
           class="shrink-0"
         >
           <img
             :src="siteConfig.logo || '/images/logo.png'"
-            :alt="`${t('site.name')} logo`"
+            :alt="`${$t('site.name')} logo`"
             class="h-12 w-auto"
           />
         </NuxtLink>
@@ -56,7 +56,7 @@ watch(
         <nav
           class="hidden items-center md:flex"
           :class="breakpointShowClass"
-          :aria-label="`${t('header.menu.ariaLabel')}`"
+          :aria-label="$t('header.menu.ariaLabel')"
         >
           <ul class="flex items-center">
             <li v-for="item in pageData" :key="item.id" class="group/menu relative">
@@ -73,15 +73,11 @@ watch(
 
         <div class="flex items-center gap-2">
           <div class="flex items-center gap-2">
-            <NuxtLink to="/account" :aria-label="`${t('site.header.account.ariaLabel')}`">
+            <NuxtLink to="/account" :aria-label="$t('site.header.account.ariaLabel')">
               <IconUser />
             </NuxtLink>
 
-            <NuxtLink
-              to="/cart"
-              :aria-label="`${t('site.header.cart.ariaLabel')}`"
-              class="relative"
-            >
+            <NuxtLink to="/cart" :aria-label="$t('site.header.cart.ariaLabel')" class="relative">
               <IconCart />
               <span
                 class="bg-main-500 absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-xs text-white"
@@ -92,7 +88,7 @@ watch(
 
             <NuxtLink
               to="/search"
-              :aria-label="`${t('site.header.search.ariaLabel')}`"
+              :aria-label="$t('site.header.search.ariaLabel')"
               class="relative"
             >
               <IconSearch />
@@ -103,7 +99,7 @@ watch(
             type="button"
             aria-controls="mobile-menu"
             :aria-expanded="isMobileMenuOpen"
-            :aria-label="`${t('site.header.hamburger.ariaLabel')}`"
+            :aria-label="$t('site.header.hamburger.ariaLabel')"
             class="rounded-1 relative flex h-9.5 w-11 items-center justify-center"
             :class="breakpointHideClass"
             @click="isMobileMenuOpen = !isMobileMenuOpen"
@@ -129,7 +125,7 @@ watch(
       v-show="isMobileMenuOpen"
       id="mobile-menu"
       :class="`${changeBreakpoint}:hidden`"
-      :aria-label="`${t('site.header.menu.ariaLabel')}`"
+      :aria-label="$t('site.header.menu.ariaLabel')"
       class="pointer-events-none absolute top-full left-0 h-[calc(100vh-100%)] w-full bg-white opacity-0 duration-300 group-[.is-open]:pointer-events-auto group-[.is-open]:opacity-100"
     >
       <ul class="container flex h-full flex-col justify-start overflow-auto py-5">
