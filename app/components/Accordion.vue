@@ -53,6 +53,10 @@ const props = defineProps({
     type: Array as () => number[],
     default: () => [],
   },
+  accordionClass: {
+    type: [String, Object, Array],
+    default: '',
+  },
   titleClass: {
     // 支援字串 / 物件 / 陣列，讓使用者可以傳入自訂 class 覆蓋預設樣式
     type: [String, Object, Array],
@@ -65,14 +69,14 @@ const props = defineProps({
   },
 })
 
-const mergedTitleClass = computed(() =>
-  twMerge(clsx('w-full px-4 py-3 text-left', props.titleClass))
-)
+const accordionClass = computed(() => twMerge(clsx('w-full', props.accordionClass)))
+
+const titleClass = computed(() => twMerge(clsx('w-full px-4 py-3 text-left', props.titleClass)))
 
 // instance uid 用於產生在多個 Accordion 元件間不會衝突的 id
 const _instanceUid = getCurrentInstance()?.uid ?? Math.floor(Math.random() * 1e9)
 
-const mergedContentClass = computed(() => twMerge(clsx('px-4 py-3', props.contentClass)))
+const contentClass = computed(() => twMerge(clsx('px-4 py-3', props.contentClass)))
 
 const emit = defineEmits<{
   toggle: [index: number, isActive: boolean]
@@ -155,15 +159,15 @@ defineExpose<TAccordionInstance>({
 </script>
 
 <template>
-  <div v-for="(item, index) in items" :key="index" :class="{ 'is-active': activeItems.has(index) }">
+  <div v-for="(item, index) in items" :key="index" :class="accordionClass">
     <!-- Accordion 按鈕 -->
     <button
+      :id="`accordion-button-${_instanceUid}-${index}`"
       type="button"
-      :class="mergedTitleClass"
-      @click="toggle(index)"
+      :class="titleClass"
       :aria-expanded="activeItems.has(index)"
       :aria-controls="`accordion-content-${_instanceUid}-${index}`"
-      :id="`accordion-button-${_instanceUid}-${index}`"
+      @click="toggle(index)"
     >
       <slot name="title" :item="item" :index="index" :is-active="activeItems.has(index)">
         {{ item.title }}
@@ -172,14 +176,14 @@ defineExpose<TAccordionInstance>({
 
     <!-- Accordion 內容 -->
     <div
+      :id="`accordion-content-${_instanceUid}-${index}`"
       class="grid transition-[grid-template-rows] duration-500 ease-in-out"
       :class="activeItems.has(index) ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
-      :id="`accordion-content-${_instanceUid}-${index}`"
       role="region"
       :aria-labelledby="`accordion-button-${_instanceUid}-${index}`"
     >
       <div class="overflow-hidden" :class="{ 'animate-overflow': activeItems.has(index) }">
-        <div :class="mergedContentClass">
+        <div :class="contentClass">
           <slot name="content" :item="item" :index="index">
             {{ item.content }}
           </slot>

@@ -30,10 +30,10 @@ const bannerAlt = computed(() => props.bannerAlt || pageTitle.value || '頁面�
 </script>
 
 <template>
-  <header>
-    <div class="container">
-      <PageBanner :banner="props.banner" :alt="bannerAlt" />
-      <PageTitle :title="pageTitle" />
+  <header class="space-y-2">
+    <PageHeaderPageBanner :banner="props.banner" :alt="bannerAlt" />
+    <div class="container flex flex-col items-center gap-2">
+      <PageHeaderPageTitle :title="pageTitle" :class="'text-4xl font-bold'" />
       <Breadcrumb :items="breadcrumbItems" />
     </div>
   </header>

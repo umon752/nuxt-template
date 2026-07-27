@@ -13,5 +13,3 @@ const { banner } = defineProps({
 <template>
   <img :src="banner" :alt="alt" />
 </template>
-
-<style></style>

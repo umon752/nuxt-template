@@ -49,7 +49,7 @@ watch(
           <img
             :src="siteConfig.logo || '/images/logo.png'"
             :alt="`${$t('site.name')} logo`"
-            class="h-12 w-auto"
+            class="h-12 w-auto rounded-md"
           />
         </NuxtLink>
 
