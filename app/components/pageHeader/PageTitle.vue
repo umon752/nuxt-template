@@ -1,13 +1,12 @@
 <script setup lang="ts">
-const { title } = defineProps({
-  title: {
-    type: String,
-    default: '預設標題',
-  },
+type TProps = {
+  title?: string
+}
+
+const props = withDefaults(defineProps<TProps>(), {
+  title: '預設標題',
 })
 </script>
 <template>
-  <h1>{{ title }}</h1>
+  <h1>{{ props.title }}</h1>
 </template>
-
-<style></style>

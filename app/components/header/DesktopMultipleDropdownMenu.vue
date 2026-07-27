@@ -48,12 +48,12 @@ const { panelStyle: positionStyle, refreshPosition } = useDropdownMenuPosition({
   nested: isNested,
 })
 
-const panelClass = computed(() => {
+const panelClass = computed((): string => {
   if (props.nested) {
     return 'invisible absolute z-50 px-7 min-w-48 opacity-0 transition peer-focus-within/submenu-trigger:visible peer-focus-within/submenu-trigger:opacity-100 peer-hover/submenu-trigger:visible peer-hover/submenu-trigger:opacity-100 hover:visible hover:opacity-100 focus-within:visible focus-within:opacity-100'
   }
 
-  return 'invisible absolute z-50 5 min-w-48 opacity-0 transition group-focus-within/menu:visible group-focus-within/menu:opacity-100 group-hover/menu:visible group-hover/menu:opacity-100 hover:visible hover:opacity-100 focus-within:visible focus-within:opacity-100'
+  return 'invisible absolute z-50 min-w-48 pt-5 opacity-0 transition group-focus-within/menu:visible group-focus-within/menu:opacity-100 group-hover/menu:visible group-hover/menu:opacity-100 hover:visible hover:opacity-100 focus-within:visible focus-within:opacity-100'
 })
 </script>
 
@@ -66,7 +66,7 @@ const panelClass = computed(() => {
     @mouseenter="refreshPosition"
     @focusin="refreshPosition"
   >
-    <div class="rounded-2 bg-white px-6 shadow-lg">
+    <div class="rounded-md bg-white px-6 shadow-lg">
       <div class="grid auto-cols-fr grid-flow-col gap-x-8">
         <ul v-for="(column, columnIndex) in columns" :key="columnIndex">
           <li

@@ -3,19 +3,11 @@ export const systemMenuConfig = {
     route: '/',
     icon: 'home',
   },
-  about: {
-    route: '/about',
-    icon: '',
-  },
-  news: {
-    route: '/news',
-    icon: '',
-  },
   sample: {
     route: '/sample',
     icon: '',
   },
-  content: {
+  examples: {
     route: '',
     icon: '',
   },

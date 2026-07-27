@@ -19,14 +19,9 @@ export default defineEventHandler((event) => {
     theme_color: '#00c58e',
     icons: [
       {
-        src: `${siteUrl}/images/favicon/android-chrome-192x192.png`,
-        sizes: '192x192',
-        type: 'image/png',
-      },
-      {
-        src: `${siteUrl}/images/favicon/android-chrome-512x512.png`,
-        sizes: '512x512',
-        type: 'image/png',
+        src: `${siteUrl}/images/favicon/favicon.ico`,
+        sizes: '32x32',
+        type: 'image/x-icon',
       },
     ],
   }

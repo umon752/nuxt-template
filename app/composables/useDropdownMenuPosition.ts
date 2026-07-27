@@ -1,11 +1,16 @@
 import type { CSSProperties, Ref } from 'vue'
 
-type SubmenuPositionOptions = {
+type TSubmenuPositionOptions = {
   panelRef: Ref<HTMLElement | null>
   nested: Ref<boolean>
 }
 
-export function useDropdownMenuPosition(options: SubmenuPositionOptions) {
+type TSubmenuPositionReturn = {
+  panelStyle: Ref<CSSProperties>
+  refreshPosition: () => Promise<void>
+}
+
+export function useDropdownMenuPosition(options: TSubmenuPositionOptions): TSubmenuPositionReturn {
   const panelStyle = ref<CSSProperties>({})
 
   function getBaseStyle(nested: boolean): CSSProperties {
@@ -26,7 +31,7 @@ export function useDropdownMenuPosition(options: SubmenuPositionOptions) {
     }
   }
 
-  async function refreshPosition() {
+  async function refreshPosition(): Promise<void> {
     if (!import.meta.client) return
 
     panelStyle.value = getBaseStyle(options.nested.value)
@@ -76,7 +81,7 @@ export function useDropdownMenuPosition(options: SubmenuPositionOptions) {
     panelStyle.value = getBaseStyle(false)
   }
 
-  const handleResize = () => {
+  const handleResize = (): void => {
     void refreshPosition()
   }
 

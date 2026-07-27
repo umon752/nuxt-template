@@ -9,7 +9,7 @@ export type TMenuItem = {
   children?: TMenuItem[]
 }
 
-function joinMenuPath(parentHref: string | undefined, slug: string) {
+function joinMenuPath(parentHref: string | undefined, slug: string): string {
   const normalizedParent = parentHref && parentHref !== '/' ? parentHref.replace(/\/+$/, '') : ''
 
   return `${normalizedParent}/${encodeURIComponent(slug)}`
@@ -51,7 +51,7 @@ function transformMenuItem(item: TMenuApiItem, parentHref?: string): TMenuItem |
   }
 }
 
-export function useMenu() {
+function createMenuState() {
   const { data, status, error, refresh } = useFetch<TMenuApiItem[]>('/api/menu', {
     default: () => [],
   })
@@ -70,4 +70,8 @@ export function useMenu() {
     error,
     refresh,
   }
+}
+
+export function useMenu(): ReturnType<typeof createMenuState> {
+  return createMenuState()
 }

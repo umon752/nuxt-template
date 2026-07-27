@@ -1,14 +1,4 @@
 @layer base {
-  *,
-  *::before,
-  *::after {
-    &:focus,
-    &:active,
-    &:visited {
-      @apply shadow-none outline-none;
-    }
-  }
-
   noscript {
     @apply absolute top-0 z-9999;
   }
@@ -38,6 +28,9 @@
 
   a:focus:focus-visible,
   button:focus:focus-visible,
+  input:focus:focus-visible,
+  select:focus:focus-visible,
+  textarea:focus:focus-visible,
   [tabindex]:focus:focus-visible {
     @apply outline-main-500 outline-2 outline-solid;
   }

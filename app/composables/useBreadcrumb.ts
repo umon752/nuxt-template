@@ -1,13 +1,13 @@
 import type { TMenuItem } from '~/composables/useMenu'
 import type { TBreadcrumbItem } from '~/types/breadcrumb'
 
-function normalizePath(path: string) {
+function normalizePath(path: string): string {
   if (!path || path === '/') return '/'
 
   return path.replace(/\/+$/, '')
 }
 
-function isPathMatch(routePath: string, href: string) {
+function isPathMatch(routePath: string, href: string): boolean {
   const normalizedRoutePath = normalizePath(routePath)
   const normalizedHref = normalizePath(href)
 
@@ -15,7 +15,9 @@ function isPathMatch(routePath: string, href: string) {
     return normalizedRoutePath === '/'
   }
 
-  return normalizedRoutePath === normalizedHref || normalizedRoutePath.startsWith(`${normalizedHref}/`)
+  return (
+    normalizedRoutePath === normalizedHref || normalizedRoutePath.startsWith(`${normalizedHref}/`)
+  )
 }
 
 function collectTrails(items: TMenuItem[], parentTrail: TMenuItem[] = []): TMenuItem[][] {
@@ -27,7 +29,7 @@ function collectTrails(items: TMenuItem[], parentTrail: TMenuItem[] = []): TMenu
   })
 }
 
-function getFallbackTitle(path: string) {
+function getFallbackTitle(path: string): string {
   const lastSegment = path.split('/').filter(Boolean).at(-1)
 
   if (!lastSegment) return ''
@@ -35,7 +37,12 @@ function getFallbackTitle(path: string) {
   return decodeURIComponent(lastSegment).replace(/-/g, ' ')
 }
 
-export function useBreadcrumb() {
+type TUseBreadcrumbReturn = {
+  items: ComputedRef<TBreadcrumbItem[]>
+  currentTitle: ComputedRef<string>
+}
+
+export function useBreadcrumb(): TUseBreadcrumbReturn {
   const route = useRoute()
   const { menuItems } = useMenu()
 

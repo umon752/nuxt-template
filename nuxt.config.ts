@@ -26,6 +26,7 @@ export default defineNuxtConfig({
   ],
 
   i18n: {
+    baseUrl: siteUrl,
     langDir: '../app/i18n/locales',
     locales: [
       {
@@ -54,9 +55,6 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl,
-      // i18n: {
-      //   baseUrl: '',
-      // },
     },
   },
 
@@ -73,15 +71,6 @@ export default defineNuxtConfig({
         {
           rel: 'icon',
           href: '/images/favicon/favicon.ico',
-        },
-        {
-          rel: 'icon',
-          type: 'image/svg+xml',
-          href: '/images/favicon/favicon.svg',
-        },
-        {
-          rel: 'apple-touch-icon',
-          href: '/images/favicon/apple-touch-icon.png',
         },
       ],
     },

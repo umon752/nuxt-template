@@ -2,10 +2,7 @@ import { usePageMeta } from '~/composables/usePageMeta'
 import { useBreadcrumb } from '~/composables/useBreadcrumb'
 import type { TBreadcrumbItem } from '~/types/breadcrumb'
 
-type PageSchemaType = 'WebPage' | 'Article' | 'Product' | 'FAQPage'
-
-type BaseSchemaOptions = {
-  type?: PageSchemaType
+type TSharedSchemaOptions = {
   name?: string
   description?: string
   url?: string
@@ -13,16 +10,20 @@ type BaseSchemaOptions = {
   breadcrumbItems?: TBreadcrumbItem[]
 }
 
-type ArticleSchemaOptions = BaseSchemaOptions & {
+type TWebPageSchemaOptions = TSharedSchemaOptions & {
+  type?: 'WebPage'
+}
+
+type TArticleSchemaOptions = TSharedSchemaOptions & {
   type: 'Article'
   datePublished?: string
   dateModified?: string
   image?: string
 }
 
-type PageSchemaOptions = BaseSchemaOptions | ArticleSchemaOptions
+type TPageSchemaOptions = TWebPageSchemaOptions | TArticleSchemaOptions
 
-export function usePageSchema(options: PageSchemaOptions = {}) {
+export function usePageSchema(options: TPageSchemaOptions = {}): void {
   const { buildUrl, siteName, siteDescription } = usePageMeta()
   const { items: autoBreadcrumbItems } = useBreadcrumb()
 
@@ -51,16 +52,14 @@ export function usePageSchema(options: PageSchemaOptions = {}) {
   })
 
   if (options.type === 'Article') {
-    const article = options as ArticleSchemaOptions
-
     useSchemaOrg([
       defineArticle({
         headline: name,
         description,
         url,
-        image: article.image,
-        datePublished: article.datePublished,
-        dateModified: article.dateModified,
+        image: options.image,
+        datePublished: options.datePublished,
+        dateModified: options.dateModified,
       }),
       ...(includeBreadcrumb ? [breadcrumbSchema] : []),
     ])

@@ -1,13 +1,13 @@
 import { usePageMeta } from '~/composables/usePageMeta'
 
-interface PageSeoOptions {
+type TPageSeoOptions = {
   title?: string
   description?: string
   image?: string
   type?: 'website' | 'article'
 }
 
-export function usePageSeo(options: PageSeoOptions = {}) {
+export function usePageSeo(options: TPageSeoOptions = {}): void {
   const { siteName, siteDescription, buildUrl, buildImage, buildTitle } = usePageMeta()
 
   const title = options.title

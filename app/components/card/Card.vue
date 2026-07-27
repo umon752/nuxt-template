@@ -20,5 +20,3 @@
     <a href="#!" class="absolute top-0 left-0 h-full w-full" />
   </div>
 </template>
-
-<style></style>

@@ -33,7 +33,7 @@ const bannerAlt = computed(() => props.bannerAlt || pageTitle.value || '頁面�
   <header class="space-y-2">
     <PageHeaderPageBanner :banner="props.banner" :alt="bannerAlt" />
     <div class="container flex flex-col items-center gap-2">
-      <PageHeaderPageTitle :title="pageTitle" :class="'text-4xl font-bold'" />
+      <PageHeaderPageTitle :title="pageTitle" class="text-4xl font-bold" />
       <Breadcrumb :items="breadcrumbItems" />
     </div>
   </header>

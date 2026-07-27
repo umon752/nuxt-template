@@ -30,13 +30,15 @@ Header.vue
 
 ## 相關檔案
 
-| 檔案                               | 用途                                    |
-| ---------------------------------- | --------------------------------------- |
-| `app/config/menu.ts`               | 固定系統功能的 code、route 與 icon 對照 |
-| `app/types/menu.ts`                | API 選單與子選單的 TypeScript 型別      |
-| `app/composables/useMenu.ts`       | 呼叫 API 並轉換選單資料                 |
-| `server/api/menu.get.ts`           | 開發期間使用的 Mock Menu API            |
-| `app/components/header/Header.vue` | Header 與選單畫面                       |
+| 檔案                                                  | 用途                                    |
+| ----------------------------------------------------- | --------------------------------------- |
+| `app/config/menu.ts`                                  | 固定系統功能的 code、route 與 icon 對照 |
+| `app/types/menu.ts`                                   | API 選單與子選單的 TypeScript 型別      |
+| `app/composables/useMenu.ts`                          | 呼叫 API 並轉換選單資料                 |
+| `server/api/menu.get.ts`                              | 開發期間使用的 Mock Menu API            |
+| `app/components/header/Header.vue`                    | Header 與選單畫面                       |
+| `app/components/header/DesktopSingleDropdownMenu.vue` | 桌面版遞迴子選單                        |
+| `app/components/header/MobileMenuList.vue`            | 手機版遞迴子選單                        |
 
 ## 選單類型
 
@@ -97,13 +99,13 @@ export const systemMenuConfig = {
 }
 ```
 
-Custom 選單不需要加入 `systemMenuConfig`。目前 `useMenu()` 會依照 `slug` 產生內容頁路徑：
+Custom 選單不需要加入 `systemMenuConfig`。目前 `useMenu()` 會將 `slug` 接在父選單路徑後方；若沒有父層路徑，則從網站根目錄開始：
 
 ```text
-/content/{slug}
+{parentHref}/{slug}
 ```
 
-例如 `slug: 'news'` 會轉換成：
+例如父層路徑為 `/content`、`slug` 為 `news` 時會轉換成：
 
 ```text
 /content/news
@@ -153,28 +155,20 @@ Nuxt 開發伺服器啟動後，可直接在瀏覽器開啟：
 http://localhost:3000/api/menu
 ```
 
-目前「內容管理」包含兩個 Custom 子選單：
+Starter 預設回傳首頁、範例頁，以及用來展示遞迴結構的「多層選單」。示範選單包含三層子選單，葉節點都沿用目前確實存在的範例頁 route：
 
 ```ts
 {
-  id: 'content',
+  id: 'examples-pagination',
   type: 'system',
-  code: 'content',
-  title: '內容管理',
+  code: 'sample',
+  title: 'Pagination',
   enabled: true,
-  order: 4,
-  children: [
-    {
-      id: 'news',
-      type: 'custom',
-      slug: 'news',
-      title: '最新消息',
-      enabled: true,
-      order: 1,
-    },
-  ],
+  order: 1,
 }
 ```
+
+僅作為分組的節點使用 `examples` code，其 route 是空字串，因此只有最末層項目可導覽。建立正式專案時，可替換成實際的功能與 route。
 
 正式 API 完成後，可以將 `useMenu.ts` 的 endpoint 換成正式網址；只要回傳格式符合 `TMenuApiItem[]`，Header 不需要重新實作。
 
@@ -209,14 +203,14 @@ const { menuItems, status: menuStatus, error: menuError, refresh } = useMenu()
 `Header.vue` 目前提供：
 
 - 桌面版水平主選單。
-- 桌面版第一層下拉子選單。
+- 桌面版以 hover 展開、可遞迴的下拉子選單。
 - 手機版展開／收合按鈕。
-- 手機版主選單與第一層子選單。
-- 選單載入中與載入失敗狀態。
+- 手機版可遞迴的 Accordion 子選單。
 - 使用 `NuxtLink` 進行站內導航。
-- 路由變更後自動關閉手機選單。
+- 路由變更後自動關閉桌面與手機選單。
+- 桌面版 trigger 提供 `aria-expanded`、`aria-controls`，鍵盤 focus 也能展開，並支援 Escape 關閉與焦點返回。
 
-目前畫面只呈現「主選單＋第一層子選單」。API 型別雖然允許遞迴的 `children`，若未來需要顯示第三層以上選單，應建立遞迴選單元件處理，不建議繼續在 `Header.vue` 手動增加巢狀 Template。
+API 型別與桌面、手機選單元件都允許遞迴的 `children`。選單資料仍應控制合理深度，避免過深的導覽結構影響操作性。
 
 ## 新增固定系統選單
 
@@ -271,7 +265,7 @@ orders: {
 }
 ```
 
-前端會自動產生：
+若父層 System route 是 `/content`，前端會自動產生：
 
 ```text
 /content/events
@@ -283,7 +277,7 @@ orders: {
 app/pages/content/[slug].vue
 ```
 
-目前專案尚未建立這個動態內容頁。
+建立 Custom 選單前必須先提供對應頁面；starter 預設不回傳 Custom 選單。
 
 ## 停用與排序
 
@@ -333,7 +327,7 @@ permission?: string
 4. 定義相同 `order` 的次要排序方式。
 5. 根據登入者權限由後端過濾選單。
 6. 規劃 API 失敗時的 fallback 或重試行為。
-7. 建立 `/members`、`/content` 與 `/content/[slug]` 等實際頁面。
+7. 先建立實際頁面，再讓 API 回傳對應選單，避免導覽連向 404。
 
 ## 常見問題
 

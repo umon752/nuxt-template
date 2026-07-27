@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Accordion from '~/components/Accordion.vue'
+import type { TAccordionItem } from '~/components/Accordion.vue'
 import type { TMenuItem } from '~/composables/useMenu'
 import { computed } from 'vue'
 
@@ -12,8 +13,23 @@ const props = defineProps<{
 
 const level = computed<number>(() => props.level ?? 0)
 
-function childrenOf(it: unknown): TMenuItem[] {
-  return ((it as TMenuItem)?.children ?? []) as TMenuItem[]
+function isMenuItem(value: unknown): value is TMenuItem {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'id' in value &&
+    typeof value.id === 'string' &&
+    'title' in value &&
+    typeof value.title === 'string' &&
+    'href' in value &&
+    typeof value.href === 'string' &&
+    'icon' in value &&
+    typeof value.icon === 'string'
+  )
+}
+
+function childrenOf(item: TAccordionItem): TMenuItem[] {
+  return Array.isArray(item.children) ? item.children.filter(isMenuItem) : []
 }
 </script>
 
@@ -22,13 +38,19 @@ function childrenOf(it: unknown): TMenuItem[] {
     <li v-for="item in props.items" :key="item.id">
       <div v-if="item.children?.length">
         <Accordion :items="[item]" :collapse-others="false" title-class="p-0" content-class="p-0">
-          <template #title="{ item: aItem }">
+          <template #title="{ item: aItem, isActive }">
             <div
               class="flex items-center justify-between border-b border-solid border-gray-200 py-3"
               :style="{ paddingLeft: `${level * 16}px` }"
             >
               <span>{{ aItem.title }}</span>
-              <IconArrowDown />
+              <span
+                aria-hidden="true"
+                class="transition-transform duration-200"
+                :class="{ 'rotate-180': isActive }"
+              >
+                <IconArrowDown />
+              </span>
             </div>
           </template>
 

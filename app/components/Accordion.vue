@@ -1,11 +1,9 @@
 <script setup lang="ts">
-// import { ref } from 'vue'
-
 /**
  * Accordion 元件
  *
  * @props {Array} items - 手風琴項目陣列，每個項目包含 title 和 content
- * @props {Boolean} collapseOthers - 是否在展開一個項目時自動收合其他項目（預設 false）
+ * @props {Boolean} collapseOthers - 是否在展開一個項目時自動收合其他項目（預設 true）
  * @props {Array} defaultActive - 預設展開的項目索引陣列（預設 []）
  *
  * @slots title - 自訂標題區塊（接收 item, index, isActive）
@@ -15,9 +13,9 @@
  */
 
 // 定義 Accordion 項目的型別
-import clsx from 'clsx'
-import { twMerge } from 'tailwind-merge'
-import { getCurrentInstance } from 'vue'
+import type { ClassValue } from 'clsx'
+
+import { cn } from '~/utils/cn'
 
 export type TAccordionItem = {
   title?: string
@@ -34,49 +32,31 @@ export type TAccordionInstance = {
   activeItems: Ref<Set<number>>
 }
 
-const props = defineProps({
-  items: {
-    type: Array as () => TAccordionItem[],
-    required: true,
-    validator: (value: TAccordionItem[]) => {
-      return value.every(
-        (item) =>
-          typeof item === 'object' && (item.title !== undefined || item.content !== undefined)
-      )
-    },
-  },
-  collapseOthers: {
-    type: Boolean,
-    default: true,
-  },
-  defaultActive: {
-    type: Array as () => number[],
-    default: () => [],
-  },
-  accordionClass: {
-    type: [String, Object, Array],
-    default: '',
-  },
-  titleClass: {
-    // 支援字串 / 物件 / 陣列，讓使用者可以傳入自訂 class 覆蓋預設樣式
-    type: [String, Object, Array],
-    default: '',
-  },
-  contentClass: {
-    // 支援字串 / 物件 / 陣列，讓使用者可以傳入自訂 class 覆蓋預設樣式
-    type: [String, Object, Array],
-    default: '',
-  },
+type TProps = {
+  items: TAccordionItem[]
+  collapseOthers?: boolean
+  defaultActive?: number[]
+  accordionClass?: ClassValue
+  titleClass?: ClassValue
+  contentClass?: ClassValue
+}
+
+const props = withDefaults(defineProps<TProps>(), {
+  collapseOthers: true,
+  defaultActive: () => [],
+  accordionClass: '',
+  titleClass: '',
+  contentClass: '',
 })
 
-const accordionClass = computed(() => twMerge(clsx('w-full', props.accordionClass)))
+const accordionClass = computed(() => cn('w-full', props.accordionClass))
 
-const titleClass = computed(() => twMerge(clsx('w-full px-4 py-3 text-left', props.titleClass)))
+const titleClass = computed(() => cn('w-full px-4 py-3 text-left', props.titleClass))
 
-// instance uid 用於產生在多個 Accordion 元件間不會衝突的 id
-const _instanceUid = getCurrentInstance()?.uid ?? Math.floor(Math.random() * 1e9)
+// useId 可在 SSR 與 hydration 間產生穩定且不重複的 id
+const instanceId = useId()
 
-const contentClass = computed(() => twMerge(clsx('px-4 py-3', props.contentClass)))
+const contentClass = computed(() => cn('px-4 py-3', props.contentClass))
 
 const emit = defineEmits<{
   toggle: [index: number, isActive: boolean]
@@ -89,7 +69,7 @@ const activeItems = ref<Set<number>>(new Set(props.defaultActive))
  * 切換手風琴項目的展開/收合狀態
  * @param {number} index - 項目索引
  */
-const toggle = (index: number) => {
+const toggle = (index: number): void => {
   const isCurrentlyActive = activeItems.value.has(index)
 
   if (props.collapseOthers) {
@@ -117,7 +97,7 @@ const toggle = (index: number) => {
  * 展開指定項目
  * @param {number} index - 項目索引
  */
-const expand = (index: number) => {
+const expand = (index: number): void => {
   if (props.collapseOthers) {
     activeItems.value.clear()
   }
@@ -128,21 +108,21 @@ const expand = (index: number) => {
  * 收合指定項目
  * @param {number} index - 項目索引
  */
-const collapse = (index: number) => {
+const collapse = (index: number): void => {
   activeItems.value.delete(index)
 }
 
 /**
  * 收合所有項目
  */
-const collapseAll = () => {
+const collapseAll = (): void => {
   activeItems.value.clear()
 }
 
 /**
  * 展開所有項目
  */
-const expandAll = () => {
+const expandAll = (): void => {
   props.items.forEach((_, index) => {
     activeItems.value.add(index)
   })
@@ -162,11 +142,11 @@ defineExpose<TAccordionInstance>({
   <div v-for="(item, index) in items" :key="index" :class="accordionClass">
     <!-- Accordion 按鈕 -->
     <button
-      :id="`accordion-button-${_instanceUid}-${index}`"
+      :id="`accordion-button-${instanceId}-${index}`"
       type="button"
       :class="titleClass"
       :aria-expanded="activeItems.has(index)"
-      :aria-controls="`accordion-content-${_instanceUid}-${index}`"
+      :aria-controls="`accordion-content-${instanceId}-${index}`"
       @click="toggle(index)"
     >
       <slot name="title" :item="item" :index="index" :is-active="activeItems.has(index)">
@@ -176,11 +156,13 @@ defineExpose<TAccordionInstance>({
 
     <!-- Accordion 內容 -->
     <div
-      :id="`accordion-content-${_instanceUid}-${index}`"
+      :id="`accordion-content-${instanceId}-${index}`"
       class="grid transition-[grid-template-rows] duration-500 ease-in-out"
       :class="activeItems.has(index) ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
       role="region"
-      :aria-labelledby="`accordion-button-${_instanceUid}-${index}`"
+      :aria-labelledby="`accordion-button-${instanceId}-${index}`"
+      :aria-hidden="!activeItems.has(index)"
+      :inert="!activeItems.has(index)"
     >
       <div class="overflow-hidden" :class="{ 'animate-overflow': activeItems.has(index) }">
         <div :class="contentClass">

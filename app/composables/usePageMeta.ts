@@ -17,7 +17,7 @@ export function usePageMeta(): TPageMeta {
   const siteName = t('site.name')
   const siteDescription = t('site.description')
 
-  const buildUrl = (url?: string) => {
+  const buildUrl = (url?: string): string => {
     const targetUrl = url ?? route.path
 
     if (/^https?:\/\//.test(targetUrl)) {
@@ -32,8 +32,9 @@ export function usePageMeta(): TPageMeta {
 
     return `${siteUrl}${normalizedPath}`
   }
-  const buildImage = (image?: string) => String(image ?? `${siteUrl}/images/og-image.jpg`)
-  const buildTitle = (pageTitle?: string) => (pageTitle ? `${pageTitle}｜${siteName}` : siteName)
+  const buildImage = (image?: string): string => String(image ?? `${siteUrl}/images/og.png`)
+  const buildTitle = (pageTitle?: string): string =>
+    pageTitle ? `${pageTitle}｜${siteName}` : siteName
 
   return {
     siteUrl,

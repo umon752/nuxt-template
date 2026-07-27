@@ -18,7 +18,6 @@ This website includes multilingual company pages, SEO metadata, sitemap, robots.
 ## Core Pages
 
 - [Home](${siteUrl}/): Main entry point of the website.
-- [About](${siteUrl}/about): Company or organization introduction.
 - [Sample](${siteUrl}/sample): Example page for this Nuxt starter template.
 
 ## SEO Resources
