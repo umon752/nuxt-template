@@ -149,6 +149,53 @@ const queryPaginatedItems = computed(() => {
         </div>
       </section>
 
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">ImageLazyLoad 圖片骨架載入</h2>
+          <p class="text-center text-slate-600">
+            圖片載入完成前顯示 skeleton，並透過固定比例避免載入前後的版面位移。
+          </p>
+        </header>
+
+        <div class="grid gap-4 md:grid-cols-3">
+          <article class="space-y-3">
+            <ImageLazyLoad
+              src="/images/demo/test-img.jpg"
+              alt="ImageLazyLoad 基本範例"
+              class="rounded-xl"
+            />
+            <h3 class="font-semibold">基本 16:9 圖片</h3>
+          </article>
+
+          <article class="space-y-3">
+            <ImageLazyLoad
+              src="/images/demo/test-img.jpg"
+              alt="ImageLazyLoad 自訂比例範例"
+              aspect-ratio="4 / 3"
+              class="rounded-xl"
+              skeleton-class="bg-main-100"
+            >
+              <template #skeleton>
+                <span class="text-main-700 flex h-full items-center justify-center text-sm">
+                  圖片載入中
+                </span>
+              </template>
+            </ImageLazyLoad>
+            <h3 class="font-semibold">自訂比例與 skeleton</h3>
+          </article>
+
+          <article class="space-y-3">
+            <ImageLazyLoad
+              src="/images/demo/not-found.jpg"
+              alt="圖片載入失敗的 fallback 範例"
+              aspect-ratio="4 / 3"
+              class="rounded-xl"
+            />
+            <h3 class="font-semibold">載入失敗時使用 fallback</h3>
+          </article>
+        </div>
+      </section>
+
       <section class="py-4">
         <header class="space-y-2">
           <h2 class="text-center text-2xl font-bold">Accordion 基本使用</h2>
