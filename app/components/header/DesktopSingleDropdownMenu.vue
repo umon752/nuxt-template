@@ -2,23 +2,22 @@
 import type { TMenuItem } from '~/composables/useMenu'
 import { nextTick, watch } from 'vue'
 
+type TProps = {
+  item: TMenuItem
+  nested?: boolean
+  panelId?: string
+  open?: boolean
+}
+
 defineOptions({
   name: 'SingleSubmenu',
 })
 
-const props = withDefaults(
-  defineProps<{
-    item: TMenuItem
-    nested?: boolean
-    panelId?: string
-    open?: boolean
-  }>(),
-  {
-    nested: false,
-    panelId: '',
-    open: false,
-  }
-)
+const props = withDefaults(defineProps<TProps>(), {
+  nested: false,
+  panelId: '',
+  open: false,
+})
 
 const emit = defineEmits<{
   close: []

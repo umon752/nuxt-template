@@ -2,6 +2,7 @@
 import { useSiteSchema } from '~/composables/useSiteSchema'
 const { locale } = useI18n()
 const i18nHead = useLocaleHead()
+const { isLoading: isFullPageLoading } = useFullPageLoading()
 
 useHead(() => ({
   htmlAttrs: {
@@ -27,10 +28,19 @@ useSiteSchema()
 </script>
 
 <template>
-  <div>
+  <NuxtLoadingIndicator
+    color="var(--color-main-500)"
+    error-color="var(--color-error)"
+    :height="3"
+    :throttle="150"
+  />
+
+  <div :inert="isFullPageLoading" :aria-busy="isFullPageLoading">
     <NuxtRouteAnnouncer />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
   </div>
+
+  <FullPageLoading />
 </template>

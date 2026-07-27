@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import type { TBreadcrumbItem } from '../types/breadcrumb'
 
-const props = withDefaults(
-  defineProps<{
-    items?: TBreadcrumbItem[]
-  }>(),
-  {
-    items: () => [],
-  }
-)
+type TProps = {
+  items?: TBreadcrumbItem[]
+}
+
+const props = withDefaults(defineProps<TProps>(), {
+  items: () => [],
+})
 </script>
 
 <template>

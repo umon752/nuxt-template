@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import type { TBreadcrumbItem } from '../../types/breadcrumb'
 
-const props = withDefaults(
-  defineProps<{
-    banner?: string
-    bannerAlt?: string
-    title?: string
-    breadcrumbItems?: TBreadcrumbItem[]
-  }>(),
-  {
-    banner: '/images/nopic.png',
-    bannerAlt: '',
-    title: '',
-    breadcrumbItems: () => [],
-  }
-)
+type TProps = {
+  banner?: string
+  bannerAlt?: string
+  title?: string
+  breadcrumbItems?: TBreadcrumbItem[]
+}
+
+const props = withDefaults(defineProps<TProps>(), {
+  banner: '/images/nopic.png',
+  bannerAlt: '',
+  title: '',
+  breadcrumbItems: () => [],
+})
 
 const { items: autoBreadcrumbItems, currentTitle } = useBreadcrumb()
 

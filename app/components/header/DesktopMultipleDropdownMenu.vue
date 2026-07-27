@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import type { TMenuItem } from '~/composables/useMenu'
 
+type TProps = {
+  item: TMenuItem
+  nested?: boolean
+}
+
 defineOptions({
   name: 'MultipleSubmenu',
 })
 
-const props = withDefaults(
-  defineProps<{
-    item: TMenuItem
-    nested?: boolean
-  }>(),
-  {
-    nested: false,
-  }
-)
+const props = withDefaults(defineProps<TProps>(), {
+  nested: false,
+})
 
 // 一排 8 個選單項目，超過 8 個就換下一排
 const itemsPerColumn = 8

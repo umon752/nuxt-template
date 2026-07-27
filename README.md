@@ -7,7 +7,7 @@
 - `@nuxtjs/i18n` 正體中文語系基礎設定
 - sitemap、robots.txt、Schema.org 與 SEO meta
 - `nuxt-security` 安全標頭與 CSP
-- 響應式導覽、breadcrumb、Accordion、Pagination 等基礎元件
+- 響應式導覽、breadcrumb、Accordion、Pagination 與 loading 等基礎元件
 - 動態 `/site.webmanifest` 與 `/llms.txt`
 
 ## 環境需求

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { ClassValue } from 'clsx'
-
 import { cn } from '~/utils/cn'
 
 type TPaginationItem =
@@ -168,7 +167,7 @@ const goToPage = (page: number) => {
   emit('change', nextPage)
 }
 
-const navClassName = computed(() => cn('c-pagination', props.navClass))
+const navClassName = computed(() => cn(props.navClass))
 const listClassName = computed(() =>
   cn('flex flex-wrap items-center justify-center gap-2', props.listClass)
 )
