@@ -1,22 +1,47 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { ClassValue } from 'clsx'
+import { cn } from '~/utils/cn'
+
+type TProps = {
+  image: string
+  title: string
+  content?: string
+  link?: string
+  imgDefaultClass?: ClassValue
+  imgLoadedClass?: ClassValue
+  titleClass?: ClassValue
+  contentClass?: ClassValue
+}
+
+const props = withDefaults(defineProps<TProps>(), {
+  content: '',
+  link: '',
+  imgDefaultClass: '',
+  imgLoadedClass: '',
+  titleClass: '',
+  contentClass: '',
+})
+
+const imgDefaultClass = computed(() => cn(props.imgDefaultClass))
+const imgLoadedClass = computed(() =>
+  cn(
+    'rounded-xl ease-out group-hover:scale-105 group-focus-within:scale-105 motion-reduce:scale-100',
+    props.imgLoadedClass
+  )
+)
+const titleClass = computed(() => cn('line-clamp-2 font-semibold', props.titleClass))
+const contentClass = computed(() => cn(props.contentClass))
+</script>
 
 <template>
-  <div class="relative flex cursor-pointer flex-col gap-4">
-    <div class="relative aspect-video w-full overflow-hidden">
-      <img
-        class="absolute top-1/2 left-1/2 h-full w-full translate-x-[-50%] translate-y-[-50%] rounded-md object-cover object-center"
-        src="/images/nopic.png"
-        alt=""
-      />
-    </div>
+  <article class="group relative flex flex-col gap-2" :class="{ 'cursor-pointer': props.link }">
+    <ImageLazyLoad :src="props.image" alt="" :class="imgDefaultClass" :img-class="imgLoadedClass" />
     <div>
-      <h3 class="ellipsis-2">
-        標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題標題
+      <h3 :class="titleClass">
+        {{ props.title }}
       </h3>
-      <p>
-        內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文
-      </p>
+      <p v-if="props.content" :class="contentClass">{{ props.content }}</p>
     </div>
-    <a href="#!" class="absolute top-0 left-0 h-full w-full" />
-  </div>
+    <NuxtLink v-if="props.link" :to="props.link" :aria-label="props.title" class="u-link-range" />
+  </article>
 </template>

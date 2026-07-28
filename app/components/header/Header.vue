@@ -129,6 +129,25 @@ const handleDesktopMenuFocusout = (event: FocusEvent): void => {
         </nav>
 
         <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2">
+            <NuxtLink to="/account" :aria-label="$t('header.account.ariaLabel')">
+              <IconUser />
+            </NuxtLink>
+
+            <NuxtLink to="/cart" :aria-label="$t('header.cart.ariaLabel')" class="relative">
+              <IconCart />
+              <span
+                class="bg-main-500 absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-xs text-white"
+              >
+                {{ 0 }}
+              </span>
+            </NuxtLink>
+
+            <NuxtLink to="/search" :aria-label="$t('header.search.ariaLabel')" class="relative">
+              <IconSearch />
+            </NuxtLink>
+          </div>
+
           <button
             type="button"
             aria-controls="mobile-menu"

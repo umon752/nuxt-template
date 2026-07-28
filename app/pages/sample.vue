@@ -18,6 +18,33 @@ const accordionItems = [
   { title: '收合項目 3', content: '內容內容內容 3' },
 ]
 
+const cardItems = [
+  {
+    image: '/images/demo/test-img.jpg',
+    title: '卡片標題範例一',
+    content: '內連',
+    link: '/about',
+  },
+  {
+    image: '/images/demo/test-img.jpg',
+    title: '卡片標題範例二',
+    content: '外連',
+    link: 'https://nuxt.com',
+  },
+  {
+    image: '/images/demo/test-img.jpg',
+    title: '卡片標題範例三',
+    content: '無連結',
+    link: '',
+  },
+  {
+    image: '/images/demo/test-img.jpg',
+    title: '卡片標題範例四',
+    content: '',
+    link: '/sample',
+  },
+]
+
 const handleToggle = (index: number, isActive: boolean) => {
   console.log(`項目 ${index} ${isActive ? '展開' : '收合'}`)
 }
@@ -123,9 +150,6 @@ const queryPaginatedItems = computed(() => {
       <section class="space-y-6 py-4">
         <header class="space-y-2">
           <h2 class="text-center text-2xl font-bold">Btn 基本使用</h2>
-          <p class="text-center text-slate-600">
-            顯示按鈕元件目前的預設樣式，作為其他互動元件的按鈕基礎參考。
-          </p>
         </header>
 
         <div class="flex justify-center">
@@ -136,16 +160,25 @@ const queryPaginatedItems = computed(() => {
       <section class="space-y-6 py-4">
         <header class="space-y-2">
           <h2 class="text-center text-2xl font-bold">Card 基本使用</h2>
-          <p class="text-center text-slate-600">
-            展示資訊卡片元件的預設版型，方便比對內容區塊、留白與邊框表現。
-          </p>
         </header>
 
-        <div class="flex gap-4">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+        <div class="grid gap-4 md:grid-cols-4">
+          <CardDefault
+            v-for="card in cardItems"
+            :key="card.title"
+            :image="card.image"
+            :title="card.title"
+            :content="card.content"
+            :link="card.link"
+            img-default-class="rounded-xl"
+          />
+          <CardDefault
+            image=""
+            title="卡片標題範例五"
+            content="自訂樣式"
+            img-default-class="rounded-none"
+            img-loaded-class="rounded-none border-3 border-slate-300 border-solid"
+          />
         </div>
       </section>
 
@@ -157,14 +190,14 @@ const queryPaginatedItems = computed(() => {
           </p>
         </header>
 
-        <div class="grid gap-4 md:grid-cols-3">
+        <div class="grid gap-4 md:grid-cols-4">
           <article class="space-y-3">
             <ImageLazyLoad
               src="/images/demo/test-img.jpg"
               alt="ImageLazyLoad 基本範例"
               class="rounded-xl"
             />
-            <h3 class="font-semibold">基本 16:9 圖片</h3>
+            <h3 class="font-semibold">預設圖片比例 16:9</h3>
           </article>
 
           <article class="space-y-3">
@@ -181,17 +214,26 @@ const queryPaginatedItems = computed(() => {
                 </span>
               </template>
             </ImageLazyLoad>
-            <h3 class="font-semibold">自訂比例與 skeleton</h3>
+            <h3 class="font-semibold">自訂比例 3:2 與自訂載入中 skeleton 樣式</h3>
+          </article>
+
+          <article class="space-y-3">
+            <ImageLazyLoad
+              src="/images/demo/not-found.jpg"
+              alt="載入失敗顯示預設圖範例"
+              class="rounded-xl"
+            />
+            <h3 class="font-semibold">載入失敗顯示預設圖</h3>
           </article>
 
           <article class="space-y-3">
             <ImageLazyLoad
               src="/images/demo/not-found.jpg"
               alt="圖片載入失敗的 fallback 範例"
-              aspect-ratio="3 / 2"
+              fallback-src=""
               class="rounded-xl"
             />
-            <h3 class="font-semibold">載入失敗時使用 fallback</h3>
+            <h3 class="font-semibold">載入失敗顯示 fallback</h3>
           </article>
         </div>
       </section>

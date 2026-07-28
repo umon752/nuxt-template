@@ -9,6 +9,15 @@
     "menu": {
       "ariaLabel": "主選單"
     },
+    "account": {
+      "ariaLabel": "會員專區"
+    },
+    "cart": {
+      "ariaLabel": "購物車"
+    },
+    "search": {
+      "ariaLabel": "搜尋"
+    },
     "hamburger": {
       "ariaLabel": "切換主選單"
     }
