@@ -64,7 +64,7 @@ const imageClassName = computed(() =>
   )
 )
 const skeletonClassName = computed(() =>
-  cn('image-lazy-load__skeleton absolute inset-0 overflow-hidden bg-slate-200', props.skeletonClass)
+  cn('c-skeleton absolute inset-0 overflow-hidden bg-slate-200', props.skeletonClass)
 )
 const aspectRatioStyle = computed<CSSProperties>(() => ({
   aspectRatio: props.aspectRatio,
@@ -147,7 +147,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.image-lazy-load__skeleton::after {
+.c-skeleton::after {
   position: absolute;
   inset: 0;
   content: '';
@@ -163,7 +163,7 @@ onMounted(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .image-lazy-load__skeleton::after {
+  .c-skeleton::after {
     animation: none;
   }
 }

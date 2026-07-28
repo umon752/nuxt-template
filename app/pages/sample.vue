@@ -129,7 +129,7 @@ const queryPaginatedItems = computed(() => {
         </header>
 
         <div class="flex justify-center">
-          <Btn />
+          <BtnDefault />
         </div>
       </section>
 
@@ -171,7 +171,7 @@ const queryPaginatedItems = computed(() => {
             <ImageLazyLoad
               src="/images/demo/test-img.jpg"
               alt="ImageLazyLoad 自訂比例範例"
-              aspect-ratio="4 / 3"
+              aspect-ratio="3 / 2"
               class="rounded-xl"
               skeleton-class="bg-main-100"
             >
@@ -188,7 +188,7 @@ const queryPaginatedItems = computed(() => {
             <ImageLazyLoad
               src="/images/demo/not-found.jpg"
               alt="圖片載入失敗的 fallback 範例"
-              aspect-ratio="4 / 3"
+              aspect-ratio="3 / 2"
               class="rounded-xl"
             />
             <h3 class="font-semibold">載入失敗時使用 fallback</h3>
@@ -258,10 +258,10 @@ const queryPaginatedItems = computed(() => {
 
         <Accordion ref="accordionRef" :items="accordionItems" />
         <div class="flex flex-wrap justify-center gap-3">
-          <Btn text="全部展開" @click="accordionRef?.expandAll()" />
-          <Btn text="全部收合" @click="accordionRef?.collapseAll()" />
-          <Btn text="指定第一個展開" @click="accordionRef?.expand(0)" />
-          <Btn text="指定第一個收合" @click="accordionRef?.collapse(0)" />
+          <BtnDefault text="全部展開" @click="accordionRef?.expandAll()" />
+          <BtnDefault text="全部收合" @click="accordionRef?.collapseAll()" />
+          <BtnDefault text="指定第一個展開" @click="accordionRef?.expand(0)" />
+          <BtnDefault text="指定第一個收合" @click="accordionRef?.collapse(0)" />
         </div>
       </section>
 

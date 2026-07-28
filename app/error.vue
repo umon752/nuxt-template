@@ -32,6 +32,6 @@ const handleClearError = (): void => {
     <p class="text-4xl font-bold">{{ statusCode }}</p>
     <h1>{{ title }}</h1>
     <p>{{ description }}</p>
-    <Btn :text="t('error.backToHome')" @click="handleClearError" />
+    <BtnDefault :text="t('error.backToHome')" @click="handleClearError" />
   </main>
 </template>

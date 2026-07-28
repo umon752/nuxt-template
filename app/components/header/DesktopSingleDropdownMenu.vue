@@ -134,9 +134,6 @@ const handleChildFocusout = (event: FocusEvent): void => {
           :aria-controls="`submenu-${child.id}`"
         >
           {{ child.title }}
-          <span aria-hidden="true" class="absolute top-1/2 right-2 -translate-y-1/2 -rotate-90">
-            <IconArrowDown />
-          </span>
         </button>
         <NuxtLink
           v-else-if="child.href"
