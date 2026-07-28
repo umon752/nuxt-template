@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { TAccordionInstance } from '~/components/Accordion.vue'
+import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
 
 usePageSeo({
   title: $t('pages.sample.meta.title'),
@@ -42,6 +43,86 @@ const cardItems = [
     title: '卡片標題範例四',
     content: '',
     link: '/sample',
+  },
+]
+
+const editorContentHtml = `
+  <h2>h2 編輯器標題</h2>
+  <h3>h3 編輯器標題</h3>
+  <h4>h4 編輯器標題</h4>
+  <h5>h5 編輯器標題</h5>
+  <h6>h6 編輯器標題</h6>
+  <p>
+    <a href="#!">連結文字</a>
+    <b>粗體文字</b>
+    <i>斜體文字</i>
+  </p>
+  <ul>
+    <li>項目文字
+      <ul>
+        <li>第二層項目文字</li>
+        <li>第二層項目文字</li>
+      </ul>
+    </li>
+    <li>項目文字</li>
+  </ul>
+  <ol>
+    <li>編號文字</li>
+    <li>編號文字</li>
+  </ol>
+  <p>文字敘述文字敘述文字敘述文字敘述文字敘述文字敘述文字敘述文字敘述。</p>
+`
+
+const editorModules: TEditorModule[] = [
+  {
+    id: 'T1',
+    type: 'text',
+    html: editorContentHtml,
+  },
+  {
+    id: 'T2',
+    type: 'image-left',
+    html: editorContentHtml,
+    image: {
+      src: '/images/demo/test-img.jpg',
+      alt: '左圖右文示範圖片',
+    },
+  },
+  {
+    id: 'T3',
+    type: 'image-right',
+    html: editorContentHtml,
+    image: {
+      src: '/images/demo/test-img.jpg',
+      alt: '右圖左文示範圖片',
+    },
+  },
+  {
+    id: 'T4',
+    type: 'image',
+    image: {
+      src: '/images/demo/test-img.jpg',
+      alt: '單張圖片示範',
+    },
+  },
+  {
+    id: 'T5',
+    type: 'code',
+    code: `const greeting = 'Hello, Nuxt!'\nconsole.log(greeting)`,
+  },
+  {
+    id: 'T6',
+    type: 'images',
+    images: [
+      {
+        src: '/images/demo/test-img.jpg',
+        alt: '雙圖版型左側圖片',
+      },
+      {
+        src: '/images/demo/test-img.jpg',
+        alt: '雙圖版型右側圖片',
+      },
+    ],
   },
 ]
 
@@ -173,11 +254,11 @@ const queryPaginatedItems = computed(() => {
             img-default-class="rounded-xl"
           />
           <CardDefault
-            image=""
+            image="/images/demo/test-img.jpg"
             title="卡片標題範例五"
             content="自訂樣式"
             img-default-class="rounded-none"
-            img-loaded-class="rounded-none border-3 border-slate-300 border-solid"
+            img-loaded-class="rounded-none border-4 border-main-500 border-solid"
           />
         </div>
       </section>
@@ -426,6 +507,17 @@ const queryPaginatedItems = computed(() => {
             aria-label="篩選結果分頁"
           />
         </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">Editor 編輯器模組</h2>
+          <p class="text-center text-slate-600">
+            展示文字段落、圖文排列、單張圖片、程式碼與雙圖等六種內容版型。
+          </p>
+        </header>
+
+        <EditorModule :modules="editorModules" />
       </section>
     </div>
   </div>
