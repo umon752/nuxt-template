@@ -10,6 +10,7 @@
 | Breadcrumb      | [使用方式](Breadcrumb/README.md)      | 麵包屑導覽。                         |
 | FullPageLoading | [使用方式](FullPageLoading/README.md) | 全頁載入遮罩。                       |
 | ImageLazyLoad   | [使用方式](ImageLazyLoad/README.md)   | 延遲載入圖片、skeleton 與 fallback。 |
+| Marquee         | [使用方式](marquee/Marquee/README.md) | 無縫循環與拖曳跑馬燈。               |
 | Pagination      | [使用方式](Pagination/README.md)      | 受控分頁導覽。                       |
 | Spinner         | [使用方式](Spinner/README.md)         | 載入指示器。                         |
 | Tooltip         | [使用方式](tooltip/Tooltip/README.md) | 滑鼠與鍵盤提示文字。                 |

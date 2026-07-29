@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
+import Marquee, { type TMarqueeItem } from '~/components/marquee/Marquee.vue'
 import Modal, { type TModalCloseReason } from '~/components/modal/Modal.vue'
 import Toast from '~/components/toast/Toast.vue'
 import Tooltip from '~/components/tooltip/Tooltip.vue'
@@ -20,6 +21,19 @@ const accordionItems = [
   { title: '收合項目 2', content: '內容內容內容 2' },
   { title: '收合項目 3', content: '內容內容內容 3' },
 ]
+
+const marqueeItems: TMarqueeItem[] = [
+  { id: 1, title: 'Nuxt 4 Starter' },
+  { id: 2, title: 'Vue 3 Composition API' },
+  { id: 3, title: 'TypeScript Strict Mode' },
+  { id: 4, title: 'Tailwind CSS 4' },
+  { id: 5, title: 'Responsive Marquee' },
+]
+
+const marqueeActiveIndex = ref(0)
+const marqueePaused = ref(false)
+const reverseMarqueeActiveIndex = ref(0)
+const reverseMarqueePaused = ref(false)
 
 const toast = useToast()
 const inlineToastVisible = ref(false)
@@ -365,6 +379,98 @@ const queryPaginatedItems = computed(() => {
               <span class="font-semibold">自訂 Tooltip 內容</span>
             </template>
           </Tooltip>
+        </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">Marquee 跑馬燈元件</h2>
+          <p class="text-center text-slate-600">
+            展示無縫循環、左右方向、hover／focus 暫停、拖曳及父層狀態控制。
+          </p>
+        </header>
+
+        <div class="space-y-8">
+          <article class="space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h3 class="text-lg font-semibold">向左移動與控制按鈕</h3>
+              <p class="text-sm text-slate-500">
+                Active：{{ marqueeItems[marqueeActiveIndex]?.title }}
+              </p>
+            </div>
+
+            <Marquee
+              v-model:active-index="marqueeActiveIndex"
+              v-model:paused="marqueePaused"
+              :items="marqueeItems"
+              :speed="55"
+              :gap="16"
+              pause-on-hover
+              draggable
+              aria-label="向左移動的技術項目跑馬燈"
+              marquee-class="rounded-xl border border-slate-200 bg-slate-50 py-4"
+              item-class="w-56 sm:w-64"
+              active-class="rounded-xl ring-2 ring-main-500"
+            >
+              <template #item="{ item, index, isActive }">
+                <div
+                  class="flex h-28 items-center justify-center rounded-xl border px-5 text-center font-semibold transition-colors"
+                  :class="
+                    isActive
+                      ? 'border-main-500 bg-main-500 text-white'
+                      : 'border-slate-200 bg-white text-slate-700'
+                  "
+                >
+                  {{ index + 1 }}. {{ item.title }}
+                </div>
+              </template>
+
+              <template #controls="{ paused, start, stop, prev, next }">
+                <div class="mt-4 flex flex-wrap justify-center gap-3">
+                  <BtnDefault text="上一個" @click="prev" />
+                  <BtnDefault :text="paused ? '播放' : '暫停'" @click="paused ? start() : stop()" />
+                  <BtnDefault text="下一個" @click="next" />
+                </div>
+              </template>
+            </Marquee>
+          </article>
+
+          <article class="space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h3 class="text-lg font-semibold">向右移動與不同寬度項目</h3>
+              <p class="text-sm text-slate-500">
+                Active：{{ marqueeItems[reverseMarqueeActiveIndex]?.title }}
+              </p>
+            </div>
+
+            <Marquee
+              v-model:active-index="reverseMarqueeActiveIndex"
+              v-model:paused="reverseMarqueePaused"
+              :items="marqueeItems"
+              :speed="45"
+              :gap="12"
+              direction="right"
+              pause-on-hover
+              draggable
+              aria-label="向右移動的技術項目跑馬燈"
+              marquee-class="rounded-xl border border-slate-200 bg-slate-950 py-4"
+              active-class="opacity-100"
+            >
+              <template #item="{ item, index, isActive }">
+                <div
+                  class="flex h-20 items-center justify-center rounded-lg border px-6 text-center font-medium whitespace-nowrap transition-opacity"
+                  :class="[
+                    index % 2 === 0 ? 'w-52' : 'w-72',
+                    isActive
+                      ? 'border-main-400 bg-main-500 text-white opacity-100'
+                      : 'border-slate-600 bg-slate-800 text-slate-200 opacity-65',
+                  ]"
+                >
+                  {{ item.title }}
+                </div>
+              </template>
+            </Marquee>
+          </article>
         </div>
       </section>
 
