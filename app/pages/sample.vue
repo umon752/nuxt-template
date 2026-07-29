@@ -2,6 +2,7 @@
 import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
 import Modal, { type TModalCloseReason } from '~/components/modal/Modal.vue'
 import Toast from '~/components/toast/Toast.vue'
+import Tooltip from '~/components/tooltip/Tooltip.vue'
 
 usePageSeo({
   title: $t('pages.sample.meta.title'),
@@ -321,6 +322,49 @@ const queryPaginatedItems = computed(() => {
 
         <div class="flex justify-center">
           <BtnDefault />
+        </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">Tooltip 使用範例</h2>
+          <p class="text-center text-slate-600">
+            支援四向定位、鍵盤焦點、延遲顯示、停用及自訂提示樣式。
+          </p>
+        </header>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 py-12">
+          <Tooltip text="顯示在上方" placement="top">
+            <BtnDefault text="Top" />
+          </Tooltip>
+
+          <Tooltip text="顯示在右側" placement="right">
+            <BtnDefault text="Right" />
+          </Tooltip>
+
+          <Tooltip text="顯示在下方" placement="bottom">
+            <BtnDefault text="Bottom" />
+          </Tooltip>
+
+          <Tooltip text="顯示在左側，空間不足時依序改到上方或下方" placement="left">
+            <BtnDefault text="Left" />
+          </Tooltip>
+
+          <Tooltip text="延遲 800ms 顯示" :show-delay="800">
+            <BtnDefault text="延遲顯示" />
+          </Tooltip>
+
+          <Tooltip text="不會顯示" disabled>
+            <BtnDefault text="已停用" />
+          </Tooltip>
+
+          <Tooltip placement="bottom" tooltip-class="bg-main-700 text-white">
+            <BtnDefault text="自訂樣式" />
+
+            <template #content>
+              <span class="font-semibold">自訂 Tooltip 內容</span>
+            </template>
+          </Tooltip>
         </div>
       </section>
 
