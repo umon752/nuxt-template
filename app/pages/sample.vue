@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { TAccordionInstance } from '~/components/Accordion.vue'
 import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
 import Modal, { type TModalCloseReason } from '~/components/modal/Modal.vue'
 import Toast from '~/components/toast/Toast.vue'
@@ -196,7 +195,28 @@ const handleToggle = (index: number, isActive: boolean) => {
   console.log(`項目 ${index} ${isActive ? '展開' : '收合'}`)
 }
 
-const accordionRef = ref<TAccordionInstance | null>(null)
+const basicAccordionActiveItems = ref<number[]>([])
+const multipleAccordionActiveItems = ref<number[]>([0])
+const customAccordionActiveItems = ref<number[]>([])
+const controlledAccordionActiveItems = ref<number[]>([])
+
+const expandAllAccordionItems = (): void => {
+  controlledAccordionActiveItems.value = accordionItems.map((_, index) => index)
+}
+
+const collapseAllAccordionItems = (): void => {
+  controlledAccordionActiveItems.value = []
+}
+
+const expandFirstAccordionItem = (): void => {
+  controlledAccordionActiveItems.value = [0]
+}
+
+const collapseFirstAccordionItem = (): void => {
+  controlledAccordionActiveItems.value = controlledAccordionActiveItems.value.filter(
+    (index) => index !== 0
+  )
+}
 
 const articleItems = Array.from({ length: 100 }, (_, index) => ({
   id: index + 1,
@@ -544,22 +564,22 @@ const queryPaginatedItems = computed(() => {
           <p class="text-center text-slate-600">以單一項目展開模式示範最基本的手風琴互動效果。</p>
         </header>
 
-        <Accordion :items="accordionItems" />
+        <Accordion v-model:active-items="basicAccordionActiveItems" :items="accordionItems" />
       </section>
 
       <section class="py-4">
         <header class="space-y-2">
           <h2 class="text-center text-2xl font-bold">Accordion 多項展開 + 預設展開項目</h2>
           <p class="text-center text-slate-600">
-            :collapse-others="false" 關閉自動收合其他項目的行為，:default-active="[0]"
-            設定預設展開第幾個項目，並透過事件回呼（@toggle）觀察展開與收合狀態。
+            :collapse-others="false" 關閉自動收合其他項目的行為，由父層將 activeItems 初始為 [0]
+            設定預設展開項目，並透過事件回呼（@toggle）觀察展開與收合狀態。
           </p>
         </header>
 
         <Accordion
+          v-model:active-items="multipleAccordionActiveItems"
           :items="accordionItems"
           :collapse-others="false"
-          :default-active="[0]"
           @toggle="handleToggle"
         />
       </section>
@@ -574,6 +594,7 @@ const queryPaginatedItems = computed(() => {
 
         <div class="mt-2 space-y-2">
           <Accordion
+            v-model:active-items="customAccordionActiveItems"
             :items="accordionItems"
             accordion-class="rounded-md border border-slate-200 bg-slate-50 transition-colors hover:border-slate-400 hover:bg-slate-50"
             title-class="flex justify-between"
@@ -592,18 +613,22 @@ const queryPaginatedItems = computed(() => {
 
       <section class="py-4">
         <header class="space-y-2">
-          <h2 class="text-center text-2xl font-bold">Accordion 程式化控制</h2>
+          <h2 class="text-center text-2xl font-bold">Accordion 父層狀態控制</h2>
           <p class="text-center text-slate-600">
-            透過元件 ref 呼叫 expose 出來的方法，示範程式控制展開與收合。
+            父層直接更新 activeItems，資料再透過 props 傳入 Accordion。
           </p>
         </header>
 
-        <Accordion ref="accordionRef" :items="accordionItems" />
+        <Accordion
+          v-model:active-items="controlledAccordionActiveItems"
+          :items="accordionItems"
+          :collapse-others="false"
+        />
         <div class="flex flex-wrap justify-center gap-3">
-          <BtnDefault text="全部展開" @click="accordionRef?.expandAll()" />
-          <BtnDefault text="全部收合" @click="accordionRef?.collapseAll()" />
-          <BtnDefault text="指定第一個展開" @click="accordionRef?.expand(0)" />
-          <BtnDefault text="指定第一個收合" @click="accordionRef?.collapse(0)" />
+          <BtnDefault text="全部展開" @click="expandAllAccordionItems" />
+          <BtnDefault text="全部收合" @click="collapseAllAccordionItems" />
+          <BtnDefault text="指定第一個展開" @click="expandFirstAccordionItem" />
+          <BtnDefault text="指定第一個收合" @click="collapseFirstAccordionItem" />
         </div>
       </section>
 

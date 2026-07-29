@@ -4,11 +4,12 @@
  *
  * @props {Array} items - 手風琴項目陣列，每個項目包含 title 和 content
  * @props {Boolean} collapseOthers - 是否在展開一個項目時自動收合其他項目（預設 true）
- * @props {Array} defaultActive - 預設展開的項目索引陣列（預設 []）
+ * @props {Array} activeItems - 目前展開的項目索引陣列
  *
  * @slots title - 自訂標題區塊（接收 item, index, isActive）
  * @slots content - 自訂內容區塊（接收 item, index）
  *
+ * @emits update:activeItems - 請求父層更新展開的項目索引
  * @emits toggle - 當項目展開/收合時觸發（index, isActive）
  */
 
@@ -23,19 +24,10 @@ export type TAccordionItem = {
   [key: string]: unknown
 }
 
-// 定義 Accordion 實例的型別
-export type TAccordionInstance = {
-  expand: (index: number) => void
-  collapse: (index: number) => void
-  collapseAll: () => void
-  expandAll: () => void
-  activeItems: Ref<Set<number>>
-}
-
 type TProps = {
   items: TAccordionItem[]
+  activeItems: number[]
   collapseOthers?: boolean
-  defaultActive?: number[]
   accordionClass?: ClassValue
   titleClass?: ClassValue
   contentClass?: ClassValue
@@ -43,7 +35,6 @@ type TProps = {
 
 const props = withDefaults(defineProps<TProps>(), {
   collapseOthers: true,
-  defaultActive: () => [],
   accordionClass: '',
   titleClass: '',
   contentClass: '',
@@ -59,83 +50,40 @@ const instanceId = useId()
 const contentClass = computed(() => cn('px-4 py-3', props.contentClass))
 
 const emit = defineEmits<{
+  'update:activeItems': [items: number[]]
   toggle: [index: number, isActive: boolean]
 }>()
 
-// 使用 Set 來追蹤展開的項目
-const activeItems = ref<Set<number>>(new Set(props.defaultActive))
+const activeItemSet = computed(() => new Set(props.activeItems))
 
 /**
  * 切換手風琴項目的展開/收合狀態
  * @param {number} index - 項目索引
  */
 const toggle = (index: number): void => {
-  const isCurrentlyActive = activeItems.value.has(index)
+  const nextActiveItems = new Set(props.activeItems)
+  const isCurrentlyActive = nextActiveItems.has(index)
 
   if (props.collapseOthers) {
-    // 如果啟用「折疊其他項目」，先清空所有展開的項目
-    activeItems.value.clear()
+    nextActiveItems.clear()
 
-    // 如果當前項目原本不是展開的，則展開它
     if (!isCurrentlyActive) {
-      activeItems.value.add(index)
+      nextActiveItems.add(index)
     }
   } else {
-    // 切換當前項目的狀態
     if (isCurrentlyActive) {
-      activeItems.value.delete(index)
+      nextActiveItems.delete(index)
     } else {
-      activeItems.value.add(index)
+      nextActiveItems.add(index)
     }
   }
 
-  // 觸發事件
-  emit('toggle', index, !isCurrentlyActive)
-}
+  const items = [...nextActiveItems].sort((first, second) => first - second)
+  const isActive = nextActiveItems.has(index)
 
-/**
- * 展開指定項目
- * @param {number} index - 項目索引
- */
-const expand = (index: number): void => {
-  if (props.collapseOthers) {
-    activeItems.value.clear()
-  }
-  activeItems.value.add(index)
+  emit('update:activeItems', items)
+  emit('toggle', index, isActive)
 }
-
-/**
- * 收合指定項目
- * @param {number} index - 項目索引
- */
-const collapse = (index: number): void => {
-  activeItems.value.delete(index)
-}
-
-/**
- * 收合所有項目
- */
-const collapseAll = (): void => {
-  activeItems.value.clear()
-}
-
-/**
- * 展開所有項目
- */
-const expandAll = (): void => {
-  props.items.forEach((_, index) => {
-    activeItems.value.add(index)
-  })
-}
-
-// 暴露方法給父元件使用（透過 ref）
-defineExpose<TAccordionInstance>({
-  expand,
-  collapse,
-  collapseAll,
-  expandAll,
-  activeItems,
-})
 </script>
 
 <template>
@@ -145,11 +93,11 @@ defineExpose<TAccordionInstance>({
       :id="`accordion-button-${instanceId}-${index}`"
       type="button"
       :class="titleClass"
-      :aria-expanded="activeItems.has(index)"
+      :aria-expanded="activeItemSet.has(index)"
       :aria-controls="`accordion-content-${instanceId}-${index}`"
       @click="toggle(index)"
     >
-      <slot name="title" :item="item" :index="index" :is-active="activeItems.has(index)">
+      <slot name="title" :item="item" :index="index" :is-active="activeItemSet.has(index)">
         {{ item.title }}
       </slot>
     </button>
@@ -158,13 +106,13 @@ defineExpose<TAccordionInstance>({
     <div
       :id="`accordion-content-${instanceId}-${index}`"
       class="grid transition-[grid-template-rows] duration-500 ease-in-out"
-      :class="activeItems.has(index) ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
+      :class="activeItemSet.has(index) ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
       role="region"
       :aria-labelledby="`accordion-button-${instanceId}-${index}`"
-      :aria-hidden="!activeItems.has(index)"
-      :inert="!activeItems.has(index)"
+      :aria-hidden="!activeItemSet.has(index)"
+      :inert="!activeItemSet.has(index)"
     >
-      <div class="overflow-hidden" :class="{ 'animate-overflow': activeItems.has(index) }">
+      <div class="overflow-hidden" :class="{ 'animate-overflow': activeItemSet.has(index) }">
         <div :class="contentClass">
           <slot name="content" :item="item" :index="index">
             {{ item.content }}

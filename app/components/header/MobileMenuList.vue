@@ -12,6 +12,9 @@ const props = defineProps<{
 }>()
 
 const level = computed<number>(() => props.level ?? 0)
+const activeItemsById = reactive<Record<string, number[]>>(
+  Object.fromEntries(props.items.map((item) => [item.id, []]))
+)
 
 function isMenuItem(value: unknown): value is TMenuItem {
   return (
@@ -37,7 +40,14 @@ function childrenOf(item: TAccordionItem): TMenuItem[] {
   <ul>
     <li v-for="item in props.items" :key="item.id">
       <div v-if="item.children?.length">
-        <Accordion :items="[item]" :collapse-others="false" title-class="p-0" content-class="p-0">
+        <Accordion
+          :active-items="activeItemsById[item.id] ?? []"
+          :items="[item]"
+          :collapse-others="false"
+          title-class="p-0"
+          content-class="p-0"
+          @update:active-items="activeItemsById[item.id] = $event"
+        >
           <template #title="{ item: aItem, isActive }">
             <div
               class="flex items-center justify-between border-b border-solid border-gray-200 py-3"
