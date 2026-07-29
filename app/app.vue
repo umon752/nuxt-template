@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ToastStack from '~/components/toast/ToastStack.vue'
 import { useSiteSchema } from '~/composables/useSiteSchema'
 const { locale } = useI18n()
 const i18nHead = useLocaleHead()
@@ -43,4 +44,5 @@ useSiteSchema()
   </div>
 
   <FullPageLoading />
+  <ToastStack />
 </template>

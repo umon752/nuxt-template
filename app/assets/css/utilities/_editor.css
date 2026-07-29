@@ -1,7 +1,7 @@
 @layer utilities {
   /* 編輯器內容樣式 */
   .editor {
-    @apply font-base touch-manipulation break-words hyphens-auto antialiased;
+    @apply font-base w-full touch-manipulation break-words hyphens-auto antialiased;
     image-rendering: auto;
     /* https://css-tricks.com/almanac/properties/t/text-box/ */
     text-box: trim-both cap alphabetic;

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TAccordionInstance } from '~/components/Accordion.vue'
 import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
+import Toast from '~/components/toast/Toast.vue'
 
 usePageSeo({
   title: $t('pages.sample.meta.title'),
@@ -18,6 +19,62 @@ const accordionItems = [
   { title: '收合項目 2', content: '內容內容內容 2' },
   { title: '收合項目 3', content: '內容內容內容 3' },
 ]
+
+const toast = useToast()
+const inlineToastVisible = ref(false)
+const alertDialogToastVisible = ref(false)
+const persistentToastId = ref<string>()
+
+const hasPersistentToast = computed(() => {
+  return toast.toasts.value.some((item) => item.id === persistentToastId.value && item.visible)
+})
+
+const showAutoHideToast = (): void => {
+  toast.show({
+    text: '資料儲存成功<br>這則通知會在 2.5 秒後自動關閉',
+    duration: 2500,
+  })
+}
+
+const showPersistentToast = (): void => {
+  if (persistentToastId.value) {
+    toast.remove(persistentToastId.value)
+  }
+
+  persistentToastId.value = toast.show({
+    text: '這是一則不會自動關閉的通知',
+    autoHide: false,
+  })
+}
+
+const updatePersistentToast = (): void => {
+  if (!persistentToastId.value || !hasPersistentToast.value) {
+    return
+  }
+
+  toast.update(persistentToastId.value, {
+    text: '通知內容已動態更新<br>現在可以手動關閉',
+  })
+}
+
+const hidePersistentToast = (): void => {
+  if (!persistentToastId.value) {
+    return
+  }
+
+  toast.hide(persistentToastId.value)
+}
+
+const showStackedToasts = (): void => {
+  const messages = ['第一則堆疊通知', '第二則堆疊通知', '第三則堆疊通知']
+
+  messages.forEach((text, index) => {
+    toast.show({
+      text,
+      duration: 2000 + index * 750,
+    })
+  })
+}
 
 const cardItems = [
   {
@@ -235,6 +292,88 @@ const queryPaginatedItems = computed(() => {
 
         <div class="flex justify-center">
           <BtnDefault />
+        </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">Toast 使用範例</h2>
+          <p class="text-center text-slate-600">
+            展示單一元件、全域呼叫、自動關閉、動態更新與多筆堆疊通知。
+          </p>
+        </header>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <article class="space-y-4 rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-slate-900">單一 Toast 元件</h3>
+              <p class="text-sm leading-6 text-slate-600">
+                使用 v-model 控制顯示狀態，並將 Toast 定位在指定容器中。
+              </p>
+            </div>
+
+            <div
+              class="relative flex min-h-64 flex-wrap items-start justify-center gap-3 overflow-hidden rounded-xl bg-slate-100 p-5"
+            >
+              <BtnDefault text="顯示容器內 Toast" @click="inlineToastVisible = true" />
+              <BtnDefault text="顯示 alertdialog Toast" @click="alertDialogToastVisible = true" />
+
+              <Toast
+                v-model="inlineToastVisible"
+                text="直接使用 Toast 元件<br>這則通知不會自動關閉"
+                :auto-hide="false"
+                position="absolute"
+                x="50%"
+                y="50%"
+                toast-class="-translate-x-1/2 -translate-y-1/2"
+              />
+            </div>
+
+            <Toast
+              v-model="alertDialogToastVisible"
+              text="這是必須立即處理的重要通知<br>可使用 Tab 與 Shift + Tab 測試焦點循環"
+              :auto-hide="false"
+              role="alertdialog"
+              aria-live="assertive"
+              aria-label="重要操作通知"
+              position="fixed"
+              x="50%"
+              y="50%"
+              toast-class="-translate-x-1/2 -translate-y-1/2 border-2 border-error"
+            >
+              <template #actions="{ hide }">
+                <div class="flex flex-wrap justify-center gap-3">
+                  <BtnDefault text="稍後處理" @click="hide" />
+                  <BtnDefault text="確認處理" @click="hide" />
+                </div>
+              </template>
+            </Toast>
+          </article>
+
+          <article class="space-y-4 rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-slate-900">全域 Toast API</h3>
+              <p class="text-sm leading-6 text-slate-600">
+                透過 useToast 建立通知，可依 ID 更新、關閉或同時堆疊多筆內容。
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <BtnDefault text="自動關閉" @click="showAutoHideToast" />
+              <BtnDefault text="建立常駐通知" @click="showPersistentToast" />
+              <BtnDefault
+                text="更新常駐通知"
+                :disabled="!hasPersistentToast"
+                @click="updatePersistentToast"
+              />
+              <BtnDefault
+                text="關閉常駐通知"
+                :disabled="!hasPersistentToast"
+                @click="hidePersistentToast"
+              />
+              <BtnDefault text="顯示三則堆疊通知" @click="showStackedToasts" />
+            </div>
+          </article>
         </div>
       </section>
 

@@ -73,6 +73,10 @@
       "defaultLabel": "載入中，請稍候"
     },
 
+    "toast": {
+      "close": "關閉通知"
+    },
+
     "goTop": {
       "ariaLabel": "回到頁面頂端"
     },

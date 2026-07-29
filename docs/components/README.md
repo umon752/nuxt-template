@@ -1,0 +1,62 @@
+# 元件使用文件
+
+本目錄收錄 `app/components` 下所有 Vue 元件的用途、API 與使用範例。Nuxt 已啟用元件自動匯入；巢狀目錄元件依專案目前的命名方式使用，例如 `A11yAccessKeyLink`、`HeaderMobileMenuList`、`IconBaseIcon`、`PageHeaderPageBanner`。
+
+## 通用元件
+
+| 元件            | 文件                                  | 說明                                 |
+| --------------- | ------------------------------------- | ------------------------------------ |
+| Accordion       | [使用方式](Accordion/README.md)       | 展開／收合內容與程式化控制。         |
+| Breadcrumb      | [使用方式](Breadcrumb/README.md)      | 麵包屑導覽。                         |
+| FullPageLoading | [使用方式](FullPageLoading/README.md) | 全頁載入遮罩。                       |
+| ImageLazyLoad   | [使用方式](ImageLazyLoad/README.md)   | 延遲載入圖片、skeleton 與 fallback。 |
+| Pagination      | [使用方式](Pagination/README.md)      | 受控分頁導覽。                       |
+| Spinner         | [使用方式](Spinner/README.md)         | 載入指示器。                         |
+
+## 無障礙與按鈕
+
+| 元件          | 文件                                     | 說明                  |
+| ------------- | ---------------------------------------- | --------------------- |
+| AccessKeyLink | [使用方式](a11y/AccessKeyLink/README.md) | 網站區塊 access key。 |
+| SkipLink      | [使用方式](a11y/SkipLink/README.md)      | 略過導覽連結。        |
+| BtnDefault    | [使用方式](btn/BtnDefault/README.md)     | 通用按鈕。            |
+| BtnGoTop      | [使用方式](btn/BtnGoTop/README.md)       | 回到頁首按鈕。        |
+
+## 內容與版型
+
+| 元件          | 文件                                        | 說明                     |
+| ------------- | ------------------------------------------- | ------------------------ |
+| CardDefault   | [使用方式](card/CardDefault/README.md)      | 基本內容卡片。           |
+| EditorContent | [使用方式](editor/EditorContent/README.md)  | 編輯器 HTML 輸出。       |
+| EditorModule  | [使用方式](editor/EditorModule/README.md)   | 模組化文章版型。         |
+| Footer        | [使用方式](footer/Footer/README.md)         | 網站共用頁尾。           |
+| PageBanner    | [使用方式](pageHeader/PageBanner/README.md) | 頁面橫幅。               |
+| PageHeader    | [使用方式](pageHeader/PageHeader/README.md) | 橫幅、標題與麵包屑組合。 |
+| PageTitle     | [使用方式](pageHeader/PageTitle/README.md)  | 頁面 H1。                |
+
+## Header 與選單
+
+| 元件                        | 文件                                                     | 說明               |
+| --------------------------- | -------------------------------------------------------- | ------------------ |
+| Header                      | [使用方式](header/Header/README.md)                      | 網站共用頁首。     |
+| DesktopMultipleDropdownMenu | [使用方式](header/DesktopMultipleDropdownMenu/README.md) | 桌面多欄下拉選單。 |
+| DesktopSingleDropdownMenu   | [使用方式](header/DesktopSingleDropdownMenu/README.md)   | 桌面受控下拉選單。 |
+| MobileMenuList              | [使用方式](header/MobileMenuList/README.md)              | 手機遞迴選單。     |
+
+## 圖示
+
+| 元件          | 文件                                     | 說明           |
+| ------------- | ---------------------------------------- | -------------- |
+| BaseIcon      | [使用方式](icon/BaseIcon/README.md)      | SVG 圖示基底。 |
+| IconArrowDown | [使用方式](icon/IconArrowDown/README.md) | 向下箭頭。     |
+| IconArrowUp   | [使用方式](icon/IconArrowUp/README.md)   | 向上箭頭。     |
+| IconCart      | [使用方式](icon/IconCart/README.md)      | 購物車。       |
+| IconSearch    | [使用方式](icon/IconSearch/README.md)    | 搜尋。         |
+| IconUser      | [使用方式](icon/IconUser/README.md)      | 使用者。       |
+
+## Toast
+
+| 元件       | 文件                                   | 說明                     |
+| ---------- | -------------------------------------- | ------------------------ |
+| Toast      | [使用方式](toast/Toast/README.md)      | 單一通知與 alertdialog。 |
+| ToastStack | [使用方式](toast/ToastStack/README.md) | 全域堆疊通知容器。       |
