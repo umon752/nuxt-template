@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TAccordionInstance } from '~/components/Accordion.vue'
 import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
+import Modal, { type TModalCloseReason } from '~/components/modal/Modal.vue'
 import Toast from '~/components/toast/Toast.vue'
 
 usePageSeo({
@@ -24,6 +25,14 @@ const toast = useToast()
 const inlineToastVisible = ref(false)
 const alertDialogToastVisible = ref(false)
 const persistentToastId = ref<string>()
+const basicModalVisible = ref(false)
+const persistentModalVisible = ref(false)
+const alertModalVisible = ref(false)
+const lastModalCloseReason = ref<TModalCloseReason>()
+
+const handleModalClose = (reason: TModalCloseReason): void => {
+  lastModalCloseReason.value = reason
+}
 
 const hasPersistentToast = computed(() => {
   return toast.toasts.value.some((item) => item.id === persistentToastId.value && item.visible)
@@ -293,6 +302,77 @@ const queryPaginatedItems = computed(() => {
         <div class="flex justify-center">
           <BtnDefault />
         </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">Modal 使用範例</h2>
+          <p class="text-center text-slate-600">
+            展示基本 Modal、不可由背景關閉的流程，以及需要立即處理的 alertdialog。
+          </p>
+        </header>
+
+        <div class="flex flex-wrap justify-center gap-3">
+          <BtnDefault text="顯示基本 Modal" @click="basicModalVisible = true" />
+          <BtnDefault text="顯示固定 Modal" @click="persistentModalVisible = true" />
+          <BtnDefault text="顯示 alertdialog Modal" @click="alertModalVisible = true" />
+        </div>
+
+        <p class="text-center text-sm text-slate-500">
+          最後關閉原因：{{ lastModalCloseReason ?? '尚未關閉 Modal' }}
+        </p>
+
+        <Modal
+          v-model="basicModalVisible"
+          title="基本 Modal"
+          aria-describedby="basic-modal-description"
+          @close="handleModalClose"
+        >
+          <p id="basic-modal-description">
+            可使用右上角按鈕、Escape、點擊背景或下方按鈕關閉此 Modal。
+          </p>
+
+          <template #footer="{ close }">
+            <BtnDefault text="取消" @click="close" />
+            <BtnDefault text="確認" autofocus @click="close" />
+          </template>
+        </Modal>
+
+        <Modal
+          v-model="persistentModalVisible"
+          title="資料處理流程"
+          :close-on-escape="false"
+          :close-on-backdrop="false"
+          :show-close-button="false"
+          aria-describedby="persistent-modal-description"
+          @close="handleModalClose"
+        >
+          <p id="persistent-modal-description">
+            Escape 與背景點擊不會關閉視窗，只能使用指定操作完成流程。
+          </p>
+
+          <template #footer="{ close }">
+            <BtnDefault text="完成流程" autofocus @click="close" />
+          </template>
+        </Modal>
+
+        <Modal
+          v-model="alertModalVisible"
+          title="重要操作確認"
+          role="alertdialog"
+          aria-describedby="alert-modal-description"
+          :close-on-backdrop="false"
+          @close="handleModalClose"
+        >
+          <p id="alert-modal-description">
+            此操作可能影響既有資料，請確認後再繼續。可使用 Tab 與 Shift + Tab 測試焦點循環。
+          </p>
+
+          <template #footer="{ close }">
+            <BtnDefault text="返回" @click="close" />
+            <BtnDefault text="確認執行" autofocus @click="close" />
+          </template>
+        </Modal>
       </section>
 
       <section class="space-y-6 py-4">

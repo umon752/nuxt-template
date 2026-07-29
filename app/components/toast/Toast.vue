@@ -73,7 +73,7 @@ const resolvedCloseLabel = computed(() => props.closeLabel || t('components.toas
 
 const toastClassName = computed(() =>
   cn(
-    'pointer-events-auto flex min-w-53.5 max-w-[min(24rem,calc(100vw-2rem))] flex-col items-center gap-3 rounded-2 bg-white px-10.5 py-7 text-center text-slate-950 shadow-[0_0_10px_rgba(0,0,0,0.1)]',
+    'rounded-md pointer-events-auto flex min-w-53.5 max-w-[min(24rem,calc(100vw-2rem))] flex-col items-center gap-3 rounded-2 bg-white px-10.5 py-7 text-center text-slate-950 shadow-[0_0_10px_rgba(0,0,0,0.1)]',
     props.toastClass
   )
 )

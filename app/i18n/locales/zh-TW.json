@@ -77,6 +77,10 @@
       "close": "關閉通知"
     },
 
+    "modal": {
+      "close": "關閉視窗"
+    },
+
     "goTop": {
       "ariaLabel": "回到頁面頂端"
     },

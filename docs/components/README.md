@@ -13,6 +13,12 @@
 | Pagination      | [使用方式](Pagination/README.md)      | 受控分頁導覽。                       |
 | Spinner         | [使用方式](Spinner/README.md)         | 載入指示器。                         |
 
+## Modal
+
+| 元件  | 文件                              | 說明                      |
+| ----- | --------------------------------- | ------------------------- |
+| Modal | [使用方式](modal/Modal/README.md) | 原生 dialog、focus trap。 |
+
 ## 無障礙與按鈕
 
 | 元件          | 文件                                     | 說明                  |
