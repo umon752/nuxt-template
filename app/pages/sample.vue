@@ -7,14 +7,14 @@ import Toast from '~/components/toast/Toast.vue'
 import Tooltip from '~/components/tooltip/Tooltip.vue'
 
 usePageSeo({
-  title: $t('pages.sample.meta.title'),
-  description: $t('pages.sample.meta.description'),
+  title: '範例頁',
+  description: '範例頁描述',
 })
 
 usePageSchema({
   type: 'WebPage',
-  name: $t('pages.sample.meta.title'),
-  description: $t('pages.sample.meta.description'),
+  name: '範例頁',
+  description: '範例頁描述',
 })
 
 const accordionItems = [
@@ -59,6 +59,22 @@ const persistentModalVisible = ref(false)
 const alertModalVisible = ref(false)
 const lastModalCloseReason = ref<TModalCloseReason>()
 
+const handleSocialShareCopied = (): void => {
+  toast.show({
+    text: '分享連結已複製到剪貼簿',
+    duration: 2500,
+  })
+}
+
+const handleSocialShareError = (error: unknown): void => {
+  const reason = error instanceof Error ? error.message : '未知錯誤'
+
+  toast.show({
+    text: `分享操作失敗：${reason}`,
+    duration: 4000,
+  })
+}
+
 const handleModalClose = (reason: TModalCloseReason): void => {
   lastModalCloseReason.value = reason
 }
@@ -69,7 +85,7 @@ const hasPersistentToast = computed(() => {
 
 const showAutoHideToast = (): void => {
   toast.show({
-    text: '資料儲存成功<br>這則通知會在 2.5 秒後自動關閉',
+    text: '資料儲存成功\n這則通知會在 2.5 秒後自動關閉',
     duration: 2500,
   })
 }
@@ -91,7 +107,7 @@ const updatePersistentToast = (): void => {
   }
 
   toast.update(persistentToastId.value, {
-    text: '通知內容已動態更新<br>現在可以手動關閉',
+    text: '通知內容已動態更新\n現在可以手動關閉',
   })
 }
 
@@ -110,6 +126,8 @@ const showStackedToasts = (): void => {
     toast.show({
       text,
       duration: 2000 + index * 750,
+      position: 'relative',
+      toastClass: 'left-auto top-auto translate-x-0 translate-y-0',
     })
   })
 }
@@ -656,26 +674,19 @@ const queryPaginatedItems = computed(() => {
 
               <Toast
                 v-model="inlineToastVisible"
-                text="直接使用 Toast 元件<br>這則通知不會自動關閉"
+                :text="'直接使用 Toast 元件\n這則通知不會自動關閉'"
                 :auto-hide="false"
                 position="absolute"
-                x="50%"
-                y="50%"
-                toast-class="-translate-x-1/2 -translate-y-1/2"
               />
             </div>
 
             <Toast
               v-model="alertDialogToastVisible"
-              text="這是必須立即處理的重要通知<br>可使用 Tab 與 Shift + Tab 測試焦點循環"
+              :text="'這是必須立即處理的重要通知\n可使用 Tab 與 Shift + Tab 測試焦點循環'"
               :auto-hide="false"
               role="alertdialog"
               aria-live="assertive"
               :aria-label="$t('pages.sample.a11y.importantToast')"
-              position="fixed"
-              x="50%"
-              y="50%"
-              toast-class="-translate-x-1/2 -translate-y-1/2 border-2 border-error"
             >
               <template #actions="{ hide }">
                 <div class="flex flex-wrap justify-center gap-3">
@@ -709,6 +720,52 @@ const queryPaginatedItems = computed(() => {
               />
               <BtnDefault text="顯示三則堆疊通知" @click="showStackedToasts" />
             </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">SocialShare 社群分享</h2>
+          <p class="text-center text-slate-600">
+            分享目前頁面至 Facebook、LINE、Twitter/X，或將分享連結複製到剪貼簿。
+          </p>
+        </header>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <article class="space-y-4 rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-slate-900">預設平台與目前頁網址</h3>
+              <p class="text-sm leading-6 text-slate-600">
+                未傳入 url 時，點擊當下會使用目前頁面的完整網址。
+              </p>
+            </div>
+
+            <SocialShare :aria-label="$t('pages.sample.a11y.socialShareBasic')" />
+          </article>
+
+          <article class="space-y-4 rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-slate-900">指定內容、平台與自訂 slot</h3>
+              <p class="text-sm leading-6 text-slate-600">
+                指定分享網址與標題，只顯示 Facebook、LINE、複製連結，並自訂複製按鈕內容。
+              </p>
+            </div>
+
+            <SocialShare
+              url="https://example.com/news/social-share"
+              title="SocialShare 元件使用範例"
+              :platforms="['facebook', 'line', 'copy']"
+              :aria-label="$t('pages.sample.a11y.socialShareCustom')"
+              button-class="gap-2 rounded-full px-4"
+              @copied="handleSocialShareCopied"
+              @error="handleSocialShareError"
+            >
+              <template #copy="{ label, copied }">
+                <span aria-hidden="true">{{ copied ? '✓' : '⧉' }}</span>
+                <span>{{ label }}</span>
+              </template>
+            </SocialShare>
           </article>
         </div>
       </section>
@@ -1013,8 +1070,8 @@ const queryPaginatedItems = computed(() => {
         <header class="space-y-2">
           <h2 class="text-center text-2xl font-bold">關鍵字篩選 + 分頁 + Query 同步</h2>
           <p class="text-center text-slate-600">
-            父層頁面接管 `keyword` 與 `page` query，Pagination 只回傳頁碼，篩選條件變更時自動回到第
-            1 頁。
+            父層頁面接管 keyword 與 page query，Pagination 只回傳頁碼，篩選條件變更時自動回到第 1
+            頁。
           </p>
         </header>
 

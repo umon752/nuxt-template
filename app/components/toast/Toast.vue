@@ -20,8 +20,6 @@ type TProps = {
   ariaLive?: TToastAriaLive
   ariaLabel?: string
   position?: TToastPosition
-  x?: string
-  y?: string
   toastClass?: ClassValue
   showCloseButton?: boolean
   closeLabel?: string
@@ -37,8 +35,6 @@ const props = withDefaults(defineProps<TProps>(), {
   ariaLive: 'polite',
   ariaLabel: undefined,
   position: 'fixed',
-  x: undefined,
-  y: undefined,
   toastClass: '',
   showCloseButton: true,
   closeLabel: undefined,
@@ -73,15 +69,13 @@ const resolvedCloseLabel = computed(() => props.closeLabel || t('components.toas
 
 const toastClassName = computed(() =>
   cn(
-    'rounded-md pointer-events-auto flex min-w-53.5 max-w-[min(24rem,calc(100vw-2rem))] flex-col items-center gap-3 rounded-2 bg-white px-10.5 py-7 text-center text-slate-950 shadow-[0_0_10px_rgba(0,0,0,0.1)]',
+    'rounded-md pointer-events-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex min-w-53.5 max-w-[min(24rem,calc(100vw-2rem))] flex-col items-center gap-3 rounded-2 bg-white px-10.5 py-7 text-center text-slate-950 shadow-[0_0_10px_rgba(0,0,0,0.1)]',
     props.toastClass
   )
 )
 
 const toastStyle = computed<CSSProperties>(() => ({
   position: props.position,
-  left: props.x,
-  top: props.y,
   zIndex: 1080,
 }))
 

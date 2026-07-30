@@ -4,7 +4,6 @@
     "shortName": "網站名稱",
     "description": "網站描述"
   },
-
   "header": {
     "home": {
       "logoAlt": "{name} logo"
@@ -25,12 +24,13 @@
       "ariaLabel": "切換主選單"
     }
   },
-
+  "footer": {
+    "copyright": "Copyright © {year} {name} All Rights Reserved."
+  },
   "common": {
     "readMore": "查看更多",
     "submit": "送出"
   },
-
   "pages": {
     "home": {
       "meta": {
@@ -38,7 +38,6 @@
         "description": "首頁描述"
       }
     },
-
     "about": {
       "meta": {
         "title": "關於我們",
@@ -49,12 +48,7 @@
         "description": "..."
       }
     },
-
     "sample": {
-      "meta": {
-        "title": "範例頁",
-        "description": "範例頁描述"
-      },
       "a11y": {
         "counterBasic": "基本數量選擇器",
         "counterEditable": "可輸入的數量選擇器",
@@ -62,6 +56,8 @@
         "marqueeLeft": "向左移動的技術項目跑馬燈",
         "marqueeRight": "向右移動的技術項目跑馬燈",
         "importantToast": "重要操作通知",
+        "socialShareBasic": "預設社群分享按鈕群組",
+        "socialShareCustom": "自訂社群分享按鈕群組",
         "imageBasic": "ImageLazyLoad 基本範例",
         "imageCustomRatio": "ImageLazyLoad 自訂比例範例",
         "imageResponsive": "ImageLazyLoad 手機版與電腦版不同圖片及比例範例",
@@ -81,7 +77,6 @@
       }
     }
   },
-
   "components": {
     "button": {
       "defaultText": "按鈕"
@@ -107,6 +102,16 @@
     "iframe": {
       "error": "嵌入內容載入失敗"
     },
+    "socialShare": {
+      "ariaLabel": "分享此頁",
+      "facebook": "分享到 Facebook",
+      "line": "分享到 LINE",
+      "twitter": "分享到 X",
+      "copy": "複製連結",
+      "copied": "連結已複製",
+      "copyError": "無法複製連結",
+      "invalidUrl": "僅支援 HTTP 與 HTTPS 分享網址"
+    },
     "pageHeader": {
       "bannerAlt": "頁面橫幅",
       "defaultTitle": "預設標題"
@@ -120,47 +125,37 @@
       "currentPage": "第 {page} 頁，目前所在頁",
       "goToPage": "前往第 {page} 頁"
     },
-
     "loading": {
       "defaultLabel": "載入中，請稍候"
     },
-
     "toast": {
       "close": "關閉通知"
     },
-
     "modal": {
       "close": "關閉視窗"
     },
-
     "goTop": {
       "ariaLabel": "回到頁面頂端"
     },
-
     "datepicker": {
       "today": "今天"
     },
-
     "contactForm": {
       "name": "姓名",
       "email": "電子郵件"
     }
   },
-
   "error": {
-    "backToHome": "回到首頁",
-
     "404": {
       "title": "頁面不存在",
       "description": "你瀏覽的頁面可能已被移除或網址輸入錯誤。"
     },
-
     "500": {
       "title": "系統發生錯誤",
       "description": "目前系統發生問題，請稍後再試。"
-    }
+    },
+    "backToHome": "回到首頁"
   },
-
   "a11y": {
     "skipLink": "跳到中央內容區塊",
     "header": "上方功能區塊，包括回首頁與主選單等",

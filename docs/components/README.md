@@ -14,6 +14,7 @@
 | ImageLazyLoad   | [使用方式](ImageLazyLoad/README.md)   | 可控提前載入、響應式圖片與 fallback。 |
 | Marquee         | [使用方式](marquee/Marquee/README.md) | 無縫循環與拖曳跑馬燈。                |
 | Pagination      | [使用方式](Pagination/README.md)      | 受控分頁導覽。                        |
+| SocialShare     | [使用方式](SocialShare/README.md)     | 社群分享與複製連結。                  |
 | Spinner         | [使用方式](Spinner/README.md)         | 載入指示器。                          |
 | Tooltip         | [使用方式](tooltip/Tooltip/README.md) | 滑鼠與鍵盤提示文字。                  |
 | VideoLazyLoad   | [使用方式](VideoLazyLoad/README.md)   | 延遲載入響應式影片。                  |
