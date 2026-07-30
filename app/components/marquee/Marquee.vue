@@ -34,12 +34,14 @@ const props = withDefaults(defineProps<TProps>(), {
   pauseOnHover: false,
   draggable: false,
   gap: 0,
-  ariaLabel: '跑馬燈',
+  ariaLabel: undefined,
   marqueeClass: '',
   trackClass: '',
   itemClass: '',
   activeClass: '',
 })
+
+const { t } = useI18n()
 
 const emit = defineEmits<{
   'update:activeIndex': [index: number]
@@ -101,6 +103,7 @@ const normalizedGap = computed(() => {
   return Number.isFinite(props.gap) ? Math.max(0, props.gap) : 0
 })
 const normalizedActiveIndex = computed(() => normalizeIndex(props.activeIndex))
+const resolvedAriaLabel = computed(() => props.ariaLabel || t('components.marquee.ariaLabel'))
 const activeGroupIndex = computed(() => {
   if (!groupWidth.value) {
     return 1
@@ -542,7 +545,7 @@ onBeforeUnmount(() => {
   <div
     ref="viewportElement"
     role="region"
-    :aria-label="ariaLabel"
+    :aria-label="resolvedAriaLabel"
     :class="marqueeClassName"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"

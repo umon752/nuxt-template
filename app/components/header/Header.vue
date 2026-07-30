@@ -75,7 +75,7 @@ const handleDesktopMenuFocusout = (event: FocusEvent): void => {
         >
           <img
             :src="siteConfig.logo || '/images/logo.png'"
-            :alt="`${$t('site.name')} logo`"
+            :alt="$t('header.home.logoAlt', { name: $t('site.name') })"
             class="h-12 w-auto rounded-md"
           />
         </NuxtLink>

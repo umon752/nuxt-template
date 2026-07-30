@@ -6,9 +6,12 @@ type TProps = {
 
 const props = withDefaults(defineProps<TProps>(), {
   banner: '',
-  alt: '預設橫幅',
+  alt: undefined,
 })
+
+const { t } = useI18n()
+const resolvedAlt = computed(() => props.alt || t('components.pageHeader.bannerAlt'))
 </script>
 <template>
-  <img :src="props.banner" :alt="props.alt" />
+  <img :src="props.banner" :alt="resolvedAlt" />
 </template>

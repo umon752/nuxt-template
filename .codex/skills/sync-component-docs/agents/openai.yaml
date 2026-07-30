@@ -1,0 +1,7 @@
+interface:
+  display_name: '同步元件文件'
+  short_description: '建立、修改或移動 Vue 元件時，自動同步維護對應文件與索引'
+  default_prompt: '使用 $sync-component-docs 修改 Vue 元件，並同步維護對應的元件文件與索引。'
+
+policy:
+  allow_implicit_invocation: true

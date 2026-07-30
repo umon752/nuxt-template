@@ -8,6 +8,7 @@
 | --------------- | ------------------------------------- | ------------------------------------ |
 | Accordion       | [使用方式](Accordion/README.md)       | 展開／收合內容與程式化控制。         |
 | Breadcrumb      | [使用方式](Breadcrumb/README.md)      | 麵包屑導覽。                         |
+| Counter         | [使用方式](counter/Counter/README.md) | 受控數量輸入與增減控制。             |
 | FullPageLoading | [使用方式](FullPageLoading/README.md) | 全頁載入遮罩。                       |
 | ImageLazyLoad   | [使用方式](ImageLazyLoad/README.md)   | 延遲載入圖片、skeleton 與 fallback。 |
 | Marquee         | [使用方式](marquee/Marquee/README.md) | 無縫循環與拖曳跑馬燈。               |

@@ -37,6 +37,7 @@ const emit = defineEmits<{
   error: [event: Event]
 }>()
 
+const { t } = useI18n()
 const attrs = useAttrs()
 const imageRef = useTemplateRef<HTMLImageElement>('imageRef')
 const currentSrc = ref(props.src)
@@ -69,6 +70,7 @@ const skeletonClassName = computed(() =>
 const aspectRatioStyle = computed<CSSProperties>(() => ({
   aspectRatio: props.aspectRatio,
 }))
+const resolvedErrorLabel = computed(() => props.alt || t('components.image.error'))
 const imageAttrs = computed(() => {
   const { class: _class, style: _style, ...restAttrs } = attrs
 
@@ -139,9 +141,9 @@ onMounted(() => {
       v-if="hasError"
       class="absolute inset-0 flex items-center justify-center bg-slate-100 p-4 text-center text-sm text-slate-500"
       role="img"
-      :aria-label="props.alt || '圖片載入失敗'"
+      :aria-label="resolvedErrorLabel"
     >
-      <slot name="error">圖片載入失敗</slot>
+      <slot name="error">{{ $t('components.image.error') }}</slot>
     </span>
   </span>
 </template>

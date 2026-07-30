@@ -15,6 +15,7 @@ const props = withDefaults(defineProps<TProps>(), {
   breadcrumbItems: () => [],
 })
 
+const { t } = useI18n()
 const { items: autoBreadcrumbItems, currentTitle } = useBreadcrumb()
 
 const breadcrumbItems = computed(() =>
@@ -25,7 +26,9 @@ const pageTitle = computed(
   () => props.title || breadcrumbItems.value.at(-1)?.title || currentTitle.value
 )
 
-const bannerAlt = computed(() => props.bannerAlt || pageTitle.value || '頁面橫幅')
+const bannerAlt = computed(
+  () => props.bannerAlt || pageTitle.value || t('components.pageHeader.bannerAlt')
+)
 </script>
 
 <template>

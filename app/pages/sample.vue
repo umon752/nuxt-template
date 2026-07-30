@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Counter, { type TCounterChangeSource } from '~/components/counter/Counter.vue'
 import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
 import Marquee, { type TMarqueeItem } from '~/components/marquee/Marquee.vue'
 import Modal, { type TModalCloseReason } from '~/components/modal/Modal.vue'
@@ -34,6 +35,20 @@ const marqueeActiveIndex = ref(0)
 const marqueePaused = ref(false)
 const reverseMarqueeActiveIndex = ref(0)
 const reverseMarqueePaused = ref(false)
+const basicCounterValue = ref(0)
+const editableCounterValue = ref(2)
+const steppedCounterValue = ref(10)
+const lastCounterEvent = ref('尚未操作')
+
+const handleCounterChange = (value: number, source: TCounterChangeSource): void => {
+  const sourceLabels: Record<TCounterChangeSource, string> = {
+    decrement: '減少',
+    increment: '增加',
+    input: '輸入',
+  }
+
+  lastCounterEvent.value = `${sourceLabels[source]}至 ${value}`
+}
 
 const toast = useToast()
 const inlineToastVisible = ref(false)
@@ -165,7 +180,7 @@ const editorModules: TEditorModule[] = [
     html: editorContentHtml,
     image: {
       src: '/images/demo/test-img.jpg',
-      alt: '左圖右文示範圖片',
+      alt: $t('pages.sample.a11y.editorImageLeft'),
     },
   },
   {
@@ -174,7 +189,7 @@ const editorModules: TEditorModule[] = [
     html: editorContentHtml,
     image: {
       src: '/images/demo/test-img.jpg',
-      alt: '右圖左文示範圖片',
+      alt: $t('pages.sample.a11y.editorImageRight'),
     },
   },
   {
@@ -182,7 +197,7 @@ const editorModules: TEditorModule[] = [
     type: 'image',
     image: {
       src: '/images/demo/test-img.jpg',
-      alt: '單張圖片示範',
+      alt: $t('pages.sample.a11y.editorImageSingle'),
     },
   },
   {
@@ -196,11 +211,11 @@ const editorModules: TEditorModule[] = [
     images: [
       {
         src: '/images/demo/test-img.jpg',
-        alt: '雙圖版型左側圖片',
+        alt: $t('pages.sample.a11y.editorImagesLeft'),
       },
       {
         src: '/images/demo/test-img.jpg',
-        alt: '雙圖版型右側圖片',
+        alt: $t('pages.sample.a11y.editorImagesRight'),
       },
     ],
   },
@@ -341,6 +356,77 @@ const queryPaginatedItems = computed(() => {
 
       <section class="space-y-6 py-4">
         <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">Counter 計數器元件</h2>
+          <p class="text-center text-slate-600">
+            展示基本加減、直接輸入、自訂增減幅度，以及由父層透過 v-model 管理數值。
+          </p>
+        </header>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          <article class="space-y-4 rounded-2xl border border-slate-200 p-5 text-center shadow-sm">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-slate-900">基本計數器</h3>
+              <p class="text-sm text-slate-600">範圍 0～5</p>
+            </div>
+
+            <Counter
+              v-model="basicCounterValue"
+              :min="0"
+              :max="5"
+              :aria-label="$t('pages.sample.a11y.counterBasic')"
+              @change="handleCounterChange"
+            />
+
+            <p class="text-sm text-slate-500">父層數值：{{ basicCounterValue }}</p>
+          </article>
+
+          <article class="space-y-4 rounded-2xl border border-slate-200 p-5 text-center shadow-sm">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-slate-900">可直接輸入</h3>
+              <p class="text-sm text-slate-600">輸入值會限制在 0～10</p>
+            </div>
+
+            <Counter
+              v-model="editableCounterValue"
+              :min="0"
+              :max="10"
+              editable
+              :aria-label="$t('pages.sample.a11y.counterEditable')"
+              @change="handleCounterChange"
+            />
+
+            <p class="text-sm text-slate-500">父層數值：{{ editableCounterValue }}</p>
+          </article>
+
+          <article class="space-y-4 rounded-2xl border border-slate-200 p-5 text-center shadow-sm">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-slate-900">自訂 Step 與 Slot</h3>
+              <p class="text-sm text-slate-600">範圍 0～20，每次增減 5</p>
+            </div>
+
+            <Counter
+              v-model="steppedCounterValue"
+              :min="0"
+              :max="20"
+              :step="5"
+              :aria-label="$t('pages.sample.a11y.counterStep')"
+              button-class="bg-slate-900 text-white hover:bg-slate-700 disabled:bg-slate-100"
+              @change="handleCounterChange"
+            >
+              <template #decrement>減</template>
+              <template #value="{ value }">{{ value }} 件</template>
+              <template #increment>加</template>
+            </Counter>
+
+            <p class="text-sm text-slate-500">父層數值：{{ steppedCounterValue }}</p>
+          </article>
+        </div>
+
+        <p class="text-center text-sm text-slate-500">最後事件：{{ lastCounterEvent }}</p>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
           <h2 class="text-center text-2xl font-bold">Tooltip 使用範例</h2>
           <p class="text-center text-slate-600">
             支援四向定位、鍵盤焦點、延遲顯示、停用及自訂提示樣式。
@@ -407,7 +493,7 @@ const queryPaginatedItems = computed(() => {
               :gap="16"
               pause-on-hover
               draggable
-              aria-label="向左移動的技術項目跑馬燈"
+              :aria-label="$t('pages.sample.a11y.marqueeLeft')"
               marquee-class="rounded-xl border border-slate-200 bg-slate-50 py-4"
               item-class="w-56 sm:w-64"
               active-class="rounded-xl ring-2 ring-main-500"
@@ -452,7 +538,7 @@ const queryPaginatedItems = computed(() => {
               direction="right"
               pause-on-hover
               draggable
-              aria-label="向右移動的技術項目跑馬燈"
+              :aria-label="$t('pages.sample.a11y.marqueeRight')"
               marquee-class="rounded-xl border border-slate-200 bg-slate-950 py-4"
               active-class="opacity-100"
             >
@@ -585,7 +671,7 @@ const queryPaginatedItems = computed(() => {
               :auto-hide="false"
               role="alertdialog"
               aria-live="assertive"
-              aria-label="重要操作通知"
+              :aria-label="$t('pages.sample.a11y.importantToast')"
               position="fixed"
               x="50%"
               y="50%"
@@ -664,7 +750,7 @@ const queryPaginatedItems = computed(() => {
           <article class="space-y-3">
             <ImageLazyLoad
               src="/images/demo/test-img.jpg"
-              alt="ImageLazyLoad 基本範例"
+              :alt="$t('pages.sample.a11y.imageBasic')"
               class="rounded-xl"
             />
             <h3 class="font-semibold">預設圖片比例 16:9</h3>
@@ -673,7 +759,7 @@ const queryPaginatedItems = computed(() => {
           <article class="space-y-3">
             <ImageLazyLoad
               src="/images/demo/test-img.jpg"
-              alt="ImageLazyLoad 自訂比例範例"
+              :alt="$t('pages.sample.a11y.imageCustomRatio')"
               aspect-ratio="3 / 2"
               class="rounded-xl"
               skeleton-class="bg-main-100"
@@ -690,7 +776,7 @@ const queryPaginatedItems = computed(() => {
           <article class="space-y-3">
             <ImageLazyLoad
               src="/images/demo/not-found.jpg"
-              alt="載入失敗顯示預設圖範例"
+              :alt="$t('pages.sample.a11y.imageFallback')"
               class="rounded-xl"
             />
             <h3 class="font-semibold">載入失敗顯示預設圖</h3>
@@ -699,7 +785,7 @@ const queryPaginatedItems = computed(() => {
           <article class="space-y-3">
             <ImageLazyLoad
               src="/images/demo/not-found.jpg"
-              alt="圖片載入失敗的 fallback 範例"
+              :alt="$t('pages.sample.a11y.imageErrorSlot')"
               fallback-src=""
               class="rounded-xl"
             />
@@ -805,7 +891,7 @@ const queryPaginatedItems = computed(() => {
         <Pagination
           v-model:current-page="baseArticlePage"
           :total-pages="articleTotalPages"
-          aria-label="文章列表分頁"
+          :aria-label="$t('pages.sample.a11y.articlePagination')"
         />
       </section>
 
@@ -826,7 +912,7 @@ const queryPaginatedItems = computed(() => {
           item-class="rounded-full border-slate-200 bg-white text-slate-600 shadow-sm"
           active-class="border-main-500 bg-main-500 text-white"
           disabled-class="opacity-60"
-          aria-label="客製樣式分頁"
+          :aria-label="$t('pages.sample.a11y.customPagination')"
         >
           <template #first>
             <span class="px-1 text-xs font-semibold tracking-wide">FIRST</span>
@@ -898,7 +984,7 @@ const queryPaginatedItems = computed(() => {
           <Pagination
             v-model:current-page="queryPage"
             :total-pages="filteredArticleTotalPages"
-            aria-label="篩選結果分頁"
+            :aria-label="$t('pages.sample.a11y.filteredPagination')"
           />
         </div>
       </section>

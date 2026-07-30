@@ -6,6 +6,9 @@
   },
 
   "header": {
+    "home": {
+      "logoAlt": "{name} logo"
+    },
     "menu": {
       "ariaLabel": "主選單"
     },
@@ -51,13 +54,52 @@
       "meta": {
         "title": "範例頁",
         "description": "範例頁描述"
+      },
+      "a11y": {
+        "counterBasic": "基本數量選擇器",
+        "counterEditable": "可輸入的數量選擇器",
+        "counterStep": "每次增減五的數量選擇器",
+        "marqueeLeft": "向左移動的技術項目跑馬燈",
+        "marqueeRight": "向右移動的技術項目跑馬燈",
+        "importantToast": "重要操作通知",
+        "imageBasic": "ImageLazyLoad 基本範例",
+        "imageCustomRatio": "ImageLazyLoad 自訂比例範例",
+        "imageFallback": "載入失敗顯示預設圖範例",
+        "imageErrorSlot": "圖片載入失敗的 fallback 範例",
+        "articlePagination": "文章列表分頁",
+        "customPagination": "客製樣式分頁",
+        "filteredPagination": "篩選結果分頁",
+        "editorImageLeft": "左圖右文示範圖片",
+        "editorImageRight": "右圖左文示範圖片",
+        "editorImageSingle": "單張圖片示範",
+        "editorImagesLeft": "雙圖版型左側圖片",
+        "editorImagesRight": "雙圖版型右側圖片"
       }
     }
   },
 
   "components": {
+    "button": {
+      "defaultText": "按鈕"
+    },
     "breadcrumb": {
       "ariaLabel": "麵包屑"
+    },
+    "counter": {
+      "ariaLabel": "數量選擇器",
+      "valueLabel": "目前數量",
+      "decrementLabel": "減少數量",
+      "incrementLabel": "增加數量"
+    },
+    "marquee": {
+      "ariaLabel": "跑馬燈"
+    },
+    "image": {
+      "error": "圖片載入失敗"
+    },
+    "pageHeader": {
+      "bannerAlt": "頁面橫幅",
+      "defaultTitle": "預設標題"
     },
     "pagination": {
       "ariaLabel": "分頁導覽",
