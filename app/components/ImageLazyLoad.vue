@@ -11,23 +11,37 @@ type TObjectFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down'
 
 type TProps = {
   src: string
+  srcMobile?: string
+  srcDesktop?: string
   alt?: string
   fallbackSrc?: string
+  breakpoint?: string
   aspectRatio?: string
+  aspectRatioMobile?: string
+  aspectRatioDesktop?: string
   objectFit?: TObjectFit
   loading?: 'eager' | 'lazy'
   decoding?: 'async' | 'auto' | 'sync'
+  rootMargin?: string
+  threshold?: number
   imgClass?: ClassValue
   skeletonClass?: ClassValue
 }
 
 const props = withDefaults(defineProps<TProps>(), {
+  srcMobile: undefined,
+  srcDesktop: undefined,
   alt: '',
   fallbackSrc: '/images/nopic.png',
+  breakpoint: '768px',
   aspectRatio: '16 / 9',
+  aspectRatioMobile: undefined,
+  aspectRatioDesktop: undefined,
   objectFit: 'cover',
   loading: 'lazy',
   decoding: 'async',
+  rootMargin: '200px',
+  threshold: 0,
   imgClass: '',
   skeletonClass: '',
 })
@@ -39,8 +53,11 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const attrs = useAttrs()
+const containerRef = useTemplateRef<HTMLSpanElement>('containerRef')
 const imageRef = useTemplateRef<HTMLImageElement>('imageRef')
-const currentSrc = ref(props.src)
+const resolvedMobileSrc = computed(() => props.srcMobile || props.src)
+const resolvedDesktopSrc = computed(() => props.srcDesktop || props.src)
+const currentSrc = ref(resolvedMobileSrc.value)
 const isLoading = ref(true)
 const hasError = ref(false)
 const isUsingFallback = ref(false)
@@ -67,21 +84,74 @@ const imageClassName = computed(() =>
 const skeletonClassName = computed(() =>
   cn('c-skeleton absolute inset-0 overflow-hidden bg-slate-200', props.skeletonClass)
 )
+const desktopMedia = computed(() => `(min-width: ${props.breakpoint})`)
+const hasResponsiveSource = computed(() => Boolean(props.srcMobile || props.srcDesktop))
+const hasResponsiveAspectRatio = computed(() =>
+  Boolean(props.aspectRatioMobile || props.aspectRatioDesktop)
+)
+const { isDesktop } = useResponsiveBreakpoint({
+  breakpoint: () => props.breakpoint,
+  enabled: hasResponsiveAspectRatio,
+})
+const { isActivated } = useLazyLoadObserver({
+  target: containerRef,
+  rootMargin: () => props.rootMargin,
+  threshold: () => props.threshold,
+})
+const resolvedAspectRatio = computed(() => {
+  if (isDesktop.value) {
+    return props.aspectRatioDesktop || props.aspectRatio
+  }
+
+  return props.aspectRatioMobile || props.aspectRatio
+})
 const aspectRatioStyle = computed<CSSProperties>(() => ({
-  aspectRatio: props.aspectRatio,
+  aspectRatio: resolvedAspectRatio.value,
 }))
+const activeSrc = computed(() => (isActivated.value ? currentSrc.value : undefined))
 const resolvedErrorLabel = computed(() => props.alt || t('components.image.error'))
 const imageAttrs = computed(() => {
-  const { class: _class, style: _style, ...restAttrs } = attrs
+  const {
+    class: _class,
+    style: _style,
+    srcset: _srcset,
+    sizes: _sizes,
+    ...attrsWithoutResponsiveSources
+  } = attrs
 
-  return restAttrs
+  if (!isActivated.value || isUsingFallback.value) {
+    return attrsWithoutResponsiveSources
+  }
+
+  return {
+    ...attrsWithoutResponsiveSources,
+    ...(_srcset === undefined ? {} : { srcset: _srcset }),
+    ...(_sizes === undefined ? {} : { sizes: _sizes }),
+  }
 })
 
 const reset = (): void => {
-  currentSrc.value = props.src
+  currentSrc.value = resolvedMobileSrc.value
   isLoading.value = true
   hasError.value = false
   isUsingFallback.value = false
+
+  void nextTick(syncCompleteImage)
+}
+
+function syncCompleteImage(): void {
+  const image = imageRef.value
+
+  if (!isActivated.value || !image?.complete) {
+    return
+  }
+
+  if (image.naturalWidth > 0) {
+    isLoading.value = false
+    hasError.value = false
+  } else {
+    handleError(new Event('error'))
+  }
 }
 
 const handleLoad = (event: Event): void => {
@@ -103,39 +173,45 @@ const handleError = (event: Event): void => {
   hasError.value = true
 }
 
-watch(() => props.src, reset)
-
-onMounted(() => {
-  const image = imageRef.value
-
-  if (image?.complete) {
-    if (image.naturalWidth > 0) {
-      isLoading.value = false
-    } else {
-      handleError(new Event('error'))
-    }
+watch([resolvedMobileSrc, resolvedDesktopSrc, () => props.breakpoint], reset)
+watch(isActivated, (active) => {
+  if (active) {
+    isLoading.value = true
+    void nextTick(syncCompleteImage)
   }
 })
 </script>
 
 <template>
-  <span :class="containerClassName" :style="[aspectRatioStyle, attrs.style]">
+  <span
+    ref="containerRef"
+    :class="containerClassName"
+    :style="[aspectRatioStyle, attrs.style]"
+    :aria-busy="isLoading || undefined"
+  >
     <span v-if="isLoading" :class="skeletonClassName" aria-hidden="true">
       <slot name="skeleton" />
     </span>
 
-    <img
-      ref="imageRef"
-      v-bind="imageAttrs"
-      :src="currentSrc"
-      :alt="props.alt"
-      :loading="props.loading"
-      :decoding="props.decoding"
-      :class="imageClassName"
-      :aria-hidden="hasError || undefined"
-      @load="handleLoad"
-      @error="handleError"
-    />
+    <picture>
+      <source
+        v-if="isActivated && hasResponsiveSource && !isUsingFallback"
+        :media="desktopMedia"
+        :srcset="resolvedDesktopSrc"
+      />
+      <img
+        ref="imageRef"
+        v-bind="imageAttrs"
+        :src="activeSrc"
+        :alt="props.alt"
+        :loading="props.loading"
+        :decoding="props.decoding"
+        :class="imageClassName"
+        :aria-hidden="hasError || undefined"
+        @load="handleLoad"
+        @error="handleError"
+      />
+    </picture>
 
     <span
       v-if="hasError"

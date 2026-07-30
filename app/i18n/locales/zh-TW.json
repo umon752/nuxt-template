@@ -64,8 +64,12 @@
         "importantToast": "重要操作通知",
         "imageBasic": "ImageLazyLoad 基本範例",
         "imageCustomRatio": "ImageLazyLoad 自訂比例範例",
+        "imageResponsive": "ImageLazyLoad 手機版與電腦版不同圖片及比例範例",
+        "imageRootMargin": "ImageLazyLoad 自訂提前載入範圍範例",
         "imageFallback": "載入失敗顯示預設圖範例",
         "imageErrorSlot": "圖片載入失敗的 fallback 範例",
+        "videoBasic": "VideoLazyLoad 響應式影片範例",
+        "iframeBasic": "IframeLazyLoad YouTube 影片範例",
         "articlePagination": "文章列表分頁",
         "customPagination": "客製樣式分頁",
         "filteredPagination": "篩選結果分頁",
@@ -96,6 +100,12 @@
     },
     "image": {
       "error": "圖片載入失敗"
+    },
+    "video": {
+      "error": "影片載入失敗"
+    },
+    "iframe": {
+      "error": "嵌入內容載入失敗"
     },
     "pageHeader": {
       "bannerAlt": "頁面橫幅",

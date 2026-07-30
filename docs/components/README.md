@@ -4,17 +4,19 @@
 
 ## 通用元件
 
-| 元件            | 文件                                  | 說明                                 |
-| --------------- | ------------------------------------- | ------------------------------------ |
-| Accordion       | [使用方式](Accordion/README.md)       | 展開／收合內容與程式化控制。         |
-| Breadcrumb      | [使用方式](Breadcrumb/README.md)      | 麵包屑導覽。                         |
-| Counter         | [使用方式](counter/Counter/README.md) | 受控數量輸入與增減控制。             |
-| FullPageLoading | [使用方式](FullPageLoading/README.md) | 全頁載入遮罩。                       |
-| ImageLazyLoad   | [使用方式](ImageLazyLoad/README.md)   | 延遲載入圖片、skeleton 與 fallback。 |
-| Marquee         | [使用方式](marquee/Marquee/README.md) | 無縫循環與拖曳跑馬燈。               |
-| Pagination      | [使用方式](Pagination/README.md)      | 受控分頁導覽。                       |
-| Spinner         | [使用方式](Spinner/README.md)         | 載入指示器。                         |
-| Tooltip         | [使用方式](tooltip/Tooltip/README.md) | 滑鼠與鍵盤提示文字。                 |
+| 元件            | 文件                                  | 說明                                  |
+| --------------- | ------------------------------------- | ------------------------------------- |
+| Accordion       | [使用方式](Accordion/README.md)       | 展開／收合內容與程式化控制。          |
+| Breadcrumb      | [使用方式](Breadcrumb/README.md)      | 麵包屑導覽。                          |
+| Counter         | [使用方式](counter/Counter/README.md) | 受控數量輸入與增減控制。              |
+| FullPageLoading | [使用方式](FullPageLoading/README.md) | 全頁載入遮罩。                        |
+| IframeLazyLoad  | [使用方式](IframeLazyLoad/README.md)  | 延遲載入響應式 iframe。               |
+| ImageLazyLoad   | [使用方式](ImageLazyLoad/README.md)   | 可控提前載入、響應式圖片與 fallback。 |
+| Marquee         | [使用方式](marquee/Marquee/README.md) | 無縫循環與拖曳跑馬燈。                |
+| Pagination      | [使用方式](Pagination/README.md)      | 受控分頁導覽。                        |
+| Spinner         | [使用方式](Spinner/README.md)         | 載入指示器。                          |
+| Tooltip         | [使用方式](tooltip/Tooltip/README.md) | 滑鼠與鍵盤提示文字。                  |
+| VideoLazyLoad   | [使用方式](VideoLazyLoad/README.md)   | 延遲載入響應式影片。                  |
 
 ## Modal
 

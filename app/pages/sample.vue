@@ -773,6 +773,35 @@ const queryPaginatedItems = computed(() => {
             <h3 class="font-semibold">自訂比例 3:2 與自訂載入中 skeleton 樣式</h3>
           </article>
 
+          <article class="space-y-3 md:col-span-2">
+            <ImageLazyLoad
+              src="/images/demo/test-img.jpg"
+              src-mobile="/images/nopic.png"
+              src-desktop="/images/demo/test-img.jpg"
+              :alt="$t('pages.sample.a11y.imageResponsive')"
+              aspect-ratio-mobile="1 / 1"
+              aspect-ratio-desktop="16 / 9"
+              class="rounded-xl"
+            />
+            <h3 class="font-semibold">
+              手機版圖片比例 1:1，電腦版圖片比例 16:9（預設 768px md 斷點）
+            </h3>
+          </article>
+
+          <article class="space-y-3">
+            <ImageLazyLoad
+              src="/images/demo/test-img.jpg"
+              :alt="$t('pages.sample.a11y.imageRootMargin')"
+              root-margin="0px"
+              :threshold="0.5"
+              loading="eager"
+              class="rounded-xl"
+            />
+            <h3 class="font-semibold">
+              自訂 rootMargin 0px 與 threshold 0.5，圖片進入畫面一半後才載入
+            </h3>
+          </article>
+
           <article class="space-y-3">
             <ImageLazyLoad
               src="/images/demo/not-found.jpg"
@@ -790,6 +819,51 @@ const queryPaginatedItems = computed(() => {
               class="rounded-xl"
             />
             <h3 class="font-semibold">載入失敗顯示 fallback</h3>
+          </article>
+        </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">VideoLazyLoad 與 IframeLazyLoad</h2>
+          <p class="text-center text-slate-600">
+            媒體接近可視區域時才載入，並在載入期間顯示固定比例的 skeleton。
+          </p>
+        </header>
+
+        <div class="grid gap-6 md:grid-cols-2">
+          <article class="space-y-3">
+            <VideoLazyLoad
+              src="/videos/demo.mp4"
+              poster="/images/demo/test-img.jpg"
+              poster-mobile="/images/nopic.png"
+              poster-desktop="/images/demo/test-img.jpg"
+              aspect-ratio-mobile="1 / 1"
+              aspect-ratio-desktop="16 / 9"
+              :aria-label="$t('pages.sample.a11y.videoBasic')"
+              controls
+              loop
+              class="rounded-xl"
+            />
+            <h3 class="font-semibold">
+              影片延遲載入、原生播放控制，以及手機 1:1／電腦 16:9 響應式封面
+            </h3>
+          </article>
+
+          <article class="space-y-3">
+            <IframeLazyLoad
+              src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ"
+              :title="$t('pages.sample.a11y.iframeBasic')"
+              aspect-ratio-mobile="4 / 3"
+              aspect-ratio-desktop="16 / 9"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              class="rounded-xl"
+            />
+            <h3 class="font-semibold">
+              YouTube iframe 延遲載入，以及手機 4:3／電腦 16:9 響應式比例
+            </h3>
           </article>
         </div>
       </section>
