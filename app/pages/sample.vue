@@ -31,6 +31,47 @@ const marqueeItems: TMarqueeItem[] = [
   { id: 5, title: 'Responsive Marquee' },
 ]
 
+const swiperItems = [
+  {
+    id: 1,
+    image: '/images/demo/test-img.jpg',
+    title: '輪播項目一',
+    description: '手機顯示一張投影片，並提供上一張、下一張與分頁圓點操作。',
+  },
+  {
+    id: 2,
+    image: '/images/demo/test-img.jpg',
+    title: '輪播項目二',
+    description: '平板尺寸開始同時顯示兩張投影片。',
+  },
+  {
+    id: 3,
+    image: '/images/demo/test-img.jpg',
+    title: '輪播項目三',
+    description: '桌面尺寸同時顯示三張投影片。',
+  },
+  {
+    id: 4,
+    image: '/images/demo/test-img.jpg',
+    title: '輪播項目四',
+    description: '支援滑鼠拖曳、觸控滑動與鍵盤焦點操作。',
+  },
+  {
+    id: 5,
+    image: '/images/demo/test-img.jpg',
+    title: '輪播項目五',
+    description: 'A11y 模組提供輪播區域與控制按鈕的無障礙說明。',
+  },
+]
+
+const swiperBreakpoints = {
+  768: {
+    slidesPerView: 2,
+  },
+  992: {
+    slidesPerView: 3,
+  },
+}
 const marqueeActiveIndex = ref(0)
 const marqueePaused = ref(false)
 const reverseMarqueeActiveIndex = ref(0)
@@ -576,6 +617,67 @@ const queryPaginatedItems = computed(() => {
             </Marquee>
           </article>
         </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">Swiper 輪播範例</h2>
+          <p class="text-center text-slate-600">
+            透過 SwiperBase 將自訂按鈕與 pagination 放在輪播外層，並依螢幕寬度顯示一至三張投影片。
+          </p>
+        </header>
+
+        <SwiperBase
+          :items="swiperItems"
+          :options="{
+            slidesPerView: 1,
+            spaceBetween: 24,
+            breakpoints: swiperBreakpoints,
+          }"
+        >
+          <template #slide="{ item }">
+            <article
+              class="h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+            >
+              <ImageLazyLoad
+                :src="item.image"
+                :alt="$t('pages.sample.a11y.swiperImage', { number: item.id })"
+                aspect-ratio="16 / 9"
+              />
+              <div class="space-y-2 p-5">
+                <h3 class="text-lg font-semibold text-slate-900">{{ item.title }}</h3>
+                <p class="text-sm leading-6 text-slate-600">{{ item.description }}</p>
+              </div>
+            </article>
+          </template>
+
+          <template #previous="{ previous, disabled }">
+            <BtnDefault text="上一張" :disabled="disabled" @click="previous" />
+          </template>
+
+          <template #pagination="{ activeIndex, count, goTo }">
+            <div
+              class="flex flex-wrap items-center justify-center gap-2"
+              role="group"
+              :aria-label="$t('components.swiperBase.pagination')"
+            >
+              <button
+                v-for="index in count"
+                :key="index"
+                type="button"
+                class="h-3 rounded-full transition-[width,background-color] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+                :class="activeIndex === index - 1 ? 'bg-main-500 w-8' : 'w-3 bg-slate-300'"
+                :aria-label="$t('components.swiperBase.goToSlide', { index })"
+                :aria-current="activeIndex === index - 1 ? 'true' : undefined"
+                @click="goTo(index - 1)"
+              />
+            </div>
+          </template>
+
+          <template #next="{ next, disabled }">
+            <BtnDefault text="下一張" :disabled="disabled" @click="next" />
+          </template>
+        </SwiperBase>
       </section>
 
       <section class="space-y-6 py-4">
@@ -1133,5 +1235,3 @@ const queryPaginatedItems = computed(() => {
     </div>
   </div>
 </template>
-
-<style></style>
