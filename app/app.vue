@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ResolvableLink, ResolvableMeta } from '@unhead/vue'
 import ToastStack from '~/components/toast/ToastStack.vue'
 import { useSiteSchema } from '~/composables/useSiteSchema'
 const { locale } = useI18n()
@@ -10,7 +11,7 @@ useHead(() => ({
     lang: i18nHead.value.htmlAttrs.lang,
   },
   link: [
-    ...(i18nHead.value.link || []),
+    ...((i18nHead.value.link || []) as unknown as ResolvableLink[]),
     {
       rel: 'manifest',
       href: `/site.webmanifest?lang=${locale.value}`,
@@ -22,7 +23,7 @@ useHead(() => ({
       title: 'llms.txt',
     },
   ],
-  meta: [...(i18nHead.value.meta || [])],
+  meta: [...((i18nHead.value.meta || []) as unknown as ResolvableMeta[])],
 }))
 
 useSiteSchema()
