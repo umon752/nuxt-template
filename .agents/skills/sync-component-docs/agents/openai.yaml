@@ -1,0 +1,7 @@
+interface:
+  display_name: '同步元件文件與範例'
+  short_description: '建立或修改 Vue 元件時同步維護 sample、文件、索引、a11y 與 i18n'
+  default_prompt: '使用 $sync-component-docs 修改 Vue 元件，並同步維護 sample、文件、索引與必要驗證。'
+
+policy:
+  allow_implicit_invocation: true

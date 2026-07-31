@@ -1,0 +1,4 @@
+interface:
+  display_name: '驗證並建立 Commit'
+  short_description: '檢查變更、執行驗證、產生合規訊息並安全建立 Git commit'
+  default_prompt: '使用 $verify-and-commit 檢查目前變更、執行適用驗證並建立符合規範的 commit。'

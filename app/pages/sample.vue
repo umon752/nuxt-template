@@ -1149,7 +1149,7 @@ const queryPaginatedItems = computed(() => {
 
           <article class="space-y-3">
             <IframeLazyLoad
-              src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ"
+              src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ?autoplay=1&mute=1&playsinline=1"
               :title="$t('pages.sample.a11y.iframeBasic')"
               aspect-ratio-mobile="4 / 3"
               aspect-ratio-desktop="16 / 9"
@@ -1157,10 +1157,24 @@ const queryPaginatedItems = computed(() => {
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen
               class="rounded-xl"
-            />
-            <h3 class="font-semibold">
-              YouTube iframe 延遲載入，以及手機 4:3／電腦 16:9 響應式比例
-            </h3>
+            >
+              <template #skeleton>
+                <img
+                  src="https://i.ytimg.com/vi/aqz-KE-bpKQ/sddefault.jpg"
+                  alt=""
+                  class="h-full w-full object-cover"
+                />
+              </template>
+            </IframeLazyLoad>
+            <div class="space-y-1">
+              <h3 class="font-semibold">
+                YouTube iframe 延遲載入、靜音自動播放，以及手機 4:3／電腦 16:9 響應式比例
+              </h3>
+              <p class="text-sm text-slate-600">
+                縮圖檔名：default.jpg（預設）、mqdefault.jpg（中等）、hqdefault.jpg（高畫質）、sddefault.jpg（標準解析度，本例使用）、maxresdefault.jpg（最高解析度，部分影片不提供）。src
+                使用 autoplay=1、mute=1 與 playsinline=1；瀏覽器通常只允許靜音影片自動播放。
+              </p>
+            </div>
           </article>
         </div>
       </section>

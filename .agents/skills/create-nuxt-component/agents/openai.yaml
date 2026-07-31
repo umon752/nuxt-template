@@ -1,0 +1,4 @@
+interface:
+  display_name: '建立 Nuxt 元件'
+  short_description: '從需求與參考實作建立完整 Nuxt 元件、sample、文件與驗證'
+  default_prompt: '使用 $create-nuxt-component 依照需求或參考實作建立完整 Nuxt 元件與交付內容。'

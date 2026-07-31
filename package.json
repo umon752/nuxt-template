@@ -12,6 +12,9 @@
     "typecheck": "nuxt typecheck",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
+    "check:component-docs": "node scripts/check-component-docs.mjs",
+    "check:composable-docs": "node scripts/check-composable-docs.mjs",
+    "check:docs": "npm run check:component-docs && npm run check:composable-docs",
     "check": "npm run format:check && npm run lint && npm run typecheck"
   },
   "dependencies": {

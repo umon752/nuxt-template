@@ -2,6 +2,8 @@
 
 `useDrag` 將可水平捲動的元素轉換成可按住拖曳的區域，適合卡片列表、分類導覽或其他橫向內容。它使用 Pointer Events，並在拖曳結束時清理事件及恢復互動元素狀態。
 
+原始碼：[useDrag.ts](../../app/composables/useDrag.ts)
+
 ## 基本使用
 
 建立捲動容器的 template ref，並傳給 `useDrag`：

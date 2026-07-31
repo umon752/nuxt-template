@@ -1,0 +1,4 @@
+interface:
+  display_name: '同步 Composable 文件'
+  short_description: '建立或修改 Nuxt composable 時同步維護文件、索引與使用範例'
+  default_prompt: '使用 $sync-composable-docs 修改 Nuxt composable，並同步維護對應文件、索引與範例。'
