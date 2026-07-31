@@ -76,6 +76,24 @@ const marqueeActiveIndex = ref(0)
 const marqueePaused = ref(false)
 const reverseMarqueeActiveIndex = ref(0)
 const reverseMarqueePaused = ref(false)
+const dragTarget = useTemplateRef<HTMLElement>('dragTarget')
+const dragButtons = useTemplateRef<HTMLElement[]>('dragButtons')
+const lastDragAction = ref('尚未點選項目')
+const dragItems = Array.from({ length: 8 }, (_, index) => ({
+  id: index + 1,
+  title: `拖曳項目 ${index + 1}`,
+  description: '按住空白處或卡片左右拖曳，也可以直接點擊卡片。',
+}))
+
+const { isDragging } = useDrag({
+  target: dragTarget,
+  interactiveElements: dragButtons,
+})
+
+const handleDragItemClick = (title: string): void => {
+  lastDragAction.value = `已點選「${title}」`
+}
+
 const basicCounterValue = ref(0)
 const editableCounterValue = ref(2)
 const steppedCounterValue = ref(10)
@@ -616,6 +634,46 @@ const queryPaginatedItems = computed(() => {
               </template>
             </Marquee>
           </article>
+        </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">useDrag 水平拖曳捲動</h2>
+          <p class="text-center text-slate-600">
+            按住下方區域左右拖曳；一般點擊仍會觸發卡片操作，拖曳則不會誤觸。
+          </p>
+        </header>
+
+        <div class="space-y-3">
+          <div
+            ref="dragTarget"
+            class="touch-pan-y overflow-x-auto rounded-2xl border border-slate-200 bg-slate-50 p-5 select-none"
+            :class="isDragging ? 'cursor-grabbing' : 'cursor-grab'"
+            aria-label="可水平拖曳的範例項目"
+          >
+            <div class="flex w-max gap-4">
+              <button
+                v-for="item in dragItems"
+                :key="item.id"
+                ref="dragButtons"
+                type="button"
+                class="hover:border-main-500 hover:bg-main-50 w-64 shrink-0 space-y-2 rounded-xl border border-slate-200 bg-white p-5 text-left shadow-sm"
+                @click="handleDragItemClick(item.title)"
+              >
+                <span class="text-main-600 block text-xs font-semibold tracking-wide">
+                  #{{ item.id }}
+                </span>
+                <span class="block text-lg font-semibold text-slate-900">{{ item.title }}</span>
+                <span class="block text-sm leading-6 text-slate-600">{{ item.description }}</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-2 text-sm text-slate-500">
+            <p>拖曳狀態：{{ isDragging ? '拖曳中' : '待命' }}</p>
+            <p aria-live="polite">{{ lastDragAction }}</p>
+          </div>
         </div>
       </section>
 
