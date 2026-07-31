@@ -14,7 +14,7 @@
 | ImageLazyLoad   | [使用方式](ImageLazyLoad/README.md)   | 可控提前載入、響應式圖片與 fallback。 |
 | Marquee         | [使用方式](marquee/Marquee/README.md) | 無縫循環與拖曳跑馬燈。                |
 | Pagination      | [使用方式](Pagination/README.md)      | 受控分頁導覽。                        |
-| SocialShare     | [使用方式](SocialShare/README.md)     | 社群分享與複製連結。                  |
+| SocialShare     | [使用方式](SocialShare/README.md)     | 可拆用功能層的社群分享按鈕。          |
 | Spinner         | [使用方式](Spinner/README.md)         | 載入指示器。                          |
 | SwiperBase      | [使用方式](SwiperBase/README.md)      | 可自訂外層控制項的響應式輪播。        |
 | Tooltip         | [使用方式](tooltip/Tooltip/README.md) | 滑鼠與鍵盤提示文字。                  |

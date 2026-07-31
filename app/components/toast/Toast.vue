@@ -286,6 +286,7 @@ defineExpose<TToastInstance>({
 
 <template>
   <Transition
+    appear
     enter-active-class="transition duration-300 ease-out motion-reduce:transition-none"
     enter-from-class="translate-y-2 opacity-0 motion-reduce:translate-y-0"
     leave-active-class="transition duration-300 ease-in motion-reduce:transition-none"

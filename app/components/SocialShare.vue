@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import type { ClassValue } from 'clsx'
+import type { TExternalSharePlatform, TSharePlatform } from '~/composables/useSocialShare'
 import { cn } from '~/utils/cn'
 
 defineOptions({
   inheritAttrs: false,
 })
-
-type TSharePlatform = 'facebook' | 'line' | 'twitter' | 'copy'
-type TExternalSharePlatform = Exclude<TSharePlatform, 'copy'>
 
 type TProps = {
   url?: string
@@ -33,9 +31,11 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const attrs = useAttrs()
-const isCopied = ref(false)
-const feedbackMessage = ref('')
-let feedbackTimer: ReturnType<typeof setTimeout> | undefined
+const { isCopied, feedbackMessage, share } = useSocialShare({
+  url: () => props.url,
+  title: () => props.title,
+  copiedDuration: () => props.copiedDuration,
+})
 
 const visiblePlatforms = computed(() => [...new Set(props.platforms)])
 const platformLabels = computed<Record<TSharePlatform, string>>(() => ({
@@ -72,134 +72,17 @@ const getButtonClassName = (platform: TSharePlatform): string =>
     props.buttonClass
   )
 
-const clearFeedbackTimer = (): void => {
-  if (feedbackTimer !== undefined) {
-    clearTimeout(feedbackTimer)
-    feedbackTimer = undefined
-  }
-}
-
-const setFeedback = (message: string): void => {
-  clearFeedbackTimer()
-  feedbackMessage.value = message
-
-  if (props.copiedDuration > 0) {
-    feedbackTimer = setTimeout(() => {
-      isCopied.value = false
-      feedbackMessage.value = ''
-      feedbackTimer = undefined
-    }, props.copiedDuration)
-  }
-}
-
-const resolveShareUrl = (): string => {
-  const rawUrl = props.url?.trim() || window.location.href
-  let resolvedUrl: URL
-
-  try {
-    resolvedUrl = new URL(rawUrl, window.location.href)
-  } catch (error: unknown) {
-    throw new TypeError(t('components.socialShare.invalidUrl'), { cause: error })
-  }
-
-  if (resolvedUrl.protocol !== 'http:' && resolvedUrl.protocol !== 'https:') {
-    throw new TypeError(t('components.socialShare.invalidUrl'))
-  }
-
-  return resolvedUrl.href
-}
-
-const resolveShareTitle = (): string => props.title?.trim() || document.title
-
-const buildShareUrl = (platform: TExternalSharePlatform, url: string): string => {
-  const endpoints: Record<TExternalSharePlatform, string> = {
-    facebook: 'https://www.facebook.com/sharer/sharer.php',
-    line: 'https://social-plugins.line.me/lineit/share',
-    twitter: 'https://twitter.com/intent/tweet',
-  }
-  const shareUrl = new URL(endpoints[platform])
-
-  shareUrl.searchParams.set(platform === 'facebook' ? 'u' : 'url', url)
-
-  if (platform === 'twitter') {
-    const title = resolveShareTitle()
-
-    if (title) {
-      shareUrl.searchParams.set('text', title)
-    }
-  }
-
-  return shareUrl.href
-}
-
-const fallbackCopyToClipboard = (text: string): void => {
-  const activeElement = document.activeElement
-  const textArea = document.createElement('textarea')
-
-  textArea.value = text
-  textArea.setAttribute('readonly', '')
-  textArea.style.position = 'fixed'
-  textArea.style.inset = '0'
-  textArea.style.opacity = '0'
-  textArea.style.pointerEvents = 'none'
-  document.body.appendChild(textArea)
-  textArea.select()
-
-  try {
-    if (!document.execCommand('copy')) {
-      throw new Error(t('components.socialShare.copyError'))
-    }
-  } finally {
-    textArea.remove()
-
-    if (activeElement instanceof HTMLElement) {
-      activeElement.focus()
-    }
-  }
-}
-
-const copyToClipboard = async (text: string): Promise<void> => {
-  if (window.isSecureContext && navigator.clipboard) {
-    await navigator.clipboard.writeText(text)
-    return
-  }
-
-  fallbackCopyToClipboard(text)
-}
-
-const handleCopy = (url: string): void => {
-  void copyToClipboard(url)
-    .then(() => {
-      isCopied.value = true
-      setFeedback(t('components.socialShare.copied'))
-      emit('copied', url)
-    })
-    .catch((error: unknown) => {
-      const localizedError = new Error(t('components.socialShare.copyError'), { cause: error })
-
-      isCopied.value = false
-      setFeedback(t('components.socialShare.copyError'))
-      emit('error', localizedError)
-    })
-}
-
 const handleClick = (platform: TSharePlatform): void => {
-  try {
-    const url = resolveShareUrl()
-
-    if (platform === 'copy') {
-      handleCopy(url)
-      return
-    }
-
-    window.open(buildShareUrl(platform, url), '_blank', 'noopener,noreferrer,width=640,height=640')
-    emit('share', platform, url)
-  } catch (error: unknown) {
-    emit('error', error)
-  }
+  void share(platform)
+    .then(({ url }) => {
+      if (platform === 'copy') {
+        emit('copied', url)
+      } else {
+        emit('share', platform, url)
+      }
+    })
+    .catch((error: unknown) => emit('error', error))
 }
-
-onBeforeUnmount(clearFeedbackTimer)
 </script>
 
 <template>

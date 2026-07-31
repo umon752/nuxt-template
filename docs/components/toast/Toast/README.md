@@ -55,3 +55,7 @@ const visible = ref(false)
 | `removeOnHide`    | `boolean`                        | `false`     | 離場動畫後是否觸發 `kill`。                           |
 
 Slots：`text` 提供 `{ text }`；`actions` 提供 `{ hide }`。Events：`update:modelValue`、`show`、`hide`、`kill`。透過元件 ref 可呼叫 `show()`、`hide()`、`kill()`。
+
+## 動畫行為
+
+顯示與隱藏使用 300ms 的位移及透明度 transition。元件初次掛載時若 `modelValue` 已為 `true`，也會執行進場動畫，因此透過 `ToastStack` 動態建立且立即顯示的通知具有相同行為。使用者啟用 `prefers-reduced-motion: reduce` 時會停用 transition。
