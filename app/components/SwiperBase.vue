@@ -78,6 +78,7 @@ defineSlots<{
 
 const { t } = useI18n()
 const swiperInstance = shallowRef<TSwiper>()
+const isInitialized = ref(false)
 const activeSlideIndex = ref(0)
 const activePaginationIndex = ref(0)
 const paginationCount = ref(props.items.length)
@@ -148,6 +149,7 @@ const syncState = (swiper: TSwiper): void => {
 const handleSwiper = (swiper: TSwiper): void => {
   swiperInstance.value = swiper
   syncState(swiper)
+  isInitialized.value = true
   emit('ready', swiper)
 }
 
@@ -210,7 +212,7 @@ defineExpose<TSwiperBaseInstance>({
 </script>
 
 <template>
-  <div>
+  <div :class="{ invisible: !isInitialized }">
     <SwiperVue
       v-bind="props.options"
       :modules="resolvedModules"

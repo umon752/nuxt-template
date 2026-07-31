@@ -761,7 +761,7 @@ const queryPaginatedItems = computed(() => {
         <header class="space-y-2">
           <h2 class="text-center text-2xl font-bold">Swiper 輪播範例</h2>
           <p class="text-center text-slate-600">
-            透過 SwiperBase 將自訂按鈕與 pagination 放在輪播外層，並依螢幕寬度顯示一至三張投影片。
+            初始化前先隱藏輪播，避免 SSR 首屏短暫只顯示一張；完成後依螢幕寬度顯示一至三張投影片。
           </p>
         </header>
 

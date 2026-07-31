@@ -37,6 +37,10 @@ const items = [
 
 `items` 使用 Vue SFC generic 推導 slot 中的資料型別，每筆資料必須包含唯一的 `id: string | number`。
 
+## 初始化與 SSR
+
+SSR 輸出及 client-side Swiper 初始化完成前，元件會以 `visibility: hidden` 隱藏整個輪播與控制列；`@swiper` 取得 instance、同步目前狀態後才顯示並觸發 `ready`。`visibility` 會保留版面與可測量的容器寬度，讓 Swiper 能正確套用 `slidesPerView` 與 breakpoints，同時避免 Swiper 預設 `width: 100%` 使首屏短暫只顯示一張投影片。
+
 ## 自訂外層控制項
 
 ```vue
