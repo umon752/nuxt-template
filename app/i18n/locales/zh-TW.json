@@ -113,6 +113,11 @@
       "copyError": "無法複製連結",
       "invalidUrl": "僅支援 HTTP 與 HTTPS 分享網址"
     },
+    "slideTab": {
+      "ariaLabel": "分類導覽",
+      "previous": "顯示前面的分類",
+      "next": "顯示後面的分類"
+    },
     "swiperBase": {
       "ariaLabel": "內容輪播",
       "roleDescription": "輪播",

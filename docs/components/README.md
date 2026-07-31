@@ -14,6 +14,7 @@
 | ImageLazyLoad   | [使用方式](ImageLazyLoad/README.md)   | 可控提前載入、響應式圖片與 fallback。 |
 | Marquee         | [使用方式](marquee/Marquee/README.md) | 無縫循環與拖曳跑馬燈。                |
 | Pagination      | [使用方式](Pagination/README.md)      | 受控分頁導覽。                        |
+| SlideTab        | [使用方式](SlideTab/README.md)        | 可拖曳的橫向分類導覽。                |
 | SocialShare     | [使用方式](SocialShare/README.md)     | 可拆用功能層的社群分享按鈕。          |
 | Spinner         | [使用方式](Spinner/README.md)         | 載入指示器。                          |
 | SwiperBase      | [使用方式](SwiperBase/README.md)      | 可自訂外層控制項的響應式輪播。        |
@@ -58,14 +59,16 @@
 
 ## 圖示
 
-| 元件          | 文件                                     | 說明           |
-| ------------- | ---------------------------------------- | -------------- |
-| BaseIcon      | [使用方式](icon/BaseIcon/README.md)      | SVG 圖示基底。 |
-| IconArrowDown | [使用方式](icon/IconArrowDown/README.md) | 向下箭頭。     |
-| IconArrowUp   | [使用方式](icon/IconArrowUp/README.md)   | 向上箭頭。     |
-| IconCart      | [使用方式](icon/IconCart/README.md)      | 購物車。       |
-| IconSearch    | [使用方式](icon/IconSearch/README.md)    | 搜尋。         |
-| IconUser      | [使用方式](icon/IconUser/README.md)      | 使用者。       |
+| 元件           | 文件                                      | 說明           |
+| -------------- | ----------------------------------------- | -------------- |
+| BaseIcon       | [使用方式](icon/BaseIcon/README.md)       | SVG 圖示基底。 |
+| IconArrowDown  | [使用方式](icon/IconArrowDown/README.md)  | 向下箭頭。     |
+| IconArrowLeft  | [使用方式](icon/IconArrowLeft/README.md)  | 向左箭頭。     |
+| IconArrowRight | [使用方式](icon/IconArrowRight/README.md) | 向右箭頭。     |
+| IconArrowUp    | [使用方式](icon/IconArrowUp/README.md)    | 向上箭頭。     |
+| IconCart       | [使用方式](icon/IconCart/README.md)       | 購物車。       |
+| IconSearch     | [使用方式](icon/IconSearch/README.md)     | 搜尋。         |
+| IconUser       | [使用方式](icon/IconUser/README.md)       | 使用者。       |
 
 ## Toast
 

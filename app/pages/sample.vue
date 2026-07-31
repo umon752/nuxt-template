@@ -3,6 +3,7 @@ import Counter, { type TCounterChangeSource } from '~/components/counter/Counter
 import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
 import Marquee, { type TMarqueeItem } from '~/components/marquee/Marquee.vue'
 import Modal, { type TModalCloseReason } from '~/components/modal/Modal.vue'
+import type { TSlideTabItem } from '~/components/SlideTab.vue'
 import Toast from '~/components/toast/Toast.vue'
 import Tooltip from '~/components/tooltip/Tooltip.vue'
 
@@ -29,6 +30,19 @@ const marqueeItems: TMarqueeItem[] = [
   { id: 3, title: 'TypeScript Strict Mode' },
   { id: 4, title: 'Tailwind CSS 4' },
   { id: 5, title: 'Responsive Marquee' },
+]
+
+const slideTabItems: TSlideTabItem[] = [
+  { id: 'all', label: '全部' },
+  { id: 'building', label: '大樓公告' },
+  { id: 'events', label: '活動宣傳與近期消息' },
+  { id: 'maintenance', label: '設施維護' },
+  { id: 'security', label: '安全通知' },
+  { id: 'community', label: '社區交流與住戶活動' },
+  { id: 'transportation', label: '交通資訊' },
+  { id: 'service', label: '生活服務' },
+  { id: 'rules', label: '管理規章' },
+  { id: 'coming-soon', label: '即將開放', disabled: true },
 ]
 
 const swiperItems = [
@@ -93,6 +107,15 @@ const { isDragging } = useDrag({
 const handleDragItemClick = (title: string): void => {
   lastDragAction.value = `已點選「${title}」`
 }
+
+const basicSlideTabId = ref<string | number>('all')
+const basicSlideTabItem = computed(() =>
+  slideTabItems.find((item) => item.id === basicSlideTabId.value)
+)
+const alignedSlideTabId = ref<string | number>('rules')
+const alignedSlideTabItem = computed(() =>
+  slideTabItems.find((item) => item.id === alignedSlideTabId.value)
+)
 
 const basicCounterValue = ref(0)
 const editableCounterValue = ref(2)
@@ -674,6 +697,63 @@ const queryPaginatedItems = computed(() => {
             <p>拖曳狀態：{{ isDragging ? '拖曳中' : '待命' }}</p>
             <p aria-live="polite">{{ lastDragAction }}</p>
           </div>
+        </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">SlideTab 橫向分類導覽</h2>
+          <p class="text-center text-slate-600">
+            使用相同分類比較預設定位，以及啟用 align-active-to-start 後盡量靠左的差異。
+          </p>
+        </header>
+
+        <div class="space-y-8">
+          <article class="space-y-3 rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-slate-900">預設：確保 Active 可見</h3>
+              <p class="text-sm text-slate-600">
+                Active 項目已在 viewport 內時不會額外改變捲動位置。
+              </p>
+            </div>
+
+            <div class="border-b border-slate-300">
+              <SlideTab
+                v-model="basicSlideTabId"
+                :items="slideTabItems"
+                aria-label="預設定位的範例內容分類"
+              />
+            </div>
+
+            <p class="text-sm text-slate-500" aria-live="polite">
+              目前分類：{{ basicSlideTabItem?.label ?? '未選擇' }}
+            </p>
+          </article>
+
+          <article class="space-y-3 rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-slate-900">
+                align-active-to-start：Active 盡量靠左
+              </h3>
+              <p class="text-sm text-slate-600">
+                只要捲動範圍允許，就會將 Active 項目左緣對齊 viewport
+                左側；尾端仍受最大捲動距離限制。
+              </p>
+            </div>
+
+            <div class="border-b border-slate-300">
+              <SlideTab
+                v-model="alignedSlideTabId"
+                :items="slideTabItems"
+                aria-label="Active 項目盡量靠左的範例內容分類"
+                align-active-to-start
+              />
+            </div>
+
+            <p class="text-sm text-slate-500" aria-live="polite">
+              目前分類：{{ alignedSlideTabItem?.label ?? '未選擇' }}
+            </p>
+          </article>
         </div>
       </section>
 
