@@ -115,7 +115,7 @@ const canWrap = computed(() => props.options.loop === true || props.options.rewi
 const isPreviousDisabled = computed(() => !canWrap.value && isBeginning.value)
 const isNextDisabled = computed(() => !canWrap.value && isEnd.value)
 const swiperClassName = computed(() => cn(props.swiperClass))
-const slideClassName = computed(() => cn('h-[stretch]!', props.slideClass))
+const slideClassName = computed(() => cn('flex! h-auto!', props.slideClass))
 const controlsClassName = computed(() =>
   cn('mt-5 flex items-center justify-center gap-4', props.controlsClass)
 )

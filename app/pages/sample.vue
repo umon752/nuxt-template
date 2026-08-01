@@ -775,7 +775,7 @@ const queryPaginatedItems = computed(() => {
         >
           <template #slide="{ item }">
             <article
-              class="h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+              class="h-full w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
             >
               <ImageLazyLoad
                 :src="item.image"
