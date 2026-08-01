@@ -4,6 +4,7 @@ import CountUp, { type TCountUpInstance } from '~/components/countup/CountUp.vue
 import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
 import Marquee, { type TMarqueeItem } from '~/components/marquee/Marquee.vue'
 import Modal, { type TModalCloseReason } from '~/components/modal/Modal.vue'
+import Odometer, { type TOdometerInstance } from '~/components/odometer/Odometer.vue'
 import type { TSlideTabItem } from '~/components/SlideTab.vue'
 import Toast from '~/components/toast/Toast.vue'
 import Tooltip from '~/components/tooltip/Tooltip.vue'
@@ -146,6 +147,26 @@ const controlCountUps = (action: TCountUpControlAction): void => {
 
 const handleCountUpEvent = (eventName: string, value: string): void => {
   lastCountUpEvent.value = `${eventName}：${value}`
+}
+
+const odometer = useTemplateRef<TOdometerInstance>('odometer')
+const odometerValue = ref(128)
+const odometerInput = ref<number | string>(5432)
+const lastOdometerEvent = ref('尚未執行')
+
+const updateOdometer = (): void => {
+  const nextValue = Number(odometerInput.value)
+
+  odometerValue.value = Number.isInteger(nextValue) && nextValue >= 0 ? nextValue : 0
+}
+
+const setOdometerValue = (value: number): void => {
+  odometerInput.value = value
+  odometerValue.value = value
+}
+
+const handleOdometerEvent = (eventName: string, value: number): void => {
+  lastOdometerEvent.value = `${eventName}：${value}`
 }
 
 const toast = useToast()
@@ -599,6 +620,57 @@ const queryPaginatedItems = computed(() => {
         </div>
 
         <p class="text-center text-sm text-slate-500">最後事件：{{ lastCountUpEvent }}</p>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">Odometer 里程表數字元件</h2>
+          <p class="text-center text-slate-600">
+            每一位數字使用獨立的垂直軌道，位數不同時會先切換成目標位數，再開始滾動。
+          </p>
+        </header>
+
+        <article
+          class="mx-auto max-w-3xl space-y-6 rounded-2xl border border-slate-200 p-6 text-center shadow-sm"
+        >
+          <Odometer
+            ref="odometer"
+            :value="odometerValue"
+            :start-value="0"
+            :max-count="99999"
+            :duration="1200"
+            odometer-class="text-5xl font-bold text-main-500"
+            @run="handleOdometerEvent('執行', $event)"
+            @update="handleOdometerEvent('更新', $event)"
+            @done="handleOdometerEvent('完成', $event)"
+          />
+
+          <div class="flex flex-wrap items-end justify-center gap-3">
+            <label class="space-y-2 text-left">
+              <span class="block text-sm font-medium text-slate-700">目標值</span>
+              <input
+                v-model.number="odometerInput"
+                type="number"
+                min="0"
+                step="1"
+                class="w-48 rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-slate-500"
+              />
+            </label>
+            <BtnDefault text="更新數值" @click="updateOdometer" />
+            <BtnDefault text="從 0 重播" @click="odometer?.run()" />
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-3">
+            <BtnDefault text="兩位數 42" @click="setOdometerValue(42)" />
+            <BtnDefault text="四位數 1000" @click="setOdometerValue(1000)" />
+            <BtnDefault text="超過上限 100000" @click="setOdometerValue(100000)" />
+          </div>
+
+          <div class="space-y-1 text-sm text-slate-500">
+            <p>父層數值：{{ odometerValue }}；最大顯示值：99999</p>
+            <p>最後事件：{{ lastOdometerEvent }}</p>
+          </div>
+        </article>
       </section>
 
       <section class="space-y-6 py-4">
