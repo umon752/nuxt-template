@@ -9,6 +9,7 @@
 | Accordion       | [使用方式](Accordion/README.md)       | 展開／收合內容與程式化控制。          |
 | Breadcrumb      | [使用方式](Breadcrumb/README.md)      | 麵包屑導覽。                          |
 | Counter         | [使用方式](counter/Counter/README.md) | 受控數量輸入與增減控制。              |
+| CountUp         | [使用方式](countup/CountUp/README.md) | 隨機或順序數字動畫與程式化控制。      |
 | FullPageLoading | [使用方式](FullPageLoading/README.md) | 全頁載入遮罩。                        |
 | IframeLazyLoad  | [使用方式](IframeLazyLoad/README.md)  | 延遲載入響應式 iframe。               |
 | ImageLazyLoad   | [使用方式](ImageLazyLoad/README.md)   | 可控提前載入、響應式圖片與 fallback。 |

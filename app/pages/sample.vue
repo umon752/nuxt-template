@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Counter, { type TCounterChangeSource } from '~/components/counter/Counter.vue'
+import CountUp, { type TCountUpInstance } from '~/components/countup/CountUp.vue'
 import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
 import Marquee, { type TMarqueeItem } from '~/components/marquee/Marquee.vue'
 import Modal, { type TModalCloseReason } from '~/components/modal/Modal.vue'
@@ -130,6 +131,21 @@ const handleCounterChange = (value: number, source: TCounterChangeSource): void 
   }
 
   lastCounterEvent.value = `${sourceLabels[source]}至 ${value}`
+}
+
+type TCountUpControlAction = keyof TCountUpInstance
+
+const randomCountUp = useTemplateRef<TCountUpInstance>('randomCountUp')
+const sequentialCountUp = useTemplateRef<TCountUpInstance>('sequentialCountUp')
+const lastCountUpEvent = ref('尚未執行')
+
+const controlCountUps = (action: TCountUpControlAction): void => {
+  randomCountUp.value?.[action]()
+  sequentialCountUp.value?.[action]()
+}
+
+const handleCountUpEvent = (eventName: string, value: string): void => {
+  lastCountUpEvent.value = `${eventName}：${value}`
 }
 
 const toast = useToast()
@@ -523,6 +539,66 @@ const queryPaginatedItems = computed(() => {
         </div>
 
         <p class="text-center text-sm text-slate-500">最後事件：{{ lastCounterEvent }}</p>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">CountUp 數字動畫元件</h2>
+          <p class="text-center text-slate-600">
+            展示保留符號的隨機數字動畫、順序遞增與千分位格式，以及完整播放控制。
+          </p>
+        </header>
+
+        <div class="grid gap-6 md:grid-cols-2">
+          <article class="space-y-3 rounded-2xl border border-slate-200 p-6 text-center shadow-sm">
+            <h3 class="text-lg font-semibold text-slate-900">隨機模式</h3>
+            <p class="text-sm text-slate-600">非數字字元會固定，只讓各個數字隨機跳動。</p>
+            <CountUp
+              ref="randomCountUp"
+              value="123,567.98 個"
+              :duration="2000"
+              :start-time="300"
+              :delay="80"
+              count-up-class="text-3xl font-bold text-main-500"
+              @run="handleCountUpEvent('執行', $event)"
+              @stop="handleCountUpEvent('暫停', $event)"
+              @start="handleCountUpEvent('繼續', $event)"
+              @reset="handleCountUpEvent('重設', $event)"
+              @restart="handleCountUpEvent('重新執行', $event)"
+              @done="handleCountUpEvent('完成', $event)"
+            />
+          </article>
+
+          <article class="space-y-3 rounded-2xl border border-slate-200 p-6 text-center shadow-sm">
+            <h3 class="text-lg font-semibold text-slate-900">順序模式與千分位</h3>
+            <p class="text-sm text-slate-600">從 500 線性遞增至 12,500。</p>
+            <CountUp
+              ref="sequentialCountUp"
+              :value="12500"
+              :start-value="500"
+              :duration="2000"
+              mode="sequential"
+              thousand-comma
+              count-up-class="text-3xl font-bold text-slate-900"
+              @run="handleCountUpEvent('執行', $event)"
+              @stop="handleCountUpEvent('暫停', $event)"
+              @start="handleCountUpEvent('繼續', $event)"
+              @reset="handleCountUpEvent('重設', $event)"
+              @restart="handleCountUpEvent('重新執行', $event)"
+              @done="handleCountUpEvent('完成', $event)"
+            />
+          </article>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-3">
+          <BtnDefault text="Run（含延遲）" @click="controlCountUps('run')" />
+          <BtnDefault text="Stop" @click="controlCountUps('stop')" />
+          <BtnDefault text="Start（立即繼續）" @click="controlCountUps('start')" />
+          <BtnDefault text="Reset" @click="controlCountUps('reset')" />
+          <BtnDefault text="Restart" @click="controlCountUps('restart')" />
+        </div>
+
+        <p class="text-center text-sm text-slate-500">最後事件：{{ lastCountUpEvent }}</p>
       </section>
 
       <section class="space-y-6 py-4">
