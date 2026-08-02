@@ -1,0 +1,16 @@
+@layer utilities {
+  html.js [data-fade]:not([data-fade-initialized]) {
+    opacity: 0;
+  }
+
+  html.js [data-fade='up']:not([data-fade-initialized]) {
+    transform: translateY(20%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.js [data-fade]:not([data-fade-initialized]) {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

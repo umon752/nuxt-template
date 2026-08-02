@@ -73,6 +73,12 @@ export default defineNuxtConfig({
           href: '/images/favicon/favicon.ico',
         },
       ],
+
+      script: [
+        {
+          innerHTML: "document.documentElement.classList.replace('no-js', 'js')",
+        },
+      ],
     },
   },
 

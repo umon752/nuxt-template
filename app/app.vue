@@ -6,6 +6,12 @@ const { locale } = useI18n()
 const i18nHead = useLocaleHead()
 const { isLoading: isFullPageLoading } = useFullPageLoading()
 
+useServerHead({
+  htmlAttrs: {
+    class: 'no-js',
+  },
+})
+
 useHead(() => ({
   htmlAttrs: {
     lang: i18nHead.value.htmlAttrs.lang,

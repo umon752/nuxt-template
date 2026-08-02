@@ -110,6 +110,19 @@ const handleDragItemClick = (title: string): void => {
   lastDragAction.value = `已點選「${title}」`
 }
 
+const observerFadeContainer = useTemplateRef<HTMLElement>('observerFadeContainer')
+const showDynamicObserverFadeItem = ref(false)
+
+const {
+  isActive: isObserverFadeActive,
+  observedCount: observerFadeCount,
+  start: startObserverFade,
+  refresh: refreshObserverFade,
+  stop: stopObserverFade,
+} = useObserverFade({
+  container: observerFadeContainer,
+})
+
 const basicSlideTabId = ref<string | number>('all')
 const basicSlideTabItem = computed(() =>
   slideTabItems.find((item) => item.id === basicSlideTabId.value)
@@ -488,6 +501,79 @@ const queryPaginatedItems = computed(() => {
 
         <div class="flex justify-center">
           <BtnDefault />
+        </div>
+      </section>
+
+      <section ref="observerFadeContainer" class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">useObserverFade 捲動淡入</h2>
+          <p class="text-center text-slate-600">
+            使用 data attribute 設定淡入方式；動態加入的項目也會自動被觀察。
+          </p>
+        </header>
+
+        <div class="flex flex-wrap justify-center gap-3">
+          <BtnDefault
+            :text="showDynamicObserverFadeItem ? '移除動態項目' : '新增動態項目'"
+            @click="showDynamicObserverFadeItem = !showDynamicObserverFadeItem"
+          />
+          <BtnDefault text="重新掃描" @click="refreshObserverFade" />
+          <BtnDefault
+            :text="isObserverFadeActive ? '停止並顯示全部' : '重新啟動'"
+            @click="isObserverFadeActive ? stopObserverFade() : startObserverFade()"
+          />
+        </div>
+
+        <p class="text-center text-sm text-slate-500" aria-live="polite">
+          狀態：{{ isObserverFadeActive ? '觀察中' : '已停止' }}，已處理
+          {{ observerFadeCount }} 個元素
+        </p>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          <article
+            data-fade="in"
+            class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+          >
+            <p class="text-main-600 text-xs font-semibold tracking-wide">#1</p>
+            <h3 class="text-lg font-semibold text-slate-900">淡入一次</h3>
+            <p class="text-sm leading-6 text-slate-600">進入 viewport 後執行一次 opacity 動畫。</p>
+          </article>
+
+          <article
+            data-fade="up"
+            data-fade-timing='{"duration":800,"delay":150,"easing":"ease-out"}'
+            class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+          >
+            <p class="text-main-600 text-xs font-semibold tracking-wide">#2</p>
+            <h3 class="text-lg font-semibold text-slate-900">向上淡入</h3>
+            <p class="text-sm leading-6 text-slate-600">
+              可透過 data-fade-timing 覆寫 duration、delay 與 easing。
+            </p>
+          </article>
+
+          <article
+            data-fade="up"
+            data-fade-once="false"
+            class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+          >
+            <p class="text-main-600 text-xs font-semibold tracking-wide">#3</p>
+            <h3 class="text-lg font-semibold text-slate-900">離開後重播</h3>
+            <p class="text-sm leading-6 text-slate-600">
+              data-fade-once="false" 會在離開 viewport 時回到起始狀態。
+            </p>
+          </article>
+
+          <article
+            v-if="showDynamicObserverFadeItem"
+            data-fade="in"
+            class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+          >
+            <p class="text-main-600 text-xs font-semibold tracking-wide">#4</p>
+            <h3 class="text-lg font-semibold text-slate-900">動態項目</h3>
+            <p class="text-sm leading-6 text-slate-600">
+              MutationObserver 會自動偵測並套用動畫，不需手動 refresh。
+            </p>
+          </article>
         </div>
       </section>
 

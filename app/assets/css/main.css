@@ -15,6 +15,7 @@
 @import './utilities/_utilities.css';
 @import './utilities/_container.css';
 @import './utilities/_editor.css';
+@import './utilities/_observer-fade.css';
 
 /* Modules Layer */
 /* Layout Layer */
