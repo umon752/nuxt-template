@@ -564,6 +564,27 @@ const queryPaginatedItems = computed(() => {
 
       <section class="space-y-6 py-4">
         <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">EmptyState 空資料狀態元件</h2>
+          <p class="text-center text-slate-600">
+            展示預設空資料訊息，以及透過 class props 調整容器與文字樣式。
+          </p>
+        </header>
+
+        <div class="grid gap-6 md:grid-cols-2">
+          <EmptyState title="目前沒有資料" description="尚未建立任何內容。" />
+
+          <EmptyState
+            title="找不到搜尋結果"
+            description="請調整關鍵字或清除篩選條件。"
+            empty-class="border-main-300 bg-main-50"
+            title-class="text-main-700"
+            description-class="text-main-600"
+          />
+        </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
           <h2 class="text-center text-2xl font-bold">CountUp 數字動畫元件</h2>
           <p class="text-center text-slate-600">
             展示保留符號的隨機數字動畫、順序遞增與千分位格式，以及完整播放控制。
