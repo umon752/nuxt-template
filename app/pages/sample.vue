@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { DateValue } from '@internationalized/date'
+
 import Counter, { type TCounterChangeSource } from '~/components/counter/Counter.vue'
 import CountUp, { type TCountUpInstance } from '~/components/countup/CountUp.vue'
 import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
@@ -8,6 +10,8 @@ import Odometer, { type TOdometerInstance } from '~/components/odometer/Odometer
 import type { TSlideTabItem } from '~/components/SlideTab.vue'
 import Toast from '~/components/toast/Toast.vue'
 import Tooltip from '~/components/tooltip/Tooltip.vue'
+import type { TAppSelectOption } from '~/components/form/AppSelect.vue'
+import { useToast } from '~/composables/useToast'
 
 usePageSeo({
   title: '範例頁',
@@ -112,6 +116,31 @@ const handleDragItemClick = (title: string): void => {
 
 const observerFadeContainer = useTemplateRef<HTMLElement>('observerFadeContainer')
 const showDynamicObserverFadeItem = ref(false)
+
+const nuxtUiWrapperForm = reactive({
+  name: '',
+  category: undefined as string | number | undefined,
+})
+const nuxtUiWrapperDate = shallowRef<DateValue>()
+const nuxtUiWrapperFormSubmitted = ref(false)
+const nuxtUiWrapperCategoryOptions: TAppSelectOption[] = [
+  { label: '公告', value: 'announcement' },
+  { label: '活動', value: 'event' },
+  { label: '設施維護', value: 'maintenance' },
+]
+
+const submitNuxtUiWrapperForm = (): void => {
+  nuxtUiWrapperFormSubmitted.value = true
+}
+
+const nuxtUiWrapperNameError = computed(() =>
+  nuxtUiWrapperFormSubmitted.value && !nuxtUiWrapperForm.name ? '請輸入姓名' : undefined
+)
+const nuxtUiWrapperCategoryError = computed(() =>
+  nuxtUiWrapperFormSubmitted.value && nuxtUiWrapperForm.category === undefined
+    ? '請選擇分類'
+    : undefined
+)
 
 const {
   isActive: isObserverFadeActive,
@@ -575,6 +604,64 @@ const queryPaginatedItems = computed(() => {
             </p>
           </article>
         </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">Nuxt UI wrapper 表單元件</h2>
+          <p class="text-center text-slate-600">
+            頁面只使用專案自己的 FormAppForm、FormAppInput、FormAppSelect、FormAppDatePicker 與
+            FormAppFormField，內部由 wrapper 封裝 Nuxt UI。
+          </p>
+        </header>
+
+        <FormAppForm
+          class="mx-auto grid max-w-3xl gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+          novalidate
+          @submit="submitNuxtUiWrapperForm"
+        >
+          <FormAppFormField
+            label="姓名"
+            description="由 FormAppFormField 統一處理 label、description 與 error。"
+            :error="nuxtUiWrapperNameError"
+            required
+          >
+            <FormAppInput
+              v-model="nuxtUiWrapperForm.name"
+              placeholder="請輸入姓名"
+              :invalid="!!nuxtUiWrapperNameError"
+              autocomplete="name"
+            />
+          </FormAppFormField>
+
+          <FormAppFormField label="分類" :error="nuxtUiWrapperCategoryError" required>
+            <FormAppSelect
+              v-model="nuxtUiWrapperForm.category"
+              :options="nuxtUiWrapperCategoryOptions"
+              placeholder="請選擇分類"
+              :invalid="!!nuxtUiWrapperCategoryError"
+            />
+          </FormAppFormField>
+
+          <FormAppFormField
+            label="日期"
+            description="FormAppDatePicker 對外使用 DateValue，內部組合 InputDate、Calendar 與 Popover。"
+          >
+            <FormAppDatePicker v-model="nuxtUiWrapperDate" />
+          </FormAppFormField>
+
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <p class="text-sm text-slate-500" aria-live="polite">
+              選擇日期：{{ nuxtUiWrapperDate?.toString() ?? '尚未選擇' }}
+            </p>
+            <button
+              type="submit"
+              class="rounded-md bg-slate-900 px-4 py-2 font-medium text-white transition-colors hover:bg-slate-700"
+            >
+              送出驗證
+            </button>
+          </div>
+        </FormAppForm>
       </section>
 
       <section class="space-y-6 py-4">
