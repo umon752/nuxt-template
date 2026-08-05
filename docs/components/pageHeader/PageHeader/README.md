@@ -19,9 +19,9 @@
 />
 ```
 
-| Prop              | 型別                | 預設值              | 說明                                                   |
-| ----------------- | ------------------- | ------------------- | ------------------------------------------------------ |
-| `banner`          | `string`            | `/images/nopic.png` | 橫幅圖片。                                             |
-| `bannerAlt`       | `string`            | 自動標題            | 橫幅替代文字。                                         |
-| `title`           | `string`            | 自動標題            | 頁面 H1；未提供時依 breadcrumb 最後一項或 route 產生。 |
-| `breadcrumbItems` | `TBreadcrumbItem[]` | 自動 breadcrumb     | 自訂麵包屑；空陣列時使用 `useBreadcrumb()`。           |
+| Prop              | 型別                | 預設值          | 說明                                                   |
+| ----------------- | ------------------- | --------------- | ------------------------------------------------------ |
+| `banner`          | `string`            | `''`            | 橫幅圖片；空字串時不渲染橫幅。                         |
+| `bannerAlt`       | `string`            | 自動標題        | 橫幅替代文字。                                         |
+| `title`           | `string`            | 自動標題        | 頁面 H1；未提供時依 breadcrumb 最後一項或 route 產生。 |
+| `breadcrumbItems` | `TBreadcrumbItem[]` | 自動 breadcrumb | 自訂麵包屑；空陣列時使用 `useBreadcrumb()`。           |

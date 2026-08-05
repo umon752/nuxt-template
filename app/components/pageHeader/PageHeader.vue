@@ -9,7 +9,7 @@ type TProps = {
 }
 
 const props = withDefaults(defineProps<TProps>(), {
-  banner: '/images/nopic.png',
+  banner: '',
   bannerAlt: '',
   title: '',
   breadcrumbItems: () => [],
@@ -33,8 +33,8 @@ const bannerAlt = computed(
 
 <template>
   <header class="space-y-2">
-    <PageHeaderPageBanner :banner="props.banner" :alt="bannerAlt" />
-    <div class="container flex flex-col items-center gap-2">
+    <PageHeaderPageBanner v-if="props.banner" :banner="props.banner" :alt="bannerAlt" />
+    <div class="container flex flex-col items-center gap-2 py-4">
       <PageHeaderPageTitle :title="pageTitle" class="text-4xl font-bold" />
       <Breadcrumb :items="breadcrumbItems" />
     </div>

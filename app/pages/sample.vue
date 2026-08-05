@@ -519,7 +519,7 @@ const queryPaginatedItems = computed(() => {
         </p>
       </header>
 
-      <PageHeader />
+      <PageHeader :banner="'/images/demo/test-img.jpg'" />
     </section>
 
     <div class="container">
