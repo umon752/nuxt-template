@@ -13,35 +13,37 @@ type TProps = {
   contentClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  content: '',
-  link: '',
-  imgDefaultClass: '',
-  imgLoadedClass: '',
-  titleClass: '',
-  contentClass: '',
-})
+const {
+  image,
+  title,
+  content = '',
+  link = '',
+  imgDefaultClass: imgDefaultClassProp = '',
+  imgLoadedClass: imgLoadedClassProp = '',
+  titleClass: titleClassProp = '',
+  contentClass: contentClassProp = '',
+} = defineProps<TProps>()
 
-const imgDefaultClass = computed(() => cn(props.imgDefaultClass))
+const imgDefaultClass = computed(() => cn(imgDefaultClassProp))
 const imgLoadedClass = computed(() =>
   cn(
     'rounded-xl ease-out group-hover:scale-105 group-focus-within:scale-105 motion-reduce:scale-100',
-    props.imgLoadedClass
+    imgLoadedClassProp
   )
 )
-const titleClass = computed(() => cn('line-clamp-2 font-semibold', props.titleClass))
-const contentClass = computed(() => cn(props.contentClass))
+const titleClass = computed(() => cn('line-clamp-2 font-semibold', titleClassProp))
+const contentClass = computed(() => cn(contentClassProp))
 </script>
 
 <template>
-  <article class="group relative flex flex-col gap-2" :class="{ 'cursor-pointer': props.link }">
-    <ImageLazyLoad :src="props.image" alt="" :class="imgDefaultClass" :img-class="imgLoadedClass" />
+  <article class="group relative flex flex-col gap-2" :class="{ 'cursor-pointer': link }">
+    <ImageLazyLoad :src="image" alt="" :class="imgDefaultClass" :img-class="imgLoadedClass" />
     <div>
       <h3 :class="titleClass">
-        {{ props.title }}
+        {{ title }}
       </h3>
-      <p v-if="props.content" :class="contentClass">{{ props.content }}</p>
+      <p v-if="content" :class="contentClass">{{ content }}</p>
     </div>
-    <NuxtLink v-if="props.link" :to="props.link" :aria-label="props.title" class="u-link-range" />
+    <NuxtLink v-if="link" :to="link" :aria-label="title" class="u-link-range" />
   </article>
 </template>

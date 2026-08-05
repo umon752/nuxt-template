@@ -13,19 +13,15 @@ defineOptions({
   name: 'SingleSubmenu',
 })
 
-const props = withDefaults(defineProps<TProps>(), {
-  nested: false,
-  panelId: '',
-  open: false,
-})
+const { item, nested = false, panelId = '', open = false } = defineProps<TProps>()
 
 const emit = defineEmits<{
   close: []
 }>()
 
-const hasChildren = computed(() => Boolean(props.item.children?.length))
+const hasChildren = computed(() => Boolean(item.children?.length))
 const panelRef = ref<HTMLElement | null>(null)
-const isNested = computed(() => props.nested)
+const isNested = computed(() => nested)
 const openChildId = ref<string>()
 
 const { panelStyle, refreshPosition } = useDropdownMenuPosition({
@@ -34,20 +30,20 @@ const { panelStyle, refreshPosition } = useDropdownMenuPosition({
 })
 
 const panelClass = computed(() => {
-  return props.nested
+  return nested
     ? 'absolute z-50 min-w-48 px-1 transition'
     : 'absolute z-50 min-w-48 pt-5 transition'
 })
 
-const resolvedPanelId = computed(() => props.panelId || `submenu-${props.item.id}`)
+const resolvedPanelId = computed(() => panelId || `submenu-${item.id}`)
 
 // 面板開啟後更新位置；Escape 關閉時將 focus 移回 trigger
 watch(
-  () => props.open,
+  () => open,
   async (open, _previousOpen, onCleanup) => {
     await nextTick()
     const panel = panelRef.value
-    const trigger = document.getElementById(`menu-trigger-${props.item.id}`)
+    const trigger = document.getElementById(`menu-trigger-${item.id}`)
 
     if (open) {
       if (panel) {
@@ -104,19 +100,17 @@ const handleChildFocusout = (event: FocusEvent): void => {
     ref="panelRef"
     :class="[
       panelClass,
-      props.open
-        ? 'pointer-events-auto visible opacity-100'
-        : 'pointer-events-none invisible opacity-0',
+      open ? 'pointer-events-auto visible opacity-100' : 'pointer-events-none invisible opacity-0',
     ]"
     :style="panelStyle"
-    :aria-labelledby="`menu-trigger-${props.item.id}`"
+    :aria-labelledby="`menu-trigger-${item.id}`"
     role="region"
     @mouseenter="refreshPosition"
     @focusin="refreshPosition"
   >
     <ul class="bg-white shadow-lg">
       <li
-        v-for="child in props.item.children"
+        v-for="child in item.children"
         :key="child.id"
         class="group/submenu relative"
         @mouseenter="openChild(child.children?.length ? child.id : undefined)"

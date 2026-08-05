@@ -20,40 +20,40 @@ type TProps = {
 
 defineOptions({ inheritAttrs: false })
 
-const props = withDefaults(defineProps<TProps>(), {
-  type: 'text',
-  placeholder: undefined,
-  disabled: false,
-  readonly: false,
-  required: false,
-  invalid: false,
-  size: 'md',
-  leadingIcon: undefined,
-  trailingIcon: undefined,
-  inputClass: '',
-})
+const {
+  type = 'text',
+  placeholder = undefined,
+  disabled = false,
+  readonly = false,
+  required = false,
+  invalid = false,
+  size = 'md',
+  leadingIcon = undefined,
+  trailingIcon = undefined,
+  inputClass: inputClassProp = '',
+} = defineProps<TProps>()
 
 const attrs = useAttrs()
 const model = defineModel<string | number | undefined>()
 
-const inputClass = computed(() => cn('w-full', attrs.class as ClassValue, props.inputClass))
-const inputColor = computed(() => (props.invalid ? 'error' : 'neutral'))
+const inputClass = computed(() => cn('w-full', attrs.class as ClassValue, inputClassProp))
+const inputColor = computed(() => (invalid ? 'error' : 'neutral'))
 </script>
 
 <template>
   <UInput
     v-bind="attrs"
     v-model="model"
-    :type="props.type"
-    :placeholder="props.placeholder"
-    :disabled="props.disabled"
-    :readonly="props.readonly"
-    :required="props.required"
+    :type="type"
+    :placeholder="placeholder"
+    :disabled="disabled"
+    :readonly="readonly"
+    :required="required"
     :color="inputColor"
-    :size="props.size"
-    :leading-icon="props.leadingIcon"
-    :trailing-icon="props.trailingIcon"
-    :aria-invalid="props.invalid || undefined"
+    :size="size"
+    :leading-icon="leadingIcon"
+    :trailing-icon="trailingIcon"
+    :aria-invalid="invalid || undefined"
     :class="inputClass"
   />
 </template>

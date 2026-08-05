@@ -16,31 +16,31 @@ type TProps = {
 
 defineOptions({ inheritAttrs: false })
 
-const props = withDefaults(defineProps<TProps>(), {
-  label: undefined,
-  description: undefined,
-  help: undefined,
-  hint: undefined,
-  error: undefined,
-  required: false,
-  size: 'md',
-  fieldClass: '',
-})
+const {
+  label = undefined,
+  description = undefined,
+  help = undefined,
+  hint = undefined,
+  error = undefined,
+  required = false,
+  size = 'md',
+  fieldClass: fieldClassProp = '',
+} = defineProps<TProps>()
 
 const attrs = useAttrs()
-const fieldClass = computed(() => cn(attrs.class as ClassValue, props.fieldClass))
+const fieldClass = computed(() => cn(attrs.class as ClassValue, fieldClassProp))
 </script>
 
 <template>
   <UFormField
     v-bind="attrs"
-    :label="props.label"
-    :description="props.description"
-    :help="props.help"
-    :hint="props.hint"
-    :error="props.error"
-    :required="props.required"
-    :size="props.size"
+    :label="label"
+    :description="description"
+    :help="help"
+    :hint="hint"
+    :error="error"
+    :required="required"
+    :size="size"
     :class="fieldClass"
   >
     <slot />

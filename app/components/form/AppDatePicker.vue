@@ -20,28 +20,28 @@ type TProps = {
 
 defineOptions({ inheritAttrs: false })
 
-const props = withDefaults(defineProps<TProps>(), {
-  disabled: false,
-  readonly: false,
-  required: false,
-  invalid: false,
-  size: 'md',
-  locale: undefined,
-  minValue: undefined,
-  maxValue: undefined,
-  trailingIcon: 'i-lucide-calendar-days',
-  inputClass: '',
-  calendarClass: '',
-})
+const {
+  disabled = false,
+  readonly = false,
+  required = false,
+  invalid = false,
+  size = 'md',
+  locale = undefined,
+  minValue = undefined,
+  maxValue = undefined,
+  trailingIcon = 'i-lucide-calendar-days',
+  inputClass: inputClassProp = '',
+  calendarClass: calendarClassProp = '',
+} = defineProps<TProps>()
 
 const attrs = useAttrs()
 const model = defineModel<DateValue | undefined>()
 const { locale: appLocale } = useI18n()
 
-const inputClass = computed(() => cn('w-full', attrs.class as ClassValue, props.inputClass))
-const calendarClass = computed(() => cn('p-3', props.calendarClass))
-const inputColor = computed(() => (props.invalid ? 'error' : 'neutral'))
-const inputLocale = computed(() => props.locale ?? appLocale.value)
+const inputClass = computed(() => cn('w-full', attrs.class as ClassValue, inputClassProp))
+const calendarClass = computed(() => cn('p-3', calendarClassProp))
+const inputColor = computed(() => (invalid ? 'error' : 'neutral'))
+const inputLocale = computed(() => locale ?? appLocale.value)
 </script>
 
 <template>
@@ -50,16 +50,16 @@ const inputLocale = computed(() => props.locale ?? appLocale.value)
       <UInputDate
         v-bind="attrs"
         v-model="model"
-        :disabled="props.disabled"
-        :readonly="props.readonly"
-        :required="props.required"
+        :disabled="disabled"
+        :readonly="readonly"
+        :required="required"
         :color="inputColor"
-        :size="props.size"
+        :size="size"
         :locale="inputLocale"
-        :min-value="props.minValue"
-        :max-value="props.maxValue"
-        :trailing-icon="props.trailingIcon"
-        :aria-invalid="props.invalid || undefined"
+        :min-value="minValue"
+        :max-value="maxValue"
+        :trailing-icon="trailingIcon"
+        :aria-invalid="invalid || undefined"
         :class="inputClass"
       />
     </template>
@@ -67,10 +67,10 @@ const inputLocale = computed(() => props.locale ?? appLocale.value)
     <template #content="{ close }">
       <UCalendar
         v-model="model"
-        :disabled="props.disabled"
+        :disabled="disabled"
         :locale="inputLocale"
-        :min-value="props.minValue"
-        :max-value="props.maxValue"
+        :min-value="minValue"
+        :max-value="maxValue"
         :class="calendarClass"
         @update:model-value="close"
       />

@@ -26,20 +26,20 @@ type TProps = {
   removeOnHide?: boolean
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  modelValue: false,
-  text: '',
-  autoHide: true,
-  duration: 3000,
-  role: 'status',
-  ariaLive: 'polite',
-  ariaLabel: undefined,
-  position: 'fixed',
-  toastClass: '',
-  showCloseButton: true,
-  closeLabel: undefined,
-  removeOnHide: false,
-})
+const {
+  modelValue = false,
+  text = '',
+  autoHide = true,
+  duration = 3000,
+  role = 'status',
+  ariaLive = 'polite',
+  ariaLabel = undefined,
+  position = 'fixed',
+  toastClass = '',
+  showCloseButton = true,
+  closeLabel = undefined,
+  removeOnHide = false,
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   'update:modelValue': [visible: boolean]
@@ -61,21 +61,21 @@ let isFocusTrapActive = false
 const { t } = useI18n()
 
 const normalizedDuration = computed(() => {
-  return Number.isFinite(props.duration) ? Math.max(0, props.duration) : 3000
+  return Number.isFinite(duration) ? Math.max(0, duration) : 3000
 })
 
-const displayText = computed(() => props.text.replace(/<br\s*\/?>/gi, '\n'))
-const resolvedCloseLabel = computed(() => props.closeLabel || t('components.toast.close'))
+const displayText = computed(() => text.replace(/<br\s*\/?>/gi, '\n'))
+const resolvedCloseLabel = computed(() => closeLabel || t('components.toast.close'))
 
 const toastClassName = computed(() =>
   cn(
     'rounded-md pointer-events-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex min-w-53.5 max-w-[min(24rem,calc(100vw-2rem))] flex-col items-center gap-3 rounded-2 bg-white px-10.5 py-7 text-center text-slate-950 shadow-[0_0_10px_rgba(0,0,0,0.1)]',
-    props.toastClass
+    toastClass
   )
 )
 
 const toastStyle = computed<CSSProperties>(() => ({
-  position: props.position,
+  position: position,
   zIndex: 1080,
 }))
 
@@ -89,7 +89,7 @@ const clearTimer = (): void => {
 const startTimer = (): void => {
   clearTimer()
 
-  if (!props.autoHide || !props.modelValue) {
+  if (!autoHide || !modelValue) {
     return
   }
 
@@ -111,8 +111,8 @@ const restoreFocus = (): void => {
 
 const handleDocumentFocusIn = (event: FocusEvent): void => {
   if (
-    !props.modelValue ||
-    props.role !== 'alertdialog' ||
+    !modelValue ||
+    role !== 'alertdialog' ||
     !toastElement.value ||
     !(event.target instanceof Node) ||
     toastElement.value.contains(event.target)
@@ -142,7 +142,7 @@ const deactivateFocusTrap = (): void => {
 }
 
 const focusAlertDialog = async (): Promise<void> => {
-  if (!import.meta.client || props.role !== 'alertdialog') {
+  if (!import.meta.client || role !== 'alertdialog') {
     return
   }
 
@@ -156,7 +156,7 @@ const focusAlertDialog = async (): Promise<void> => {
 }
 
 const show = (): void => {
-  if (props.modelValue) {
+  if (modelValue) {
     startTimer()
     return
   }
@@ -165,7 +165,7 @@ const show = (): void => {
 }
 
 const hide = (): void => {
-  if (!props.modelValue) {
+  if (!modelValue) {
     return
   }
 
@@ -179,7 +179,7 @@ const kill = (): void => {
 }
 
 const handleKeydown = (event: KeyboardEvent): void => {
-  if (props.role !== 'alertdialog' || event.key !== 'Tab' || !toastElement.value) {
+  if (role !== 'alertdialog' || event.key !== 'Tab' || !toastElement.value) {
     return
   }
 
@@ -220,13 +220,13 @@ const handleKeydown = (event: KeyboardEvent): void => {
 }
 
 const handleAfterLeave = (): void => {
-  if (props.removeOnHide) {
+  if (removeOnHide) {
     emit('kill')
   }
 }
 
 watch(
-  () => props.modelValue,
+  () => modelValue,
   async (visible, wasVisible) => {
     if (visible) {
       await focusAlertDialog()
@@ -250,12 +250,12 @@ watch(
   { immediate: true }
 )
 
-watch([() => props.autoHide, normalizedDuration, () => props.text], startTimer)
+watch([() => autoHide, normalizedDuration, () => text], startTimer)
 
 watch(
-  () => props.role,
+  () => role,
   async (role, previousRole) => {
-    if (!props.modelValue) {
+    if (!modelValue) {
       return
     }
 

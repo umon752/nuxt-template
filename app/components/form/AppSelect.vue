@@ -21,20 +21,21 @@ type TProps = {
 
 defineOptions({ inheritAttrs: false })
 
-const props = withDefaults(defineProps<TProps>(), {
-  placeholder: '請選擇',
-  disabled: false,
-  invalid: false,
-  size: 'md',
-  selectClass: '',
-})
+const {
+  options,
+  placeholder = '請選擇',
+  disabled = false,
+  invalid = false,
+  size = 'md',
+  selectClass: selectClassProp = '',
+} = defineProps<TProps>()
 
 const attrs = useAttrs()
 const model = defineModel<string | number | undefined>()
 
-const selectItems = computed(() => [...props.options])
-const selectClass = computed(() => cn('w-full', attrs.class as ClassValue, props.selectClass))
-const selectColor = computed(() => (props.invalid ? 'error' : 'neutral'))
+const selectItems = computed(() => [...options])
+const selectClass = computed(() => cn('w-full', attrs.class as ClassValue, selectClassProp))
+const selectColor = computed(() => (invalid ? 'error' : 'neutral'))
 </script>
 
 <template>
@@ -42,11 +43,11 @@ const selectColor = computed(() => (props.invalid ? 'error' : 'neutral'))
     v-bind="attrs"
     v-model="model"
     :items="selectItems"
-    :placeholder="props.placeholder"
-    :disabled="props.disabled"
+    :placeholder="placeholder"
+    :disabled="disabled"
     :color="selectColor"
-    :size="props.size"
-    :aria-invalid="props.invalid || undefined"
+    :size="size"
+    :aria-invalid="invalid || undefined"
     :class="selectClass"
   />
 </template>

@@ -33,28 +33,29 @@ type TProps = {
   skeletonClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  srcMobile: undefined,
-  srcDesktop: undefined,
-  poster: '',
-  posterMobile: undefined,
-  posterDesktop: undefined,
-  breakpoint: '768px',
-  aspectRatio: '16 / 9',
-  aspectRatioMobile: undefined,
-  aspectRatioDesktop: undefined,
-  controls: false,
-  autoplay: false,
-  muted: false,
-  loop: false,
-  playsinline: true,
-  preload: 'metadata',
-  objectFit: 'cover',
-  rootMargin: '200px',
-  threshold: 0,
-  videoClass: '',
-  skeletonClass: '',
-})
+const {
+  src,
+  srcMobile = undefined,
+  srcDesktop = undefined,
+  poster = '',
+  posterMobile = undefined,
+  posterDesktop = undefined,
+  breakpoint = '768px',
+  aspectRatio = '16 / 9',
+  aspectRatioMobile = undefined,
+  aspectRatioDesktop = undefined,
+  controls = false,
+  autoplay = false,
+  muted = false,
+  loop = false,
+  playsinline = true,
+  preload = 'metadata',
+  objectFit = 'cover',
+  rootMargin = '200px',
+  threshold = 0,
+  videoClass = '',
+  skeletonClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   load: [event: Event]
@@ -70,44 +71,44 @@ const hasError = ref(false)
 
 const hasResponsiveValues = computed(() =>
   Boolean(
-    props.srcMobile ||
-    props.srcDesktop ||
-    props.posterMobile ||
-    props.posterDesktop ||
-    props.aspectRatioMobile ||
-    props.aspectRatioDesktop
+    srcMobile ||
+    srcDesktop ||
+    posterMobile ||
+    posterDesktop ||
+    aspectRatioMobile ||
+    aspectRatioDesktop
   )
 )
 const { isDesktop } = useResponsiveBreakpoint({
-  breakpoint: () => props.breakpoint,
+  breakpoint: () => breakpoint,
   enabled: hasResponsiveValues,
 })
 const { isActivated } = useLazyLoadObserver({
   target: containerRef,
-  rootMargin: () => props.rootMargin,
-  threshold: () => props.threshold,
+  rootMargin: () => rootMargin,
+  threshold: () => threshold,
 })
 
 const resolvedSrc = computed(() => {
   if (isDesktop.value) {
-    return props.srcDesktop || props.src
+    return srcDesktop || src
   }
 
-  return props.srcMobile || props.src
+  return srcMobile || src
 })
 const resolvedPoster = computed(() => {
   if (isDesktop.value) {
-    return props.posterDesktop || props.poster
+    return posterDesktop || poster
   }
 
-  return props.posterMobile || props.poster
+  return posterMobile || poster
 })
 const resolvedAspectRatio = computed(() => {
   if (isDesktop.value) {
-    return props.aspectRatioDesktop || props.aspectRatio
+    return aspectRatioDesktop || aspectRatio
   }
 
-  return props.aspectRatioMobile || props.aspectRatio
+  return aspectRatioMobile || aspectRatio
 })
 const activeSrc = computed(() => (isActivated.value ? resolvedSrc.value : undefined))
 const activePoster = computed(() =>
@@ -126,13 +127,13 @@ const objectFitClasses: Record<TObjectFit, string> = {
 const videoClassName = computed(() =>
   cn(
     'absolute inset-0 h-full w-full transition-opacity duration-300 motion-reduce:transition-none',
-    objectFitClasses[props.objectFit],
+    objectFitClasses[objectFit],
     isLoading.value || hasError.value ? 'opacity-0' : 'opacity-100',
-    props.videoClass
+    videoClass
   )
 )
 const skeletonClassName = computed(() =>
-  cn('c-skeleton absolute inset-0 overflow-hidden bg-slate-200', props.skeletonClass)
+  cn('c-skeleton absolute inset-0 overflow-hidden bg-slate-200', skeletonClass)
 )
 const aspectRatioStyle = computed<CSSProperties>(() => ({
   aspectRatio: resolvedAspectRatio.value,
@@ -155,7 +156,7 @@ const loadVideo = (): void => {
   void nextTick(() => {
     videoRef.value?.load()
 
-    if (props.preload === 'none') {
+    if (preload === 'none') {
       isLoading.value = false
     }
   })
@@ -178,7 +179,7 @@ watch(isActivated, (active) => {
     loadVideo()
   }
 })
-watch([resolvedSrc, () => props.preload], () => {
+watch([resolvedSrc, () => preload], () => {
   if (isActivated.value) {
     loadVideo()
   }
@@ -201,12 +202,12 @@ watch([resolvedSrc, () => props.preload], () => {
       v-bind="mediaAttrs"
       :src="activeSrc"
       :poster="activePoster"
-      :controls="props.controls"
-      :autoplay="props.autoplay"
-      :muted="props.muted"
-      :loop="props.loop"
-      :playsinline="props.playsinline"
-      :preload="props.preload"
+      :controls="controls"
+      :autoplay="autoplay"
+      :muted="muted"
+      :loop="loop"
+      :playsinline="playsinline"
+      :preload="preload"
       :class="videoClassName"
       :aria-hidden="hasError || undefined"
       @loadedmetadata="handleLoad"

@@ -28,18 +28,21 @@ type TProps = {
   activeClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  speed: 60,
-  direction: 'left',
-  pauseOnHover: false,
-  draggable: false,
-  gap: 0,
-  ariaLabel: undefined,
-  marqueeClass: '',
-  trackClass: '',
-  itemClass: '',
-  activeClass: '',
-})
+const {
+  items,
+  activeIndex,
+  paused,
+  speed = 60,
+  direction = 'left',
+  pauseOnHover = false,
+  draggable = false,
+  gap = 0,
+  ariaLabel = undefined,
+  marqueeClass = '',
+  trackClass = '',
+  itemClass = '',
+  activeClass = '',
+} = defineProps<TProps>()
 
 const { t } = useI18n()
 
@@ -97,19 +100,19 @@ const groupCount = computed(() => {
   )
 })
 const normalizedSpeed = computed(() => {
-  return Number.isFinite(props.speed) ? Math.max(0, props.speed) : 60
+  return Number.isFinite(speed) ? Math.max(0, speed) : 60
 })
 const normalizedGap = computed(() => {
-  return Number.isFinite(props.gap) ? Math.max(0, props.gap) : 0
+  return Number.isFinite(gap) ? Math.max(0, gap) : 0
 })
-const normalizedActiveIndex = computed(() => normalizeIndex(props.activeIndex))
-const resolvedAriaLabel = computed(() => props.ariaLabel || t('components.marquee.ariaLabel'))
+const normalizedActiveIndex = computed(() => normalizeIndex(activeIndex))
+const resolvedAriaLabel = computed(() => ariaLabel || t('components.marquee.ariaLabel'))
 const activeGroupIndex = computed(() => {
   if (!groupWidth.value) {
     return 1
   }
 
-  const boundary = props.direction === 'right' ? viewportWidth.value : 0
+  const boundary = direction === 'right' ? viewportWidth.value : 0
   const index = Math.floor((boundary - offset.value) / groupWidth.value) + 1
 
   return Math.min(groupCount.value, Math.max(1, index))
@@ -119,15 +122,15 @@ const isTemporarilyPaused = computed(() => {
     isDragging.value ||
     isNavigating.value ||
     !isPageVisible.value ||
-    (props.pauseOnHover && (isHovered.value || isFocusWithin.value))
+    (pauseOnHover && (isHovered.value || isFocusWithin.value))
   )
 })
 const isEffectivelyPaused = computed(() => {
   return (
-    props.paused ||
+    paused ||
     prefersReducedMotion.value ||
     isTemporarilyPaused.value ||
-    !props.items.length ||
+    !items.length ||
     !groupWidth.value ||
     normalizedSpeed.value === 0
   )
@@ -135,9 +138,9 @@ const isEffectivelyPaused = computed(() => {
 const marqueeClassName = computed(() =>
   cn(
     'w-full overflow-hidden',
-    props.draggable && 'touch-pan-y select-none',
-    props.draggable && (isDragging.value ? 'cursor-grabbing' : 'cursor-grab'),
-    props.marqueeClass
+    draggable && 'touch-pan-y select-none',
+    draggable && (isDragging.value ? 'cursor-grabbing' : 'cursor-grab'),
+    marqueeClass
   )
 )
 const trackClassName = computed(() =>
@@ -146,7 +149,7 @@ const trackClassName = computed(() =>
     isNavigating.value &&
       !prefersReducedMotion.value &&
       'transition-transform duration-300 ease-out',
-    props.trackClass
+    trackClass
   )
 )
 const trackStyle = computed<CSSProperties>(() => ({
@@ -171,13 +174,13 @@ let lastDetectedActiveIndex = 0
 let pendingActiveIndex: number | undefined
 
 function normalizeIndex(index: number): number {
-  if (!props.items.length || !Number.isFinite(index)) {
+  if (!items.length || !Number.isFinite(index)) {
     return 0
   }
 
   const integerIndex = Math.trunc(index)
 
-  return ((integerIndex % props.items.length) + props.items.length) % props.items.length
+  return ((integerIndex % items.length) + items.length) % items.length
 }
 
 function isActiveItem(groupIndex: number, itemIndex: number): boolean {
@@ -207,7 +210,7 @@ function normalizeOffset(value: number): number {
 function getItemOffset(index: number): number {
   const normalizedIndex = normalizeIndex(index)
 
-  if (props.direction === 'right') {
+  if (direction === 'right') {
     return viewportWidth.value - (itemEndPositions.value[normalizedIndex] ?? 0)
   }
 
@@ -219,7 +222,7 @@ function getActiveIndexFromOffset(): number {
     return 0
   }
 
-  const boundary = props.direction === 'right' ? viewportWidth.value : 0
+  const boundary = direction === 'right' ? viewportWidth.value : 0
   const progress =
     (((boundary - offset.value - groupWidth.value) % groupWidth.value) + groupWidth.value) %
     groupWidth.value
@@ -268,7 +271,7 @@ function animate(timestamp: number): void {
   const elapsedSeconds = Math.min((timestamp - lastFrameTime) / 1000, 0.1)
   const distance = normalizedSpeed.value * elapsedSeconds
   lastFrameTime = timestamp
-  offset.value = normalizeOffset(offset.value + (props.direction === 'left' ? -distance : distance))
+  offset.value = normalizeOffset(offset.value + (direction === 'left' ? -distance : distance))
   updateActiveIndex()
   animationFrame = requestAnimationFrame(animate)
 }
@@ -328,7 +331,7 @@ function clearNavigation(): void {
 }
 
 function navigateToIndex(index: number): void {
-  if (!groupWidth.value || !props.items.length) {
+  if (!groupWidth.value || !items.length) {
     return
   }
 
@@ -387,7 +390,7 @@ function requestNext(): void {
 }
 
 function handlePointerdown(event: PointerEvent): void {
-  if (!props.draggable || (event.pointerType === 'mouse' && event.button !== 0)) {
+  if (!draggable || (event.pointerType === 'mouse' && event.button !== 0)) {
     return
   }
 
@@ -476,7 +479,7 @@ watch(isEffectivelyPaused, (paused, wasPaused) => {
 })
 
 watch(
-  () => props.activeIndex,
+  () => activeIndex,
   (activeIndex) => {
     const normalizedIndex = normalizeIndex(activeIndex)
 
@@ -492,14 +495,14 @@ watch(
 )
 
 watch(
-  () => props.items.map((item) => item.id),
+  () => items.map((item) => item.id),
   async () => {
     await nextTick()
     measure(true)
   }
 )
 
-watch([() => props.gap, () => props.direction], async () => {
+watch([() => gap, () => direction], async () => {
   await nextTick()
   measure()
 })

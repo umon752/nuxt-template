@@ -23,19 +23,21 @@ type TProps = {
   skeletonClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  srcMobile: undefined,
-  srcDesktop: undefined,
-  breakpoint: '768px',
-  aspectRatio: '16 / 9',
-  aspectRatioMobile: undefined,
-  aspectRatioDesktop: undefined,
-  loading: 'lazy',
-  rootMargin: '200px',
-  threshold: 0,
-  iframeClass: '',
-  skeletonClass: '',
-})
+const {
+  src,
+  srcMobile = undefined,
+  srcDesktop = undefined,
+  title,
+  breakpoint = '768px',
+  aspectRatio = '16 / 9',
+  aspectRatioMobile = undefined,
+  aspectRatioDesktop = undefined,
+  loading = 'lazy',
+  rootMargin = '200px',
+  threshold = 0,
+  iframeClass = '',
+  skeletonClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   load: [event: Event]
@@ -49,33 +51,31 @@ const isLoading = ref(true)
 const hasError = ref(false)
 
 const hasResponsiveValues = computed(() =>
-  Boolean(
-    props.srcMobile || props.srcDesktop || props.aspectRatioMobile || props.aspectRatioDesktop
-  )
+  Boolean(srcMobile || srcDesktop || aspectRatioMobile || aspectRatioDesktop)
 )
 const { isDesktop } = useResponsiveBreakpoint({
-  breakpoint: () => props.breakpoint,
+  breakpoint: () => breakpoint,
   enabled: hasResponsiveValues,
 })
 const { isActivated } = useLazyLoadObserver({
   target: containerRef,
-  rootMargin: () => props.rootMargin,
-  threshold: () => props.threshold,
+  rootMargin: () => rootMargin,
+  threshold: () => threshold,
 })
 
 const resolvedSrc = computed(() => {
   if (isDesktop.value) {
-    return props.srcDesktop || props.src
+    return srcDesktop || src
   }
 
-  return props.srcMobile || props.src
+  return srcMobile || src
 })
 const resolvedAspectRatio = computed(() => {
   if (isDesktop.value) {
-    return props.aspectRatioDesktop || props.aspectRatio
+    return aspectRatioDesktop || aspectRatio
   }
 
-  return props.aspectRatioMobile || props.aspectRatio
+  return aspectRatioMobile || aspectRatio
 })
 const containerClassName = computed(() =>
   cn('relative block overflow-hidden bg-slate-100', attrs.class as ClassValue)
@@ -84,11 +84,11 @@ const iframeClassName = computed(() =>
   cn(
     'absolute inset-0 h-full w-full border-0 transition-opacity duration-300 motion-reduce:transition-none',
     isLoading.value || hasError.value ? 'opacity-0' : 'opacity-100',
-    props.iframeClass
+    iframeClass
   )
 )
 const skeletonClassName = computed(() =>
-  cn('c-skeleton absolute inset-0 overflow-hidden bg-slate-200', props.skeletonClass)
+  cn('c-skeleton absolute inset-0 overflow-hidden bg-slate-200', skeletonClass)
 )
 const aspectRatioStyle = computed<CSSProperties>(() => ({
   aspectRatio: resolvedAspectRatio.value,
@@ -144,8 +144,8 @@ watch(resolvedSrc, () => {
       v-if="isActivated"
       v-bind="iframeAttrs"
       :src="resolvedSrc"
-      :title="props.title"
-      :loading="props.loading"
+      :title="title"
+      :loading="loading"
       :class="iframeClassName"
       :aria-hidden="hasError || undefined"
       @load="handleLoad"

@@ -35,21 +35,22 @@ type TProps = {
   controlClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  modelValue: undefined,
-  showControls: true,
-  alignActiveToStart: false,
-  ariaLabel: undefined,
-  previousLabel: undefined,
-  nextLabel: undefined,
-  rootClass: '',
-  viewportClass: '',
-  listClass: '',
-  itemClass: '',
-  activeClass: '',
-  disabledClass: '',
-  controlClass: '',
-})
+const {
+  items,
+  modelValue = undefined,
+  showControls = true,
+  alignActiveToStart = false,
+  ariaLabel = undefined,
+  previousLabel = undefined,
+  nextLabel = undefined,
+  rootClass = '',
+  viewportClass = '',
+  listClass = '',
+  itemClass = '',
+  activeClass = '',
+  disabledClass = '',
+  controlClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   'update:modelValue': [id: string | number]
@@ -87,35 +88,33 @@ const { isDragging } = useDrag({
   interactiveElements: itemElements,
 })
 
-const resolvedAriaLabel = computed(() => props.ariaLabel || t('components.slideTab.ariaLabel'))
-const resolvedPreviousLabel = computed(
-  () => props.previousLabel || t('components.slideTab.previous')
-)
-const resolvedNextLabel = computed(() => props.nextLabel || t('components.slideTab.next'))
-const rootClassName = computed(() => cn('relative w-full', props.rootClass))
+const resolvedAriaLabel = computed(() => ariaLabel || t('components.slideTab.ariaLabel'))
+const resolvedPreviousLabel = computed(() => previousLabel || t('components.slideTab.previous'))
+const resolvedNextLabel = computed(() => nextLabel || t('components.slideTab.next'))
+const rootClassName = computed(() => cn('relative w-full', rootClass))
 const viewportClassName = computed(() =>
   cn(
     'slide-tab__viewport touch-pan-y overflow-x-auto select-none',
     isDragging.value ? 'cursor-grabbing' : 'cursor-grab',
-    props.viewportClass
+    viewportClass
   )
 )
-const listClassName = computed(() => cn('flex w-max min-w-full items-stretch', props.listClass))
+const listClassName = computed(() => cn('flex w-max min-w-full items-stretch', listClass))
 const controlClassName = computed(() =>
   cn(
     'pointer-events-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-950 text-white shadow-lg transition-opacity hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500',
-    props.controlClass
+    controlClass
   )
 )
 
-const isActiveItem = (item: TSlideTabItem): boolean => Object.is(item.id, props.modelValue)
+const isActiveItem = (item: TSlideTabItem): boolean => Object.is(item.id, modelValue)
 
 const getItemClassName = (item: TSlideTabItem): string =>
   cn(
     'h-full w-auto shrink-0',
-    props.itemClass,
-    isActiveItem(item) && props.activeClass,
-    item.disabled && props.disabledClass
+    itemClass,
+    isActiveItem(item) && activeClass,
+    item.disabled && disabledClass
   )
 
 const getDefaultButtonClassName = (item: TSlideTabItem): string =>
@@ -204,14 +203,14 @@ const scrollNext = (): void => {
 
 const ensureActiveItemVisible = (behavior: ScrollBehavior): void => {
   const viewport = viewportElement.value
-  const activeIndex = props.items.findIndex((item) => isActiveItem(item))
+  const activeIndex = items.findIndex((item) => isActiveItem(item))
   const activeItem = itemElements.value?.[activeIndex]
 
   if (!viewport || !activeItem) {
     return
   }
 
-  if (props.alignActiveToStart) {
+  if (alignActiveToStart) {
     scrollToLeft(activeItem.offsetLeft, behavior)
     return
   }
@@ -245,13 +244,13 @@ const handleResize = (): void => {
   ensureActiveItemVisible('auto')
 }
 
-watch([() => props.modelValue, () => props.alignActiveToStart], async () => {
+watch([() => modelValue, () => alignActiveToStart], async () => {
   await nextTick()
   ensureActiveItemVisible(getScrollBehavior())
 })
 
 watch(
-  () => props.items.map((item) => item.id),
+  () => items.map((item) => item.id),
   async () => {
     await nextTick()
     refresh()
@@ -304,7 +303,7 @@ defineExpose<TSlideTabInstance>({
       @scroll.passive="refresh"
     >
       <ul ref="listElement" :class="listClassName">
-        <li v-for="(item, index) in props.items" :key="item.id" :class="getItemClassName(item)">
+        <li v-for="(item, index) in items" :key="item.id" :class="getItemClassName(item)">
           <slot
             name="item"
             :item="item"
@@ -326,7 +325,7 @@ defineExpose<TSlideTabInstance>({
       </ul>
     </div>
 
-    <div v-if="props.showControls" class="pointer-events-none absolute inset-0 z-20">
+    <div v-if="showControls" class="pointer-events-none absolute inset-0 z-20">
       <button
         v-if="canScrollPrevious"
         type="button"

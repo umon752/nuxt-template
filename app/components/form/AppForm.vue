@@ -14,25 +14,25 @@ type TProps = {
 
 defineOptions({ inheritAttrs: false })
 
-const props = withDefaults(defineProps<TProps>(), {
-  state: undefined,
-  schema: undefined,
-  disabled: false,
-  loadingAuto: true,
-  formClass: '',
-})
+const {
+  state = undefined,
+  schema = undefined,
+  disabled = false,
+  loadingAuto = true,
+  formClass: formClassProp = '',
+} = defineProps<TProps>()
 
 const attrs = useAttrs()
-const formClass = computed(() => cn(attrs.class as ClassValue, props.formClass))
+const formClass = computed(() => cn(attrs.class as ClassValue, formClassProp))
 </script>
 
 <template>
   <UForm
     v-bind="attrs"
-    :state="props.state"
-    :schema="props.schema"
-    :disabled="props.disabled"
-    :loading-auto="props.loadingAuto"
+    :state="state"
+    :schema="schema"
+    :disabled="disabled"
+    :loading-auto="loadingAuto"
     :class="formClass"
   >
     <template #default="slotProps">

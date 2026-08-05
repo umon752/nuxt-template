@@ -28,23 +28,24 @@ type TProps = {
   skeletonClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  srcMobile: undefined,
-  srcDesktop: undefined,
-  alt: '',
-  fallbackSrc: '/images/nopic.png',
-  breakpoint: '768px',
-  aspectRatio: '16 / 9',
-  aspectRatioMobile: undefined,
-  aspectRatioDesktop: undefined,
-  objectFit: 'cover',
-  loading: 'lazy',
-  decoding: 'async',
-  rootMargin: '200px',
-  threshold: 0,
-  imgClass: '',
-  skeletonClass: '',
-})
+const {
+  src,
+  srcMobile = undefined,
+  srcDesktop = undefined,
+  alt = '',
+  fallbackSrc = '/images/nopic.png',
+  breakpoint = '768px',
+  aspectRatio = '16 / 9',
+  aspectRatioMobile = undefined,
+  aspectRatioDesktop = undefined,
+  objectFit = 'cover',
+  loading = 'lazy',
+  decoding = 'async',
+  rootMargin = '200px',
+  threshold = 0,
+  imgClass = '',
+  skeletonClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   load: [event: Event]
@@ -55,8 +56,8 @@ const { t } = useI18n()
 const attrs = useAttrs()
 const containerRef = useTemplateRef<HTMLSpanElement>('containerRef')
 const imageRef = useTemplateRef<HTMLImageElement>('imageRef')
-const resolvedMobileSrc = computed(() => props.srcMobile || props.src)
-const resolvedDesktopSrc = computed(() => props.srcDesktop || props.src)
+const resolvedMobileSrc = computed(() => srcMobile || src)
+const resolvedDesktopSrc = computed(() => srcDesktop || src)
 const currentSrc = ref(resolvedMobileSrc.value)
 const isLoading = ref(true)
 const hasError = ref(false)
@@ -76,40 +77,38 @@ const containerClassName = computed(() =>
 const imageClassName = computed(() =>
   cn(
     'absolute inset-0 h-full w-full transition-[opacity,scale] duration-300 motion-reduce:transition-none',
-    objectFitClasses[props.objectFit],
+    objectFitClasses[objectFit],
     isLoading.value || hasError.value ? 'opacity-0' : 'opacity-100',
-    props.imgClass
+    imgClass
   )
 )
 const skeletonClassName = computed(() =>
-  cn('c-skeleton absolute inset-0 overflow-hidden bg-slate-200', props.skeletonClass)
+  cn('c-skeleton absolute inset-0 overflow-hidden bg-slate-200', skeletonClass)
 )
-const desktopMedia = computed(() => `(min-width: ${props.breakpoint})`)
-const hasResponsiveSource = computed(() => Boolean(props.srcMobile || props.srcDesktop))
-const hasResponsiveAspectRatio = computed(() =>
-  Boolean(props.aspectRatioMobile || props.aspectRatioDesktop)
-)
+const desktopMedia = computed(() => `(min-width: ${breakpoint})`)
+const hasResponsiveSource = computed(() => Boolean(srcMobile || srcDesktop))
+const hasResponsiveAspectRatio = computed(() => Boolean(aspectRatioMobile || aspectRatioDesktop))
 const { isDesktop } = useResponsiveBreakpoint({
-  breakpoint: () => props.breakpoint,
+  breakpoint: () => breakpoint,
   enabled: hasResponsiveAspectRatio,
 })
 const { isActivated } = useLazyLoadObserver({
   target: containerRef,
-  rootMargin: () => props.rootMargin,
-  threshold: () => props.threshold,
+  rootMargin: () => rootMargin,
+  threshold: () => threshold,
 })
 const resolvedAspectRatio = computed(() => {
   if (isDesktop.value) {
-    return props.aspectRatioDesktop || props.aspectRatio
+    return aspectRatioDesktop || aspectRatio
   }
 
-  return props.aspectRatioMobile || props.aspectRatio
+  return aspectRatioMobile || aspectRatio
 })
 const aspectRatioStyle = computed<CSSProperties>(() => ({
   aspectRatio: resolvedAspectRatio.value,
 }))
 const activeSrc = computed(() => (isActivated.value ? currentSrc.value : undefined))
-const resolvedErrorLabel = computed(() => props.alt || t('components.image.error'))
+const resolvedErrorLabel = computed(() => alt || t('components.image.error'))
 const imageAttrs = computed(() => {
   const {
     class: _class,
@@ -163,9 +162,9 @@ const handleLoad = (event: Event): void => {
 const handleError = (event: Event): void => {
   emit('error', event)
 
-  if (props.fallbackSrc && !isUsingFallback.value && currentSrc.value !== props.fallbackSrc) {
+  if (fallbackSrc && !isUsingFallback.value && currentSrc.value !== fallbackSrc) {
     isUsingFallback.value = true
-    currentSrc.value = props.fallbackSrc
+    currentSrc.value = fallbackSrc
     return
   }
 
@@ -173,7 +172,7 @@ const handleError = (event: Event): void => {
   hasError.value = true
 }
 
-watch([resolvedMobileSrc, resolvedDesktopSrc, () => props.breakpoint], reset)
+watch([resolvedMobileSrc, resolvedDesktopSrc, () => breakpoint], reset)
 watch(isActivated, (active) => {
   if (active) {
     isLoading.value = true
@@ -203,9 +202,9 @@ watch(isActivated, (active) => {
         ref="imageRef"
         v-bind="imageAttrs"
         :src="activeSrc"
-        :alt="props.alt"
-        :loading="props.loading"
-        :decoding="props.decoding"
+        :alt="alt"
+        :loading="loading"
+        :decoding="decoding"
         :class="imageClassName"
         :aria-hidden="hasError || undefined"
         @load="handleLoad"

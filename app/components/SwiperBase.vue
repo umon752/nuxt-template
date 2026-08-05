@@ -41,23 +41,24 @@ type TProps = {
   disabledClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  options: () => ({}),
-  modules: () => [],
-  a11y: () => ({}),
-  ariaLabel: undefined,
-  previousLabel: undefined,
-  nextLabel: undefined,
-  paginationLabel: undefined,
-  swiperClass: '',
-  slideClass: '',
-  controlsClass: '',
-  buttonClass: '',
-  paginationClass: '',
-  bulletClass: '',
-  activeBulletClass: '',
-  disabledClass: '',
-})
+const {
+  items,
+  options = {},
+  modules = [],
+  a11y = {},
+  ariaLabel = undefined,
+  previousLabel = undefined,
+  nextLabel = undefined,
+  paginationLabel = undefined,
+  swiperClass = '',
+  slideClass = '',
+  controlsClass = '',
+  buttonClass = '',
+  paginationClass = '',
+  bulletClass = '',
+  activeBulletClass = '',
+  disabledClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   ready: [swiper: TSwiper]
@@ -81,18 +82,16 @@ const swiperInstance = shallowRef<TSwiper>()
 const isInitialized = ref(false)
 const activeSlideIndex = ref(0)
 const activePaginationIndex = ref(0)
-const paginationCount = ref(props.items.length)
+const paginationCount = ref(items.length)
 const isBeginning = ref(true)
 const isEnd = ref(true)
 
-const resolvedModules = computed(() => [...new Set([SwiperA11y, ...props.modules])])
-const resolvedAriaLabel = computed(() => props.ariaLabel || t('components.swiperBase.ariaLabel'))
-const resolvedPreviousLabel = computed(
-  () => props.previousLabel || t('components.swiperBase.previous')
-)
-const resolvedNextLabel = computed(() => props.nextLabel || t('components.swiperBase.next'))
+const resolvedModules = computed(() => [...new Set([SwiperA11y, ...modules])])
+const resolvedAriaLabel = computed(() => ariaLabel || t('components.swiperBase.ariaLabel'))
+const resolvedPreviousLabel = computed(() => previousLabel || t('components.swiperBase.previous'))
+const resolvedNextLabel = computed(() => nextLabel || t('components.swiperBase.next'))
 const resolvedPaginationLabel = computed(
-  () => props.paginationLabel || t('components.swiperBase.pagination')
+  () => paginationLabel || t('components.swiperBase.pagination')
 )
 const resolvedA11y = computed<A11yOptions>(() => ({
   containerMessage: resolvedAriaLabel.value,
@@ -109,33 +108,33 @@ const resolvedA11y = computed<A11yOptions>(() => ({
     index: '{{index}}',
     total: '{{slidesLength}}',
   }),
-  ...props.a11y,
+  ...a11y,
 }))
-const canWrap = computed(() => props.options.loop === true || props.options.rewind === true)
+const canWrap = computed(() => options.loop === true || options.rewind === true)
 const isPreviousDisabled = computed(() => !canWrap.value && isBeginning.value)
 const isNextDisabled = computed(() => !canWrap.value && isEnd.value)
-const swiperClassName = computed(() => cn(props.swiperClass))
-const slideClassName = computed(() => cn('flex! h-auto!', props.slideClass))
+const swiperClassName = computed(() => cn(swiperClass))
+const slideClassName = computed(() => cn('flex! h-auto!', slideClass))
 const controlsClassName = computed(() =>
-  cn('mt-5 flex items-center justify-center gap-4', props.controlsClass)
+  cn('mt-5 flex items-center justify-center gap-4', controlsClass)
 )
 const paginationClassName = computed(() =>
-  cn('flex flex-wrap items-center justify-center gap-2', props.paginationClass)
+  cn('flex flex-wrap items-center justify-center gap-2', paginationClass)
 )
 
 const getButtonClassName = (disabled: boolean): string =>
   cn(
     'inline-flex min-h-10 min-w-10 items-center justify-center rounded-full border border-slate-300 bg-white px-3 py-2 text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 disabled:cursor-not-allowed disabled:opacity-50',
-    props.buttonClass,
-    disabled && props.disabledClass
+    buttonClass,
+    disabled && disabledClass
   )
 
 const getBulletClassName = (isActive: boolean): string =>
   cn(
     'h-3 w-3 rounded-full bg-slate-300 transition-[width,background-color] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500',
-    props.bulletClass,
+    bulletClass,
     isActive && 'bg-main-500 w-8',
-    isActive && props.activeBulletClass
+    isActive && activeBulletClass
   )
 
 const syncState = (swiper: TSwiper): void => {
@@ -173,7 +172,7 @@ const goTo = (index: number): void => {
     return
   }
 
-  if (props.options.loop) {
+  if (options.loop) {
     swiper.slideToLoop(index)
     return
   }
@@ -192,7 +191,7 @@ const goToPage = (index: number): void => {
     typeof swiper.params.slidesPerGroup === 'number' ? swiper.params.slidesPerGroup : 1
   const targetIndex = index * slidesPerGroup
 
-  if (props.options.loop) {
+  if (options.loop) {
     swiper.slideToLoop(targetIndex)
     return
   }
@@ -214,7 +213,7 @@ defineExpose<TSwiperBaseInstance>({
 <template>
   <div :class="{ invisible: !isInitialized }">
     <SwiperVue
-      v-bind="props.options"
+      v-bind="options"
       :modules="resolvedModules"
       :a11y="resolvedA11y"
       :class="swiperClassName"
@@ -223,7 +222,7 @@ defineExpose<TSwiperBaseInstance>({
       @breakpoint="syncState"
       @update="syncState"
     >
-      <SwiperSlide v-for="(item, index) in props.items" :key="item.id" :class="slideClassName">
+      <SwiperSlide v-for="(item, index) in items" :key="item.id" :class="slideClassName">
         <slot name="slide" :item="item" :index="index" :is-active="activeSlideIndex === index" />
       </SwiperSlide>
     </SwiperVue>

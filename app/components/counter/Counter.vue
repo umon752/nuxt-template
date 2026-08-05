@@ -23,22 +23,23 @@ type TProps = {
   disabledClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  min: 0,
-  max: Number.POSITIVE_INFINITY,
-  step: 1,
-  disabled: false,
-  editable: false,
-  ariaLabel: undefined,
-  valueLabel: undefined,
-  decrementLabel: undefined,
-  incrementLabel: undefined,
-  counterClass: '',
-  buttonClass: '',
-  valueClass: '',
-  inputClass: '',
-  disabledClass: '',
-})
+const {
+  modelValue,
+  min = 0,
+  max = Number.POSITIVE_INFINITY,
+  step = 1,
+  disabled = false,
+  editable = false,
+  ariaLabel = undefined,
+  valueLabel = undefined,
+  decrementLabel = undefined,
+  incrementLabel = undefined,
+  counterClass = '',
+  buttonClass = '',
+  valueClass = '',
+  inputClass = '',
+  disabledClass = '',
+} = defineProps<TProps>()
 
 const { t } = useI18n()
 
@@ -56,19 +57,19 @@ defineSlots<{
 }>()
 
 const normalizedMin = computed(() => {
-  return Number.isFinite(props.min) ? props.min : 0
+  return Number.isFinite(min) ? min : 0
 })
 
 const normalizedMax = computed(() => {
-  if (!Number.isFinite(props.max)) {
+  if (!Number.isFinite(max)) {
     return Number.POSITIVE_INFINITY
   }
 
-  return Math.max(props.max, normalizedMin.value)
+  return Math.max(max, normalizedMin.value)
 })
 
 const normalizedStep = computed(() => {
-  return Number.isFinite(props.step) && props.step > 0 ? props.step : 1
+  return Number.isFinite(step) && step > 0 ? step : 1
 })
 
 const clampValue = (value: number): number => {
@@ -77,35 +78,35 @@ const clampValue = (value: number): number => {
   return Math.min(normalizedMax.value, Math.max(normalizedMin.value, finiteValue))
 }
 
-const currentValue = computed(() => clampValue(props.modelValue))
-const canDecrement = computed(() => !props.disabled && currentValue.value > normalizedMin.value)
-const canIncrement = computed(() => !props.disabled && currentValue.value < normalizedMax.value)
-const resolvedAriaLabel = computed(() => props.ariaLabel || t('components.counter.ariaLabel'))
-const resolvedValueLabel = computed(() => props.valueLabel || t('components.counter.valueLabel'))
+const currentValue = computed(() => clampValue(modelValue))
+const canDecrement = computed(() => !disabled && currentValue.value > normalizedMin.value)
+const canIncrement = computed(() => !disabled && currentValue.value < normalizedMax.value)
+const resolvedAriaLabel = computed(() => ariaLabel || t('components.counter.ariaLabel'))
+const resolvedValueLabel = computed(() => valueLabel || t('components.counter.valueLabel'))
 const resolvedDecrementLabel = computed(
-  () => props.decrementLabel || t('components.counter.decrementLabel')
+  () => decrementLabel || t('components.counter.decrementLabel')
 )
 const resolvedIncrementLabel = computed(
-  () => props.incrementLabel || t('components.counter.incrementLabel')
+  () => incrementLabel || t('components.counter.incrementLabel')
 )
 
-const counterClassName = computed(() => cn('inline-flex items-center gap-2', props.counterClass))
+const counterClassName = computed(() => cn('inline-flex items-center gap-2', counterClass))
 const buttonClassName = computed(() =>
   cn(
     'inline-flex size-10 items-center justify-center rounded-md border border-slate-300 bg-white text-lg font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400',
-    props.buttonClass
+    buttonClass
   )
 )
 const valueClassName = computed(() =>
   cn(
     'inline-flex min-h-10 min-w-14 items-center justify-center rounded-md border border-slate-300 bg-white px-3 text-center font-medium text-slate-900',
-    props.valueClass
+    valueClass
   )
 )
 const inputClassName = computed(() =>
   cn(
     'min-h-10 w-20 rounded-md border border-slate-300 bg-white px-3 text-center font-medium text-slate-900 focus:border-slate-500 focus:outline-2 focus:outline-offset-2 focus:outline-slate-500 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400',
-    props.inputClass
+    inputClass
   )
 )
 
@@ -114,7 +115,7 @@ const normalizeStepResult = (value: number): number => {
 }
 
 const getButtonClass = (isDisabled: boolean): string => {
-  return cn(buttonClassName.value, isDisabled && props.disabledClass)
+  return cn(buttonClassName.value, isDisabled && disabledClass)
 }
 
 const updateValue = (value: number, source: TCounterChangeSource): void => {

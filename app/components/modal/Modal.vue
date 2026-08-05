@@ -31,24 +31,24 @@ type TProps = {
   closeButtonClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  modelValue: false,
-  title: '',
-  role: 'dialog',
-  ariaLabel: undefined,
-  ariaDescribedby: undefined,
-  closeOnEscape: true,
-  closeOnBackdrop: true,
-  showCloseButton: true,
-  closeLabel: undefined,
-  initialFocus: 'first',
-  overlayClass: '',
-  modalClass: '',
-  headerClass: '',
-  bodyClass: '',
-  footerClass: '',
-  closeButtonClass: '',
-})
+const {
+  modelValue = false,
+  title = '',
+  role = 'dialog',
+  ariaLabel = undefined,
+  ariaDescribedby = undefined,
+  closeOnEscape = true,
+  closeOnBackdrop = true,
+  showCloseButton = true,
+  closeLabel = undefined,
+  initialFocus = 'first',
+  overlayClass = '',
+  modalClass = '',
+  headerClass = '',
+  bodyClass = '',
+  footerClass = '',
+  closeButtonClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   'update:modelValue': [visible: boolean]
@@ -94,38 +94,35 @@ const focusableSelector = [
 ].join(', ')
 
 const titleId = `modal-title-${instanceId}`
-const hasTitle = computed(() => Boolean(props.title || slots.title))
-const resolvedCloseLabel = computed(() => props.closeLabel || t('components.modal.close'))
+const hasTitle = computed(() => Boolean(title || slots.title))
+const resolvedCloseLabel = computed(() => closeLabel || t('components.modal.close'))
 const ariaLabelledby = computed(() => {
-  return props.ariaLabel || !hasTitle.value ? undefined : titleId
+  return ariaLabel || !hasTitle.value ? undefined : titleId
 })
 
 const overlayClassName = computed(() =>
   cn(
     'fixed inset-0 flex min-h-full items-center justify-center overflow-y-auto bg-slate-950/65 p-4 backdrop-blur-sm',
-    props.overlayClass
+    overlayClass
   )
 )
 const modalClassName = computed(() =>
   cn(
     'my-auto flex w-full max-w-2xl flex-col overflow-hidden rounded-xl bg-white text-left text-slate-950 shadow-2xl',
-    props.modalClass
+    modalClass
   )
 )
 const headerClassName = computed(() =>
-  cn(
-    'flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-4',
-    props.headerClass
-  )
+  cn('flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-4', headerClass)
 )
-const bodyClassName = computed(() => cn('px-6 py-5', props.bodyClass))
+const bodyClassName = computed(() => cn('px-6 py-5', bodyClass))
 const footerClassName = computed(() =>
-  cn('flex flex-wrap justify-end gap-3 border-t border-slate-200 px-6 py-4', props.footerClass)
+  cn('flex flex-wrap justify-end gap-3 border-t border-slate-200 px-6 py-4', footerClass)
 )
 const closeButtonClassName = computed(() =>
   cn(
     'inline-flex size-10 shrink-0 items-center justify-center rounded-md text-2xl leading-none text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600',
-    props.closeButtonClass
+    closeButtonClass
   )
 )
 
@@ -154,7 +151,7 @@ const focusInitialElement = (): void => {
     return
   }
 
-  if (props.initialFocus === 'panel') {
+  if (initialFocus === 'panel') {
     panel.focus()
     return
   }
@@ -263,7 +260,7 @@ const beginClose = (reason: TModalCloseReason): void => {
 const requestClose = (reason: TModalCloseReason): void => {
   beginClose(reason)
 
-  if (props.modelValue) {
+  if (modelValue) {
     emit('update:modelValue', false)
   }
 }
@@ -277,7 +274,7 @@ const showNativeModal = async (): Promise<void> => {
   isDialogMounted.value = true
   await nextTick()
 
-  if (sequence !== syncSequence || !props.modelValue) {
+  if (sequence !== syncSequence || !modelValue) {
     return
   }
 
@@ -304,7 +301,7 @@ const showNativeModal = async (): Promise<void> => {
 }
 
 const open = (): void => {
-  if (props.modelValue) {
+  if (modelValue) {
     void showNativeModal()
     return
   }
@@ -319,13 +316,13 @@ const close = (): void => {
 const handleCancel = (event: Event): void => {
   event.preventDefault()
 
-  if (props.closeOnEscape) {
+  if (closeOnEscape) {
     requestClose('escape')
   }
 }
 
 const handleBackdropClick = (event: MouseEvent): void => {
-  if (props.closeOnBackdrop && event.target === event.currentTarget) {
+  if (closeOnBackdrop && event.target === event.currentTarget) {
     requestClose('backdrop')
   }
 }
@@ -339,7 +336,7 @@ const handleNativeClose = (): void => {
   syncSequence += 1
   isRendered.value = false
 
-  if (props.modelValue) {
+  if (modelValue) {
     emit('update:modelValue', false)
   }
 
@@ -347,7 +344,7 @@ const handleNativeClose = (): void => {
 }
 
 watch(
-  () => props.modelValue,
+  () => modelValue,
   (visible) => {
     if (!isMounted) {
       return
@@ -365,7 +362,7 @@ watch(
 onMounted(() => {
   isMounted = true
 
-  if (props.modelValue) {
+  if (modelValue) {
     void showNativeModal()
   }
 })

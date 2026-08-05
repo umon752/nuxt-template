@@ -15,28 +15,28 @@ type TProps = {
   toastClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  position: 'fixed',
-  x: undefined,
-  y: undefined,
-  stackClass: '',
-  toastClass: '',
-})
+const {
+  position = 'fixed',
+  x = undefined,
+  y = undefined,
+  stackClass = '',
+  toastClass = '',
+} = defineProps<TProps>()
 
 const { toasts, hide, remove } = useToast()
 
 const stackClassName = computed(() =>
   cn(
     'pointer-events-none right-4 top-4 z-[1080] flex w-fit max-w-[calc(100vw-2rem)] flex-col items-end gap-2',
-    props.stackClass
+    stackClass
   )
 )
 
 const stackStyle = computed<CSSProperties>(() => ({
-  position: props.position,
-  left: props.x,
-  right: props.x === undefined ? undefined : 'auto',
-  top: props.y,
+  position: position,
+  left: x,
+  right: x === undefined ? undefined : 'auto',
+  top: y,
 }))
 </script>
 
@@ -57,7 +57,7 @@ const stackStyle = computed<CSSProperties>(() => ({
           :position="toast.position"
           :x="toast.x"
           :y="toast.y"
-          :toast-class="cn(props.toastClass, toast.toastClass)"
+          :toast-class="cn(toastClass, toast.toastClass)"
           :show-close-button="toast.showCloseButton"
           :close-label="toast.closeLabel"
           remove-on-hide

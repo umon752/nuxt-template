@@ -27,19 +27,16 @@ import clsx from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 // props 建議使用 camelCase，template 使用 kebab-case 傳入
-const props = withDefaults(
-  defineProps<{
-    titleClass?: string | string[] | Record<string, boolean>
-  }>(),
-  { titleClass: '' }
-)
+const { titleClass = '' } = defineProps<{
+  titleClass?: string | string[] | Record<string, boolean>
+}>()
 
 const DEFAULT_TITLE_CLASS =
   'accordion-btn w-full px-4 py-3 text-left font-medium transition-colors hover:bg-gray-50'
 
 const mergedTitleClass = computed(() =>
   // 先用 clsx 處理可能是陣列或物件的 class，再用 twMerge 處理 Tailwind 衝突
-  twMerge(clsx(DEFAULT_TITLE_CLASS, props.titleClass))
+  twMerge(clsx(DEFAULT_TITLE_CLASS, titleClass))
 )
 </script>
 

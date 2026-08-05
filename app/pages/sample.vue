@@ -647,7 +647,10 @@ const queryPaginatedItems = computed(() => {
             label="日期"
             description="FormAppDatePicker 對外使用 DateValue，內部組合 InputDate、Calendar 與 Popover。"
           >
-            <FormAppDatePicker v-model="nuxtUiWrapperDate" />
+            <FormAppDatePicker
+              v-model="nuxtUiWrapperDate"
+              calendar-class="[&_[data-slot=headCell]]:text-main-500 [&_[data-slot=cellTrigger][data-today]]:text-main-500"
+            />
           </FormAppFormField>
 
           <div class="flex flex-wrap items-center justify-between gap-3">

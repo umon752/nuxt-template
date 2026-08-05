@@ -15,14 +15,14 @@ type TProps = {
   tooltipClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  text: '',
-  placement: 'top',
-  disabled: false,
-  showDelay: 150,
-  hideDelay: 100,
-  tooltipClass: '',
-})
+const {
+  text = '',
+  placement: placementProp = 'top',
+  disabled = false,
+  showDelay = 150,
+  hideDelay = 100,
+  tooltipClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   show: []
@@ -38,7 +38,7 @@ const triggerWrapper = ref<HTMLElement>()
 const tooltipElement = ref<HTMLElement>()
 const isVisible = ref(false)
 const isPositioned = ref(false)
-const resolvedPlacement = ref<TTooltipPlacement>(props.placement)
+const resolvedPlacement = ref<TTooltipPlacement>(placementProp)
 const tooltipPosition = ref({ left: 0, top: 0 })
 const instanceId = useId()
 const tooltipId = `tooltip-${instanceId}`
@@ -59,12 +59,12 @@ const normalizeDelay = (delay: number): number => {
   return Number.isFinite(delay) ? Math.max(0, delay) : 0
 }
 
-const hasContent = computed(() => Boolean(props.text || slots.content))
+const hasContent = computed(() => Boolean(text || slots.content))
 const tooltipClassName = computed(() =>
   cn(
     'pointer-events-none fixed z-[1090] max-w-72 rounded-md bg-slate-950 px-3 py-2 text-sm leading-5 text-white shadow-lg transition-opacity duration-150 motion-reduce:transition-none',
     isPositioned.value ? 'visible' : 'invisible',
-    props.tooltipClass
+    tooltipClass
   )
 )
 const tooltipStyle = computed<CSSProperties>(() => ({
@@ -207,7 +207,7 @@ const updatePosition = async (): Promise<void> => {
     return
   }
 
-  const placement = resolvePlacement(props.placement, trigger, tooltip)
+  const placement = resolvePlacement(placementProp, trigger, tooltip)
   const coordinates = getCoordinates(placement, trigger, tooltip)
 
   tooltipPosition.value = {
@@ -260,7 +260,7 @@ const clearHideTimer = (): void => {
 }
 
 const show = async (): Promise<void> => {
-  if (isVisible.value || props.disabled || !hasContent.value) {
+  if (isVisible.value || disabled || !hasContent.value) {
     return
   }
 
@@ -290,7 +290,7 @@ const scheduleShow = (): void => {
   showTimer = setTimeout(() => {
     showTimer = undefined
     void show()
-  }, normalizeDelay(props.showDelay))
+  }, normalizeDelay(showDelay))
 }
 
 const scheduleHide = (): void => {
@@ -299,7 +299,7 @@ const scheduleHide = (): void => {
   hideTimer = setTimeout(() => {
     hideTimer = undefined
     hide()
-  }, normalizeDelay(props.hideDelay))
+  }, normalizeDelay(hideDelay))
 }
 
 const handleFocusout = (event: FocusEvent): void => {
@@ -321,7 +321,7 @@ const handleKeydown = (event: KeyboardEvent): void => {
 }
 
 watch(
-  () => props.disabled,
+  () => disabled,
   (disabled) => {
     if (disabled) {
       clearShowTimer()
@@ -331,7 +331,7 @@ watch(
   }
 )
 
-watch([() => props.placement, () => props.text], () => {
+watch([() => placementProp, () => text], () => {
   if (isVisible.value) {
     isPositioned.value = false
     void updatePosition()

@@ -32,22 +32,24 @@ type TProps = {
   disabledClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  displayRange: 2,
-  firstLastDisplayRange: 4,
-  showArrow: true,
-  showFirstLastArrow: true,
-  ariaLabel: '',
-  firstLabel: '',
-  lastLabel: '',
-  prevLabel: '',
-  nextLabel: '',
-  navClass: '',
-  listClass: '',
-  itemClass: '',
-  activeClass: '',
-  disabledClass: '',
-})
+const {
+  currentPage,
+  totalPages,
+  displayRange = 2,
+  firstLastDisplayRange = 4,
+  showArrow = true,
+  showFirstLastArrow = true,
+  ariaLabel = '',
+  firstLabel = '',
+  lastLabel = '',
+  prevLabel = '',
+  nextLabel = '',
+  navClass = '',
+  listClass = '',
+  itemClass = '',
+  activeClass = '',
+  disabledClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   'update:currentPage': [page: number]
@@ -77,21 +79,21 @@ const normalizeRange = (value: number) => {
   return Number.isSafeInteger(normalizedValue) && normalizedValue >= 0 ? normalizedValue : 0
 }
 
-const normalizedTotalPages = computed(() => normalizePositiveInteger(props.totalPages, 1))
-const normalizedDisplayRange = computed(() => normalizeRange(props.displayRange))
-const normalizedFirstLastDisplayRange = computed(() => normalizeRange(props.firstLastDisplayRange))
+const normalizedTotalPages = computed(() => normalizePositiveInteger(totalPages, 1))
+const normalizedDisplayRange = computed(() => normalizeRange(displayRange))
+const normalizedFirstLastDisplayRange = computed(() => normalizeRange(firstLastDisplayRange))
 
 const clampPage = (page: number) => {
   return Math.min(normalizePositiveInteger(page, 1), normalizedTotalPages.value)
 }
 
-const normalizedCurrentPage = computed(() => clampPage(props.currentPage))
+const normalizedCurrentPage = computed(() => clampPage(currentPage))
 
-const resolvedAriaLabel = computed(() => props.ariaLabel || t('components.pagination.ariaLabel'))
-const resolvedFirstLabel = computed(() => props.firstLabel || t('components.pagination.first'))
-const resolvedLastLabel = computed(() => props.lastLabel || t('components.pagination.last'))
-const resolvedPrevLabel = computed(() => props.prevLabel || t('components.pagination.prev'))
-const resolvedNextLabel = computed(() => props.nextLabel || t('components.pagination.next'))
+const resolvedAriaLabel = computed(() => ariaLabel || t('components.pagination.ariaLabel'))
+const resolvedFirstLabel = computed(() => firstLabel || t('components.pagination.first'))
+const resolvedLastLabel = computed(() => lastLabel || t('components.pagination.last'))
+const resolvedPrevLabel = computed(() => prevLabel || t('components.pagination.prev'))
+const resolvedNextLabel = computed(() => nextLabel || t('components.pagination.next'))
 
 const visiblePages = computed<TPaginationItem[]>(() => {
   const includedPages = new Set<number>([1, normalizedTotalPages.value])
@@ -167,23 +169,23 @@ const goToPage = (page: number) => {
   emit('change', nextPage)
 }
 
-const navClassName = computed(() => cn(props.navClass))
+const navClassName = computed(() => cn(navClass))
 const listClassName = computed(() =>
-  cn('flex flex-wrap items-center justify-center gap-2', props.listClass)
+  cn('flex flex-wrap items-center justify-center gap-2', listClass)
 )
 const itemButtonClass = computed(() =>
   cn(
     'inline-flex min-h-10 min-w-10 items-center justify-center rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400',
-    props.itemClass
+    itemClass
   )
 )
 const activeButtonClass = computed(() =>
   cn(
     'border-slate-900 bg-slate-900 text-white hover:border-slate-900 hover:bg-slate-900',
-    props.activeClass
+    activeClass
   )
 )
-const disabledButtonClass = computed(() => cn('pointer-events-none', props.disabledClass))
+const disabledButtonClass = computed(() => cn('pointer-events-none', disabledClass))
 
 const getButtonClass = (isActive: boolean, isDisabled: boolean) => {
   return cn(

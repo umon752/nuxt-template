@@ -10,21 +10,19 @@ defineOptions({
   name: 'MultipleSubmenu',
 })
 
-const props = withDefaults(defineProps<TProps>(), {
-  nested: false,
-})
+const { item, nested = false } = defineProps<TProps>()
 
 // 一排 8 個選單項目，超過 8 個就換下一排
 const itemsPerColumn = 8
 
-const hasChildren = computed(() => Boolean(props.item.children?.length))
+const hasChildren = computed(() => Boolean(item.children?.length))
 const panelRef = ref<HTMLElement | null>(null)
-const isNested = computed(() => props.nested)
+const isNested = computed(() => nested)
 
 const columns = computed(() => {
-  if (!props.item.children?.length) return []
+  if (!item.children?.length) return []
 
-  const items = props.item.children
+  const items = item.children
   const result: TMenuItem[][] = []
 
   for (let index = 0; index < items.length; index += itemsPerColumn) {
@@ -48,7 +46,7 @@ const { panelStyle: positionStyle, refreshPosition } = useDropdownMenuPosition({
 })
 
 const panelClass = computed((): string => {
-  if (props.nested) {
+  if (nested) {
     return 'invisible absolute z-50 px-7 min-w-48 opacity-0 transition peer-focus-within/submenu-trigger:visible peer-focus-within/submenu-trigger:opacity-100 peer-hover/submenu-trigger:visible peer-hover/submenu-trigger:opacity-100 hover:visible hover:opacity-100 focus-within:visible focus-within:opacity-100'
   }
 

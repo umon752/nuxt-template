@@ -33,38 +33,40 @@ type TProps = {
   contentClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  collapseOthers: true,
-  accordionClass: '',
-  titleClass: '',
-  contentClass: '',
-})
+const {
+  items,
+  activeItems,
+  collapseOthers = true,
+  accordionClass: accordionClassProp = '',
+  titleClass: titleClassProp = '',
+  contentClass: contentClassProp = '',
+} = defineProps<TProps>()
 
-const accordionClass = computed(() => cn('w-full', props.accordionClass))
+const accordionClass = computed(() => cn('w-full', accordionClassProp))
 
-const titleClass = computed(() => cn('w-full px-4 py-3 text-left', props.titleClass))
+const titleClass = computed(() => cn('w-full px-4 py-3 text-left', titleClassProp))
 
 // useId 可在 SSR 與 hydration 間產生穩定且不重複的 id
 const instanceId = useId()
 
-const contentClass = computed(() => cn('px-4 py-3', props.contentClass))
+const contentClass = computed(() => cn('px-4 py-3', contentClassProp))
 
 const emit = defineEmits<{
   'update:activeItems': [items: number[]]
   toggle: [index: number, isActive: boolean]
 }>()
 
-const activeItemSet = computed(() => new Set(props.activeItems))
+const activeItemSet = computed(() => new Set(activeItems))
 
 /**
  * 切換手風琴項目的展開/收合狀態
  * @param {number} index - 項目索引
  */
 const toggle = (index: number): void => {
-  const nextActiveItems = new Set(props.activeItems)
+  const nextActiveItems = new Set(activeItems)
   const isCurrentlyActive = nextActiveItems.has(index)
 
-  if (props.collapseOthers) {
+  if (collapseOthers) {
     nextActiveItems.clear()
 
     if (!isCurrentlyActive) {

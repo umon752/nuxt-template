@@ -15,13 +15,13 @@ type TProps = {
   buttonClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  url: undefined,
-  title: undefined,
-  platforms: () => ['facebook', 'line', 'twitter', 'copy'],
-  copiedDuration: 2000,
-  buttonClass: '',
-})
+const {
+  url = undefined,
+  title = undefined,
+  platforms = ['facebook', 'line', 'twitter', 'copy'],
+  copiedDuration = 2000,
+  buttonClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   share: [platform: TExternalSharePlatform, url: string]
@@ -32,12 +32,12 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const attrs = useAttrs()
 const { isCopied, feedbackMessage, share } = useSocialShare({
-  url: () => props.url,
-  title: () => props.title,
-  copiedDuration: () => props.copiedDuration,
+  url: () => url,
+  title: () => title,
+  copiedDuration: () => copiedDuration,
 })
 
-const visiblePlatforms = computed(() => [...new Set(props.platforms)])
+const visiblePlatforms = computed(() => [...new Set(platforms)])
 const platformLabels = computed<Record<TSharePlatform, string>>(() => ({
   facebook: t('components.socialShare.facebook'),
   line: t('components.socialShare.line'),
@@ -69,7 +69,7 @@ const getButtonClassName = (platform: TSharePlatform): string =>
   cn(
     'inline-flex min-h-10 items-center justify-center rounded-md border px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600',
     platformClassNames[platform],
-    props.buttonClass
+    buttonClass
   )
 
 const handleClick = (platform: TSharePlatform): void => {

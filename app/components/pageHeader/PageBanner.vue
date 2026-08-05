@@ -4,14 +4,11 @@ type TProps = {
   alt?: string
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  banner: '',
-  alt: undefined,
-})
+const { banner = '', alt = undefined } = defineProps<TProps>()
 
 const { t } = useI18n()
-const resolvedAlt = computed(() => props.alt || t('components.pageHeader.bannerAlt'))
+const resolvedAlt = computed(() => alt || t('components.pageHeader.bannerAlt'))
 </script>
 <template>
-  <img :src="props.banner" :alt="resolvedAlt" />
+  <img :src="banner" :alt="resolvedAlt" />
 </template>

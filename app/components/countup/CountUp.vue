@@ -27,16 +27,17 @@ type TProps = {
   countUpClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  startValue: 0,
-  duration: 1000,
-  startTime: 0,
-  delay: 0,
-  mode: 'random',
-  thousandComma: false,
-  autoplay: false,
-  countUpClass: '',
-})
+const {
+  value,
+  startValue = 0,
+  duration = 1000,
+  startTime = 0,
+  delay = 0,
+  mode = 'random',
+  thousandComma = false,
+  autoplay = false,
+  countUpClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   run: [value: string]
@@ -51,31 +52,29 @@ const status = ref<TCountUpStatus>('idle')
 const prefersReducedMotion = ref(false)
 const isMounted = ref(false)
 
-const normalizedStartValue = computed(() =>
-  Number.isFinite(props.startValue) ? props.startValue : 0
-)
-const normalizedDuration = computed(() => normalizeNonNegative(props.duration, 1000))
-const normalizedStartTime = computed(() => normalizeNonNegative(props.startTime, 0))
-const normalizedDelay = computed(() => normalizeNonNegative(props.delay, 0))
+const normalizedStartValue = computed(() => (Number.isFinite(startValue) ? startValue : 0))
+const normalizedDuration = computed(() => normalizeNonNegative(duration, 1000))
+const normalizedStartTime = computed(() => normalizeNonNegative(startTime, 0))
+const normalizedDelay = computed(() => normalizeNonNegative(delay, 0))
 const sequentialTarget = computed(() => {
-  const target = typeof props.value === 'number' ? props.value : Number(props.value)
+  const target = typeof value === 'number' ? value : Number(value)
 
   return Number.isFinite(target) ? target : undefined
 })
 const effectiveMode = computed<TCountUpMode>(() =>
-  props.mode === 'sequential' && sequentialTarget.value !== undefined ? 'sequential' : 'random'
+  mode === 'sequential' && sequentialTarget.value !== undefined ? 'sequential' : 'random'
 )
-const targetPrecision = computed(() => getDecimalPlaces(props.value))
+const targetPrecision = computed(() => getDecimalPlaces(value))
 const targetText = computed(() => {
   if (effectiveMode.value === 'sequential' && sequentialTarget.value !== undefined) {
-    return formatNumber(sequentialTarget.value, targetPrecision.value, props.thousandComma)
+    return formatNumber(sequentialTarget.value, targetPrecision.value, thousandComma)
   }
 
-  return String(props.value)
+  return String(value)
 })
 const initialText = computed(() => String(normalizedStartValue.value))
 const displayValue = ref(initialText.value)
-const countUpClassName = computed(() => cn('inline-block tabular-nums', props.countUpClass))
+const countUpClassName = computed(() => cn('inline-block tabular-nums', countUpClass))
 
 let animationFrame: number | undefined
 let startDelayTimer: ReturnType<typeof setTimeout> | undefined
@@ -124,11 +123,11 @@ function renderProgress(progress: number): void {
     const nextValue =
       normalizedStartValue.value + (sequentialTarget.value - normalizedStartValue.value) * progress
 
-    displayValue.value = formatNumber(nextValue, targetPrecision.value, props.thousandComma)
+    displayValue.value = formatNumber(nextValue, targetPrecision.value, thousandComma)
     return
   }
 
-  displayValue.value = Array.from(String(props.value), (character) =>
+  displayValue.value = Array.from(String(value), (character) =>
     /\d/.test(character) ? Math.floor(Math.random() * 10).toString() : character
   ).join('')
 }
@@ -278,25 +277,25 @@ function handleReducedMotionChange(event: MediaQueryListEvent): void {
 
 watch(
   [
-    () => props.value,
-    () => props.startValue,
-    () => props.duration,
-    () => props.startTime,
-    () => props.delay,
-    () => props.mode,
-    () => props.thousandComma,
+    () => value,
+    () => startValue,
+    () => duration,
+    () => startTime,
+    () => delay,
+    () => mode,
+    () => thousandComma,
   ],
   () => {
     resetState()
 
-    if (isMounted.value && props.autoplay) {
+    if (isMounted.value && autoplay) {
       run()
     }
   }
 )
 
 watch(
-  () => props.autoplay,
+  () => autoplay,
   (autoplay) => {
     if (!isMounted.value) {
       return
@@ -316,7 +315,7 @@ onMounted(() => {
   prefersReducedMotion.value = reducedMotionQuery.matches
   reducedMotionQuery.addEventListener('change', handleReducedMotionChange)
 
-  if (props.autoplay) {
+  if (autoplay) {
     run()
   }
 })

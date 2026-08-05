@@ -24,15 +24,16 @@ type TProps = {
   odometerClass?: ClassValue
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  startValue: 0,
-  maxCount: 99999,
-  duration: 1000,
-  easing: 'ease-in-out',
-  autoplay: false,
-  overflowText: '+',
-  odometerClass: '',
-})
+const {
+  value,
+  startValue = 0,
+  maxCount = 99999,
+  duration = 1000,
+  easing = 'ease-in-out',
+  autoplay = false,
+  overflowText = '+',
+  odometerClass = '',
+} = defineProps<TProps>()
 
 const emit = defineEmits<{
   run: [value: number]
@@ -46,20 +47,18 @@ const prefersReducedMotion = ref(false)
 const transitionsEnabled = ref(false)
 const hasPendingAnimation = ref(false)
 
-const normalizedMaxCount = computed(() => normalizeMaxCount(props.maxCount))
-const normalizedValue = computed(() => normalizeNonNegativeInteger(props.value))
+const normalizedMaxCount = computed(() => normalizeMaxCount(maxCount))
+const normalizedValue = computed(() => normalizeNonNegativeInteger(value))
 const normalizedStartValue = computed(() =>
-  Math.min(normalizeNonNegativeInteger(props.startValue), normalizedMaxCount.value)
+  Math.min(normalizeNonNegativeInteger(startValue), normalizedMaxCount.value)
 )
 const targetValue = computed(() => Math.min(normalizedValue.value, normalizedMaxCount.value))
 const isOverMax = computed(() => normalizedValue.value > normalizedMaxCount.value)
-const normalizedDuration = computed(() => normalizeDuration(props.duration))
-const normalizedEasing = computed(() => props.easing.trim() || 'ease-in-out')
-const accessibleValue = computed(
-  () => `${targetValue.value}${isOverMax.value ? props.overflowText : ''}`
-)
+const normalizedDuration = computed(() => normalizeDuration(duration))
+const normalizedEasing = computed(() => easing.trim() || 'ease-in-out')
+const accessibleValue = computed(() => `${targetValue.value}${isOverMax.value ? overflowText : ''}`)
 const odometerClassName = computed(() =>
-  cn('inline-flex items-baseline overflow-hidden leading-none tabular-nums', props.odometerClass)
+  cn('inline-flex items-baseline overflow-hidden leading-none tabular-nums', odometerClass)
 )
 const columns = ref<TDigitColumn[]>(createColumns(normalizedStartValue.value))
 
@@ -221,7 +220,7 @@ function handleReducedMotionChange(event: MediaQueryListEvent): void {
   }
 }
 
-watch([() => props.value, () => props.maxCount], () => {
+watch([() => value, () => maxCount], () => {
   if (!isMounted.value) {
     return
   }
@@ -231,7 +230,7 @@ watch([() => props.value, () => props.maxCount], () => {
 })
 
 watch(
-  () => props.autoplay,
+  () => autoplay,
   (autoplay) => {
     if (isMounted.value && autoplay) {
       run()
@@ -245,7 +244,7 @@ onMounted(() => {
   prefersReducedMotion.value = reducedMotionQuery.matches
   reducedMotionQuery.addEventListener('change', handleReducedMotionChange)
 
-  if (props.autoplay) {
+  if (autoplay) {
     run()
   }
 })
@@ -278,7 +277,7 @@ defineExpose<TOdometerInstance>({
           </span>
         </span>
       </span>
-      <span v-if="isOverMax">{{ props.overflowText }}</span>
+      <span v-if="isOverMax">{{ overflowText }}</span>
     </span>
     <span class="sr-only">{{ accessibleValue }}</span>
   </span>

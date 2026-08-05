@@ -8,32 +8,30 @@ type TProps = {
   breadcrumbItems?: TBreadcrumbItem[]
 }
 
-const props = withDefaults(defineProps<TProps>(), {
-  banner: '',
-  bannerAlt: '',
-  title: '',
-  breadcrumbItems: () => [],
-})
+const {
+  banner = '',
+  bannerAlt: bannerAltProp = '',
+  title = '',
+  breadcrumbItems: breadcrumbItemsProp = [],
+} = defineProps<TProps>()
 
 const { t } = useI18n()
 const { items: autoBreadcrumbItems, currentTitle } = useBreadcrumb()
 
 const breadcrumbItems = computed(() =>
-  props.breadcrumbItems.length ? props.breadcrumbItems : autoBreadcrumbItems.value
+  breadcrumbItemsProp.length ? breadcrumbItemsProp : autoBreadcrumbItems.value
 )
 
-const pageTitle = computed(
-  () => props.title || breadcrumbItems.value.at(-1)?.title || currentTitle.value
-)
+const pageTitle = computed(() => title || breadcrumbItems.value.at(-1)?.title || currentTitle.value)
 
 const bannerAlt = computed(
-  () => props.bannerAlt || pageTitle.value || t('components.pageHeader.bannerAlt')
+  () => bannerAltProp || pageTitle.value || t('components.pageHeader.bannerAlt')
 )
 </script>
 
 <template>
   <header class="space-y-2">
-    <PageHeaderPageBanner v-if="props.banner" :banner="props.banner" :alt="bannerAlt" />
+    <PageHeaderPageBanner v-if="banner" :banner="banner" :alt="bannerAlt" />
     <div class="container flex flex-col items-center gap-2 py-4">
       <PageHeaderPageTitle :title="pageTitle" class="text-4xl font-bold" />
       <Breadcrumb :items="breadcrumbItems" />
