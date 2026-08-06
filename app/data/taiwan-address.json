@@ -1,0 +1,2776 @@
+[
+  {
+    "value": "taipei",
+    "labels": {
+      "zh-TW": "台北市",
+      "en": "Taipei City"
+    },
+    "districts": [
+      {
+        "value": "taipei-zhongzheng",
+        "labels": {
+          "zh-TW": "中正區",
+          "en": "Zhongzheng District"
+        }
+      },
+      {
+        "value": "taipei-datong",
+        "labels": {
+          "zh-TW": "大同區",
+          "en": "Datong District"
+        }
+      },
+      {
+        "value": "taipei-zhongshan",
+        "labels": {
+          "zh-TW": "中山區",
+          "en": "Zhongshan District"
+        }
+      },
+      {
+        "value": "taipei-songshan",
+        "labels": {
+          "zh-TW": "松山區",
+          "en": "Songshan District"
+        }
+      },
+      {
+        "value": "taipei-daan",
+        "labels": {
+          "zh-TW": "大安區",
+          "en": "Daan District"
+        }
+      },
+      {
+        "value": "taipei-wanhua",
+        "labels": {
+          "zh-TW": "萬華區",
+          "en": "Wanhua District"
+        }
+      },
+      {
+        "value": "taipei-xinyi",
+        "labels": {
+          "zh-TW": "信義區",
+          "en": "Xinyi District"
+        }
+      },
+      {
+        "value": "taipei-shilin",
+        "labels": {
+          "zh-TW": "士林區",
+          "en": "Shilin District"
+        }
+      },
+      {
+        "value": "taipei-beitou",
+        "labels": {
+          "zh-TW": "北投區",
+          "en": "Beitou District"
+        }
+      },
+      {
+        "value": "taipei-neihu",
+        "labels": {
+          "zh-TW": "內湖區",
+          "en": "Neihu District"
+        }
+      },
+      {
+        "value": "taipei-nangang",
+        "labels": {
+          "zh-TW": "南港區",
+          "en": "Nangang District"
+        }
+      },
+      {
+        "value": "taipei-wenshan",
+        "labels": {
+          "zh-TW": "文山區",
+          "en": "Wenshan District"
+        }
+      }
+    ]
+  },
+  {
+    "value": "new-taipei",
+    "labels": {
+      "zh-TW": "新北市",
+      "en": "New Taipei City"
+    },
+    "districts": [
+      {
+        "value": "new-taipei-banqiao",
+        "labels": {
+          "zh-TW": "板橋區",
+          "en": "Banqiao District"
+        }
+      },
+      {
+        "value": "new-taipei-sanchong",
+        "labels": {
+          "zh-TW": "三重區",
+          "en": "Sanchong District"
+        }
+      },
+      {
+        "value": "new-taipei-zhonghe",
+        "labels": {
+          "zh-TW": "中和區",
+          "en": "Zhonghe District"
+        }
+      },
+      {
+        "value": "new-taipei-yonghe",
+        "labels": {
+          "zh-TW": "永和區",
+          "en": "Yonghe District"
+        }
+      },
+      {
+        "value": "new-taipei-xinzhuang",
+        "labels": {
+          "zh-TW": "新莊區",
+          "en": "Xinzhuang District"
+        }
+      },
+      {
+        "value": "new-taipei-xindian",
+        "labels": {
+          "zh-TW": "新店區",
+          "en": "Xindian District"
+        }
+      },
+      {
+        "value": "new-taipei-shulin",
+        "labels": {
+          "zh-TW": "樹林區",
+          "en": "Shulin District"
+        }
+      },
+      {
+        "value": "new-taipei-yingge",
+        "labels": {
+          "zh-TW": "鶯歌區",
+          "en": "Yingge District"
+        }
+      },
+      {
+        "value": "new-taipei-sanxia",
+        "labels": {
+          "zh-TW": "三峽區",
+          "en": "Sanxia District"
+        }
+      },
+      {
+        "value": "new-taipei-tamsui",
+        "labels": {
+          "zh-TW": "淡水區",
+          "en": "Tamsui District"
+        }
+      },
+      {
+        "value": "new-taipei-xizhi",
+        "labels": {
+          "zh-TW": "汐止區",
+          "en": "Xizhi District"
+        }
+      },
+      {
+        "value": "new-taipei-ruifang",
+        "labels": {
+          "zh-TW": "瑞芳區",
+          "en": "Ruifang District"
+        }
+      },
+      {
+        "value": "new-taipei-tucheng",
+        "labels": {
+          "zh-TW": "土城區",
+          "en": "Tucheng District"
+        }
+      },
+      {
+        "value": "new-taipei-luzhou",
+        "labels": {
+          "zh-TW": "蘆洲區",
+          "en": "Luzhou District"
+        }
+      },
+      {
+        "value": "new-taipei-wugu",
+        "labels": {
+          "zh-TW": "五股區",
+          "en": "Wugu District"
+        }
+      },
+      {
+        "value": "new-taipei-taishan",
+        "labels": {
+          "zh-TW": "泰山區",
+          "en": "Taishan District"
+        }
+      },
+      {
+        "value": "new-taipei-linkou",
+        "labels": {
+          "zh-TW": "林口區",
+          "en": "Linkou District"
+        }
+      },
+      {
+        "value": "new-taipei-shenkeng",
+        "labels": {
+          "zh-TW": "深坑區",
+          "en": "Shenkeng District"
+        }
+      },
+      {
+        "value": "new-taipei-shiding",
+        "labels": {
+          "zh-TW": "石碇區",
+          "en": "Shiding District"
+        }
+      },
+      {
+        "value": "new-taipei-pinglin",
+        "labels": {
+          "zh-TW": "坪林區",
+          "en": "Pinglin District"
+        }
+      },
+      {
+        "value": "new-taipei-sanzhi",
+        "labels": {
+          "zh-TW": "三芝區",
+          "en": "Sanzhi District"
+        }
+      },
+      {
+        "value": "new-taipei-shimen",
+        "labels": {
+          "zh-TW": "石門區",
+          "en": "Shimen District"
+        }
+      },
+      {
+        "value": "new-taipei-bali",
+        "labels": {
+          "zh-TW": "八里區",
+          "en": "Bali District"
+        }
+      },
+      {
+        "value": "new-taipei-pingxi",
+        "labels": {
+          "zh-TW": "平溪區",
+          "en": "Pingxi District"
+        }
+      },
+      {
+        "value": "new-taipei-shuangxi",
+        "labels": {
+          "zh-TW": "雙溪區",
+          "en": "Shuangxi District"
+        }
+      },
+      {
+        "value": "new-taipei-gongliao",
+        "labels": {
+          "zh-TW": "貢寮區",
+          "en": "Gongliao District"
+        }
+      },
+      {
+        "value": "new-taipei-jinshan",
+        "labels": {
+          "zh-TW": "金山區",
+          "en": "Jinshan District"
+        }
+      },
+      {
+        "value": "new-taipei-wanli",
+        "labels": {
+          "zh-TW": "萬里區",
+          "en": "Wanli District"
+        }
+      },
+      {
+        "value": "new-taipei-wulai",
+        "labels": {
+          "zh-TW": "烏來區",
+          "en": "Wulai District"
+        }
+      }
+    ]
+  },
+  {
+    "value": "taoyuan",
+    "labels": {
+      "zh-TW": "桃園市",
+      "en": "Taoyuan City"
+    },
+    "districts": [
+      {
+        "value": "taoyuan-taoyuan",
+        "labels": {
+          "zh-TW": "桃園區",
+          "en": "Taoyuan District"
+        }
+      },
+      {
+        "value": "taoyuan-zhongli",
+        "labels": {
+          "zh-TW": "中壢區",
+          "en": "Zhongli District"
+        }
+      },
+      {
+        "value": "taoyuan-daxi",
+        "labels": {
+          "zh-TW": "大溪區",
+          "en": "Daxi District"
+        }
+      },
+      {
+        "value": "taoyuan-yangmei",
+        "labels": {
+          "zh-TW": "楊梅區",
+          "en": "Yangmei District"
+        }
+      },
+      {
+        "value": "taoyuan-luzhu",
+        "labels": {
+          "zh-TW": "蘆竹區",
+          "en": "Luzhu District"
+        }
+      },
+      {
+        "value": "taoyuan-dayuan",
+        "labels": {
+          "zh-TW": "大園區",
+          "en": "Dayuan District"
+        }
+      },
+      {
+        "value": "taoyuan-guishan",
+        "labels": {
+          "zh-TW": "龜山區",
+          "en": "Guishan District"
+        }
+      },
+      {
+        "value": "taoyuan-bade",
+        "labels": {
+          "zh-TW": "八德區",
+          "en": "Bade District"
+        }
+      },
+      {
+        "value": "taoyuan-longtan",
+        "labels": {
+          "zh-TW": "龍潭區",
+          "en": "Longtan District"
+        }
+      },
+      {
+        "value": "taoyuan-pingzhen",
+        "labels": {
+          "zh-TW": "平鎮區",
+          "en": "Pingzhen District"
+        }
+      },
+      {
+        "value": "taoyuan-xinwu",
+        "labels": {
+          "zh-TW": "新屋區",
+          "en": "Xinwu District"
+        }
+      },
+      {
+        "value": "taoyuan-guanyin",
+        "labels": {
+          "zh-TW": "觀音區",
+          "en": "Guanyin District"
+        }
+      },
+      {
+        "value": "taoyuan-fuxing",
+        "labels": {
+          "zh-TW": "復興區",
+          "en": "Fuxing District"
+        }
+      }
+    ]
+  },
+  {
+    "value": "taichung",
+    "labels": {
+      "zh-TW": "台中市",
+      "en": "Taichung City"
+    },
+    "districts": [
+      {
+        "value": "taichung-central",
+        "labels": {
+          "zh-TW": "中區",
+          "en": "Central District"
+        }
+      },
+      {
+        "value": "taichung-east",
+        "labels": {
+          "zh-TW": "東區",
+          "en": "East District"
+        }
+      },
+      {
+        "value": "taichung-south",
+        "labels": {
+          "zh-TW": "南區",
+          "en": "South District"
+        }
+      },
+      {
+        "value": "taichung-west",
+        "labels": {
+          "zh-TW": "西區",
+          "en": "West District"
+        }
+      },
+      {
+        "value": "taichung-north",
+        "labels": {
+          "zh-TW": "北區",
+          "en": "North District"
+        }
+      },
+      {
+        "value": "taichung-beitun",
+        "labels": {
+          "zh-TW": "北屯區",
+          "en": "Beitun District"
+        }
+      },
+      {
+        "value": "taichung-xitun",
+        "labels": {
+          "zh-TW": "西屯區",
+          "en": "Xitun District"
+        }
+      },
+      {
+        "value": "taichung-nantun",
+        "labels": {
+          "zh-TW": "南屯區",
+          "en": "Nantun District"
+        }
+      },
+      {
+        "value": "taichung-taiping",
+        "labels": {
+          "zh-TW": "太平區",
+          "en": "Taiping District"
+        }
+      },
+      {
+        "value": "taichung-dali",
+        "labels": {
+          "zh-TW": "大里區",
+          "en": "Dali District"
+        }
+      },
+      {
+        "value": "taichung-wufeng",
+        "labels": {
+          "zh-TW": "霧峰區",
+          "en": "Wufeng District"
+        }
+      },
+      {
+        "value": "taichung-wuri",
+        "labels": {
+          "zh-TW": "烏日區",
+          "en": "Wuri District"
+        }
+      },
+      {
+        "value": "taichung-fengyuan",
+        "labels": {
+          "zh-TW": "豐原區",
+          "en": "Fengyuan District"
+        }
+      },
+      {
+        "value": "taichung-houli",
+        "labels": {
+          "zh-TW": "后里區",
+          "en": "Houli District"
+        }
+      },
+      {
+        "value": "taichung-shigang",
+        "labels": {
+          "zh-TW": "石岡區",
+          "en": "Shigang District"
+        }
+      },
+      {
+        "value": "taichung-dongshi",
+        "labels": {
+          "zh-TW": "東勢區",
+          "en": "Dongshi District"
+        }
+      },
+      {
+        "value": "taichung-heping",
+        "labels": {
+          "zh-TW": "和平區",
+          "en": "Heping District"
+        }
+      },
+      {
+        "value": "taichung-xinshe",
+        "labels": {
+          "zh-TW": "新社區",
+          "en": "Xinshe District"
+        }
+      },
+      {
+        "value": "taichung-tanzi",
+        "labels": {
+          "zh-TW": "潭子區",
+          "en": "Tanzi District"
+        }
+      },
+      {
+        "value": "taichung-daya",
+        "labels": {
+          "zh-TW": "大雅區",
+          "en": "Daya District"
+        }
+      },
+      {
+        "value": "taichung-shengang",
+        "labels": {
+          "zh-TW": "神岡區",
+          "en": "Shengang District"
+        }
+      },
+      {
+        "value": "taichung-dadu",
+        "labels": {
+          "zh-TW": "大肚區",
+          "en": "Dadu District"
+        }
+      },
+      {
+        "value": "taichung-shalu",
+        "labels": {
+          "zh-TW": "沙鹿區",
+          "en": "Shalu District"
+        }
+      },
+      {
+        "value": "taichung-longjing",
+        "labels": {
+          "zh-TW": "龍井區",
+          "en": "Longjing District"
+        }
+      },
+      {
+        "value": "taichung-wuqi",
+        "labels": {
+          "zh-TW": "梧棲區",
+          "en": "Wuqi District"
+        }
+      },
+      {
+        "value": "taichung-qingshui",
+        "labels": {
+          "zh-TW": "清水區",
+          "en": "Qingshui District"
+        }
+      },
+      {
+        "value": "taichung-dajia",
+        "labels": {
+          "zh-TW": "大甲區",
+          "en": "Dajia District"
+        }
+      },
+      {
+        "value": "taichung-waipu",
+        "labels": {
+          "zh-TW": "外埔區",
+          "en": "Waipu District"
+        }
+      },
+      {
+        "value": "taichung-daan",
+        "labels": {
+          "zh-TW": "大安區",
+          "en": "Daan District"
+        }
+      }
+    ]
+  },
+  {
+    "value": "tainan",
+    "labels": {
+      "zh-TW": "台南市",
+      "en": "Tainan City"
+    },
+    "districts": [
+      {
+        "value": "tainan-central-west",
+        "labels": {
+          "zh-TW": "中西區",
+          "en": "Central West District"
+        }
+      },
+      {
+        "value": "tainan-east",
+        "labels": {
+          "zh-TW": "東區",
+          "en": "East District"
+        }
+      },
+      {
+        "value": "tainan-south",
+        "labels": {
+          "zh-TW": "南區",
+          "en": "South District"
+        }
+      },
+      {
+        "value": "tainan-north",
+        "labels": {
+          "zh-TW": "北區",
+          "en": "North District"
+        }
+      },
+      {
+        "value": "tainan-anping",
+        "labels": {
+          "zh-TW": "安平區",
+          "en": "Anping District"
+        }
+      },
+      {
+        "value": "tainan-annan",
+        "labels": {
+          "zh-TW": "安南區",
+          "en": "Annan District"
+        }
+      },
+      {
+        "value": "tainan-yongkang",
+        "labels": {
+          "zh-TW": "永康區",
+          "en": "Yongkang District"
+        }
+      },
+      {
+        "value": "tainan-guiren",
+        "labels": {
+          "zh-TW": "歸仁區",
+          "en": "Guiren District"
+        }
+      },
+      {
+        "value": "tainan-xinhua",
+        "labels": {
+          "zh-TW": "新化區",
+          "en": "Xinhua District"
+        }
+      },
+      {
+        "value": "tainan-zuozhen",
+        "labels": {
+          "zh-TW": "左鎮區",
+          "en": "Zuozhen District"
+        }
+      },
+      {
+        "value": "tainan-yujing",
+        "labels": {
+          "zh-TW": "玉井區",
+          "en": "Yujing District"
+        }
+      },
+      {
+        "value": "tainan-nanxi",
+        "labels": {
+          "zh-TW": "楠西區",
+          "en": "Nanxi District"
+        }
+      },
+      {
+        "value": "tainan-nanhua",
+        "labels": {
+          "zh-TW": "南化區",
+          "en": "Nanhua District"
+        }
+      },
+      {
+        "value": "tainan-rende",
+        "labels": {
+          "zh-TW": "仁德區",
+          "en": "Rende District"
+        }
+      },
+      {
+        "value": "tainan-guanmiao",
+        "labels": {
+          "zh-TW": "關廟區",
+          "en": "Guanmiao District"
+        }
+      },
+      {
+        "value": "tainan-longqi",
+        "labels": {
+          "zh-TW": "龍崎區",
+          "en": "Longqi District"
+        }
+      },
+      {
+        "value": "tainan-guantian",
+        "labels": {
+          "zh-TW": "官田區",
+          "en": "Guantian District"
+        }
+      },
+      {
+        "value": "tainan-madou",
+        "labels": {
+          "zh-TW": "麻豆區",
+          "en": "Madou District"
+        }
+      },
+      {
+        "value": "tainan-jiali",
+        "labels": {
+          "zh-TW": "佳里區",
+          "en": "Jiali District"
+        }
+      },
+      {
+        "value": "tainan-xigang",
+        "labels": {
+          "zh-TW": "西港區",
+          "en": "Xigang District"
+        }
+      },
+      {
+        "value": "tainan-qigu",
+        "labels": {
+          "zh-TW": "七股區",
+          "en": "Qigu District"
+        }
+      },
+      {
+        "value": "tainan-jiangjun",
+        "labels": {
+          "zh-TW": "將軍區",
+          "en": "Jiangjun District"
+        }
+      },
+      {
+        "value": "tainan-xuejia",
+        "labels": {
+          "zh-TW": "學甲區",
+          "en": "Xuejia District"
+        }
+      },
+      {
+        "value": "tainan-beimen",
+        "labels": {
+          "zh-TW": "北門區",
+          "en": "Beimen District"
+        }
+      },
+      {
+        "value": "tainan-xinying",
+        "labels": {
+          "zh-TW": "新營區",
+          "en": "Xinying District"
+        }
+      },
+      {
+        "value": "tainan-houbi",
+        "labels": {
+          "zh-TW": "後壁區",
+          "en": "Houbi District"
+        }
+      },
+      {
+        "value": "tainan-baihe",
+        "labels": {
+          "zh-TW": "白河區",
+          "en": "Baihe District"
+        }
+      },
+      {
+        "value": "tainan-dongshan",
+        "labels": {
+          "zh-TW": "東山區",
+          "en": "Dongshan District"
+        }
+      },
+      {
+        "value": "tainan-liujia",
+        "labels": {
+          "zh-TW": "六甲區",
+          "en": "Liujia District"
+        }
+      },
+      {
+        "value": "tainan-xiaying",
+        "labels": {
+          "zh-TW": "下營區",
+          "en": "Xiaying District"
+        }
+      },
+      {
+        "value": "tainan-liuying",
+        "labels": {
+          "zh-TW": "柳營區",
+          "en": "Liuying District"
+        }
+      },
+      {
+        "value": "tainan-yanshui",
+        "labels": {
+          "zh-TW": "鹽水區",
+          "en": "Yanshui District"
+        }
+      },
+      {
+        "value": "tainan-shanhua",
+        "labels": {
+          "zh-TW": "善化區",
+          "en": "Shanhua District"
+        }
+      },
+      {
+        "value": "tainan-danei",
+        "labels": {
+          "zh-TW": "大內區",
+          "en": "Danei District"
+        }
+      },
+      {
+        "value": "tainan-shanshang",
+        "labels": {
+          "zh-TW": "山上區",
+          "en": "Shanshang District"
+        }
+      },
+      {
+        "value": "tainan-xinshi",
+        "labels": {
+          "zh-TW": "新市區",
+          "en": "Xinshi District"
+        }
+      },
+      {
+        "value": "tainan-anding",
+        "labels": {
+          "zh-TW": "安定區",
+          "en": "Anding District"
+        }
+      }
+    ]
+  },
+  {
+    "value": "kaohsiung",
+    "labels": {
+      "zh-TW": "高雄市",
+      "en": "Kaohsiung City"
+    },
+    "districts": [
+      {
+        "value": "kaohsiung-xinxing",
+        "labels": {
+          "zh-TW": "新興區",
+          "en": "Xinxing District"
+        }
+      },
+      {
+        "value": "kaohsiung-qianjin",
+        "labels": {
+          "zh-TW": "前金區",
+          "en": "Qianjin District"
+        }
+      },
+      {
+        "value": "kaohsiung-lingya",
+        "labels": {
+          "zh-TW": "苓雅區",
+          "en": "Lingya District"
+        }
+      },
+      {
+        "value": "kaohsiung-yancheng",
+        "labels": {
+          "zh-TW": "鹽埕區",
+          "en": "Yancheng District"
+        }
+      },
+      {
+        "value": "kaohsiung-gushan",
+        "labels": {
+          "zh-TW": "鼓山區",
+          "en": "Gushan District"
+        }
+      },
+      {
+        "value": "kaohsiung-qijin",
+        "labels": {
+          "zh-TW": "旗津區",
+          "en": "Qijin District"
+        }
+      },
+      {
+        "value": "kaohsiung-qianzhen",
+        "labels": {
+          "zh-TW": "前鎮區",
+          "en": "Qianzhen District"
+        }
+      },
+      {
+        "value": "kaohsiung-sanmin",
+        "labels": {
+          "zh-TW": "三民區",
+          "en": "Sanmin District"
+        }
+      },
+      {
+        "value": "kaohsiung-nanzi",
+        "labels": {
+          "zh-TW": "楠梓區",
+          "en": "Nanzi District"
+        }
+      },
+      {
+        "value": "kaohsiung-xiaogang",
+        "labels": {
+          "zh-TW": "小港區",
+          "en": "Xiaogang District"
+        }
+      },
+      {
+        "value": "kaohsiung-zuoying",
+        "labels": {
+          "zh-TW": "左營區",
+          "en": "Zuoying District"
+        }
+      },
+      {
+        "value": "kaohsiung-renwu",
+        "labels": {
+          "zh-TW": "仁武區",
+          "en": "Renwu District"
+        }
+      },
+      {
+        "value": "kaohsiung-dashe",
+        "labels": {
+          "zh-TW": "大社區",
+          "en": "Dashe District"
+        }
+      },
+      {
+        "value": "kaohsiung-gangshan",
+        "labels": {
+          "zh-TW": "岡山區",
+          "en": "Gangshan District"
+        }
+      },
+      {
+        "value": "kaohsiung-luzhu",
+        "labels": {
+          "zh-TW": "路竹區",
+          "en": "Luzhu District"
+        }
+      },
+      {
+        "value": "kaohsiung-alian",
+        "labels": {
+          "zh-TW": "阿蓮區",
+          "en": "Alian District"
+        }
+      },
+      {
+        "value": "kaohsiung-tianliao",
+        "labels": {
+          "zh-TW": "田寮區",
+          "en": "Tianliao District"
+        }
+      },
+      {
+        "value": "kaohsiung-yanchao",
+        "labels": {
+          "zh-TW": "燕巢區",
+          "en": "Yanchao District"
+        }
+      },
+      {
+        "value": "kaohsiung-qiaotou",
+        "labels": {
+          "zh-TW": "橋頭區",
+          "en": "Qiaotou District"
+        }
+      },
+      {
+        "value": "kaohsiung-ziguan",
+        "labels": {
+          "zh-TW": "梓官區",
+          "en": "Ziguan District"
+        }
+      },
+      {
+        "value": "kaohsiung-mituo",
+        "labels": {
+          "zh-TW": "彌陀區",
+          "en": "Mituo District"
+        }
+      },
+      {
+        "value": "kaohsiung-yongan",
+        "labels": {
+          "zh-TW": "永安區",
+          "en": "Yongan District"
+        }
+      },
+      {
+        "value": "kaohsiung-hunei",
+        "labels": {
+          "zh-TW": "湖內區",
+          "en": "Hunei District"
+        }
+      },
+      {
+        "value": "kaohsiung-qieding",
+        "labels": {
+          "zh-TW": "茄萣區",
+          "en": "Qieding District"
+        }
+      },
+      {
+        "value": "kaohsiung-niaosong",
+        "labels": {
+          "zh-TW": "鳥松區",
+          "en": "Niaosong District"
+        }
+      },
+      {
+        "value": "kaohsiung-dashu",
+        "labels": {
+          "zh-TW": "大樹區",
+          "en": "Dashu District"
+        }
+      },
+      {
+        "value": "kaohsiung-qishan",
+        "labels": {
+          "zh-TW": "旗山區",
+          "en": "Qishan District"
+        }
+      },
+      {
+        "value": "kaohsiung-meinong",
+        "labels": {
+          "zh-TW": "美濃區",
+          "en": "Meinong District"
+        }
+      },
+      {
+        "value": "kaohsiung-liugui",
+        "labels": {
+          "zh-TW": "六龜區",
+          "en": "Liugui District"
+        }
+      },
+      {
+        "value": "kaohsiung-jiaxian",
+        "labels": {
+          "zh-TW": "甲仙區",
+          "en": "Jiaxian District"
+        }
+      },
+      {
+        "value": "kaohsiung-shanshan",
+        "labels": {
+          "zh-TW": "杉林區",
+          "en": "Shanshan District"
+        }
+      },
+      {
+        "value": "kaohsiung-neimen",
+        "labels": {
+          "zh-TW": "內門區",
+          "en": "Neimen District"
+        }
+      },
+      {
+        "value": "kaohsiung-maolin",
+        "labels": {
+          "zh-TW": "茂林區",
+          "en": "Maolin District"
+        }
+      },
+      {
+        "value": "kaohsiung-taoyuan",
+        "labels": {
+          "zh-TW": "桃源區",
+          "en": "Taoyuan District"
+        }
+      },
+      {
+        "value": "kaohsiung-namasia",
+        "labels": {
+          "zh-TW": "那瑪夏區",
+          "en": "Namasia District"
+        }
+      },
+      {
+        "value": "kaohsiung-fengshan",
+        "labels": {
+          "zh-TW": "鳳山區",
+          "en": "Fengshan District"
+        }
+      },
+      {
+        "value": "kaohsiung-daliao",
+        "labels": {
+          "zh-TW": "大寮區",
+          "en": "Daliao District"
+        }
+      },
+      {
+        "value": "kaohsiung-linyuan",
+        "labels": {
+          "zh-TW": "林園區",
+          "en": "Linyuan District"
+        }
+      }
+    ]
+  },
+  {
+    "value": "keelung",
+    "labels": {
+      "zh-TW": "基隆市",
+      "en": "Keelung City"
+    },
+    "districts": [
+      {
+        "value": "keelung-zhongzheng",
+        "labels": {
+          "zh-TW": "中正區",
+          "en": "Zhongzheng District"
+        }
+      },
+      {
+        "value": "keelung-qidu",
+        "labels": {
+          "zh-TW": "七堵區",
+          "en": "Qidu District"
+        }
+      },
+      {
+        "value": "keelung-nuan-nuan",
+        "labels": {
+          "zh-TW": "暖暖區",
+          "en": "Nuan Nuan District"
+        }
+      },
+      {
+        "value": "keelung-renai",
+        "labels": {
+          "zh-TW": "仁愛區",
+          "en": "Renai District"
+        }
+      },
+      {
+        "value": "keelung-zhongshan",
+        "labels": {
+          "zh-TW": "中山區",
+          "en": "Zhongshan District"
+        }
+      },
+      {
+        "value": "keelung-anle",
+        "labels": {
+          "zh-TW": "安樂區",
+          "en": "Anle District"
+        }
+      },
+      {
+        "value": "keelung-xinyi",
+        "labels": {
+          "zh-TW": "信義區",
+          "en": "Xinyi District"
+        }
+      }
+    ]
+  },
+  {
+    "value": "hsinchu-city",
+    "labels": {
+      "zh-TW": "新竹市",
+      "en": "Hsinchu City"
+    },
+    "districts": [
+      {
+        "value": "hsinchu-city-east",
+        "labels": {
+          "zh-TW": "東區",
+          "en": "East District"
+        }
+      },
+      {
+        "value": "hsinchu-city-north",
+        "labels": {
+          "zh-TW": "北區",
+          "en": "North District"
+        }
+      },
+      {
+        "value": "hsinchu-city-xiangshan",
+        "labels": {
+          "zh-TW": "香山區",
+          "en": "Xiangshan District"
+        }
+      }
+    ]
+  },
+  {
+    "value": "chiayi-city",
+    "labels": {
+      "zh-TW": "嘉義市",
+      "en": "Chiayi City"
+    },
+    "districts": [
+      {
+        "value": "chiayi-city-east",
+        "labels": {
+          "zh-TW": "東區",
+          "en": "East District"
+        }
+      },
+      {
+        "value": "chiayi-city-west",
+        "labels": {
+          "zh-TW": "西區",
+          "en": "West District"
+        }
+      }
+    ]
+  },
+  {
+    "value": "hsinchu-county",
+    "labels": {
+      "zh-TW": "新竹縣",
+      "en": "Hsinchu County"
+    },
+    "districts": [
+      {
+        "value": "hsinchu-county-zhubei",
+        "labels": {
+          "zh-TW": "竹北市",
+          "en": "Zhubei City"
+        }
+      },
+      {
+        "value": "hsinchu-county-zhudong",
+        "labels": {
+          "zh-TW": "竹東鎮",
+          "en": "Zhudong Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-xinpu",
+        "labels": {
+          "zh-TW": "新埔鎮",
+          "en": "Xinpu Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-guanxi",
+        "labels": {
+          "zh-TW": "關西鎮",
+          "en": "Guanxi Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-hukou",
+        "labels": {
+          "zh-TW": "湖口鄉",
+          "en": "Hukou Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-xinfeng",
+        "labels": {
+          "zh-TW": "新豐鄉",
+          "en": "Xinfeng Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-qionglin",
+        "labels": {
+          "zh-TW": "芎林鄉",
+          "en": "Qionglin Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-hengshan",
+        "labels": {
+          "zh-TW": "橫山鄉",
+          "en": "Hengshan Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-beipu",
+        "labels": {
+          "zh-TW": "北埔鄉",
+          "en": "Beipu Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-baoshan",
+        "labels": {
+          "zh-TW": "寶山鄉",
+          "en": "Baoshan Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-emei",
+        "labels": {
+          "zh-TW": "峨眉鄉",
+          "en": "Emei Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-wufeng",
+        "labels": {
+          "zh-TW": "五峰鄉",
+          "en": "Wufeng Township"
+        }
+      },
+      {
+        "value": "hsinchu-county-jianzhi",
+        "labels": {
+          "zh-TW": "尖石鄉",
+          "en": "Jianzhi Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "miaoli",
+    "labels": {
+      "zh-TW": "苗栗縣",
+      "en": "Miaoli County"
+    },
+    "districts": [
+      {
+        "value": "miaoli-miaoli",
+        "labels": {
+          "zh-TW": "苗栗市",
+          "en": "Miaoli City"
+        }
+      },
+      {
+        "value": "miaoli-yuanli",
+        "labels": {
+          "zh-TW": "苑裡鎮",
+          "en": "Yuanli Township"
+        }
+      },
+      {
+        "value": "miaoli-tongxiao",
+        "labels": {
+          "zh-TW": "通霄鎮",
+          "en": "Tongxiao Township"
+        }
+      },
+      {
+        "value": "miaoli-zhunan",
+        "labels": {
+          "zh-TW": "竹南鎮",
+          "en": "Zhunan Township"
+        }
+      },
+      {
+        "value": "miaoli-toufen",
+        "labels": {
+          "zh-TW": "頭份市",
+          "en": "Toufen City"
+        }
+      },
+      {
+        "value": "miaoli-houlong",
+        "labels": {
+          "zh-TW": "後龍鎮",
+          "en": "Houlong Township"
+        }
+      },
+      {
+        "value": "miaoli-zhuolan",
+        "labels": {
+          "zh-TW": "卓蘭鎮",
+          "en": "Zhuolan Township"
+        }
+      },
+      {
+        "value": "miaoli-dahu",
+        "labels": {
+          "zh-TW": "大湖鄉",
+          "en": "Dahu Township"
+        }
+      },
+      {
+        "value": "miaoli-gongguan",
+        "labels": {
+          "zh-TW": "公館鄉",
+          "en": "Gongguan Township"
+        }
+      },
+      {
+        "value": "miaoli-tongluo",
+        "labels": {
+          "zh-TW": "銅鑼鄉",
+          "en": "Tongluo Township"
+        }
+      },
+      {
+        "value": "miaoli-nanzhuang",
+        "labels": {
+          "zh-TW": "南庄鄉",
+          "en": "Nanzhuang Township"
+        }
+      },
+      {
+        "value": "miaoli-touwu",
+        "labels": {
+          "zh-TW": "頭屋鄉",
+          "en": "Touwu Township"
+        }
+      },
+      {
+        "value": "miaoli-sanyi",
+        "labels": {
+          "zh-TW": "三義鄉",
+          "en": "Sanyi Township"
+        }
+      },
+      {
+        "value": "miaoli-xihu",
+        "labels": {
+          "zh-TW": "西湖鄉",
+          "en": "Xihu Township"
+        }
+      },
+      {
+        "value": "miaoli-zaoqiao",
+        "labels": {
+          "zh-TW": "造橋鄉",
+          "en": "Zaoqiao Township"
+        }
+      },
+      {
+        "value": "miaoli-sanwan",
+        "labels": {
+          "zh-TW": "三灣鄉",
+          "en": "Sanwan Township"
+        }
+      },
+      {
+        "value": "miaoli-shitan",
+        "labels": {
+          "zh-TW": "獅潭鄉",
+          "en": "Shitan Township"
+        }
+      },
+      {
+        "value": "miaoli-taian",
+        "labels": {
+          "zh-TW": "泰安鄉",
+          "en": "Taian Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "changhua",
+    "labels": {
+      "zh-TW": "彰化縣",
+      "en": "Changhua County"
+    },
+    "districts": [
+      {
+        "value": "changhua-changhua",
+        "labels": {
+          "zh-TW": "彰化市",
+          "en": "Changhua City"
+        }
+      },
+      {
+        "value": "changhua-yuanlin",
+        "labels": {
+          "zh-TW": "員林市",
+          "en": "Yuanlin City"
+        }
+      },
+      {
+        "value": "changhua-lukang",
+        "labels": {
+          "zh-TW": "鹿港鎮",
+          "en": "Lukang Township"
+        }
+      },
+      {
+        "value": "changhua-hemei",
+        "labels": {
+          "zh-TW": "和美鎮",
+          "en": "Hemei Township"
+        }
+      },
+      {
+        "value": "changhua-xianxi",
+        "labels": {
+          "zh-TW": "線西鄉",
+          "en": "Xianxi Township"
+        }
+      },
+      {
+        "value": "changhua-shengang",
+        "labels": {
+          "zh-TW": "伸港鄉",
+          "en": "Shengang Township"
+        }
+      },
+      {
+        "value": "changhua-fuxing",
+        "labels": {
+          "zh-TW": "福興鄉",
+          "en": "Fuxing Township"
+        }
+      },
+      {
+        "value": "changhua-xiushui",
+        "labels": {
+          "zh-TW": "秀水鄉",
+          "en": "Xiushui Township"
+        }
+      },
+      {
+        "value": "changhua-huatan",
+        "labels": {
+          "zh-TW": "花壇鄉",
+          "en": "Huatan Township"
+        }
+      },
+      {
+        "value": "changhua-fenyuan",
+        "labels": {
+          "zh-TW": "芬園鄉",
+          "en": "Fenyuan Township"
+        }
+      },
+      {
+        "value": "changhua-dacun",
+        "labels": {
+          "zh-TW": "大村鄉",
+          "en": "Dacun Township"
+        }
+      },
+      {
+        "value": "changhua-puyan",
+        "labels": {
+          "zh-TW": "埔鹽鄉",
+          "en": "Puyan Township"
+        }
+      },
+      {
+        "value": "changhua-puxin",
+        "labels": {
+          "zh-TW": "埔心鄉",
+          "en": "Puxin Township"
+        }
+      },
+      {
+        "value": "changhua-yongjing",
+        "labels": {
+          "zh-TW": "永靖鄉",
+          "en": "Yongjing Township"
+        }
+      },
+      {
+        "value": "changhua-shetou",
+        "labels": {
+          "zh-TW": "社頭鄉",
+          "en": "Shetou Township"
+        }
+      },
+      {
+        "value": "changhua-ershui",
+        "labels": {
+          "zh-TW": "二水鄉",
+          "en": "Ershui Township"
+        }
+      },
+      {
+        "value": "changhua-tianzhong",
+        "labels": {
+          "zh-TW": "田中鎮",
+          "en": "Tianzhong Township"
+        }
+      },
+      {
+        "value": "changhua-beidou",
+        "labels": {
+          "zh-TW": "北斗鎮",
+          "en": "Beidou Township"
+        }
+      },
+      {
+        "value": "changhua-tianwei",
+        "labels": {
+          "zh-TW": "田尾鄉",
+          "en": "Tianwei Township"
+        }
+      },
+      {
+        "value": "changhua-pitou",
+        "labels": {
+          "zh-TW": "埤頭鄉",
+          "en": "Pitou Township"
+        }
+      },
+      {
+        "value": "changhua-xizhou",
+        "labels": {
+          "zh-TW": "溪州鄉",
+          "en": "Xizhou Township"
+        }
+      },
+      {
+        "value": "changhua-xihu",
+        "labels": {
+          "zh-TW": "溪湖鎮",
+          "en": "Xihu Township"
+        }
+      },
+      {
+        "value": "changhua-dacheng",
+        "labels": {
+          "zh-TW": "大城鄉",
+          "en": "Dacheng Township"
+        }
+      },
+      {
+        "value": "changhua-ersin",
+        "labels": {
+          "zh-TW": "二林鎮",
+          "en": "Ersin Township"
+        }
+      },
+      {
+        "value": "changhua-zhutang",
+        "labels": {
+          "zh-TW": "竹塘鄉",
+          "en": "Zhutang Township"
+        }
+      },
+      {
+        "value": "changhua-fangyuan",
+        "labels": {
+          "zh-TW": "芳苑鄉",
+          "en": "Fangyuan Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "nantou",
+    "labels": {
+      "zh-TW": "南投縣",
+      "en": "Nantou County"
+    },
+    "districts": [
+      {
+        "value": "nantou-nantou",
+        "labels": {
+          "zh-TW": "南投市",
+          "en": "Nantou City"
+        }
+      },
+      {
+        "value": "nantou-puli",
+        "labels": {
+          "zh-TW": "埔里鎮",
+          "en": "Puli Township"
+        }
+      },
+      {
+        "value": "nantou-caotun",
+        "labels": {
+          "zh-TW": "草屯鎮",
+          "en": "Caotun Township"
+        }
+      },
+      {
+        "value": "nantou-zhushan",
+        "labels": {
+          "zh-TW": "竹山鎮",
+          "en": "Zhushan Township"
+        }
+      },
+      {
+        "value": "nantou-jiji",
+        "labels": {
+          "zh-TW": "集集鎮",
+          "en": "Jiji Township"
+        }
+      },
+      {
+        "value": "nantou-mingjian",
+        "labels": {
+          "zh-TW": "名間鄉",
+          "en": "Mingjian Township"
+        }
+      },
+      {
+        "value": "nantou-lugu",
+        "labels": {
+          "zh-TW": "鹿谷鄉",
+          "en": "Lugu Township"
+        }
+      },
+      {
+        "value": "nantou-zhongliao",
+        "labels": {
+          "zh-TW": "中寮鄉",
+          "en": "Zhongliao Township"
+        }
+      },
+      {
+        "value": "nantou-yuchi",
+        "labels": {
+          "zh-TW": "魚池鄉",
+          "en": "Yuchi Township"
+        }
+      },
+      {
+        "value": "nantou-guoxing",
+        "labels": {
+          "zh-TW": "國姓鄉",
+          "en": "Guoxing Township"
+        }
+      },
+      {
+        "value": "nantou-shuili",
+        "labels": {
+          "zh-TW": "水里鄉",
+          "en": "Shuili Township"
+        }
+      },
+      {
+        "value": "nantou-xinyi",
+        "labels": {
+          "zh-TW": "信義鄉",
+          "en": "Xinyi Township"
+        }
+      },
+      {
+        "value": "nantou-renai",
+        "labels": {
+          "zh-TW": "仁愛鄉",
+          "en": "Renai Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "yunlin",
+    "labels": {
+      "zh-TW": "雲林縣",
+      "en": "Yunlin County"
+    },
+    "districts": [
+      {
+        "value": "yunlin-douliu",
+        "labels": {
+          "zh-TW": "斗六市",
+          "en": "Douliu City"
+        }
+      },
+      {
+        "value": "yunlin-dounan",
+        "labels": {
+          "zh-TW": "斗南鎮",
+          "en": "Dounan Township"
+        }
+      },
+      {
+        "value": "yunlin-huwei",
+        "labels": {
+          "zh-TW": "虎尾鎮",
+          "en": "Huwei Township"
+        }
+      },
+      {
+        "value": "yunlin-xiluo",
+        "labels": {
+          "zh-TW": "西螺鎮",
+          "en": "Xiluo Township"
+        }
+      },
+      {
+        "value": "yunlin-tuku",
+        "labels": {
+          "zh-TW": "土庫鎮",
+          "en": "Tuku Township"
+        }
+      },
+      {
+        "value": "yunlin-beigang",
+        "labels": {
+          "zh-TW": "北港鎮",
+          "en": "Beigang Township"
+        }
+      },
+      {
+        "value": "yunlin-gukeng",
+        "labels": {
+          "zh-TW": "古坑鄉",
+          "en": "Gukeng Township"
+        }
+      },
+      {
+        "value": "yunlin-dapi",
+        "labels": {
+          "zh-TW": "大埤鄉",
+          "en": "Dapi Township"
+        }
+      },
+      {
+        "value": "yunlin-citong",
+        "labels": {
+          "zh-TW": "莿桐鄉",
+          "en": "Citong Township"
+        }
+      },
+      {
+        "value": "yunlin-linnei",
+        "labels": {
+          "zh-TW": "林內鄉",
+          "en": "Linnei Township"
+        }
+      },
+      {
+        "value": "yunlin-erlun",
+        "labels": {
+          "zh-TW": "二崙鄉",
+          "en": "Erlun Township"
+        }
+      },
+      {
+        "value": "yunlin-lunbei",
+        "labels": {
+          "zh-TW": "崙背鄉",
+          "en": "Lunbei Township"
+        }
+      },
+      {
+        "value": "yunlin-mailiao",
+        "labels": {
+          "zh-TW": "麥寮鄉",
+          "en": "Mailiao Township"
+        }
+      },
+      {
+        "value": "yunlin-dongshi",
+        "labels": {
+          "zh-TW": "東勢鄉",
+          "en": "Dongshi Township"
+        }
+      },
+      {
+        "value": "yunlin-baocong",
+        "labels": {
+          "zh-TW": "褒忠鄉",
+          "en": "Baocong Township"
+        }
+      },
+      {
+        "value": "yunlin-taixi",
+        "labels": {
+          "zh-TW": "台西鄉",
+          "en": "Taixi Township"
+        }
+      },
+      {
+        "value": "yunlin-yuanchang",
+        "labels": {
+          "zh-TW": "元長鄉",
+          "en": "Yuanchang Township"
+        }
+      },
+      {
+        "value": "yunlin-sihu",
+        "labels": {
+          "zh-TW": "四湖鄉",
+          "en": "Sihu Township"
+        }
+      },
+      {
+        "value": "yunlin-kouhu",
+        "labels": {
+          "zh-TW": "口湖鄉",
+          "en": "Kouhu Township"
+        }
+      },
+      {
+        "value": "yunlin-shuilin",
+        "labels": {
+          "zh-TW": "水林鄉",
+          "en": "Shuilin Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "chiayi-county",
+    "labels": {
+      "zh-TW": "嘉義縣",
+      "en": "Chiayi County"
+    },
+    "districts": [
+      {
+        "value": "chiayi-county-taibao",
+        "labels": {
+          "zh-TW": "太保市",
+          "en": "Taibao City"
+        }
+      },
+      {
+        "value": "chiayi-county-puzih",
+        "labels": {
+          "zh-TW": "朴子市",
+          "en": "Puzih City"
+        }
+      },
+      {
+        "value": "chiayi-county-budai",
+        "labels": {
+          "zh-TW": "布袋鎮",
+          "en": "Budai Township"
+        }
+      },
+      {
+        "value": "chiayi-county-dalin",
+        "labels": {
+          "zh-TW": "大林鎮",
+          "en": "Dalin Township"
+        }
+      },
+      {
+        "value": "chiayi-county-minxiong",
+        "labels": {
+          "zh-TW": "民雄鄉",
+          "en": "Minxiong Township"
+        }
+      },
+      {
+        "value": "chiayi-county-xikou",
+        "labels": {
+          "zh-TW": "溪口鄉",
+          "en": "Xikou Township"
+        }
+      },
+      {
+        "value": "chiayi-county-xingang",
+        "labels": {
+          "zh-TW": "新港鄉",
+          "en": "Xingang Township"
+        }
+      },
+      {
+        "value": "chiayi-county-liujiao",
+        "labels": {
+          "zh-TW": "六腳鄉",
+          "en": "Liujiao Township"
+        }
+      },
+      {
+        "value": "chiayi-county-dongshi",
+        "labels": {
+          "zh-TW": "東石鄉",
+          "en": "Dongshi Township"
+        }
+      },
+      {
+        "value": "chiayi-county-yizhu",
+        "labels": {
+          "zh-TW": "義竹鄉",
+          "en": "Yizhu Township"
+        }
+      },
+      {
+        "value": "chiayi-county-lucao",
+        "labels": {
+          "zh-TW": "鹿草鄉",
+          "en": "Lucao Township"
+        }
+      },
+      {
+        "value": "chiayi-county-shuishang",
+        "labels": {
+          "zh-TW": "水上鄉",
+          "en": "Shuishang Township"
+        }
+      },
+      {
+        "value": "chiayi-county-zhongpu",
+        "labels": {
+          "zh-TW": "中埔鄉",
+          "en": "Zhongpu Township"
+        }
+      },
+      {
+        "value": "chiayi-county-zhuqi",
+        "labels": {
+          "zh-TW": "竹崎鄉",
+          "en": "Zhuqi Township"
+        }
+      },
+      {
+        "value": "chiayi-county-meishan",
+        "labels": {
+          "zh-TW": "梅山鄉",
+          "en": "Meishan Township"
+        }
+      },
+      {
+        "value": "chiayi-county-fanlu",
+        "labels": {
+          "zh-TW": "番路鄉",
+          "en": "Fanlu Township"
+        }
+      },
+      {
+        "value": "chiayi-county-dapu",
+        "labels": {
+          "zh-TW": "大埔鄉",
+          "en": "Dapu Township"
+        }
+      },
+      {
+        "value": "chiayi-county-alishan",
+        "labels": {
+          "zh-TW": "阿里山鄉",
+          "en": "Alishan Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "pingtung",
+    "labels": {
+      "zh-TW": "屏東縣",
+      "en": "Pingtung County"
+    },
+    "districts": [
+      {
+        "value": "pingtung-pingtung",
+        "labels": {
+          "zh-TW": "屏東市",
+          "en": "Pingtung City"
+        }
+      },
+      {
+        "value": "pingtung-chaozhou",
+        "labels": {
+          "zh-TW": "潮州鎮",
+          "en": "Chaozhou Township"
+        }
+      },
+      {
+        "value": "pingtung-donggang",
+        "labels": {
+          "zh-TW": "東港鎮",
+          "en": "Donggang Township"
+        }
+      },
+      {
+        "value": "pingtung-hengchun",
+        "labels": {
+          "zh-TW": "恆春鎮",
+          "en": "Hengchun Township"
+        }
+      },
+      {
+        "value": "pingtung-wandan",
+        "labels": {
+          "zh-TW": "萬丹鄉",
+          "en": "Wandan Township"
+        }
+      },
+      {
+        "value": "pingtung-changzhi",
+        "labels": {
+          "zh-TW": "長治鄉",
+          "en": "Changzhi Township"
+        }
+      },
+      {
+        "value": "pingtung-linluo",
+        "labels": {
+          "zh-TW": "麟洛鄉",
+          "en": "Linluo Township"
+        }
+      },
+      {
+        "value": "pingtung-zhutian",
+        "labels": {
+          "zh-TW": "竹田鄉",
+          "en": "Zhutian Township"
+        }
+      },
+      {
+        "value": "pingtung-neipu",
+        "labels": {
+          "zh-TW": "內埔鄉",
+          "en": "Neipu Township"
+        }
+      },
+      {
+        "value": "pingtung-wanluan",
+        "labels": {
+          "zh-TW": "萬巒鄉",
+          "en": "Wanluan Township"
+        }
+      },
+      {
+        "value": "pingtung-xinpi",
+        "labels": {
+          "zh-TW": "新埤鄉",
+          "en": "Xinpi Township"
+        }
+      },
+      {
+        "value": "pingtung-fangliao",
+        "labels": {
+          "zh-TW": "枋寮鄉",
+          "en": "Fangliao Township"
+        }
+      },
+      {
+        "value": "pingtung-xinyuan",
+        "labels": {
+          "zh-TW": "新園鄉",
+          "en": "Xinyuan Township"
+        }
+      },
+      {
+        "value": "pingtung-kanding",
+        "labels": {
+          "zh-TW": "崁頂鄉",
+          "en": "Kanding Township"
+        }
+      },
+      {
+        "value": "pingtung-linbian",
+        "labels": {
+          "zh-TW": "林邊鄉",
+          "en": "Linbian Township"
+        }
+      },
+      {
+        "value": "pingtung-nanzhou",
+        "labels": {
+          "zh-TW": "南州鄉",
+          "en": "Nanzhou Township"
+        }
+      },
+      {
+        "value": "pingtung-jiadong",
+        "labels": {
+          "zh-TW": "佳冬鄉",
+          "en": "Jiadong Township"
+        }
+      },
+      {
+        "value": "pingtung-liuqiu",
+        "labels": {
+          "zh-TW": "琉球鄉",
+          "en": "Liuqiu Township"
+        }
+      },
+      {
+        "value": "pingtung-checheng",
+        "labels": {
+          "zh-TW": "車城鄉",
+          "en": "Checheng Township"
+        }
+      },
+      {
+        "value": "pingtung-manzhou",
+        "labels": {
+          "zh-TW": "滿州鄉",
+          "en": "Manzhou Township"
+        }
+      },
+      {
+        "value": "pingtung-fangshan",
+        "labels": {
+          "zh-TW": "枋山鄉",
+          "en": "Fangshan Township"
+        }
+      },
+      {
+        "value": "pingtung-sandimen",
+        "labels": {
+          "zh-TW": "三地門鄉",
+          "en": "Sandimen Township"
+        }
+      },
+      {
+        "value": "pingtung-wutai",
+        "labels": {
+          "zh-TW": "霧臺鄉",
+          "en": "Wutai Township"
+        }
+      },
+      {
+        "value": "pingtung-majia",
+        "labels": {
+          "zh-TW": "瑪家鄉",
+          "en": "Majia Township"
+        }
+      },
+      {
+        "value": "pingtung-taiwu",
+        "labels": {
+          "zh-TW": "泰武鄉",
+          "en": "Taiwu Township"
+        }
+      },
+      {
+        "value": "pingtung-laiyi",
+        "labels": {
+          "zh-TW": "來義鄉",
+          "en": "Laiyi Township"
+        }
+      },
+      {
+        "value": "pingtung-chunri",
+        "labels": {
+          "zh-TW": "春日鄉",
+          "en": "Chunri Township"
+        }
+      },
+      {
+        "value": "pingtung-shizi",
+        "labels": {
+          "zh-TW": "獅子鄉",
+          "en": "Shizi Township"
+        }
+      },
+      {
+        "value": "pingtung-mudan",
+        "labels": {
+          "zh-TW": "牡丹鄉",
+          "en": "Mudan Township"
+        }
+      },
+      {
+        "value": "pingtung-gaoshu",
+        "labels": {
+          "zh-TW": "高樹鄉",
+          "en": "Gaoshu Township"
+        }
+      },
+      {
+        "value": "pingtung-jiuru",
+        "labels": {
+          "zh-TW": "九如鄉",
+          "en": "Jiuru Township"
+        }
+      },
+      {
+        "value": "pingtung-ligang",
+        "labels": {
+          "zh-TW": "里港鄉",
+          "en": "Ligang Township"
+        }
+      },
+      {
+        "value": "pingtung-yanpu",
+        "labels": {
+          "zh-TW": "鹽埔鄉",
+          "en": "Yanpu Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "yilan",
+    "labels": {
+      "zh-TW": "宜蘭縣",
+      "en": "Yilan County"
+    },
+    "districts": [
+      {
+        "value": "yilan-yilan",
+        "labels": {
+          "zh-TW": "宜蘭市",
+          "en": "Yilan City"
+        }
+      },
+      {
+        "value": "yilan-luodong",
+        "labels": {
+          "zh-TW": "羅東鎮",
+          "en": "Luodong Township"
+        }
+      },
+      {
+        "value": "yilan-su-ao",
+        "labels": {
+          "zh-TW": "蘇澳鎮",
+          "en": "Su Ao Township"
+        }
+      },
+      {
+        "value": "yilan-toucheng",
+        "labels": {
+          "zh-TW": "頭城鎮",
+          "en": "Toucheng Township"
+        }
+      },
+      {
+        "value": "yilan-jiaoxi",
+        "labels": {
+          "zh-TW": "礁溪鄉",
+          "en": "Jiaoxi Township"
+        }
+      },
+      {
+        "value": "yilan-zhuangwei",
+        "labels": {
+          "zh-TW": "壯圍鄉",
+          "en": "Zhuangwei Township"
+        }
+      },
+      {
+        "value": "yilan-yuanshan",
+        "labels": {
+          "zh-TW": "員山鄉",
+          "en": "Yuanshan Township"
+        }
+      },
+      {
+        "value": "yilan-dongshan",
+        "labels": {
+          "zh-TW": "冬山鄉",
+          "en": "Dongshan Township"
+        }
+      },
+      {
+        "value": "yilan-wujie",
+        "labels": {
+          "zh-TW": "五結鄉",
+          "en": "Wujie Township"
+        }
+      },
+      {
+        "value": "yilan-sanxing",
+        "labels": {
+          "zh-TW": "三星鄉",
+          "en": "Sanxing Township"
+        }
+      },
+      {
+        "value": "yilan-datong",
+        "labels": {
+          "zh-TW": "大同鄉",
+          "en": "Datong Township"
+        }
+      },
+      {
+        "value": "yilan-nanao",
+        "labels": {
+          "zh-TW": "南澳鄉",
+          "en": "Nanao Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "hualien",
+    "labels": {
+      "zh-TW": "花蓮縣",
+      "en": "Hualien County"
+    },
+    "districts": [
+      {
+        "value": "hualien-hualien",
+        "labels": {
+          "zh-TW": "花蓮市",
+          "en": "Hualien City"
+        }
+      },
+      {
+        "value": "hualien-fenglin",
+        "labels": {
+          "zh-TW": "鳳林鎮",
+          "en": "Fenglin Township"
+        }
+      },
+      {
+        "value": "hualien-yuli",
+        "labels": {
+          "zh-TW": "玉里鎮",
+          "en": "Yuli Township"
+        }
+      },
+      {
+        "value": "hualien-xincheng",
+        "labels": {
+          "zh-TW": "新城鄉",
+          "en": "Xincheng Township"
+        }
+      },
+      {
+        "value": "hualien-jian",
+        "labels": {
+          "zh-TW": "吉安鄉",
+          "en": "Jian Township"
+        }
+      },
+      {
+        "value": "hualien-shoufeng",
+        "labels": {
+          "zh-TW": "壽豐鄉",
+          "en": "Shoufeng Township"
+        }
+      },
+      {
+        "value": "hualien-xiulin",
+        "labels": {
+          "zh-TW": "秀林鄉",
+          "en": "Xiulin Township"
+        }
+      },
+      {
+        "value": "hualien-guangfu",
+        "labels": {
+          "zh-TW": "光復鄉",
+          "en": "Guangfu Township"
+        }
+      },
+      {
+        "value": "hualien-fengbin",
+        "labels": {
+          "zh-TW": "豐濱鄉",
+          "en": "Fengbin Township"
+        }
+      },
+      {
+        "value": "hualien-ruisui",
+        "labels": {
+          "zh-TW": "瑞穗鄉",
+          "en": "Ruisui Township"
+        }
+      },
+      {
+        "value": "hualien-wanrong",
+        "labels": {
+          "zh-TW": "萬榮鄉",
+          "en": "Wanrong Township"
+        }
+      },
+      {
+        "value": "hualien-zhuoxi",
+        "labels": {
+          "zh-TW": "卓溪鄉",
+          "en": "Zhuoxi Township"
+        }
+      },
+      {
+        "value": "hualien-fuli",
+        "labels": {
+          "zh-TW": "富里鄉",
+          "en": "Fuli Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "taitung",
+    "labels": {
+      "zh-TW": "台東縣",
+      "en": "Taitung County"
+    },
+    "districts": [
+      {
+        "value": "taitung-taitung",
+        "labels": {
+          "zh-TW": "台東市",
+          "en": "Taitung City"
+        }
+      },
+      {
+        "value": "taitung-chenggong",
+        "labels": {
+          "zh-TW": "成功鎮",
+          "en": "Chenggong Township"
+        }
+      },
+      {
+        "value": "taitung-guanshan",
+        "labels": {
+          "zh-TW": "關山鎮",
+          "en": "Guanshan Township"
+        }
+      },
+      {
+        "value": "taitung-beinan",
+        "labels": {
+          "zh-TW": "卑南鄉",
+          "en": "Beinan Township"
+        }
+      },
+      {
+        "value": "taitung-luye",
+        "labels": {
+          "zh-TW": "鹿野鄉",
+          "en": "Luye Township"
+        }
+      },
+      {
+        "value": "taitung-chishang",
+        "labels": {
+          "zh-TW": "池上鄉",
+          "en": "Chishang Township"
+        }
+      },
+      {
+        "value": "taitung-donghe",
+        "labels": {
+          "zh-TW": "東河鄉",
+          "en": "Donghe Township"
+        }
+      },
+      {
+        "value": "taitung-changbin",
+        "labels": {
+          "zh-TW": "長濱鄉",
+          "en": "Changbin Township"
+        }
+      },
+      {
+        "value": "taitung-taimali",
+        "labels": {
+          "zh-TW": "太麻里鄉",
+          "en": "Taimali Township"
+        }
+      },
+      {
+        "value": "taitung-dawu",
+        "labels": {
+          "zh-TW": "大武鄉",
+          "en": "Dawu Township"
+        }
+      },
+      {
+        "value": "taitung-ludao",
+        "labels": {
+          "zh-TW": "綠島鄉",
+          "en": "Ludao Township"
+        }
+      },
+      {
+        "value": "taitung-haiduan",
+        "labels": {
+          "zh-TW": "海端鄉",
+          "en": "Haiduan Township"
+        }
+      },
+      {
+        "value": "taitung-yanping",
+        "labels": {
+          "zh-TW": "延平鄉",
+          "en": "Yanping Township"
+        }
+      },
+      {
+        "value": "taitung-jinfeng",
+        "labels": {
+          "zh-TW": "金峰鄉",
+          "en": "Jinfeng Township"
+        }
+      },
+      {
+        "value": "taitung-daren",
+        "labels": {
+          "zh-TW": "達仁鄉",
+          "en": "Daren Township"
+        }
+      },
+      {
+        "value": "taitung-lanyu",
+        "labels": {
+          "zh-TW": "蘭嶼鄉",
+          "en": "Lanyu Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "penghu",
+    "labels": {
+      "zh-TW": "澎湖縣",
+      "en": "Penghu County"
+    },
+    "districts": [
+      {
+        "value": "penghu-magong",
+        "labels": {
+          "zh-TW": "馬公市",
+          "en": "Magong City"
+        }
+      },
+      {
+        "value": "penghu-huxi",
+        "labels": {
+          "zh-TW": "湖西鄉",
+          "en": "Huxi Township"
+        }
+      },
+      {
+        "value": "penghu-baisha",
+        "labels": {
+          "zh-TW": "白沙鄉",
+          "en": "Baisha Township"
+        }
+      },
+      {
+        "value": "penghu-xiyu",
+        "labels": {
+          "zh-TW": "西嶼鄉",
+          "en": "Xiyu Township"
+        }
+      },
+      {
+        "value": "penghu-wangan",
+        "labels": {
+          "zh-TW": "望安鄉",
+          "en": "Wangan Township"
+        }
+      },
+      {
+        "value": "penghu-qimei",
+        "labels": {
+          "zh-TW": "七美鄉",
+          "en": "Qimei Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "kinmen",
+    "labels": {
+      "zh-TW": "金門縣",
+      "en": "Kinmen County"
+    },
+    "districts": [
+      {
+        "value": "kinmen-jincheng",
+        "labels": {
+          "zh-TW": "金城鎮",
+          "en": "Jincheng Township"
+        }
+      },
+      {
+        "value": "kinmen-jinsha",
+        "labels": {
+          "zh-TW": "金沙鎮",
+          "en": "Jinsha Township"
+        }
+      },
+      {
+        "value": "kinmen-jinhu",
+        "labels": {
+          "zh-TW": "金湖鎮",
+          "en": "Jinhu Township"
+        }
+      },
+      {
+        "value": "kinmen-jinning",
+        "labels": {
+          "zh-TW": "金寧鄉",
+          "en": "Jinning Township"
+        }
+      },
+      {
+        "value": "kinmen-lieyu",
+        "labels": {
+          "zh-TW": "烈嶼鄉",
+          "en": "Lieyu Township"
+        }
+      },
+      {
+        "value": "kinmen-wuqiu",
+        "labels": {
+          "zh-TW": "烏坵鄉",
+          "en": "Wuqiu Township"
+        }
+      }
+    ]
+  },
+  {
+    "value": "lienchiang",
+    "labels": {
+      "zh-TW": "連江縣",
+      "en": "Lienchiang County"
+    },
+    "districts": [
+      {
+        "value": "lienchiang-nangan",
+        "labels": {
+          "zh-TW": "南竿鄉",
+          "en": "Nangan Township"
+        }
+      },
+      {
+        "value": "lienchiang-beigan",
+        "labels": {
+          "zh-TW": "北竿鄉",
+          "en": "Beigan Township"
+        }
+      },
+      {
+        "value": "lienchiang-juguang",
+        "labels": {
+          "zh-TW": "莒光鄉",
+          "en": "Juguang Township"
+        }
+      },
+      {
+        "value": "lienchiang-dongyin",
+        "labels": {
+          "zh-TW": "東引鄉",
+          "en": "Dongyin Township"
+        }
+      }
+    ]
+  }
+]

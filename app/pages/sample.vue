@@ -10,8 +10,12 @@ import Odometer, { type TOdometerInstance } from '~/components/odometer/Odometer
 import type { TSlideTabItem } from '~/components/SlideTab.vue'
 import Toast from '~/components/toast/Toast.vue'
 import Tooltip from '~/components/tooltip/Tooltip.vue'
+import type { TAppComboboxOption } from '~/components/form/AppCombobox.vue'
+import type { TAppRadioOption } from '~/components/form/AppRadioGroup.vue'
 import type { TAppSelectOption } from '~/components/form/AppSelect.vue'
+import type { TFormValidationRules } from '~/composables/useFormValidation'
 import { useToast } from '~/composables/useToast'
+import taiwanAddressData from '~/data/taiwan-address.json'
 
 usePageSeo({
   title: '範例頁',
@@ -23,6 +27,8 @@ usePageSchema({
   name: '範例頁',
   description: '範例頁描述',
 })
+
+const { locale } = useI18n()
 
 const accordionItems = [
   { title: '收合項目 1', content: '內容內容內容 1' },
@@ -119,28 +125,140 @@ const showDynamicObserverFadeItem = ref(false)
 
 const nuxtUiWrapperForm = reactive({
   name: '',
+  email: '',
+  phone: '',
+  city: undefined as string | number | undefined,
+  district: undefined as string | number | undefined,
+  address: '',
+  idNumber: '',
+  taxId: '',
+  password: '',
+  confirmPassword: '',
   category: undefined as string | number | undefined,
+  message: '',
+  contactMethod: 'email' as string | number | undefined,
+  topic: undefined as string | number | undefined,
+  agreeToTerms: false,
+  notifications: true,
 })
 const nuxtUiWrapperDate = shallowRef<DateValue>()
-const nuxtUiWrapperFormSubmitted = ref(false)
 const nuxtUiWrapperCategoryOptions: TAppSelectOption[] = [
   { label: '公告', value: 'announcement' },
   { label: '活動', value: 'event' },
   { label: '設施維護', value: 'maintenance' },
 ]
+const resolveTaiwanAddressLabel = (labels: Record<string, string>): string => {
+  const localeCode = locale.value ?? 'zh-TW'
+  const language = localeCode.split('-')[0] ?? localeCode
+
+  return labels[localeCode] ?? labels[language] ?? labels['zh-TW'] ?? ''
+}
+const nuxtUiWrapperAddressCityOptions = computed<TAppSelectOption[]>(() =>
+  taiwanAddressData.map(({ value, labels }) => ({
+    value,
+    label: resolveTaiwanAddressLabel(labels),
+  }))
+)
+const nuxtUiWrapperAddressDistrictOptions = computed<TAppSelectOption[]>(() => {
+  const city = nuxtUiWrapperForm.city
+
+  if (typeof city !== 'string') {
+    return []
+  }
+
+  return (
+    taiwanAddressData
+      .find(({ value }) => value === city)
+      ?.districts.map(({ value, labels }) => ({
+        value,
+        label: resolveTaiwanAddressLabel(labels),
+      })) ?? []
+  )
+})
+const nuxtUiWrapperContactOptions: TAppRadioOption[] = [
+  { label: '電子郵件', value: 'email', description: '透過電子郵件回覆' },
+  { label: '電話', value: 'phone', description: '由專人電話聯繫' },
+  { label: '暫不回覆', value: 'none', disabled: true },
+]
+const nuxtUiWrapperTopicOptions: TAppComboboxOption[] = [
+  { label: '產品公告', value: 'product', description: '產品與服務的最新消息' },
+  { label: '活動資訊', value: 'event', description: '活動報名與相關通知' },
+  { label: '技術支援', value: 'support', description: '使用與操作問題' },
+  { label: '即將開放', value: 'coming-soon', disabled: true },
+]
+watch(
+  () => nuxtUiWrapperForm.city,
+  () => {
+    nuxtUiWrapperForm.district = undefined
+  }
+)
+const nuxtUiWrapperValidationRules = {
+  email: ['required', 'email'],
+  phone: ['required', 'phone'],
+  idNumber: ['taiwanId'],
+  taxId: ['taxId'],
+} satisfies Record<'email' | 'phone' | 'idNumber' | 'taxId', TFormValidationRules>
+const {
+  errors: nuxtUiWrapperErrors,
+  isSubmitted: nuxtUiWrapperIsSubmitted,
+  validate: validateNuxtUiWrapperForm,
+} = useFormValidation({
+  state: nuxtUiWrapperForm,
+  rules: nuxtUiWrapperValidationRules,
+})
 
 const submitNuxtUiWrapperForm = (): void => {
-  nuxtUiWrapperFormSubmitted.value = true
+  validateNuxtUiWrapperForm()
 }
 
 const nuxtUiWrapperNameError = computed(() =>
-  nuxtUiWrapperFormSubmitted.value && !nuxtUiWrapperForm.name ? '請輸入姓名' : undefined
+  nuxtUiWrapperIsSubmitted.value && !nuxtUiWrapperForm.name ? '請輸入姓名' : undefined
 )
 const nuxtUiWrapperCategoryError = computed(() =>
-  nuxtUiWrapperFormSubmitted.value && nuxtUiWrapperForm.category === undefined
+  nuxtUiWrapperIsSubmitted.value && nuxtUiWrapperForm.category === undefined
     ? '請選擇分類'
     : undefined
 )
+const nuxtUiWrapperAgreeError = computed(() =>
+  nuxtUiWrapperIsSubmitted.value && !nuxtUiWrapperForm.agreeToTerms ? '請確認同意條款' : undefined
+)
+const nuxtUiWrapperAddressCityError = computed(() =>
+  nuxtUiWrapperIsSubmitted.value && nuxtUiWrapperForm.city === undefined ? '請選擇縣市' : undefined
+)
+const nuxtUiWrapperAddressDistrictError = computed(() =>
+  nuxtUiWrapperIsSubmitted.value &&
+  nuxtUiWrapperForm.city !== undefined &&
+  nuxtUiWrapperForm.district === undefined
+    ? '請選擇區域'
+    : undefined
+)
+const nuxtUiWrapperAddressError = computed(() =>
+  nuxtUiWrapperIsSubmitted.value && !nuxtUiWrapperForm.address.trim() ? '請輸入地址' : undefined
+)
+const nuxtUiWrapperPasswordError = computed(() => {
+  if (!nuxtUiWrapperIsSubmitted.value) {
+    return undefined
+  }
+
+  if (!nuxtUiWrapperForm.password) {
+    return '請輸入密碼'
+  }
+
+  return nuxtUiWrapperForm.password.length >= 8 ? undefined : '密碼至少需要 8 碼'
+})
+const nuxtUiWrapperConfirmPasswordError = computed(() => {
+  if (!nuxtUiWrapperIsSubmitted.value) {
+    return undefined
+  }
+
+  if (!nuxtUiWrapperForm.confirmPassword) {
+    return '請再次輸入密碼'
+  }
+
+  return nuxtUiWrapperForm.password === nuxtUiWrapperForm.confirmPassword
+    ? undefined
+    : '兩次密碼輸入不一致'
+})
 
 const {
   isActive: isObserverFadeActive,
@@ -610,8 +728,9 @@ const queryPaginatedItems = computed(() => {
         <header class="space-y-2">
           <h2 class="text-center text-2xl font-bold">Nuxt UI wrapper 表單元件</h2>
           <p class="text-center text-slate-600">
-            頁面只使用專案自己的 FormAppForm、FormAppInput、FormAppSelect、FormAppDatePicker 與
-            FormAppFormField，內部由 wrapper 封裝 Nuxt UI。
+            頁面只使用專案自己的表單
+            wrapper，展示地址、身分識別、密碼、選擇、日期、文字區域、核取方塊、單選、開關與
+            可搜尋下拉選單。
           </p>
         </header>
 
@@ -634,6 +753,157 @@ const queryPaginatedItems = computed(() => {
             />
           </FormAppFormField>
 
+          <FormAppFormField
+            label="Email"
+            description="必填，請輸入 name@example.com 格式。"
+            :error="nuxtUiWrapperErrors.email"
+            required
+          >
+            <FormAppInput
+              v-model="nuxtUiWrapperForm.email"
+              type="email"
+              placeholder="name@example.com"
+              required
+              :invalid="!!nuxtUiWrapperErrors.email"
+              autocomplete="email"
+            />
+          </FormAppFormField>
+
+          <FormAppFormField
+            label="電話"
+            description="必填，支援 0912-345-678 或 02-1234-5678 格式。"
+            :error="nuxtUiWrapperErrors.phone"
+            required
+          >
+            <FormAppInput
+              v-model="nuxtUiWrapperForm.phone"
+              type="tel"
+              placeholder="09xx-xxx-xxx"
+              required
+              :invalid="!!nuxtUiWrapperErrors.phone"
+              autocomplete="tel"
+            />
+          </FormAppFormField>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <FormAppFormField
+              label="縣市"
+              description="選擇縣市後，區域選單會更新。"
+              :error="nuxtUiWrapperAddressCityError"
+              required
+            >
+              <FormAppSelect
+                v-model="nuxtUiWrapperForm.city"
+                :options="nuxtUiWrapperAddressCityOptions"
+                placeholder="請選擇縣市"
+                name="address-city"
+                autocomplete="address-level1"
+                :invalid="!!nuxtUiWrapperAddressCityError"
+              />
+            </FormAppFormField>
+
+            <FormAppFormField
+              label="區域"
+              description="請先選擇縣市。"
+              :error="nuxtUiWrapperAddressDistrictError"
+              required
+            >
+              <FormAppSelect
+                v-model="nuxtUiWrapperForm.district"
+                :options="nuxtUiWrapperAddressDistrictOptions"
+                placeholder="請選擇區域"
+                name="address-district"
+                autocomplete="address-level2"
+                :disabled="!nuxtUiWrapperForm.city"
+                :invalid="!!nuxtUiWrapperAddressDistrictError"
+              />
+            </FormAppFormField>
+
+            <FormAppFormField
+              class="sm:col-span-2"
+              label="地址"
+              :error="nuxtUiWrapperAddressError"
+              required
+            >
+              <FormAppInput
+                v-model="nuxtUiWrapperForm.address"
+                placeholder="請輸入完整地址"
+                autocomplete="street-address"
+                required
+                :invalid="!!nuxtUiWrapperAddressError"
+              />
+            </FormAppFormField>
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <FormAppFormField
+              label="身分證字號"
+              description="選填；填寫時檢查基本格式。"
+              :error="nuxtUiWrapperErrors.idNumber"
+            >
+              <FormAppInput
+                v-model="nuxtUiWrapperForm.idNumber"
+                placeholder="A123456789"
+                maxlength="10"
+                autocomplete="off"
+                :invalid="!!nuxtUiWrapperErrors.idNumber"
+              />
+            </FormAppFormField>
+
+            <FormAppFormField
+              label="統一編號"
+              description="選填；填寫時需為 8 碼數字。"
+              :error="nuxtUiWrapperErrors.taxId"
+            >
+              <FormAppInput
+                v-model="nuxtUiWrapperForm.taxId"
+                placeholder="12345678"
+                maxlength="8"
+                inputmode="numeric"
+                autocomplete="off"
+                :invalid="!!nuxtUiWrapperErrors.taxId"
+              />
+            </FormAppFormField>
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <FormAppFormField
+              label="密碼"
+              description="必填，至少 8 碼。"
+              :error="nuxtUiWrapperPasswordError"
+              required
+            >
+              <FormAppInput
+                v-model="nuxtUiWrapperForm.password"
+                type="password"
+                placeholder="請輸入密碼"
+                minlength="8"
+                maxlength="128"
+                autocomplete="new-password"
+                required
+                :invalid="!!nuxtUiWrapperPasswordError"
+              />
+            </FormAppFormField>
+
+            <FormAppFormField
+              label="確認密碼"
+              description="請再次輸入相同密碼。"
+              :error="nuxtUiWrapperConfirmPasswordError"
+              required
+            >
+              <FormAppInput
+                v-model="nuxtUiWrapperForm.confirmPassword"
+                type="password"
+                placeholder="請再次輸入密碼"
+                minlength="8"
+                maxlength="128"
+                autocomplete="new-password"
+                required
+                :invalid="!!nuxtUiWrapperConfirmPasswordError"
+              />
+            </FormAppFormField>
+          </div>
+
           <FormAppFormField label="分類" :error="nuxtUiWrapperCategoryError" required>
             <FormAppSelect
               v-model="nuxtUiWrapperForm.category"
@@ -653,10 +923,57 @@ const queryPaginatedItems = computed(() => {
             />
           </FormAppFormField>
 
+          <FormAppFormField label="留言" description="AppTextarea 支援原生 attrs 與 autoresize。">
+            <FormAppTextarea
+              v-model="nuxtUiWrapperForm.message"
+              placeholder="請輸入留言"
+              :rows="4"
+              autoresize
+              :maxrows="8"
+            />
+          </FormAppFormField>
+
+          <FormAppFormField label="偏好的聯絡方式">
+            <FormAppRadioGroup
+              v-model="nuxtUiWrapperForm.contactMethod"
+              :options="nuxtUiWrapperContactOptions"
+              orientation="horizontal"
+              name="contact-method"
+            />
+          </FormAppFormField>
+
+          <FormAppFormField label="主題" description="輸入關鍵字搜尋，也可以使用鍵盤選取。">
+            <FormAppCombobox
+              v-model="nuxtUiWrapperForm.topic"
+              :options="nuxtUiWrapperTopicOptions"
+              clearable
+              search-placeholder="搜尋主題"
+            />
+          </FormAppFormField>
+
+          <FormAppFormField :error="nuxtUiWrapperAgreeError" required>
+            <FormAppCheckbox
+              v-model="nuxtUiWrapperForm.agreeToTerms"
+              label="我已閱讀並同意服務條款"
+              required
+              :invalid="!!nuxtUiWrapperAgreeError"
+            />
+          </FormAppFormField>
+
+          <FormAppSwitch
+            v-model="nuxtUiWrapperForm.notifications"
+            label="啟用通知"
+            description="開啟後會接收與表單相關的後續通知。"
+          />
+
           <div class="flex flex-wrap items-center justify-between gap-3">
-            <p class="text-sm text-slate-500" aria-live="polite">
-              選擇日期：{{ nuxtUiWrapperDate?.toString() ?? '尚未選擇' }}
-            </p>
+            <div class="space-y-1 text-sm text-slate-500" aria-live="polite">
+              <p>選擇日期：{{ nuxtUiWrapperDate?.toString() ?? '尚未選擇' }}</p>
+              <p>
+                聯絡方式：{{ nuxtUiWrapperForm.contactMethod ?? '尚未選擇' }}；通知：
+                {{ nuxtUiWrapperForm.notifications ? '已啟用' : '已關閉' }}
+              </p>
+            </div>
             <button
               type="submit"
               class="rounded-md bg-slate-900 px-4 py-2 font-medium text-white transition-colors hover:bg-slate-700"

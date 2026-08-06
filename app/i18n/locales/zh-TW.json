@@ -228,6 +228,9 @@
     "datepicker": {
       "today": "今天"
     },
+    "combobox": {
+      "search": "搜尋選項"
+    },
     "contactForm": {
       "name": "姓名",
       "email": "電子郵件"

@@ -28,11 +28,16 @@
 
 | 元件              | 文件                                     | 說明                                                |
 | ----------------- | ---------------------------------------- | --------------------------------------------------- |
+| FormAppCheckbox   | [使用方式](form/AppCheckbox/README.md)   | Nuxt UI Checkbox wrapper。                          |
+| FormAppCombobox   | [使用方式](form/AppCombobox/README.md)   | 可搜尋的單選下拉 wrapper。                          |
 | FormAppDatePicker | [使用方式](form/AppDatePicker/README.md) | InputDate、Calendar 與 Popover 的日期選擇 wrapper。 |
 | FormAppForm       | [使用方式](form/AppForm/README.md)       | 表單 state、schema 與 submit 行為 wrapper。         |
 | FormAppFormField  | [使用方式](form/AppFormField/README.md)  | 表單欄位 label、description 與 error wrapper。      |
 | FormAppInput      | [使用方式](form/AppInput/README.md)      | 專案統一輸入元件 wrapper。                          |
+| FormAppRadioGroup | [使用方式](form/AppRadioGroup/README.md) | Nuxt UI RadioGroup wrapper。                        |
 | FormAppSelect     | [使用方式](form/AppSelect/README.md)     | 專案單選下拉元件 wrapper。                          |
+| FormAppSwitch     | [使用方式](form/AppSwitch/README.md)     | Nuxt UI Switch wrapper。                            |
+| FormAppTextarea   | [使用方式](form/AppTextarea/README.md)   | 專案統一多行文字輸入 wrapper。                      |
 
 ## Modal
 
