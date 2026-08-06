@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ClassValue } from 'clsx'
 
+import { useNumberFormat } from '~/composables/useNumberFormat'
 import { cn } from '~/utils/cn'
 
 export type TCountUpMode = 'random' | 'sequential'
@@ -48,6 +49,7 @@ const emit = defineEmits<{
   done: [value: string]
 }>()
 
+const { formatNumber } = useNumberFormat({ locale: 'en-US' })
 const status = ref<TCountUpStatus>('idle')
 const prefersReducedMotion = ref(false)
 const isMounted = ref(false)
@@ -65,9 +67,20 @@ const effectiveMode = computed<TCountUpMode>(() =>
   mode === 'sequential' && sequentialTarget.value !== undefined ? 'sequential' : 'random'
 )
 const targetPrecision = computed(() => getDecimalPlaces(value))
+const formatSequentialValue = (value: number): string => {
+  const precision = targetPrecision.value
+  const zeroThreshold = precision > 0 ? 0.5 * 10 ** -precision : 0.5
+  const normalizedValue = Math.abs(value) < zeroThreshold ? 0 : value
+
+  return formatNumber(normalizedValue, {
+    useGrouping: thousandComma,
+    minimumFractionDigits: precision,
+    maximumFractionDigits: precision,
+  })
+}
 const targetText = computed(() => {
   if (effectiveMode.value === 'sequential' && sequentialTarget.value !== undefined) {
-    return formatNumber(sequentialTarget.value, targetPrecision.value, thousandComma)
+    return formatSequentialValue(sequentialTarget.value)
   }
 
   return String(value)
@@ -102,28 +115,12 @@ function getDecimalPlaces(value: number | string): number {
   return Math.min(20, Math.max(0, fractionLength - exponent))
 }
 
-function formatNumber(value: number, precision: number, thousandComma: boolean): string {
-  const zeroThreshold = precision > 0 ? 0.5 * 10 ** -precision : 0.5
-  const normalizedValue = Math.abs(value) < zeroThreshold ? 0 : value
-  const fixedValue =
-    precision > 0 ? normalizedValue.toFixed(precision) : Math.round(normalizedValue).toString()
-
-  if (!thousandComma) {
-    return fixedValue
-  }
-
-  const [integerPart = '0', decimalPart] = fixedValue.split('.')
-  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-
-  return decimalPart === undefined ? formattedInteger : `${formattedInteger}.${decimalPart}`
-}
-
 function renderProgress(progress: number): void {
   if (effectiveMode.value === 'sequential' && sequentialTarget.value !== undefined) {
     const nextValue =
       normalizedStartValue.value + (sequentialTarget.value - normalizedStartValue.value) * progress
 
-    displayValue.value = formatNumber(nextValue, targetPrecision.value, thousandComma)
+    displayValue.value = formatSequentialValue(nextValue)
     return
   }
 

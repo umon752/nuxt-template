@@ -29,6 +29,11 @@ usePageSchema({
 })
 
 const { locale } = useI18n()
+const { formatNumber, padNumber } = useNumberFormat()
+
+const numberFormatSampleValue = 1234567.89
+const numberFormatSample = computed(() => formatNumber(numberFormatSampleValue))
+const numberPaddingSample = computed(() => `${padNumber(1)}、${padNumber(9)}、${padNumber(10)}`)
 
 const accordionItems = [
   { title: '收合項目 1', content: '內容內容內容 1' },
@@ -722,6 +727,25 @@ const queryPaginatedItems = computed(() => {
             </p>
           </article>
         </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">useNumberFormat 數字格式化</h2>
+          <p class="text-center text-slate-600">
+            共用方法會依目前語系加入千分位，也提供單位數前綴 0 的格式化方法。
+          </p>
+        </header>
+
+        <article
+          class="mx-auto max-w-2xl space-y-3 rounded-2xl border border-slate-200 p-6 text-center shadow-sm"
+        >
+          <p class="text-sm text-slate-500">原始數值：{{ numberFormatSampleValue }}</p>
+          <p class="text-main-500 text-3xl font-bold tabular-nums">{{ numberFormatSample }}</p>
+          <code class="block text-sm text-slate-500">formatNumber(1234567.89)</code>
+          <p class="text-sm text-slate-500">補零結果（1、9、10）：{{ numberPaddingSample }}</p>
+          <code class="block text-sm text-slate-500">padNumber(1) → 01</code>
+        </article>
       </section>
 
       <section class="space-y-6 py-4">
