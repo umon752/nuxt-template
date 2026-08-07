@@ -17,6 +17,7 @@ export function useDrag(options: TUseDragOptions): TUseDragControls {
 
   let activePointerId: number | undefined
   let currentTarget: HTMLElement | undefined
+  let hasPointerCapture = false
   let startX = 0
   let initialScrollLeft = 0
   let suppressClick = false
@@ -54,15 +55,12 @@ export function useDrag(options: TUseDragOptions): TUseDragControls {
   const stop = (): void => {
     const wasDragging = isDragging.value
 
-    if (
-      currentTarget &&
-      activePointerId !== undefined &&
-      currentTarget.hasPointerCapture(activePointerId)
-    ) {
+    if (currentTarget && activePointerId !== undefined && hasPointerCapture) {
       currentTarget.releasePointerCapture(activePointerId)
     }
 
     activePointerId = undefined
+    hasPointerCapture = false
     isDragging.value = false
     restoreInteractiveElements()
 
@@ -86,7 +84,7 @@ export function useDrag(options: TUseDragOptions): TUseDragControls {
     activePointerId = event.pointerId
     startX = event.clientX
     initialScrollLeft = target.scrollLeft
-    target.setPointerCapture(event.pointerId)
+    hasPointerCapture = false
   }
 
   const handlePointerMove = (event: PointerEvent): void => {
@@ -103,6 +101,8 @@ export function useDrag(options: TUseDragOptions): TUseDragControls {
     if (!isDragging.value) {
       isDragging.value = true
       disableInteractiveElements()
+      currentTarget.setPointerCapture(event.pointerId)
+      hasPointerCapture = true
     }
 
     event.preventDefault()

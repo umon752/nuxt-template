@@ -61,7 +61,7 @@ const { isDragging } = useDrag({
 </template>
 ```
 
-開始拖曳後，composable 會暫時停用指定元素的 `pointer-events`，結束時恢復原本的 inline style，並阻止該次拖曳產生的 click。未超過拖曳門檻的一般點擊不受影響。
+超過拖曳門檻後，composable 才會暫時停用指定元素的 `pointer-events` 並 capture pointer；結束時恢復原本的 inline style，並阻止該次拖曳產生的 click。未超過拖曳門檻的一般點擊不受影響。
 
 ## Options
 

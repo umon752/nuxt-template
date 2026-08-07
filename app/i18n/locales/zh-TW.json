@@ -77,7 +77,9 @@
         "editorImageRight": "右圖左文示範圖片",
         "editorImageSingle": "單張圖片示範",
         "editorImagesLeft": "雙圖版型左側圖片",
-        "editorImagesRight": "雙圖版型右側圖片"
+        "editorImagesRight": "雙圖版型右側圖片",
+        "stickyAnchorImage": "StickyAnchor 區段示範圖片",
+        "stickyAnchorNavigation": "StickyAnchor 範例區段導覽"
       }
     },
     "sitemap": {
@@ -187,6 +189,9 @@
       "ariaLabel": "分類導覽",
       "previous": "顯示前面的分類",
       "next": "顯示後面的分類"
+    },
+    "stickyAnchor": {
+      "ariaLabel": "頁面區段導覽"
     },
     "swiperBase": {
       "ariaLabel": "內容輪播",

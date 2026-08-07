@@ -21,6 +21,7 @@
 | SocialShare     | [使用方式](SocialShare/README.md)       | 可拆用功能層的社群分享按鈕。          |
 | Spinner         | [使用方式](Spinner/README.md)           | 載入指示器。                          |
 | SwiperBase      | [使用方式](SwiperBase/README.md)        | 可自訂外層控制項的響應式輪播。        |
+| StickyAnchor    | [使用方式](StickyAnchor/README.md)      | Sticky 頁面區段錨點導覽。             |
 | Tooltip         | [使用方式](tooltip/Tooltip/README.md)   | 滑鼠與鍵盤提示文字。                  |
 | VideoLazyLoad   | [使用方式](VideoLazyLoad/README.md)     | 延遲載入響應式影片。                  |
 

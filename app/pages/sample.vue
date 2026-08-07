@@ -7,6 +7,7 @@ import EditorModule, { type TEditorModule } from '~/components/editor/EditorModu
 import Marquee, { type TMarqueeItem } from '~/components/marquee/Marquee.vue'
 import Modal, { type TModalCloseReason } from '~/components/modal/Modal.vue'
 import Odometer, { type TOdometerInstance } from '~/components/odometer/Odometer.vue'
+import type { TStickyAnchorInstance, TStickyAnchorItem } from '~/components/StickyAnchor.vue'
 import type { TSlideTabItem } from '~/components/SlideTab.vue'
 import Toast from '~/components/toast/Toast.vue'
 import Tooltip from '~/components/tooltip/Tooltip.vue'
@@ -61,6 +62,32 @@ const slideTabItems: TSlideTabItem[] = [
   { id: 'rules', label: '管理規章' },
   { id: 'coming-soon', label: '即將開放', disabled: true },
 ]
+
+const stickyAnchorItems: TStickyAnchorItem[] = [
+  { id: 'scan', label: '1. 項目一' },
+  { id: 'report', label: '2. 項目二' },
+  { id: 'notify', label: '3. 項目三' },
+  { id: 'consultation', label: '4. 項目四' },
+  { id: 'application', label: '5. 項目五' },
+]
+
+const stickyAnchorDescriptions = [
+  '文字敘述文字敘述文字敘述',
+  '文字敘述文字敘述文字敘述',
+  '文字敘述文字敘述文字敘述',
+  '文字敘述文字敘述文字敘述',
+  '文字敘述文字敘述文字敘述',
+]
+
+const stickyAnchorActiveId = ref<string | number>('scan')
+const stickyAnchorActiveItem = computed(() =>
+  stickyAnchorItems.find((item) => Object.is(item.id, stickyAnchorActiveId.value))
+)
+const stickyAnchor = useTemplateRef<TStickyAnchorInstance>('stickyAnchor')
+
+const scrollToLastStickyAnchorItem = (): void => {
+  stickyAnchor.value?.scrollToItem(stickyAnchorItems.length - 1)
+}
 
 const swiperItems = [
   {
@@ -1441,6 +1468,49 @@ const queryPaginatedItems = computed(() => {
             </p>
           </article>
         </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">StickyAnchor 區段導覽</h2>
+          <p class="text-center text-slate-600">
+            捲動內容會同步更新目前區段；手機版導覽可左右拖曳，桌面版會固定在內容左側。
+          </p>
+        </header>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-500">
+          <p aria-live="polite">目前區段：{{ stickyAnchorActiveItem?.label ?? '未選擇' }}</p>
+          <button
+            type="button"
+            class="rounded-lg border border-slate-300 px-3 py-2 font-medium text-slate-700 transition-colors hover:border-slate-500 hover:text-slate-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+            @click="scrollToLastStickyAnchorItem"
+          >
+            直接前往最後一個區段
+          </button>
+        </div>
+
+        <StickyAnchor
+          ref="stickyAnchor"
+          v-model="stickyAnchorActiveId"
+          :items="stickyAnchorItems"
+          :aria-label="$t('pages.sample.a11y.stickyAnchorNavigation')"
+          root-class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6"
+          aside-class="bg-white lg:pt-2"
+          viewport-class="rounded-xl bg-slate-50 p-2"
+          content-class="space-y-10 lg:pl-4"
+          section-class="min-h-[24rem] space-y-4 rounded-xl border border-slate-200 p-5"
+        >
+          <template #content="{ index }">
+            <div class="space-y-4">
+              <p class="leading-7 text-slate-600">{{ stickyAnchorDescriptions[index] }}</p>
+              <img
+                src="/images/demo/test-img.jpg"
+                :alt="$t('pages.sample.a11y.stickyAnchorImage')"
+                class="aspect-video w-full rounded-xl object-cover"
+              />
+            </div>
+          </template>
+        </StickyAnchor>
       </section>
 
       <section class="space-y-6 py-4">

@@ -20,6 +20,10 @@ const breakpointHideClasses: Record<TBreakpoint, string> = {
 const changeBreakpoint = ref<TBreakpoint>('md')
 const isMobileMenuOpen = ref(false)
 const openDesktopMenuId = ref<string>()
+const headerElement = useTemplateRef<HTMLElement>('headerElement')
+const navHeightCssVariable = '--nav-h'
+let resizeObserver: ResizeObserver | undefined
+let appliedNavHeight: string | undefined
 const breakpointShowClass = computed(() => breakpointShowClasses[changeBreakpoint.value])
 const breakpointHideClass = computed(() => breakpointHideClasses[changeBreakpoint.value])
 
@@ -56,11 +60,51 @@ const handleDesktopMenuFocusout = (event: FocusEvent): void => {
 
   closeDesktopMenu()
 }
+
+const updateNavHeight = (): void => {
+  if (!import.meta.client || !headerElement.value) {
+    return
+  }
+
+  const navHeight = `${headerElement.value.getBoundingClientRect().height}px`
+
+  document.documentElement.style.setProperty(navHeightCssVariable, navHeight)
+  appliedNavHeight = navHeight
+}
+
+onMounted(() => {
+  updateNavHeight()
+
+  if (typeof ResizeObserver !== 'undefined' && headerElement.value) {
+    resizeObserver = new ResizeObserver(updateNavHeight)
+    resizeObserver.observe(headerElement.value)
+    return
+  }
+
+  window.addEventListener('resize', updateNavHeight, { passive: true })
+})
+
+onBeforeUnmount(() => {
+  if (!import.meta.client) {
+    return
+  }
+
+  resizeObserver?.disconnect()
+  window.removeEventListener('resize', updateNavHeight)
+
+  if (
+    appliedNavHeight &&
+    document.documentElement.style.getPropertyValue(navHeightCssVariable) === appliedNavHeight
+  ) {
+    document.documentElement.style.removeProperty(navHeightCssVariable)
+  }
+})
 </script>
 
 <template>
   <header
     id="U"
+    ref="headerElement"
     role="banner"
     class="group sticky top-0 z-40 bg-white py-2 shadow-lg"
     :class="{ 'is-open': isMobileMenuOpen }"
