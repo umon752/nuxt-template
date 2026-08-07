@@ -63,6 +63,9 @@ defineSlots<{
   content?: (props: { item: TStickyAnchorItem; index: number; isActive: boolean }) => unknown
 }>()
 
+//----------------------------
+// state and refs
+//----------------------------
 const { t } = useI18n()
 const instanceId = useId()
 const rootElement = useTemplateRef<HTMLElement>('rootElement')
@@ -80,6 +83,9 @@ const { isDragging } = useDrag({
   interactiveElements,
 })
 
+//----------------------------
+// derived state and classes
+//----------------------------
 const resolvedAriaLabel = computed(() => ariaLabel || t('components.stickyAnchor.ariaLabel'))
 const resolvedScrollOffset = computed(() =>
   Number.isFinite(scrollOffset) ? Math.max(0, scrollOffset) : 0
@@ -138,6 +144,9 @@ const getButtonClassName = (item: TStickyAnchorItem): string =>
       cn('pl-7 text-slate-950 before:bg-main-500', activeButtonClassProp)
   )
 
+//----------------------------
+// anchor ids and scrolling
+//----------------------------
 const getButtonId = (index: number): string => `${instanceId}-button-${index}`
 const getSectionId = (index: number): string => `${instanceId}-section-${index}`
 const getHeadingId = (index: number): string => `${instanceId}-heading-${index}`
@@ -214,6 +223,9 @@ const scrollToItem = (index: number, behavior = getScrollBehavior()): void => {
   scrollToSection(index, behavior)
 }
 
+//----------------------------
+// selection and scroll spy
+//----------------------------
 const setActiveItem = (
   item: TStickyAnchorItem,
   index: number,
@@ -300,6 +312,9 @@ const refresh = (): void => {
   updateActiveFromScroll()
 }
 
+//----------------------------
+// observers and lifecycle
+//----------------------------
 let scrollFrame: number | undefined
 let resizeObserver: ResizeObserver | undefined
 

@@ -41,6 +41,9 @@ const emit = defineEmits<{
   done: [value: number]
 }>()
 
+//----------------------------
+// state and derived values
+//----------------------------
 const digitOptions = Array.from({ length: 10 }, (_, index) => index)
 const isMounted = ref(false)
 const prefersReducedMotion = ref(false)
@@ -68,6 +71,9 @@ let completionTimer: ReturnType<typeof setTimeout> | undefined
 let reducedMotionQuery: MediaQueryList | undefined
 let animationToken = 0
 
+//----------------------------
+// digit and column helpers
+//----------------------------
 function normalizeNonNegativeInteger(value: number): number {
   return Number.isFinite(value) && Number.isInteger(value) && value >= 0 ? value : 0
 }
@@ -120,6 +126,9 @@ function getTrackStyle(column: TDigitColumn): CSSProperties {
   }
 }
 
+//----------------------------
+// animation lifecycle
+//----------------------------
 function clearScheduledWork(): void {
   if (prepareFrame !== undefined) {
     cancelAnimationFrame(prepareFrame)
@@ -220,6 +229,9 @@ function handleReducedMotionChange(event: MediaQueryListEvent): void {
   }
 }
 
+//----------------------------
+// watchers and lifecycle
+//----------------------------
 watch([() => value, () => maxCount], () => {
   if (!isMounted.value) {
     return

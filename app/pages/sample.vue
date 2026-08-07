@@ -18,6 +18,9 @@ import type { TFormValidationRules } from '~/composables/useFormValidation'
 import { useToast } from '~/composables/useToast'
 import taiwanAddressData from '~/data/taiwan-address.json'
 
+//----------------------------
+// page metadata
+//----------------------------
 usePageSeo({
   title: '範例頁',
   description: '範例頁描述',
@@ -29,6 +32,9 @@ usePageSchema({
   description: '範例頁描述',
 })
 
+//----------------------------
+// i18n and number format
+//----------------------------
 const { locale } = useI18n()
 const { formatNumber, padNumber } = useNumberFormat()
 
@@ -36,12 +42,18 @@ const numberFormatSampleValue = 1234567.89
 const numberFormatSample = computed(() => formatNumber(numberFormatSampleValue))
 const numberPaddingSample = computed(() => `${padNumber(1)}、${padNumber(9)}、${padNumber(10)}`)
 
+//----------------------------
+// accordion data
+//----------------------------
 const accordionItems = [
   { title: '收合項目 1', content: '內容內容內容 1' },
   { title: '收合項目 2', content: '內容內容內容 2' },
   { title: '收合項目 3', content: '內容內容內容 3' },
 ]
 
+//----------------------------
+// marquee data
+//----------------------------
 const marqueeItems: TMarqueeItem[] = [
   { id: 1, title: 'Nuxt 4 Starter' },
   { id: 2, title: 'Vue 3 Composition API' },
@@ -50,6 +62,9 @@ const marqueeItems: TMarqueeItem[] = [
   { id: 5, title: 'Responsive Marquee' },
 ]
 
+//----------------------------
+// slide tab data
+//----------------------------
 const slideTabItems: TSlideTabItem[] = [
   { id: 'all', label: '全部' },
   { id: 'building', label: '大樓公告' },
@@ -63,6 +78,9 @@ const slideTabItems: TSlideTabItem[] = [
   { id: 'coming-soon', label: '即將開放', disabled: true },
 ]
 
+//----------------------------
+// sticky anchor data
+//----------------------------
 const stickyAnchorItems: TStickyAnchorItem[] = [
   { id: 'scan', label: '1. 項目一' },
   { id: 'report', label: '2. 項目二' },
@@ -89,6 +107,9 @@ const scrollToLastStickyAnchorItem = (): void => {
   stickyAnchor.value?.scrollToItem(stickyAnchorItems.length - 1)
 }
 
+//----------------------------
+// swiper data
+//----------------------------
 const swiperItems = [
   {
     id: 1,
@@ -130,10 +151,18 @@ const swiperBreakpoints = {
     slidesPerView: 3,
   },
 }
+
+//----------------------------
+// marquee state
+//----------------------------
 const marqueeActiveIndex = ref(0)
 const marqueePaused = ref(false)
 const reverseMarqueeActiveIndex = ref(0)
 const reverseMarqueePaused = ref(false)
+
+//----------------------------
+// drag
+//----------------------------
 const dragTarget = useTemplateRef<HTMLElement>('dragTarget')
 const dragButtons = useTemplateRef<HTMLElement[]>('dragButtons')
 const lastDragAction = ref('尚未點選項目')
@@ -152,9 +181,15 @@ const handleDragItemClick = (title: string): void => {
   lastDragAction.value = `已點選「${title}」`
 }
 
+//----------------------------
+// observer fade
+//----------------------------
 const observerFadeContainer = useTemplateRef<HTMLElement>('observerFadeContainer')
 const showDynamicObserverFadeItem = ref(false)
 
+//----------------------------
+// nuxt ui wrapper form
+//----------------------------
 const nuxtUiWrapperForm = reactive({
   name: '',
   email: '',
@@ -292,6 +327,9 @@ const nuxtUiWrapperConfirmPasswordError = computed(() => {
     : '兩次密碼輸入不一致'
 })
 
+//----------------------------
+// observer fade controls
+//----------------------------
 const {
   isActive: isObserverFadeActive,
   observedCount: observerFadeCount,
@@ -302,6 +340,9 @@ const {
   container: observerFadeContainer,
 })
 
+//----------------------------
+// slide tab state
+//----------------------------
 const basicSlideTabId = ref<string | number>('all')
 const basicSlideTabItem = computed(() =>
   slideTabItems.find((item) => item.id === basicSlideTabId.value)
@@ -311,6 +352,9 @@ const alignedSlideTabItem = computed(() =>
   slideTabItems.find((item) => item.id === alignedSlideTabId.value)
 )
 
+//----------------------------
+// counter
+//----------------------------
 const basicCounterValue = ref(0)
 const editableCounterValue = ref(2)
 const steppedCounterValue = ref(10)
@@ -326,6 +370,9 @@ const handleCounterChange = (value: number, source: TCounterChangeSource): void 
   lastCounterEvent.value = `${sourceLabels[source]}至 ${value}`
 }
 
+//----------------------------
+// count up
+//----------------------------
 type TCountUpControlAction = keyof TCountUpInstance
 
 const randomCountUp = useTemplateRef<TCountUpInstance>('randomCountUp')
@@ -341,6 +388,9 @@ const handleCountUpEvent = (eventName: string, value: string): void => {
   lastCountUpEvent.value = `${eventName}：${value}`
 }
 
+//----------------------------
+// odometer
+//----------------------------
 const odometer = useTemplateRef<TOdometerInstance>('odometer')
 const odometerValue = ref(128)
 const odometerInput = ref<number | string>(5432)
@@ -361,6 +411,9 @@ const handleOdometerEvent = (eventName: string, value: number): void => {
   lastOdometerEvent.value = `${eventName}：${value}`
 }
 
+//----------------------------
+// toast and modal
+//----------------------------
 const toast = useToast()
 const inlineToastVisible = ref(false)
 const alertDialogToastVisible = ref(false)
@@ -370,6 +423,9 @@ const persistentModalVisible = ref(false)
 const alertModalVisible = ref(false)
 const lastModalCloseReason = ref<TModalCloseReason>()
 
+//----------------------------
+// social share
+//----------------------------
 const handleSocialShareCopied = (): void => {
   toast.show({
     text: '分享連結已複製到剪貼簿',
@@ -443,6 +499,9 @@ const showStackedToasts = (): void => {
   })
 }
 
+//----------------------------
+// card
+//----------------------------
 const cardItems = [
   {
     image: '/images/demo/test-img.jpg',
@@ -470,6 +529,9 @@ const cardItems = [
   },
 ]
 
+//----------------------------
+// editor
+//----------------------------
 const editorContentHtml = `
   <h2>h2 編輯器標題</h2>
   <h3>h3 編輯器標題</h3>
@@ -554,6 +616,9 @@ const handleToggle = (index: number, isActive: boolean) => {
   console.log(`項目 ${index} ${isActive ? '展開' : '收合'}`)
 }
 
+//----------------------------
+// accordion state and controls
+//----------------------------
 const basicAccordionActiveItems = ref<number[]>([])
 const multipleAccordionActiveItems = ref<number[]>([0])
 const customAccordionActiveItems = ref<number[]>([])
@@ -577,6 +642,9 @@ const collapseFirstAccordionItem = (): void => {
   )
 }
 
+//----------------------------
+// pagination
+//----------------------------
 const articleItems = Array.from({ length: 100 }, (_, index) => ({
   id: index + 1,
   title: `文章標題 ${index + 1}`,
@@ -610,6 +678,9 @@ const searchableArticleItems = Array.from({ length: 36 }, (_, index) => {
   }
 })
 
+//----------------------------
+// query pagination
+//----------------------------
 const route = useRoute()
 const keywordQueryValue = computed(() => getRouteQueryValue(route.query.keyword))
 

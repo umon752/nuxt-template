@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { siteConfig } from '~/config/site'
+//----------------------------
+// navigation state
+//----------------------------
 const route = useRoute()
 const { menuItems } = useMenu()
 type TBreakpoint = 'sm' | 'md' | 'lg' | 'xl'
 
+//----------------------------
+// responsive navigation
+//----------------------------
 const breakpointShowClasses: Record<TBreakpoint, string> = {
   sm: 'sm:flex',
   md: 'md:flex',
@@ -30,6 +36,9 @@ const breakpointHideClass = computed(() => breakpointHideClasses[changeBreakpoin
 const homeData = computed(() => menuItems.value.find((item) => item.id === 'home'))
 const pageData = computed(() => menuItems.value.filter((item) => item.id !== 'home'))
 
+//----------------------------
+// menu interactions
+//----------------------------
 watch(
   () => route.fullPath,
   () => {
@@ -61,6 +70,9 @@ const handleDesktopMenuFocusout = (event: FocusEvent): void => {
   closeDesktopMenu()
 }
 
+//----------------------------
+// nav height observer
+//----------------------------
 const updateNavHeight = (): void => {
   if (!import.meta.client || !headerElement.value) {
     return
@@ -72,6 +84,9 @@ const updateNavHeight = (): void => {
   appliedNavHeight = navHeight
 }
 
+//----------------------------
+// lifecycle and cleanup
+//----------------------------
 onMounted(() => {
   updateNavHeight()
 

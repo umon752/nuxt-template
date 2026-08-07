@@ -52,6 +52,9 @@ const emit = defineEmits<{
   error: [event: Event]
 }>()
 
+//----------------------------
+// state and responsive loading
+//----------------------------
 const { t } = useI18n()
 const attrs = useAttrs()
 const containerRef = useTemplateRef<HTMLSpanElement>('containerRef')
@@ -63,6 +66,9 @@ const isLoading = ref(true)
 const hasError = ref(false)
 const isUsingFallback = ref(false)
 
+//----------------------------
+// responsive media and classes
+//----------------------------
 const objectFitClasses: Record<TObjectFit, string> = {
   contain: 'object-contain',
   cover: 'object-cover',
@@ -97,6 +103,9 @@ const { isActivated } = useLazyLoadObserver({
   rootMargin: () => rootMargin,
   threshold: () => threshold,
 })
+//----------------------------
+// image attributes and fallback
+//----------------------------
 const resolvedAspectRatio = computed(() => {
   if (isDesktop.value) {
     return aspectRatioDesktop || aspectRatio
@@ -129,6 +138,9 @@ const imageAttrs = computed(() => {
   }
 })
 
+//----------------------------
+// image events and watchers
+//----------------------------
 const reset = (): void => {
   currentSrc.value = resolvedMobileSrc.value
   isLoading.value = true

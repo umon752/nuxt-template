@@ -34,6 +34,9 @@ const slots = defineSlots<{
   content?: () => unknown
 }>()
 
+//----------------------------
+// state and placement config
+//----------------------------
 const triggerWrapper = ref<HTMLElement>()
 const tooltipElement = ref<HTMLElement>()
 const isVisible = ref(false)
@@ -59,6 +62,9 @@ const normalizeDelay = (delay: number): number => {
   return Number.isFinite(delay) ? Math.max(0, delay) : 0
 }
 
+//----------------------------
+// derived classes and arrow
+//----------------------------
 const hasContent = computed(() => Boolean(text || slots.content))
 const tooltipClassName = computed(() =>
   cn(
@@ -101,6 +107,9 @@ const arrowStyle = computed<CSSProperties>(() => {
   return { top: `${top}px`, marginTop: '-0.25rem' }
 })
 
+//----------------------------
+// accessibility and placement
+//----------------------------
 const getTriggerElement = (): HTMLElement | undefined => {
   const element = triggerWrapper.value?.firstElementChild
 
@@ -193,6 +202,9 @@ const resolvePlacement = (
   )
 }
 
+//----------------------------
+// position and listeners
+//----------------------------
 const updatePosition = async (): Promise<void> => {
   if (!isVisible.value || !import.meta.client) {
     return
@@ -245,6 +257,9 @@ const removePositionListeners = (): void => {
   window.removeEventListener('scroll', schedulePositionUpdate, true)
 }
 
+//----------------------------
+// visibility and timers
+//----------------------------
 const clearShowTimer = (): void => {
   if (showTimer !== undefined) {
     clearTimeout(showTimer)
@@ -320,6 +335,9 @@ const handleKeydown = (event: KeyboardEvent): void => {
   }
 }
 
+//----------------------------
+// watchers and cleanup
+//----------------------------
 watch(
   () => disabled,
   (disabled) => {

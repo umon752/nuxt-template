@@ -53,6 +53,9 @@ defineSlots<{
   actions?: (props: { hide: () => void }) => unknown
 }>()
 
+//----------------------------
+// state and presentation
+//----------------------------
 const toastElement = ref<HTMLElement>()
 const previousFocus = ref<HTMLElement>()
 let timer: ReturnType<typeof setTimeout> | undefined
@@ -79,6 +82,9 @@ const toastStyle = computed<CSSProperties>(() => ({
   zIndex: 1080,
 }))
 
+//----------------------------
+// timer and focus management
+//----------------------------
 const clearTimer = (): void => {
   if (timer !== undefined) {
     clearTimeout(timer)
@@ -155,6 +161,9 @@ const focusAlertDialog = async (): Promise<void> => {
   toastElement.value?.focus()
 }
 
+//----------------------------
+// public controls
+//----------------------------
 const show = (): void => {
   if (modelValue) {
     startTimer()
@@ -178,6 +187,9 @@ const kill = (): void => {
   emit('kill')
 }
 
+//----------------------------
+// keyboard and lifecycle
+//----------------------------
 const handleKeydown = (event: KeyboardEvent): void => {
   if (role !== 'alertdialog' || event.key !== 'Tab' || !toastElement.value) {
     return

@@ -73,6 +73,9 @@ defineSlots<{
   }) => unknown
 }>()
 
+//----------------------------
+// state and refs
+//----------------------------
 const viewportElement = ref<HTMLElement>()
 const originalGroupElement = ref<HTMLElement>()
 const viewportWidth = ref(0)
@@ -88,6 +91,9 @@ const prefersReducedMotion = ref(false)
 const isPageVisible = ref(true)
 const isMounted = ref(false)
 
+//----------------------------
+// derived state and classes
+//----------------------------
 const minimumGroupCount = 3
 const groupCount = computed(() => {
   if (!groupWidth.value) {
@@ -160,6 +166,9 @@ const groupStyle = computed<CSSProperties>(() => ({
   paddingRight: `${normalizedGap.value}px`,
 }))
 
+//----------------------------
+// animation and interaction state
+//----------------------------
 let animationFrame: number | undefined
 let lastFrameTime: number | undefined
 let resizeObserver: ResizeObserver | undefined
@@ -173,6 +182,9 @@ let hasDragged = false
 let lastDetectedActiveIndex = 0
 let pendingActiveIndex: number | undefined
 
+//----------------------------
+// index and offset helpers
+//----------------------------
 function normalizeIndex(index: number): number {
   if (!items.length || !Number.isFinite(index)) {
     return 0
@@ -249,6 +261,9 @@ function updateActiveIndex(): void {
   emit('update:activeIndex', nextActiveIndex)
 }
 
+//----------------------------
+// animation and measurement
+//----------------------------
 function stopAnimation(): void {
   if (animationFrame !== undefined) {
     cancelAnimationFrame(animationFrame)
@@ -285,6 +300,9 @@ function startAnimation(): void {
   animationFrame = requestAnimationFrame(animate)
 }
 
+//----------------------------
+// layout measurement
+//----------------------------
 function measure(resetPosition = false): void {
   const viewport = viewportElement.value
   const group = originalGroupElement.value
@@ -318,6 +336,9 @@ function measure(resetPosition = false): void {
   }
 }
 
+//----------------------------
+// item navigation
+//----------------------------
 function clearNavigation(): void {
   if (navigationFrame !== undefined) {
     cancelAnimationFrame(navigationFrame)
@@ -367,6 +388,9 @@ function navigateToIndex(index: number): void {
   }, 320)
 }
 
+//----------------------------
+// drag and interaction
+//----------------------------
 function requestStart(): void {
   emit('update:paused', false)
 }
@@ -464,6 +488,9 @@ function handleVisibilityChange(): void {
   isPageVisible.value = document.visibilityState === 'visible'
 }
 
+//----------------------------
+// watchers and lifecycle
+//----------------------------
 watch(isEffectivelyPaused, (paused, wasPaused) => {
   if (!isMounted.value || paused === wasPaused) {
     return

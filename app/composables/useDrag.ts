@@ -12,6 +12,9 @@ export type TUseDragControls = {
 }
 
 export function useDrag(options: TUseDragOptions): TUseDragControls {
+  //----------------------------
+  // drag state
+  //----------------------------
   const isDragging = ref(false)
   const originalPointerEvents = new Map<HTMLElement, string>()
 
@@ -25,6 +28,9 @@ export function useDrag(options: TUseDragOptions): TUseDragControls {
 
   const dragThreshold = Math.max(0, options.dragThreshold ?? 3)
 
+  //----------------------------
+  // interactive elements and click suppression
+  //----------------------------
   const restoreInteractiveElements = (): void => {
     originalPointerEvents.forEach((pointerEvents, element) => {
       element.style.pointerEvents = pointerEvents
@@ -52,6 +58,9 @@ export function useDrag(options: TUseDragOptions): TUseDragControls {
     })
   }
 
+  //----------------------------
+  // pointer lifecycle
+  //----------------------------
   const stop = (): void => {
     const wasDragging = isDragging.value
 
@@ -125,6 +134,9 @@ export function useDrag(options: TUseDragOptions): TUseDragControls {
     suppressClick = false
   }
 
+  //----------------------------
+  // target listeners and cleanup
+  //----------------------------
   const removeTargetListeners = (): void => {
     if (!currentTarget) {
       return

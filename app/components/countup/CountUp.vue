@@ -49,6 +49,9 @@ const emit = defineEmits<{
   done: [value: string]
 }>()
 
+//----------------------------
+// state and derived values
+//----------------------------
 const { formatNumber } = useNumberFormat({ locale: 'en-US' })
 const status = ref<TCountUpStatus>('idle')
 const prefersReducedMotion = ref(false)
@@ -96,6 +99,9 @@ let elapsedBeforePause = 0
 let lastRenderAt = Number.NEGATIVE_INFINITY
 let reducedMotionQuery: MediaQueryList | undefined
 
+//----------------------------
+// value normalization and rendering
+//----------------------------
 function normalizeNonNegative(value: number, fallback: number): number {
   return Number.isFinite(value) ? Math.max(0, value) : fallback
 }
@@ -129,6 +135,9 @@ function renderProgress(progress: number): void {
   ).join('')
 }
 
+//----------------------------
+// animation scheduling
+//----------------------------
 function clearAnimationFrame(): void {
   if (animationFrame !== undefined) {
     cancelAnimationFrame(animationFrame)
@@ -192,6 +201,9 @@ function startAnimation(): void {
   animationFrame = requestAnimationFrame(renderFrame)
 }
 
+//----------------------------
+// public controls
+//----------------------------
 function resetState(): void {
   clearScheduledWork()
   elapsedBeforePause = 0
@@ -261,6 +273,9 @@ function restart(): void {
   run()
 }
 
+//----------------------------
+// watchers and lifecycle
+//----------------------------
 function handleReducedMotionChange(event: MediaQueryListEvent): void {
   prefersReducedMotion.value = event.matches
 

@@ -15,6 +15,9 @@ type TUsePaginationQueryReturn = {
 
 type TRouteQueryValue = string | null | Array<string | null> | undefined
 
+//----------------------------
+// query normalization
+//----------------------------
 export function getRouteQueryValue(value: TRouteQueryValue): string {
   if (Array.isArray(value)) {
     return value[0] ?? ''
@@ -39,6 +42,9 @@ function parsePageQuery(value: TRouteQueryValue): number {
   return normalizePositiveInteger(Number(queryValue), 1)
 }
 
+//----------------------------
+// pagination state and route sync
+//----------------------------
 export function usePaginationQuery(options: TUsePaginationQueryOptions): TUsePaginationQueryReturn {
   const route = useRoute()
   const router = useRouter()
@@ -48,6 +54,9 @@ export function usePaginationQuery(options: TUsePaginationQueryOptions): TUsePag
   const totalPages = computed(() => normalizePositiveInteger(toValue(options.totalPages), 1))
   const routePage = computed(() => parsePageQuery(route.query[pageQueryKey]))
 
+  //----------------------------
+  // page navigation
+  //----------------------------
   const normalizePage = (page: number): number => {
     const normalizedPage = normalizePositiveInteger(page, 1)
 
@@ -77,6 +86,9 @@ export function usePaginationQuery(options: TUsePaginationQueryOptions): TUsePag
     },
   })
 
+  //----------------------------
+  // route synchronization
+  //----------------------------
   if (import.meta.client) {
     watch(
       [() => route.query[pageQueryKey], totalPages],

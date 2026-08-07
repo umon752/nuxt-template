@@ -21,12 +21,18 @@ export type TUseSocialShareReturn = {
   clearFeedback: () => void
 }
 
+//----------------------------
+// share endpoints
+//----------------------------
 const externalShareEndpoints: Record<TExternalSharePlatform, string> = {
   facebook: 'https://www.facebook.com/sharer/sharer.php',
   line: 'https://social-plugins.line.me/lineit/share',
   twitter: 'https://twitter.com/intent/tweet',
 }
 
+//----------------------------
+// feedback state and timers
+//----------------------------
 export const useSocialShare = (options: TUseSocialShareOptions = {}): TUseSocialShareReturn => {
   const { t } = useI18n()
   const isCopied = ref(false)
@@ -57,6 +63,9 @@ export const useSocialShare = (options: TUseSocialShareOptions = {}): TUseSocial
     }
   }
 
+  //----------------------------
+  // URL and platform builders
+  //----------------------------
   const resolveShareUrl = (): string => {
     const rawUrl = toValue(options.url)?.trim() || window.location.href
     let resolvedUrl: URL
@@ -92,6 +101,9 @@ export const useSocialShare = (options: TUseSocialShareOptions = {}): TUseSocial
     return shareUrl.href
   }
 
+  //----------------------------
+  // clipboard handling
+  //----------------------------
   const fallbackCopyToClipboard = (text: string): void => {
     const activeElement = document.activeElement
     const textArea = document.createElement('textarea')
@@ -127,6 +139,9 @@ export const useSocialShare = (options: TUseSocialShareOptions = {}): TUseSocial
     fallbackCopyToClipboard(text)
   }
 
+  //----------------------------
+  // share actions and cleanup
+  //----------------------------
   const share = async (platform: TSharePlatform): Promise<TSocialShareResult> => {
     const url = resolveShareUrl()
 

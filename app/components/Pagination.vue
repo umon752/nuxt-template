@@ -67,6 +67,9 @@ defineSlots<{
 
 const { t } = useI18n()
 
+//----------------------------
+// normalization and pagination state
+//----------------------------
 const normalizePositiveInteger = (value: number, fallback: number) => {
   const normalizedValue = Math.floor(value)
 
@@ -95,6 +98,9 @@ const resolvedLastLabel = computed(() => lastLabel || t('components.pagination.l
 const resolvedPrevLabel = computed(() => prevLabel || t('components.pagination.prev'))
 const resolvedNextLabel = computed(() => nextLabel || t('components.pagination.next'))
 
+//----------------------------
+// visible page calculation
+//----------------------------
 const visiblePages = computed<TPaginationItem[]>(() => {
   const includedPages = new Set<number>([1, normalizedTotalPages.value])
   const startPage = Math.max(1, normalizedCurrentPage.value - normalizedDisplayRange.value)
@@ -158,6 +164,9 @@ const visiblePages = computed<TPaginationItem[]>(() => {
 const canGoPrev = computed(() => normalizedCurrentPage.value > 1)
 const canGoNext = computed(() => normalizedCurrentPage.value < normalizedTotalPages.value)
 
+//----------------------------
+// navigation actions
+//----------------------------
 const goToPage = (page: number) => {
   const nextPage = clampPage(page)
 
@@ -169,6 +178,9 @@ const goToPage = (page: number) => {
   emit('change', nextPage)
 }
 
+//----------------------------
+// button styles
+//----------------------------
 const navClassName = computed(() => cn(navClass))
 const listClassName = computed(() =>
   cn('flex flex-wrap items-center justify-center gap-2', listClass)

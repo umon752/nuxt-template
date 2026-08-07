@@ -35,6 +35,9 @@ type TObserverFadeState = {
   observer?: IntersectionObserver
 }
 
+//----------------------------
+// configuration and state
+//----------------------------
 const OBSERVER_FADE_INITIALIZED_ATTRIBUTE = 'data-fade-initialized'
 const DEFAULT_SELECTOR = '[data-fade]'
 const FILL_MODES: readonly FillMode[] = ['none', 'forwards', 'backwards', 'both', 'auto']
@@ -62,6 +65,9 @@ export function useObserverFade(options: TUseObserverFadeOptions = {}): TUseObse
   let mutationObserver: MutationObserver | undefined
   let reducedMotionQuery: MediaQueryList | undefined
 
+  //----------------------------
+  // element state and timing
+  //----------------------------
   const warn = (message: string, element?: HTMLElement): void => {
     if (import.meta.dev) {
       console.warn(`[useObserverFade] ${message}`, element)
@@ -186,6 +192,9 @@ export function useObserverFade(options: TUseObserverFadeOptions = {}): TUseObse
     return timing
   }
 
+  //----------------------------
+  // animation and observer setup
+  //----------------------------
   const createAnimation = (element: HTMLElement, type: TObserverFadeType): Animation => {
     const keyframes: Keyframe[] =
       type === 'up'
@@ -269,6 +278,9 @@ export function useObserverFade(options: TUseObserverFadeOptions = {}): TUseObse
     }
   }
 
+  //----------------------------
+  // element discovery and mutations
+  //----------------------------
   const visitMatchingElements = (root: Element, callback: (element: HTMLElement) => void): void => {
     try {
       if (root instanceof HTMLElement && root.matches(selector)) {
@@ -285,6 +297,9 @@ export function useObserverFade(options: TUseObserverFadeOptions = {}): TUseObse
     }
   }
 
+  //----------------------------
+  // controls and lifecycle
+  //----------------------------
   const refresh = (): void => {
     if (!import.meta.client || !isActive.value || !currentContainer) {
       return
@@ -361,6 +376,9 @@ export function useObserverFade(options: TUseObserverFadeOptions = {}): TUseObse
     }
   }
 
+  //----------------------------
+  // watchers and cleanup
+  //----------------------------
   watch(
     () => options.container?.value,
     (container, previousContainer) => {
@@ -384,6 +402,9 @@ export function useObserverFade(options: TUseObserverFadeOptions = {}): TUseObse
     stop,
   }
 
+  //----------------------------
+  // validation helpers
+  //----------------------------
   function normalizeTimingNumber(
     value: unknown,
     key: 'duration' | 'delay' | 'iterations',

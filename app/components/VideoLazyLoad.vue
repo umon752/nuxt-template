@@ -62,6 +62,9 @@ const emit = defineEmits<{
   error: [event: Event]
 }>()
 
+//----------------------------
+// state and lazy loading
+//----------------------------
 const { t } = useI18n()
 const attrs = useAttrs()
 const containerRef = useTemplateRef<HTMLDivElement>('containerRef')
@@ -89,6 +92,9 @@ const { isActivated } = useLazyLoadObserver({
   threshold: () => threshold,
 })
 
+//----------------------------
+// responsive media and classes
+//----------------------------
 const resolvedSrc = computed(() => {
   if (isDesktop.value) {
     return srcDesktop || src
@@ -145,6 +151,9 @@ const mediaAttrs = computed(() => {
 })
 const resolvedErrorLabel = computed(() => t('components.video.error'))
 
+//----------------------------
+// media events and loading state
+//----------------------------
 const resetLoadingState = (): void => {
   isLoading.value = true
   hasError.value = false
@@ -174,6 +183,9 @@ const handleError = (event: Event): void => {
   emit('error', event)
 }
 
+//----------------------------
+// watchers
+//----------------------------
 watch(isActivated, (active) => {
   if (active) {
     loadVideo()

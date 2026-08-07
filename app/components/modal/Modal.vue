@@ -63,6 +63,9 @@ const slots = defineSlots<{
   closeIcon?: () => unknown
 }>()
 
+//----------------------------
+// state and native dialog
+//----------------------------
 const { t } = useI18n()
 const { lock, unlock } = useModalScrollLock()
 
@@ -79,6 +82,9 @@ let isCloseFinalized = true
 let pendingCloseReason: TModalCloseReason = 'programmatic'
 let syncSequence = 0
 
+//----------------------------
+// accessibility and classes
+//----------------------------
 const focusableSelector = [
   'a[href]',
   'area[href]',
@@ -126,6 +132,9 @@ const closeButtonClassName = computed(() =>
   )
 )
 
+//----------------------------
+// focus management
+//----------------------------
 const getFocusableElements = (): HTMLElement[] => {
   const panel = panelElement.value
 
@@ -216,6 +225,9 @@ const restoreFocus = (): void => {
   })
 }
 
+//----------------------------
+// close flow
+//----------------------------
 const completeClose = (reason: TModalCloseReason): void => {
   if (isCloseFinalized) {
     return
@@ -265,6 +277,9 @@ const requestClose = (reason: TModalCloseReason): void => {
   }
 }
 
+//----------------------------
+// open and event handlers
+//----------------------------
 const showNativeModal = async (): Promise<void> => {
   if (!import.meta.client || !isMounted) {
     return
@@ -343,6 +358,9 @@ const handleNativeClose = (): void => {
   completeClose('native')
 }
 
+//----------------------------
+// watchers and lifecycle
+//----------------------------
 watch(
   () => modelValue,
   (visible) => {

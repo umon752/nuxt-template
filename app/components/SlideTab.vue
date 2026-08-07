@@ -68,6 +68,9 @@ defineSlots<{
   next?: () => unknown
 }>()
 
+//----------------------------
+// state and refs
+//----------------------------
 const { t } = useI18n()
 const viewportElement = useTemplateRef<HTMLElement>('viewportElement')
 const listElement = useTemplateRef<HTMLUListElement>('listElement')
@@ -88,6 +91,9 @@ const { isDragging } = useDrag({
   interactiveElements: itemElements,
 })
 
+//----------------------------
+// derived state and classes
+//----------------------------
 const resolvedAriaLabel = computed(() => ariaLabel || t('components.slideTab.ariaLabel'))
 const resolvedPreviousLabel = computed(() => previousLabel || t('components.slideTab.previous'))
 const resolvedNextLabel = computed(() => nextLabel || t('components.slideTab.next'))
@@ -123,6 +129,9 @@ const getDefaultButtonClassName = (item: TSlideTabItem): string =>
     isActiveItem(item) && 'border-slate-300 bg-white text-slate-950'
   )
 
+//----------------------------
+// scrolling and visibility
+//----------------------------
 const getScrollBehavior = (): ScrollBehavior => {
   if (!import.meta.client || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     return 'auto'
@@ -228,6 +237,9 @@ const ensureActiveItemVisible = (behavior: ScrollBehavior): void => {
   }
 }
 
+//----------------------------
+// selection and resize
+//----------------------------
 const selectItem = (item: TSlideTabItem, index: number): void => {
   if (item.disabled || isActiveItem(item)) {
     return
@@ -244,6 +256,9 @@ const handleResize = (): void => {
   ensureActiveItemVisible('auto')
 }
 
+//----------------------------
+// watchers and lifecycle
+//----------------------------
 watch([() => modelValue, () => alignActiveToStart], async () => {
   await nextTick()
   ensureActiveItemVisible(getScrollBehavior())

@@ -46,6 +46,9 @@ export type TFormValidationControls<TState extends object> = {
 
 type TFormFormatRuleName = Exclude<TFormValidationRuleName, 'required'>
 
+//----------------------------
+// validation rules and messages
+//----------------------------
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const PHONE_PATTERN = /^(?:09\d{2}[- ]?\d{3}[- ]?\d{3}|0(?!9)\d{1,2}[- ]?\d{6,8})$/
 const TAIWAN_ID_PATTERN = /^[A-Z][12]\d{8}$/i
@@ -66,6 +69,9 @@ const FORMAT_PATTERNS: Record<TFormFormatRuleName, RegExp> = {
   taxId: TAX_ID_PATTERN,
 }
 
+//----------------------------
+// value validation
+//----------------------------
 const normalizeValue = (value: unknown): string => (typeof value === 'string' ? value.trim() : '')
 
 const validateValue = (
@@ -98,6 +104,9 @@ const validateValue = (
 export const useFormValidation = <TState extends object>(
   options: TUseFormValidationOptions<TState>
 ): TFormValidationControls<TState> => {
+  //----------------------------
+  // reactive validation state
+  //----------------------------
   const validateOn = options.validateOn ?? 'submit'
   const isSubmitted = ref(false)
   const validatedFields = reactive(new Set<string>())
@@ -105,6 +114,9 @@ export const useFormValidation = <TState extends object>(
     () => Object.keys(options.rules) as Array<TFormValidationFieldName<TState>>
   )
 
+  //----------------------------
+  // validation controls
+  //----------------------------
   const getFieldError = <TFieldName extends TFormValidationFieldName<TState>>(
     fieldName: TFieldName
   ): TFormValidationResult => validateValue(options.state[fieldName], options.rules[fieldName])

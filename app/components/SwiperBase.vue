@@ -77,6 +77,9 @@ defineSlots<{
   next?: (props: { next: () => void; disabled: boolean }) => unknown
 }>()
 
+//----------------------------
+// state and accessibility
+//----------------------------
 const { t } = useI18n()
 const swiperInstance = shallowRef<TSwiper>()
 const isInitialized = ref(false)
@@ -86,6 +89,9 @@ const paginationCount = ref(items.length)
 const isBeginning = ref(true)
 const isEnd = ref(true)
 
+//----------------------------
+// derived state and classes
+//----------------------------
 const resolvedModules = computed(() => [...new Set([SwiperA11y, ...modules])])
 const resolvedAriaLabel = computed(() => ariaLabel || t('components.swiperBase.ariaLabel'))
 const resolvedPreviousLabel = computed(() => previousLabel || t('components.swiperBase.previous'))
@@ -122,6 +128,9 @@ const paginationClassName = computed(() =>
   cn('flex flex-wrap items-center justify-center gap-2', paginationClass)
 )
 
+//----------------------------
+// control styles
+//----------------------------
 const getButtonClassName = (disabled: boolean): string =>
   cn(
     'inline-flex min-h-10 min-w-10 items-center justify-center rounded-full border border-slate-300 bg-white px-3 py-2 text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 disabled:cursor-not-allowed disabled:opacity-50',
@@ -137,6 +146,9 @@ const getBulletClassName = (isActive: boolean): string =>
     isActive && activeBulletClass
   )
 
+//----------------------------
+// swiper synchronization and navigation
+//----------------------------
 const syncState = (swiper: TSwiper): void => {
   activeSlideIndex.value = swiper.realIndex
   activePaginationIndex.value = swiper.snapIndex

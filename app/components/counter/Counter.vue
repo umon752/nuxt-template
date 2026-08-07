@@ -41,6 +41,9 @@ const {
   disabledClass = '',
 } = defineProps<TProps>()
 
+//----------------------------
+// state and events
+//----------------------------
 const { t } = useI18n()
 
 const emit = defineEmits<{
@@ -56,6 +59,9 @@ defineSlots<{
   increment?: (props: { disabled: boolean; increment: () => void }) => unknown
 }>()
 
+//----------------------------
+// normalized values
+//----------------------------
 const normalizedMin = computed(() => {
   return Number.isFinite(min) ? min : 0
 })
@@ -90,6 +96,9 @@ const resolvedIncrementLabel = computed(
   () => incrementLabel || t('components.counter.incrementLabel')
 )
 
+//----------------------------
+// labels and classes
+//----------------------------
 const counterClassName = computed(() => cn('inline-flex items-center gap-2', counterClass))
 const buttonClassName = computed(() =>
   cn(
@@ -110,6 +119,9 @@ const inputClassName = computed(() =>
   )
 )
 
+//----------------------------
+// value updates and actions
+//----------------------------
 const normalizeStepResult = (value: number): number => {
   return Number(value.toFixed(10))
 }
