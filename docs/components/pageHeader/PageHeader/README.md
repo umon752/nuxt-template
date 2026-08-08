@@ -4,6 +4,8 @@
 
 原始碼：[PageHeader.vue](../../../../app/components/pageHeader/PageHeader.vue)
 
+提供 `banner` 時，內部 `PageHeaderPageBanner` 預設使用 `aspect-[3/2]` 比例預留橫幅空間；需要不同構圖比例時，可直接使用 `PageHeaderPageBanner` 並傳入 `class="aspect-video"`。
+
 ## 使用方式
 
 ```vue

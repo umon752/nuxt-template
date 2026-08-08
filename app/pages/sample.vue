@@ -736,11 +736,24 @@ const queryPaginatedItems = computed(() => {
       <header class="container space-y-2">
         <h2 class="text-center text-2xl font-bold">PageHeader 基本使用</h2>
         <p class="text-center text-slate-600">
-          展示頁面標題區塊、breadcrumb 與頁首資訊的預設呈現方式。
+          展示頁面標題區塊、breadcrumb 與頁首資訊的預設呈現方式，橫幅會預留 3 / 2
+          比例避免載入時版面位移。
         </p>
       </header>
 
       <PageHeader :banner="'/images/demo/test-img.jpg'" />
+
+      <div class="container space-y-2">
+        <p class="text-center text-sm text-slate-600">
+          PageBanner 可透過外部 class 覆寫比例，例如 aspect-video。
+        </p>
+        <PageHeaderPageBanner
+          banner="/images/demo/test-img.jpg"
+          alt="16 比 9 橫幅範例"
+          class="aspect-video"
+          loading="lazy"
+        />
+      </div>
     </section>
 
     <div class="container">
@@ -784,7 +797,7 @@ const queryPaginatedItems = computed(() => {
             data-fade="in"
             class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <p class="text-main-600 text-xs font-semibold tracking-wide">#1</p>
+            <p class="text-main-700 text-xs font-semibold tracking-wide">#1</p>
             <h3 class="text-lg font-semibold text-slate-900">淡入一次</h3>
             <p class="text-sm leading-6 text-slate-600">進入 viewport 後執行一次 opacity 動畫。</p>
           </article>
@@ -794,7 +807,7 @@ const queryPaginatedItems = computed(() => {
             data-fade-timing='{"duration":800,"delay":150,"easing":"ease-out"}'
             class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <p class="text-main-600 text-xs font-semibold tracking-wide">#2</p>
+            <p class="text-main-700 text-xs font-semibold tracking-wide">#2</p>
             <h3 class="text-lg font-semibold text-slate-900">向上淡入</h3>
             <p class="text-sm leading-6 text-slate-600">
               可透過 data-fade-timing 覆寫 duration、delay 與 easing。
@@ -806,7 +819,7 @@ const queryPaginatedItems = computed(() => {
             data-fade-once="false"
             class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <p class="text-main-600 text-xs font-semibold tracking-wide">#3</p>
+            <p class="text-main-700 text-xs font-semibold tracking-wide">#3</p>
             <h3 class="text-lg font-semibold text-slate-900">離開後重播</h3>
             <p class="text-sm leading-6 text-slate-600">
               data-fade-once="false" 會在離開 viewport 時回到起始狀態。
@@ -818,7 +831,7 @@ const queryPaginatedItems = computed(() => {
             data-fade="in"
             class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <p class="text-main-600 text-xs font-semibold tracking-wide">#4</p>
+            <p class="text-main-700 text-xs font-semibold tracking-wide">#4</p>
             <h3 class="text-lg font-semibold text-slate-900">動態項目</h3>
             <p class="text-sm leading-6 text-slate-600">
               MutationObserver 會自動偵測並套用動畫，不需手動 refresh。
@@ -1162,7 +1175,7 @@ const queryPaginatedItems = computed(() => {
               :max="20"
               :step="5"
               :aria-label="$t('pages.sample.a11y.counterStep')"
-              button-class="bg-slate-900 text-white hover:bg-slate-700 disabled:bg-slate-100"
+              button-class="bg-slate-900 text-white hover:bg-slate-700 disabled:bg-slate-200 disabled:text-slate-500"
               @change="handleCounterChange"
             >
               <template #decrement>減</template>
@@ -1193,7 +1206,7 @@ const queryPaginatedItems = computed(() => {
             description="請調整關鍵字或清除篩選條件。"
             empty-class="border-main-300 bg-main-50"
             title-class="text-main-700"
-            description-class="text-main-600"
+            description-class="text-main-800"
           />
         </div>
       </section>
@@ -1468,7 +1481,7 @@ const queryPaginatedItems = computed(() => {
                 class="hover:border-main-500 hover:bg-main-50 w-64 shrink-0 space-y-2 rounded-xl border border-slate-200 bg-white p-5 text-left shadow-sm"
                 @click="handleDragItemClick(item.title)"
               >
-                <span class="text-main-600 block text-xs font-semibold tracking-wide">
+                <span class="text-main-700 block text-xs font-semibold tracking-wide">
                   #{{ item.id }}
                 </span>
                 <span class="block text-lg font-semibold text-slate-900">{{ item.title }}</span>
@@ -1618,25 +1631,6 @@ const queryPaginatedItems = computed(() => {
 
           <template #previous="{ previous, disabled }">
             <BtnDefault text="上一張" :disabled="disabled" @click="previous" />
-          </template>
-
-          <template #pagination="{ activeIndex, count, goTo }">
-            <div
-              class="flex flex-wrap items-center justify-center gap-2"
-              role="group"
-              :aria-label="$t('components.swiperBase.pagination')"
-            >
-              <button
-                v-for="index in count"
-                :key="index"
-                type="button"
-                class="h-3 rounded-full transition-[width,background-color] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
-                :class="activeIndex === index - 1 ? 'bg-main-500 w-8' : 'w-3 bg-slate-300'"
-                :aria-label="$t('components.swiperBase.goToSlide', { index })"
-                :aria-current="activeIndex === index - 1 ? 'true' : undefined"
-                @click="goTo(index - 1)"
-              />
-            </div>
           </template>
 
           <template #next="{ next, disabled }">

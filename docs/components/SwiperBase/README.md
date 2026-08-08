@@ -130,4 +130,6 @@ Pagination 的 `count` 來自 Swiper `snapGrid`，會依 `slidesPerView`、`slid
 
 元件固定加入 Swiper A11y module。預設翻譯鍵值位於 `components.swiperBase`：`ariaLabel`、`roleDescription`、`itemRoleDescription`、`previous`、`next`、`first`、`last`、`pagination`、`goToSlide`、`slideLabel`。
 
+<!-- 預設 pagination bullet 採用至少 `24x24` 的可點擊區域（視覺上仍維持圓點／膠囊樣式），以符合 touch target 最低建議。 -->
+
 自訂 `previous`、`pagination` 或 `next` slot 時，使用端需自行保留按鈕 accessible name、disabled 狀態及 active pagination 的 `aria-current`。

@@ -2,6 +2,9 @@
   /* 設計稿寬度 */
   --design-width: 1440;
 
+  /* Nuxt UI 文字對比：提升 dimmed 文案可讀性 */
+  --ui-text-dimmed: var(--ui-color-neutral-600);
+
   /* gutter */
   /* 隔線系統間距 */
   --gutter: 30px;
