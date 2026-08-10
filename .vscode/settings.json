@@ -17,5 +17,18 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "i18n-ally.localesPaths": ["app/i18n", "app/i18n/locales"]
+  "i18n-ally.localesPaths": ["app/i18n", "app/i18n/locales"],
+
+  "files.watcherExclude": {
+    "**/.git/**": true,
+    "**/.nuxt/**": true,
+    "**/.output/**": true,
+    "**/node_modules/**": true
+  },
+
+  "search.exclude": {
+    "**/.nuxt": true,
+    "**/.output": true,
+    "**/node_modules": true
+  }
 }

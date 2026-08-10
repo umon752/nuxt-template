@@ -1,0 +1,114 @@
+<script setup lang="ts">
+import type { ClassValue } from 'clsx'
+import { cn } from '~/utils/cn'
+
+type TProps = {
+  disabled?: boolean
+  text?: string
+  cursorClass?: ClassValue
+  hoverClass?: ClassValue
+  isLinkHover?: boolean
+}
+
+const {
+  disabled = false,
+  text = '',
+  cursorClass = '',
+  hoverClass = '',
+  isLinkHover = true,
+} = defineProps<TProps>()
+
+const emit = defineEmits<{
+  enter: []
+  move: []
+  leave: []
+}>()
+
+const slots = defineSlots<{
+  default: () => unknown
+  content?: () => unknown
+}>()
+
+const isVisible = ref(false)
+
+const hasContent = computed(() => Boolean(text || slots.content))
+
+const cursorClassName = computed(() =>
+  cn(
+    'fixed w-7 h-7 rounded-full top-0 translate-x-1/2 translate-y-1/2 mix-blend-difference pointer-events-none z-[9999] transition-transform duration-300',
+    isVisible.value ? 'opacity-100 scale-100' : 'opacity-0 scale-0',
+    isLinkHover ? hoverClass : '',
+    cursorClass
+  )
+)
+
+const enter = (): void => {
+  if (isVisible.value || disabled || !hasContent.value) {
+    return
+  }
+  // if(isLinkHover) {
+
+  // }
+
+  isVisible.value = true
+  emit('enter')
+}
+
+const move = (): void => {
+  if (!isVisible.value || !disabled || hasContent.value) {
+    return
+  }
+
+  emit('move')
+}
+
+const leave = (): void => {
+  if (!isVisible.value || !disabled || hasContent.value) {
+    return
+  }
+
+  isVisible.value = false
+  emit('leave')
+}
+</script>
+
+<template>
+  <span
+    ref="triggerWrapper"
+    class="inline-flex"
+    @mouseenter="enterArea"
+    @mousemove="moveArea"
+    @mouseleave="leaveArea"
+  >
+    <slot />
+  </span>
+
+  <ClientOnly>
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition-opacity duration-150 motion-reduce:transition-none"
+        enter-from-class="opacity-0"
+        leave-active-class="transition-opacity duration-100 motion-reduce:transition-none"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="isVisible"
+          :id="cursorId"
+          ref="cursorElement"
+          role="cursor"
+          :class="cursorClassName"
+          :style="cursorStyle"
+          @mouseenter="enter"
+          @mousemove="move"
+          @mouseleave="leave"
+        >
+          <slot name="content">{{ text }}</slot>
+        </div>
+      </Transition>
+    </Teleport>
+  </ClientOnly>
+
+  <!-- <div v-if="isShow" :class="cursorClassName">
+    <slot name="content">{{ text }}</slot>
+  </div> -->
+</template>
