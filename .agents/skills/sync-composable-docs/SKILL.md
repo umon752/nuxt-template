@@ -44,6 +44,39 @@ description: 維持此 Nuxt 專案的 composable 原始碼、文件、索引與�
 - 同步處理文件、索引、Nuxt 自動匯入名稱、呼叫端與整個 `docs` 內的引用。
 - 刪除前確認使用者要求明確包含目標。
 
+## Vitest 同步判斷
+
+新增、修改或重構 composable 時，先判斷本次變更是否影響可觀察狀態、公開回傳值或副作用，再決定是否同步建立或更新 Vitest。測試與 composable 實作應在同一個任務中完成，讓功能變更可以獨立驗證。
+
+### 必須建立或更新測試
+
+符合以下任一情況時，應建立或更新對應的 unit test：
+
+- composable 管理 `ref`、`reactive`、`computed` 或其他狀態轉換，且使用者可觀察其結果。
+- Options、預設值、回傳值、公開型別或控制方法改變。
+- 使用 watcher、timer、event listener、observer、browser API 或非同步流程。
+- 涉及 SSR／client-only 分支、hydration 限制、重複啟動或 component unmount cleanup。
+- composable 會觸發 API、儲存、路由、DOM 或其他可觀察 side effect。
+- 修正已知錯誤；應加入能重現並防止回歸的測試案例。
+
+若功能需要確認 Nuxt runtime、auto-import、頁面整合或 production 行為，再同步更新 integration test，並依專案驗證規則執行 `npm run test:integration` 與 `npm run build`。
+
+### 可以不新增測試
+
+以下變更通常不需要新增或修改測試，但仍須執行既有測試並在交付時說明已完成判斷：
+
+- 純文件、範例文字或檔案移動／重新命名，且公開契約與執行行為不變。
+- 不影響公開回傳值、狀態、副作用與生命週期的內部重構。
+- 只調整不含邏輯的常數或型別註記，且不改變 runtime 行為。
+
+不得只以「互動少」作為不建立測試的理由；只要變更涉及公開 API、狀態、副作用、SSR 或錯誤修正，即應補上對應測試。
+
+### 無法判斷時
+
+- 先檢查 composable 實作、呼叫端、文件與既有測試，確認是否影響可觀察狀態、公開回傳值或副作用。
+- 若仍無法判斷，且是否建立／更新測試會明顯改變本次任務範圍，先向使用者說明疑點並詢問是否同步處理 Vitest。
+- 若變更風險低且可明確歸類為不影響 runtime 行為的調整，不需為了測試判斷額外詢問；交付時說明判斷結果即可。
+
 ## 文件內容
 
 使用繁體中文並從目前實作推導。依實際情況記錄：

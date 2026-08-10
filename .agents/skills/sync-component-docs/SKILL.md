@@ -46,6 +46,39 @@ description: 維持此 Nuxt 專案的 Vue 元件、sample 與元件文件同步�
 - 同步處理文件路徑、索引、sample、Nuxt 自動匯入名稱與整個 `docs` 內的引用。
 - 刪除屬於破壞性操作；確認使用者要求明確包含目標後才執行。
 
+## Vitest 同步判斷
+
+新增、修改或重構元件時，先判斷本次變更是否影響可觀察行為，再決定是否同步建立或更新 Vitest。測試與元件實作應在同一個任務中完成，讓功能變更可以獨立驗證。
+
+### 必須建立或更新測試
+
+符合以下任一情況時，應在 `tests/components` 建立或更新 unit／component test：
+
+- 元件具有高互動流程，例如按鈕、鍵盤、拖曳、分頁、展開收合、計時器或非同步狀態。
+- Props、emits、`v-model`、slots、slot props、expose 或其他公開 API 改變。
+- 元件的狀態、條件渲染、ARIA／focus 行為或事件 payload 改變。
+- 使用 `IntersectionObserver`、`ResizeObserver`、event listener、media API 或其他 browser API。
+- 涉及 mount／unmount cleanup、SSR／hydration 或 Nuxt auto-import 行為。
+- 修正已知錯誤；應加入能重現並防止回歸的測試案例。
+
+若功能需要確認 Nuxt runtime、auto-import、頁面整合或 production 行為，再同步更新 integration test，並依專案驗證規則執行 `npm run test:integration` 與 `npm run build`。
+
+### 可以不新增測試
+
+以下變更通常不需要新增或修改測試，但仍須執行既有測試並在交付時說明已完成判斷：
+
+- 純樣式、Tailwind class 或視覺間距調整，且不影響可觀察互動或 accessibility 行為。
+- 純文件、sample 文字或檔案移動／重新命名，且公開契約與執行行為不變。
+- 不影響公開契約與可觀察行為的內部重構。
+
+不得只以「高互動」作為唯一主觀判斷；只要變更涉及公開 API、生命週期、browser API、SSR 或錯誤修正，即使互動不多，也應補上對應測試。
+
+### 無法判斷時
+
+- 先檢查元件實作、呼叫端、文件與既有測試，確認是否影響可觀察行為。
+- 若仍無法判斷，且是否建立／更新測試會明顯改變本次任務範圍，先向使用者說明疑點並詢問是否同步處理 Vitest。
+- 若變更風險低且可明確歸類為不影響行為的調整，不需為了測試判斷額外詢問；交付時說明判斷結果即可。
+
 ## 文件內容
 
 使用繁體中文並從目前原始碼推導，不得虛構 API。依元件實際情況記錄：
