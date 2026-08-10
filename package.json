@@ -15,7 +15,12 @@
     "check:component-docs": "node scripts/check-component-docs.mjs",
     "check:composable-docs": "node scripts/check-composable-docs.mjs",
     "check:docs": "npm run check:component-docs && npm run check:composable-docs",
-    "check": "npm run format:check && npm run lint && npm run typecheck"
+    "check": "npm run format:check && npm run lint && npm run typecheck",
+    "test:unit": "vitest run --config vitest.config.ts",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:watch": "vitest --config vitest.config.ts",
+    "verify": "npm run check && npm run check:docs && npm run test && npm run build"
   },
   "dependencies": {
     "@internationalized/date": "^3.12.3",
@@ -38,10 +43,14 @@
   },
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.121",
+    "@nuxt/test-utils": "^4.1.0",
+    "@vue/test-utils": "^2.4.11",
+    "happy-dom": "^20.11.2",
     "nostics": "^1.2.0",
     "prettier": "^3.8.4",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "typescript": "^6.0.3",
+    "vitest": "^4.1.10",
     "vue-tsc": "^3.3.5"
   }
 }

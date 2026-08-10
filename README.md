@@ -40,10 +40,13 @@ npm run format:check # 唯讀檢查格式
 npm run lint         # 執行 ESLint
 npm run typecheck    # 執行 Nuxt TypeScript 檢查
 npm run check        # 依序執行格式、lint 與 typecheck
+npm run test:unit    # 執行 unit／component tests
+npm run test         # 執行 unit 與 Nuxt integration tests
+npm run verify       # 執行完整檢查、測試與 production build
 ```
 
-目前尚未加入測試框架；新增商業邏輯或複雜互動元件時，應同步選定並加入 unit／component
-test 工具。
+目前已導入 Vitest，測試範圍、執行方式與後續 CI 決策請參考
+[測試說明](tests/README.md)。
 
 ## 專案位置
 
