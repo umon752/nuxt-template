@@ -35,7 +35,7 @@ const visible = ref(false)
   :close-on-backdrop="false"
   :show-close-button="false"
 >
-  <Spinner label="資料處理中" />
+  <LoadingSpinner label="資料處理中" />
 </Modal>
 ```
 

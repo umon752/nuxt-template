@@ -4,26 +4,26 @@
 
 ## 通用元件
 
-| 元件            | 文件                                    | 說明                                  |
-| --------------- | --------------------------------------- | ------------------------------------- |
-| Accordion       | [使用方式](Accordion/README.md)         | 展開／收合內容與程式化控制。          |
-| Breadcrumb      | [使用方式](Breadcrumb/README.md)        | 麵包屑導覽。                          |
-| Counter         | [使用方式](counter/Counter/README.md)   | 受控數量輸入與增減控制。              |
-| CountUp         | [使用方式](countup/CountUp/README.md)   | 隨機或順序數字動畫與程式化控制。      |
-| EmptyState      | [使用方式](EmptyState/README.md)        | 列表與搜尋結果的空資料狀態。          |
-| FullPageLoading | [使用方式](FullPageLoading/README.md)   | 全頁載入遮罩。                        |
-| IframeLazyLoad  | [使用方式](IframeLazyLoad/README.md)    | 延遲載入響應式 iframe。               |
-| ImageLazyLoad   | [使用方式](ImageLazyLoad/README.md)     | 可控提前載入、響應式圖片與 fallback。 |
-| Marquee         | [使用方式](marquee/Marquee/README.md)   | 無縫循環與拖曳跑馬燈。                |
-| Odometer        | [使用方式](odometer/Odometer/README.md) | 逐位垂直滾動與最大值提示。            |
-| Pagination      | [使用方式](Pagination/README.md)        | 受控分頁導覽。                        |
-| SlideTab        | [使用方式](SlideTab/README.md)          | 可拖曳的橫向分類導覽。                |
-| SocialShare     | [使用方式](SocialShare/README.md)       | 可拆用功能層的社群分享按鈕。          |
-| Spinner         | [使用方式](Spinner/README.md)           | 載入指示器。                          |
-| SwiperBase      | [使用方式](SwiperBase/README.md)        | 可自訂外層控制項的響應式輪播。        |
-| StickyAnchor    | [使用方式](StickyAnchor/README.md)      | Sticky 頁面區段錨點導覽。             |
-| Tooltip         | [使用方式](tooltip/Tooltip/README.md)   | 滑鼠與鍵盤提示文字。                  |
-| VideoLazyLoad   | [使用方式](VideoLazyLoad/README.md)     | 延遲載入響應式影片。                  |
+| 元件            | 文件                                            | 說明                                  |
+| --------------- | ----------------------------------------------- | ------------------------------------- |
+| Accordion       | [使用方式](accordion/Accordion/README.md)       | 展開／收合內容與程式化控制。          |
+| Breadcrumb      | [使用方式](breadcrumb/Breadcrumb/README.md)     | 麵包屑導覽。                          |
+| Counter         | [使用方式](counter/Counter/README.md)           | 受控數量輸入與增減控制。              |
+| CountUp         | [使用方式](countup/CountUp/README.md)           | 隨機或順序數字動畫與程式化控制。      |
+| EmptyState      | [使用方式](emptyState/EmptyState/README.md)     | 列表與搜尋結果的空資料狀態。          |
+| FullPageLoading | [使用方式](loading/FullPageLoading/README.md)   | 全頁載入遮罩。                        |
+| IframeLazyLoad  | [使用方式](lazyload/IframeLazyLoad/README.md)   | 延遲載入響應式 iframe。               |
+| ImageLazyLoad   | [使用方式](lazyload/ImageLazyLoad/README.md)    | 可控提前載入、響應式圖片與 fallback。 |
+| Marquee         | [使用方式](marquee/Marquee/README.md)           | 無縫循環與拖曳跑馬燈。                |
+| Odometer        | [使用方式](odometer/Odometer/README.md)         | 逐位垂直滾動與最大值提示。            |
+| Pagination      | [使用方式](pagination/Pagination/README.md)     | 受控分頁導覽。                        |
+| SlideTab        | [使用方式](slideTab/SlideTab/README.md)         | 可拖曳的橫向分類導覽。                |
+| SocialShare     | [使用方式](socialShare/SocialShare/README.md)   | 可拆用功能層的社群分享按鈕。          |
+| Spinner         | [使用方式](loading/Spinner/README.md)           | 載入指示器。                          |
+| BaseSwiper      | [使用方式](swiper/BaseSwiper/README.md)         | 可自訂外層控制項的響應式輪播。        |
+| StickyAnchor    | [使用方式](stickyAnchor/StickyAnchor/README.md) | Sticky 頁面區段錨點導覽。             |
+| Tooltip         | [使用方式](tooltip/Tooltip/README.md)           | 滑鼠與鍵盤提示文字。                  |
+| VideoLazyLoad   | [使用方式](lazyload/VideoLazyLoad/README.md)    | 延遲載入響應式影片。                  |
 
 ## Nuxt UI wrappers
 

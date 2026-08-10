@@ -4,12 +4,12 @@
 
 原始碼：[CountUp.vue](../../../../app/components/countup/CountUp.vue)
 
-Nuxt 自動匯入名稱為 `CountUp`。此元件負責數值顯示動畫，與用來輸入及增減數量的 `Counter` 不同。
+Nuxt 自動匯入名稱為 `CountupCountUp`。此元件負責數值顯示動畫，與用來輸入及增減數量的 `Counter` 不同。
 
 ## 基本使用
 
 ```vue
-<CountUp value="NT$ 123,567.98" :duration="2000" autoplay />
+<CountupCountUp value="NT$ 123,567.98" :duration="2000" autoplay />
 ```
 
 預設 `random` 模式會在動畫期間替換每個數字字元，其他字元保持不變，結束時顯示完整的 `value`。
@@ -17,7 +17,7 @@ Nuxt 自動匯入名稱為 `CountUp`。此元件負責數值顯示動畫，與�
 ## 順序模式
 
 ```vue
-<CountUp
+<CountupCountUp
   :value="12500"
   :start-value="500"
   :duration="2000"
@@ -33,13 +33,13 @@ Nuxt 自動匯入名稱為 `CountUp`。此元件負責數值顯示動畫，與�
 
 ```vue
 <script setup lang="ts">
-import CountUp, { type TCountUpInstance } from '~/components/countup/CountUp.vue'
+import type { TCountUpInstance } from '~/components/countup/CountUp.vue'
 
 const countUp = useTemplateRef<TCountUpInstance>('countUp')
 </script>
 
 <template>
-  <CountUp ref="countUp" :value="1000" mode="sequential" @done="console.log" />
+  <CountupCountUp ref="countUp" :value="1000" mode="sequential" @done="console.log" />
   <button type="button" @click="countUp?.run()">Run</button>
   <button type="button" @click="countUp?.stop()">Stop</button>
   <button type="button" @click="countUp?.start()">Start</button>

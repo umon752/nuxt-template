@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import type { DateValue } from '@internationalized/date'
 
-import Counter, { type TCounterChangeSource } from '~/components/counter/Counter.vue'
-import CountUp, { type TCountUpInstance } from '~/components/countup/CountUp.vue'
-import EditorModule, { type TEditorModule } from '~/components/editor/EditorModule.vue'
-import Marquee, { type TMarqueeItem } from '~/components/marquee/Marquee.vue'
-import Modal, { type TModalCloseReason } from '~/components/modal/Modal.vue'
-import Odometer, { type TOdometerInstance } from '~/components/odometer/Odometer.vue'
-import type { TStickyAnchorInstance, TStickyAnchorItem } from '~/components/StickyAnchor.vue'
-import type { TSlideTabItem } from '~/components/SlideTab.vue'
-import Toast from '~/components/toast/Toast.vue'
-import Tooltip from '~/components/tooltip/Tooltip.vue'
+import type { TCounterChangeSource } from '~/components/counter/Counter.vue'
+import type { TCountUpInstance } from '~/components/countup/CountUp.vue'
+import type { TEditorModule } from '~/components/editor/EditorModule.vue'
+import type { TMarqueeItem } from '~/components/marquee/Marquee.vue'
+import type { TModalCloseReason } from '~/components/modal/Modal.vue'
+import type { TOdometerInstance } from '~/components/odometer/Odometer.vue'
+import type {
+  TStickyAnchorInstance,
+  TStickyAnchorItem,
+} from '~/components/stickyAnchor/StickyAnchor.vue'
+import type { TSlideTabItem } from '~/components/slideTab/SlideTab.vue'
 import type { TAppComboboxOption } from '~/components/form/AppCombobox.vue'
 import type { TAppRadioOption } from '~/components/form/AppRadioGroup.vue'
 import type { TAppSelectOption } from '~/components/form/AppSelect.vue'
@@ -1223,7 +1224,7 @@ const queryPaginatedItems = computed(() => {
           <article class="space-y-3 rounded-2xl border border-slate-200 p-6 text-center shadow-sm">
             <h3 class="text-lg font-semibold text-slate-900">隨機模式</h3>
             <p class="text-sm text-slate-600">非數字字元會固定，只讓各個數字隨機跳動。</p>
-            <CountUp
+            <CountupCountUp
               ref="randomCountUp"
               value="123,567.98 個"
               :duration="2000"
@@ -1242,7 +1243,7 @@ const queryPaginatedItems = computed(() => {
           <article class="space-y-3 rounded-2xl border border-slate-200 p-6 text-center shadow-sm">
             <h3 class="text-lg font-semibold text-slate-900">順序模式與千分位</h3>
             <p class="text-sm text-slate-600">從 500 線性遞增至 12,500。</p>
-            <CountUp
+            <CountupCountUp
               ref="sequentialCountUp"
               :value="12500"
               :start-value="500"
@@ -1605,7 +1606,7 @@ const queryPaginatedItems = computed(() => {
           </p>
         </header>
 
-        <SwiperBase
+        <SwiperBaseSwiper
           :items="swiperItems"
           :options="{
             slidesPerView: 1,
@@ -1617,7 +1618,7 @@ const queryPaginatedItems = computed(() => {
             <article
               class="h-full w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
             >
-              <ImageLazyLoad
+              <LazyloadImageLazyLoad
                 :src="item.image"
                 :alt="$t('pages.sample.a11y.swiperImage', { number: item.id })"
                 aspect-ratio="16 / 9"
@@ -1636,7 +1637,7 @@ const queryPaginatedItems = computed(() => {
           <template #next="{ next, disabled }">
             <BtnDefault text="下一張" :disabled="disabled" @click="next" />
           </template>
-        </SwiperBase>
+        </SwiperBaseSwiper>
       </section>
 
       <section class="space-y-6 py-4">
@@ -1866,7 +1867,7 @@ const queryPaginatedItems = computed(() => {
 
         <div class="grid gap-4 md:grid-cols-4">
           <article class="space-y-3">
-            <ImageLazyLoad
+            <LazyloadImageLazyLoad
               src="/images/demo/test-img.jpg"
               :alt="$t('pages.sample.a11y.imageBasic')"
               class="rounded-xl"
@@ -1875,7 +1876,7 @@ const queryPaginatedItems = computed(() => {
           </article>
 
           <article class="space-y-3">
-            <ImageLazyLoad
+            <LazyloadImageLazyLoad
               src="/images/demo/test-img.jpg"
               :alt="$t('pages.sample.a11y.imageCustomRatio')"
               aspect-ratio="3 / 2"
@@ -1887,12 +1888,12 @@ const queryPaginatedItems = computed(() => {
                   圖片載入中
                 </span>
               </template>
-            </ImageLazyLoad>
+            </LazyloadImageLazyLoad>
             <h3 class="font-semibold">自訂比例 3:2 與自訂載入中 skeleton 樣式</h3>
           </article>
 
           <article class="space-y-3 md:col-span-2">
-            <ImageLazyLoad
+            <LazyloadImageLazyLoad
               src="/images/demo/test-img.jpg"
               src-mobile="/images/nopic.png"
               src-desktop="/images/demo/test-img.jpg"
@@ -1907,7 +1908,7 @@ const queryPaginatedItems = computed(() => {
           </article>
 
           <article class="space-y-3">
-            <ImageLazyLoad
+            <LazyloadImageLazyLoad
               src="/images/demo/test-img.jpg"
               :alt="$t('pages.sample.a11y.imageRootMargin')"
               root-margin="0px"
@@ -1921,7 +1922,7 @@ const queryPaginatedItems = computed(() => {
           </article>
 
           <article class="space-y-3">
-            <ImageLazyLoad
+            <LazyloadImageLazyLoad
               src="/images/demo/not-found.jpg"
               :alt="$t('pages.sample.a11y.imageFallback')"
               class="rounded-xl"
@@ -1930,7 +1931,7 @@ const queryPaginatedItems = computed(() => {
           </article>
 
           <article class="space-y-3">
-            <ImageLazyLoad
+            <LazyloadImageLazyLoad
               src="/images/demo/not-found.jpg"
               :alt="$t('pages.sample.a11y.imageErrorSlot')"
               fallback-src=""
@@ -1951,7 +1952,7 @@ const queryPaginatedItems = computed(() => {
 
         <div class="grid gap-6 md:grid-cols-2">
           <article class="space-y-3">
-            <VideoLazyLoad
+            <LazyloadVideoLazyLoad
               src="/videos/demo.mp4"
               poster="/images/demo/test-img.jpg"
               poster-mobile="/images/nopic.png"
@@ -1969,7 +1970,7 @@ const queryPaginatedItems = computed(() => {
           </article>
 
           <article class="space-y-3">
-            <IframeLazyLoad
+            <LazyloadIframeLazyLoad
               src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ?autoplay=1&mute=1&playsinline=1"
               :title="$t('pages.sample.a11y.iframeBasic')"
               aspect-ratio-mobile="4 / 3"
@@ -1986,7 +1987,7 @@ const queryPaginatedItems = computed(() => {
                   class="h-full w-full object-cover"
                 />
               </template>
-            </IframeLazyLoad>
+            </LazyloadIframeLazyLoad>
             <div class="space-y-1">
               <h3 class="font-semibold">
                 YouTube iframe 延遲載入、靜音自動播放，以及手機 4:3／電腦 16:9 響應式比例

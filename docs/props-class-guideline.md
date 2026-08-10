@@ -65,6 +65,6 @@ const merged = computed(() => twMerge(clsx(DEFAULT_TITLE_CLASS, props.titleClass
 
 - 新增或修改元件後，請執行 `npm run build` / `npm run dev` 驗證樣式行為與編譯無誤。
 
-範例代碼位置：請參考 `app/components/Accordion.vue` 中 `mergedTitleClass` 的實作。
+範例代碼位置：請參考 `app/components/accordion/Accordion.vue` 中 `mergedTitleClass` 的實作。
 
 若同意，我可以幫你把專案中其它接收 class 的 prop（若有）逐一改寫成此模式。

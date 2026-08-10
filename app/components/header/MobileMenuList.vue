@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import Accordion from '~/components/Accordion.vue'
-import type { TAccordionItem } from '~/components/Accordion.vue'
+import type { TAccordionItem } from '~/components/accordion/Accordion.vue'
 import type { TMenuItem } from '~/composables/useMenu'
 import { computed } from 'vue'
 

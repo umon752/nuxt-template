@@ -61,4 +61,4 @@ const handleShare = (platform: TSharePlatform): void => {
 - 安全環境優先使用 Clipboard API，不支援時回退到 `document.execCommand('copy')`，並在 fallback 後恢復原本 focus。
 - composable 建立時不讀取 browser API，可安全參與 SSR；分享動作本身必須在 client 端事件中執行。
 - effect scope 銷毀時會清理回饋計時器。
-- 完整使用範例也可參考 `docs/components/SocialShare/README.md`。
+- 完整使用範例也可參考 `docs/components/socialShare/SocialShare/README.md`。

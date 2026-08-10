@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import EditorContent from './EditorContent.vue'
-
 export type TEditorImage = {
   src: string
   alt?: string

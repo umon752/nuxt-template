@@ -5,7 +5,6 @@ import type { CSSProperties } from 'vue'
 import type { TToastPosition } from '~/types/toast'
 import { useToast } from '~/composables/useToast'
 import { cn } from '~/utils/cn'
-import Toast from './Toast.vue'
 
 type TProps = {
   position?: TToastPosition

@@ -22,7 +22,7 @@
 | `title`           | `string`     | 必填   | 卡片標題及整卡連結的 accessible name。  |
 | `content`         | `string`     | `''`   | 摘要；空字串時不渲染段落。              |
 | `link`            | `string`     | `''`   | NuxtLink 目的地；空字串時卡片不可點擊。 |
-| `imgDefaultClass` | `ClassValue` | `''`   | ImageLazyLoad 容器 class。              |
+| `imgDefaultClass` | `ClassValue` | `''`   | LazyloadImageLazyLoad 容器 class。      |
 | `imgLoadedClass`  | `ClassValue` | `''`   | 圖片本體 class。                        |
 | `titleClass`      | `ClassValue` | `''`   | 標題 class。                            |
 | `contentClass`    | `ClassValue` | `''`   | 摘要 class。                            |

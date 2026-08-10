@@ -4,7 +4,7 @@
 
 原始碼：[Odometer.vue](../../../../app/components/odometer/Odometer.vue)
 
-Nuxt 自動匯入名稱為 `Odometer`。此元件用於逐位垂直滾動；需要線性數值或字串內隨機數字動畫時，使用 `CountUp`。
+Nuxt 自動匯入名稱為 `Odometer`。此元件用於逐位垂直滾動；需要線性數值或字串內隨機數字動畫時，使用 `CountupCountUp`。
 
 ## 基本使用
 
@@ -25,7 +25,7 @@ const value = ref(128)
 
 ```vue
 <script setup lang="ts">
-import Odometer, { type TOdometerInstance } from '~/components/odometer/Odometer.vue'
+import type { TOdometerInstance } from '~/components/odometer/Odometer.vue'
 
 const odometer = useTemplateRef<TOdometerInstance>('odometer')
 </script>

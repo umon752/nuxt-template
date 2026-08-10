@@ -37,7 +37,12 @@ const contentClass = computed(() => cn(contentClassProp))
 
 <template>
   <article class="group relative flex flex-col gap-2" :class="{ 'cursor-pointer': link }">
-    <ImageLazyLoad :src="image" alt="" :class="imgDefaultClass" :img-class="imgLoadedClass" />
+    <LazyloadImageLazyLoad
+      :src="image"
+      alt=""
+      :class="imgDefaultClass"
+      :img-class="imgLoadedClass"
+    />
     <div>
       <h3 :class="titleClass">
         {{ title }}
