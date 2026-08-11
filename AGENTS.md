@@ -2,7 +2,7 @@
 
 這是一個使用 Nuxt 4、Vue 3、TypeScript strict mode 與 Tailwind CSS 4 的前端 starter，主要維護可重用元件、composables、sample 與對應文件。
 
-目前沒有 test script；不要宣稱已執行測試。版本相關行為以目前 dependency、現有實作與官方文件為準。
+目前提供 `test:unit`、`test:integration` 與 `test` scripts；不要宣稱未實際執行的測試。版本相關行為以目前 dependency、現有實作與官方文件為準。
 
 ## 程式碼風格
 
@@ -33,10 +33,12 @@
 
 ## 驗證
 
-- 程式碼變更：`npm run check`
-- component、composable 或其文件變更：`npm run check:docs`
-- Nuxt config、module、server、元件或 production 行為變更：`npm run build`
+依變更風險採用最小充分驗證。迭代期間預設不要每次都執行完整測試或 production build，因為這些指令可能啟動 Nuxt runtime 並消耗較多 CPU 與記憶體。
+
+- 快速驗證（迭代預設）：只格式化本次變更檔案，並執行受影響的 docs consistency、targeted unit／component test 或 targeted integration test。純文件、sample 文字或不影響行為的樣式變更，不必啟動整合測試。
+- TypeScript、公開 API、SSR、hydration 或 browser API 變更：依風險補跑 typecheck、lint 與受影響測試。
+- 完整驗證（交付前、使用者要求，或新增元件／公開契約／Nuxt runtime／production 行為變更）：依適用範圍執行 `npm run check`、`npm run check:docs`、`npm run test` 與 `npm run build`。整合測試也可先以 `npm run test:integration -- <test-file>` targeted 執行，避免迭代時啟動整個 suite。
 - 靜態輸出相關變更：`npm run generate`
-- 最後執行 `git diff --check` 並檢查完整 diff
+- 最後一律執行 `git diff --check` 並檢查完整 diff
 
 只格式化本次變更的檔案。無法執行或失敗的檢查必須說明原因。

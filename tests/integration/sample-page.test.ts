@@ -21,6 +21,9 @@ describe('sample page integration', () => {
 
     expect(wrapper.text()).toContain('CountUp 數字動畫元件')
     expect(wrapper.text()).toContain('Odometer 里程表數字元件')
+    expect(wrapper.text()).toContain('Cursor 使用範例')
+    expect(wrapper.text()).toContain('同一個 Cursor 區域切換圖片')
+    expect(wrapper.find('#cursor-demo').exists()).toBe(true)
     expect(wrapper.findAll('.inline-block.tabular-nums')).toHaveLength(2)
 
     await getButtonByText(wrapper, 'Run（含延遲）').trigger('click')

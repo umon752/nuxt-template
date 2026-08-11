@@ -61,11 +61,11 @@ description: 維持此 Nuxt 專案的 Vue 元件、sample 與元件文件同步�
 - 涉及 mount／unmount cleanup、SSR／hydration 或 Nuxt auto-import 行為。
 - 修正已知錯誤；應加入能重現並防止回歸的測試案例。
 
-若功能需要確認 Nuxt runtime、auto-import、頁面整合或 production 行為，再同步更新 integration test，並依專案驗證規則執行 `npm run test:integration` 與 `npm run build`。
+若功能需要確認 Nuxt runtime、auto-import、頁面整合或 production 行為，再同步更新 integration test。迭代期間先執行對應檔案的 targeted integration test；交付前或使用者要求時，才依根目錄 `AGENTS.md` 的完整驗證規則執行 `npm run test:integration`，並在涉及 production 行為時執行 `npm run build`。
 
 ### 可以不新增測試
 
-以下變更通常不需要新增或修改測試，但仍須執行既有測試並在交付時說明已完成判斷：
+以下變更通常不需要新增或修改測試，可採用快速驗證而不必啟動完整 test suite，並在交付時說明已完成判斷：
 
 - 純樣式、Tailwind class 或視覺間距調整，且不影響可觀察互動或 accessibility 行為。
 - 純文件、sample 文字或檔案移動／重新命名，且公開契約與執行行為不變。
@@ -115,10 +115,9 @@ description: 維持此 Nuxt 專案的 Vue 元件、sample 與元件文件同步�
 
 ## 驗證
 
-1. 執行 `npm run check:component-docs`。
-2. 執行 `npm run check`。
-3. 新增元件或改變公開、渲染、互動、Nuxt 或 build 行為時執行 `npm run build`。
-4. 使用 `rg` 搜尋過期名稱、路徑、props、events、sample 與 i18n keys。
-5. 執行 `git diff --check` 並檢查完整 diff。
+1. 依根目錄 `AGENTS.md` 的「驗證」分級執行；迭代期間優先執行 `npm run check:component-docs`、受影響的 targeted test、format 與 lint。
+2. 新增或修改元件行為、公開契約、Nuxt runtime 或 production 行為時，於交付前執行適用的 `npm run check`、`npm run test` 與 `npm run build`；純文件、sample 文字或不影響行為的樣式變更不必為此執行完整 suite。
+3. 使用 `rg` 搜尋過期名稱、路徑、props、events、sample 與 i18n keys。
+4. 執行 `git diff --check` 並檢查完整 diff。
 
 若檢查失敗，區分本次變更與既有問題。交付時列出建立或更新的文件與 sample；若不需修改，說明已檢查的內容。

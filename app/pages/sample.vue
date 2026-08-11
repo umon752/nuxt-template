@@ -644,6 +644,15 @@ const collapseFirstAccordionItem = (): void => {
 }
 
 //----------------------------
+// cursor state
+//----------------------------
+const cursorLastEvent = ref('尚未觸發')
+
+const recordCursorEvent = (eventName: string): void => {
+  cursorLastEvent.value = eventName
+}
+
+//----------------------------
 // pagination
 //----------------------------
 const articleItems = Array.from({ length: 100 }, (_, index) => ({
@@ -1364,6 +1373,180 @@ const queryPaginatedItems = computed(() => {
             </template>
           </Tooltip>
         </div>
+      </section>
+
+      <section class="space-y-6 py-4">
+        <header class="space-y-2">
+          <h2 class="text-center text-2xl font-bold">Cursor 使用範例</h2>
+          <p class="text-center text-slate-600">
+            展示區域跟隨、連結 hover 放大、隱藏原生游標與文字／圖片內容 slot。
+          </p>
+        </header>
+
+        <div class="grid gap-6 lg:grid-cols-3">
+          <Cursor
+            trigger-class="block"
+            link-hover
+            hide-cursor
+            @enter="recordCursorEvent('圓形 enter')"
+            @move="recordCursorEvent('圓形 move')"
+            @leave="recordCursorEvent('圓形 leave')"
+          >
+            <article
+              class="flex min-h-56 flex-col items-center justify-center gap-4 rounded-2xl bg-sky-200 p-6 text-center"
+            >
+              <h3 class="text-lg font-semibold text-sky-950">圓形游標</h3>
+              <p class="text-sm text-sky-900">移入後游標會跟隨指標，原生游標同步隱藏。</p>
+              <a
+                href="#cursor-demo"
+                class="rounded-md bg-sky-950 px-3 py-2 font-medium text-white underline-offset-2 hover:underline"
+              >
+                Hover 連結
+              </a>
+            </article>
+          </Cursor>
+
+          <Cursor
+            trigger-class="block"
+            link-hover
+            cursor-class="rounded-none bg-rose-500 mix-blend-normal"
+            hover-class="size-14 bg-rose-600"
+            @enter="recordCursorEvent('方形 enter')"
+            @move="recordCursorEvent('方形 move')"
+            @leave="recordCursorEvent('方形 leave')"
+          >
+            <article
+              class="flex min-h-56 flex-col items-center justify-center gap-4 rounded-2xl bg-rose-100 p-6 text-center"
+            >
+              <h3 class="text-lg font-semibold text-rose-950">方形游標</h3>
+              <p class="text-sm text-rose-900">透過 `cursor-class` 與 `hover-class` 客製外觀。</p>
+              <button
+                type="button"
+                class="rounded-md border border-rose-900 px-3 py-2 font-medium text-rose-950 transition-colors hover:bg-rose-900 hover:text-white"
+              >
+                Hover 按鈕
+              </button>
+            </article>
+          </Cursor>
+
+          <Cursor
+            trigger-class="block"
+            link-hover
+            cursor-class="size-auto rounded-none bg-transparent mix-blend-normal"
+            hover-class="size-auto mix-blend-screen"
+            @enter="recordCursorEvent('圖片 enter')"
+            @move="recordCursorEvent('圖片 move')"
+            @leave="recordCursorEvent('圖片 leave')"
+          >
+            <article
+              class="relative flex min-h-56 flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl bg-amber-100 p-6 text-center"
+            >
+              <h3 class="relative text-lg font-semibold text-amber-950">圖片游標</h3>
+              <p class="relative text-sm text-amber-900">固定圖片可直接由 `content` slot 提供。</p>
+              <a
+                href="#cursor-demo"
+                class="relative rounded-md bg-amber-950 px-3 py-2 font-medium text-white underline-offset-2 hover:underline"
+              >
+                Hover 固定圖片
+              </a>
+            </article>
+
+            <template #content>
+              <img
+                src="/images/demo/test-img.jpg"
+                alt=""
+                class="h-24 w-40 rounded-lg object-cover shadow-lg"
+              />
+            </template>
+          </Cursor>
+
+          <Cursor
+            trigger-class="block lg:col-span-3"
+            link-hover
+            cursor-class="size-auto rounded-xl bg-emerald-950 mix-blend-normal"
+            hover-class="size-auto bg-emerald-700"
+            @enter="recordCursorEvent('文字 enter')"
+            @move="recordCursorEvent('文字 move')"
+            @leave="recordCursorEvent('文字 leave')"
+          >
+            <article
+              class="flex min-h-44 flex-col items-center justify-center gap-4 rounded-2xl bg-emerald-100 p-6 text-center"
+            >
+              <h3 class="text-lg font-semibold text-emerald-950">文字游標</h3>
+              <p class="text-sm text-emerald-900">
+                使用 `isLink` 判斷 hover 目標，移入 link 時切換提示文字。
+              </p>
+              <a
+                href="#cursor-demo"
+                class="rounded-md bg-emerald-950 px-3 py-2 font-medium text-white underline-offset-2 hover:underline"
+              >
+                Hover 文字內容
+              </a>
+            </article>
+
+            <template #content="{ isLink }">
+              <span class="px-4 py-2 text-sm font-semibold whitespace-nowrap text-white">
+                {{ isLink ? '查看詳細資訊' : '開啟詳細資訊' }}
+              </span>
+            </template>
+          </Cursor>
+
+          <Cursor
+            trigger-class="block lg:col-span-3"
+            link-hover
+            cursor-class="size-auto rounded-none bg-transparent mix-blend-normal"
+            hover-class="size-auto mix-blend-screen"
+            @enter="recordCursorEvent('多圖片 enter')"
+            @move="recordCursorEvent('多圖片 move')"
+            @leave="recordCursorEvent('多圖片 leave')"
+          >
+            <article class="space-y-4 rounded-2xl bg-violet-100 p-6 text-center">
+              <div class="space-y-1">
+                <h3 class="text-lg font-semibold text-violet-950">同一個 Cursor 區域切換圖片</h3>
+                <p class="text-sm text-violet-900">
+                  每個 hover 目標提供不同的 `data-cursor-img`，游標內容會隨指標切換圖片。
+                </p>
+              </div>
+
+              <div class="grid gap-3 sm:grid-cols-3">
+                <a
+                  href="#cursor-demo"
+                  data-cursor-img="/images/demo/test-img.jpg"
+                  class="rounded-xl border border-violet-300 bg-white p-4 font-semibold text-violet-950 transition-colors hover:border-violet-500 hover:bg-violet-50"
+                >
+                  圖片一：風景
+                </a>
+                <a
+                  href="#cursor-demo"
+                  data-cursor-img="/images/nopic.png"
+                  class="rounded-xl border border-violet-300 bg-white p-4 font-semibold text-violet-950 transition-colors hover:border-violet-500 hover:bg-violet-50"
+                >
+                  圖片二：Fallback
+                </a>
+                <a
+                  href="#cursor-demo"
+                  data-cursor-img="/images/logo/logo.svg"
+                  class="rounded-xl border border-violet-300 bg-white p-4 font-semibold text-violet-950 transition-colors hover:border-violet-500 hover:bg-violet-50"
+                >
+                  圖片三：Logo
+                </a>
+              </div>
+            </article>
+
+            <template #content="{ imageSrc }">
+              <img
+                v-if="imageSrc"
+                :src="imageSrc"
+                alt=""
+                class="h-24 w-40 rounded-lg bg-white object-contain p-2 shadow-lg"
+              />
+            </template>
+          </Cursor>
+        </div>
+
+        <p id="cursor-demo" class="text-center text-sm text-slate-500">
+          最後事件：{{ cursorLastEvent }}
+        </p>
       </section>
 
       <section class="space-y-6 py-4">

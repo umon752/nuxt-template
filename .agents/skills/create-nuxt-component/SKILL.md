@@ -51,12 +51,11 @@ description: 在此 Nuxt 4 專案建立新的 Vue 元件與完整交付內容。
 
 ## 5. 驗證
 
-1. 執行 `npm run check:component-docs`。
-2. 執行 `npm run check`。
-3. 執行 `npm run build`。
-4. 執行 `git diff --check` 並 review 完整 diff。
-5. 使用 `rg` 搜尋過期名稱、錯誤自動匯入名稱、hardcoded labels 與遺漏引用。
-6. 可使用瀏覽器時，驗證主要互動、responsive、keyboard、focus、ARIA、transition、console 與 hydration；無法執行時明確回報。
+1. 依根目錄 `AGENTS.md` 的「驗證」分級執行最小充分檢查；迭代期間優先執行 `npm run check:component-docs`、受影響的 targeted test、format 與 lint，不要每次都啟動完整 Nuxt runtime 或 production build。
+2. 新增元件交付前，執行適用的完整驗證：`npm run check:component-docs`、`npm run check`、受影響測試或 `npm run test`，以及 `npm run build`。
+3. 執行 `git diff --check` 並 review 完整 diff。
+4. 使用 `rg` 搜尋過期名稱、錯誤自動匯入名稱、hardcoded labels 與遺漏引用。
+5. 可使用瀏覽器時，驗證主要互動、responsive、keyboard、focus、ARIA、transition、console 與 hydration；無法執行時明確回報。
 
 ## 完成條件
 

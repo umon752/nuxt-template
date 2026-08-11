@@ -10,6 +10,7 @@
 | Breadcrumb      | [使用方式](breadcrumb/Breadcrumb/README.md)     | 麵包屑導覽。                          |
 | Counter         | [使用方式](counter/Counter/README.md)           | 受控數量輸入與增減控制。              |
 | CountUp         | [使用方式](countup/CountUp/README.md)           | 隨機或順序數字動畫與程式化控制。      |
+| Cursor          | [使用方式](cursor/Cursor/README.md)             | 跟隨指標的自訂游標效果。              |
 | EmptyState      | [使用方式](emptyState/EmptyState/README.md)     | 列表與搜尋結果的空資料狀態。          |
 | FullPageLoading | [使用方式](loading/FullPageLoading/README.md)   | 全頁載入遮罩。                        |
 | IframeLazyLoad  | [使用方式](lazyload/IframeLazyLoad/README.md)   | 延遲載入響應式 iframe。               |
