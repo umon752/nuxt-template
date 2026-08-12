@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { featureConfig } from '~/config/features'
 import { siteConfig } from '~/config/site'
 //----------------------------
 // navigation state
@@ -189,11 +190,20 @@ onBeforeUnmount(() => {
 
         <div class="flex items-center gap-2">
           <div class="flex items-center gap-2">
-            <NuxtLink to="/account" :aria-label="$t('header.account.ariaLabel')">
+            <NuxtLink
+              v-if="featureConfig.account"
+              to="/account"
+              :aria-label="$t('header.account.ariaLabel')"
+            >
               <IconUser />
             </NuxtLink>
 
-            <NuxtLink to="/cart" :aria-label="$t('header.cart.ariaLabel')" class="relative">
+            <NuxtLink
+              v-if="featureConfig.cart"
+              to="/cart"
+              :aria-label="$t('header.cart.ariaLabel')"
+              class="relative"
+            >
               <IconCart />
               <span
                 class="bg-main-500 absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-xs text-white"
@@ -202,7 +212,12 @@ onBeforeUnmount(() => {
               </span>
             </NuxtLink>
 
-            <NuxtLink to="/search" :aria-label="$t('header.search.ariaLabel')" class="relative">
+            <NuxtLink
+              v-if="featureConfig.search"
+              to="/search"
+              :aria-label="$t('header.search.ariaLabel')"
+              class="relative"
+            >
               <IconSearch />
             </NuxtLink>
           </div>

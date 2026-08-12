@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { featureConfig } from '~/config/features'
 import { siteConfig } from '~/config/site'
 import type { TBreadcrumbItem } from '~/types/breadcrumb'
+
+if (!featureConfig.privacyPolicy) {
+  throw createError({ statusCode: 404, statusMessage: 'Privacy policy page is disabled' })
+}
 
 const { t } = useI18n()
 const pageTitle = t('pages.privacy.meta.title')

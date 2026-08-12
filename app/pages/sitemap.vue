@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { featureConfig } from '~/config/features'
 import type { TMenuItem } from '~/composables/useMenu'
 import type { TBreadcrumbItem } from '~/types/breadcrumb'
+
+if (!featureConfig.sitemap) {
+  throw createError({ statusCode: 404, statusMessage: 'Sitemap page is disabled' })
+}
 
 const { t } = useI18n()
 const { menuItems, status: menuStatus } = useMenu()
