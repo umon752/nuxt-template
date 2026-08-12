@@ -12,6 +12,6 @@ const { isVisible, scrollToTop } = useGoTop()
     :tabindex="isVisible ? undefined : -1"
     @click="scrollToTop"
   >
-    <IconArrowUp />
+    <IconChevronUp />
   </button>
 </template>

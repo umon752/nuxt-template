@@ -20,7 +20,7 @@ const emit = defineEmits<{
 }>()
 
 const hasChildren = computed(() => Boolean(item.children?.length))
-const panelRef = ref<HTMLElement | null>(null)
+const panelRef = useTemplateRef<HTMLElement>('panelRef')
 const isNested = computed(() => nested)
 const openChildId = ref<string>()
 

@@ -9,7 +9,7 @@
   } */
 
   body {
-    @apply font-base h-screen touch-manipulation overflow-x-hidden break-words hyphens-auto antialiased;
+    @apply font-base h-screen touch-manipulation overflow-x-hidden break-words hyphens-auto text-black antialiased;
     image-rendering: auto;
     /* https://css-tricks.com/almanac/properties/t/text-box/ */
     text-box: trim-both cap alphabetic;

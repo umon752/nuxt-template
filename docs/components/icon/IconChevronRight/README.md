@@ -1,14 +1,14 @@
-# IconArrowRight
+# IconChevronRight
 
 向右箭頭裝飾圖示，使用 `currentColor` 繼承父層文字顏色。
 
-原始碼：[IconArrowRight.vue](../../../../app/components/icon/IconArrowRight.vue)
+原始碼：[IconChevronRight.vue](../../../../app/components/icon/IconChevronRight.vue)
 
 ## 使用方式
 
 ```vue
 <button type="button" aria-label="顯示後面的分類">
-  <IconArrowRight class="size-4" />
+  <IconChevronRight class="size-4" />
 </button>
 ```
 

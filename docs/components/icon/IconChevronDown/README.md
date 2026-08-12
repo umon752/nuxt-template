@@ -1,15 +1,15 @@
-# IconArrowDown
+# IconChevronDown
 
 向下箭頭裝飾圖示，使用 `currentColor` 繼承父層文字顏色。
 
-原始碼：[IconArrowDown.vue](../../../../app/components/icon/IconArrowDown.vue)
+原始碼：[IconChevronDown.vue](../../../../app/components/icon/IconChevronDown.vue)
 
 ## 使用方式
 
 ```vue
 <button type="button" aria-expanded="false">
   展開選單
-  <IconArrowDown class="size-4" />
+  <IconChevronDown class="size-4" />
 </button>
 ```
 

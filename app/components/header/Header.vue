@@ -169,7 +169,7 @@ onBeforeUnmount(() => {
                   class="transition-transform duration-200"
                   :class="{ 'rotate-180': openDesktopMenuId === item.id }"
                 >
-                  <IconArrowDown />
+                  <IconChevronDown />
                 </span>
               </button>
               <NuxtLink v-else-if="item.href" :to="item.href" class="px-4 py-2 hover:bg-slate-100">

@@ -42,3 +42,10 @@
 - 最後一律執行 `git diff --check` 並檢查完整 diff
 
 只格式化本次變更的檔案。無法執行或失敗的檢查必須說明原因。
+
+## Process cleanup
+
+- 若啟動 dev server、watcher、test server 或暫時性 Node process，完成任務前停止由 agent 啟動的 process。
+- 優先使用一次性 command；除非使用者要求，不使用 watch mode。
+- 不終止由 editor 管理的 TypeScript Server、Vue Language Server 或 ESLint process。
+- 交付前確認沒有由 agent 啟動的背景 process 殘留。

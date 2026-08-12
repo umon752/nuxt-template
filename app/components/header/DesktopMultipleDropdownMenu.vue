@@ -16,7 +16,7 @@ const { item, nested = false } = defineProps<TProps>()
 const itemsPerColumn = 8
 
 const hasChildren = computed(() => Boolean(item.children?.length))
-const panelRef = ref<HTMLElement | null>(null)
+const panelRef = useTemplateRef<HTMLElement>('panelRef')
 const isNested = computed(() => nested)
 
 const columns = computed(() => {

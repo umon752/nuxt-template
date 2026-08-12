@@ -5,8 +5,8 @@ export const siteConfig = {
 
   social: {
     facebook: '',
+    line: '',
     instagram: '',
     youtube: '',
-    linkedin: '',
   },
 }

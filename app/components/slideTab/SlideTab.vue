@@ -348,7 +348,7 @@ defineExpose<TSlideTabInstance>({
         @click="scrollPrevious"
       >
         <slot name="previous">
-          <IconArrowLeft />
+          <IconChevronLeft />
         </slot>
       </button>
 
@@ -360,7 +360,7 @@ defineExpose<TSlideTabInstance>({
         @click="scrollNext"
       >
         <slot name="next">
-          <IconArrowRight />
+          <IconChevronRight />
         </slot>
       </button>
     </div>

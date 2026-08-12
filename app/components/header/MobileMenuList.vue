@@ -58,7 +58,7 @@ function childrenOf(item: TAccordionItem): TMenuItem[] {
                 class="transition-transform duration-200"
                 :class="{ 'rotate-180': isActive }"
               >
-                <IconArrowDown />
+                <IconChevronDown />
               </span>
             </div>
           </template>

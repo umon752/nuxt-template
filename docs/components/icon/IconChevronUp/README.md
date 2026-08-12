@@ -1,14 +1,14 @@
-# IconArrowUp
+# IconChevronUp
 
 向上箭頭裝飾圖示，使用 `currentColor` 繼承父層文字顏色。
 
-原始碼：[IconArrowUp.vue](../../../../app/components/icon/IconArrowUp.vue)
+原始碼：[IconChevronUp.vue](../../../../app/components/icon/IconChevronUp.vue)
 
 ## 使用方式
 
 ```vue
 <button type="button" aria-label="回到頁面頂端">
-  <IconArrowUp class="size-5" />
+  <IconChevronUp class="size-5" />
 </button>
 ```
 

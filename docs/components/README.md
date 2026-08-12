@@ -79,16 +79,16 @@
 
 ## 圖示
 
-| 元件           | 文件                                      | 說明           |
-| -------------- | ----------------------------------------- | -------------- |
-| BaseIcon       | [使用方式](icon/BaseIcon/README.md)       | SVG 圖示基底。 |
-| IconArrowDown  | [使用方式](icon/IconArrowDown/README.md)  | 向下箭頭。     |
-| IconArrowLeft  | [使用方式](icon/IconArrowLeft/README.md)  | 向左箭頭。     |
-| IconArrowRight | [使用方式](icon/IconArrowRight/README.md) | 向右箭頭。     |
-| IconArrowUp    | [使用方式](icon/IconArrowUp/README.md)    | 向上箭頭。     |
-| IconCart       | [使用方式](icon/IconCart/README.md)       | 購物車。       |
-| IconSearch     | [使用方式](icon/IconSearch/README.md)     | 搜尋。         |
-| IconUser       | [使用方式](icon/IconUser/README.md)       | 使用者。       |
+| 元件             | 文件                                        | 說明           |
+| ---------------- | ------------------------------------------- | -------------- |
+| BaseIcon         | [使用方式](icon/BaseIcon/README.md)         | SVG 圖示基底。 |
+| IconChevronDown  | [使用方式](icon/IconChevronDown/README.md)  | 向下箭頭。     |
+| IconChevronLeft  | [使用方式](icon/IconChevronLeft/README.md)  | 向左箭頭。     |
+| IconChevronRight | [使用方式](icon/IconChevronRight/README.md) | 向右箭頭。     |
+| IconChevronUp    | [使用方式](icon/IconChevronUp/README.md)    | 向上箭頭。     |
+| IconCart         | [使用方式](icon/IconCart/README.md)         | 購物車。       |
+| IconSearch       | [使用方式](icon/IconSearch/README.md)       | 搜尋。         |
+| IconUser         | [使用方式](icon/IconUser/README.md)         | 使用者。       |
 
 ## Toast
 

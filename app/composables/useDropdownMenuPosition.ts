@@ -1,7 +1,7 @@
-import type { CSSProperties, Ref } from 'vue'
+import type { CSSProperties, Ref, TemplateRef } from 'vue'
 
 type TSubmenuPositionOptions = {
-  panelRef: Ref<HTMLElement | null>
+  panelRef: TemplateRef<HTMLElement>
   nested: Ref<boolean>
 }
 
