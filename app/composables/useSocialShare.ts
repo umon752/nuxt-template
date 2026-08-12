@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter, Ref } from 'vue'
 
-export type TSharePlatform = 'facebook' | 'line' | 'twitter' | 'copy'
+export type TSharePlatform = 'facebook' | 'line' | 'x' | 'copy'
 export type TExternalSharePlatform = Exclude<TSharePlatform, 'copy'>
 
 export type TUseSocialShareOptions = {
@@ -27,7 +27,7 @@ export type TUseSocialShareReturn = {
 const externalShareEndpoints: Record<TExternalSharePlatform, string> = {
   facebook: 'https://www.facebook.com/sharer/sharer.php',
   line: 'https://social-plugins.line.me/lineit/share',
-  twitter: 'https://twitter.com/intent/tweet',
+  x: 'https://twitter.com/intent/tweet',
 }
 
 //----------------------------
@@ -90,7 +90,7 @@ export const useSocialShare = (options: TUseSocialShareOptions = {}): TUseSocial
 
     shareUrl.searchParams.set(platform === 'facebook' ? 'u' : 'url', url)
 
-    if (platform === 'twitter') {
+    if (platform === 'x') {
       const title = resolveShareTitle()
 
       if (title) {

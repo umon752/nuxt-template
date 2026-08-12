@@ -82,13 +82,28 @@
 | 元件             | 文件                                        | 說明           |
 | ---------------- | ------------------------------------------- | -------------- |
 | BaseIcon         | [使用方式](icon/BaseIcon/README.md)         | SVG 圖示基底。 |
+| IconCart         | [使用方式](icon/IconCart/README.md)         | 購物車。       |
 | IconChevronDown  | [使用方式](icon/IconChevronDown/README.md)  | 向下箭頭。     |
 | IconChevronLeft  | [使用方式](icon/IconChevronLeft/README.md)  | 向左箭頭。     |
 | IconChevronRight | [使用方式](icon/IconChevronRight/README.md) | 向右箭頭。     |
 | IconChevronUp    | [使用方式](icon/IconChevronUp/README.md)    | 向上箭頭。     |
-| IconCart         | [使用方式](icon/IconCart/README.md)         | 購物車。       |
+| IconCopy         | [使用方式](icon/IconCopy/README.md)         | 複製。         |
+| IconDate         | [使用方式](icon/IconDate/README.md)         | 日期／日曆。   |
+| IconDownload     | [使用方式](icon/IconDownload/README.md)     | 下載。         |
+| IconEarth        | [使用方式](icon/IconEarth/README.md)        | 地球。         |
+| IconFacebook     | [使用方式](icon/IconFacebook/README.md)     | Facebook。     |
+| IconFax          | [使用方式](icon/IconFax/README.md)          | 傳真。         |
+| IconHome         | [使用方式](icon/IconHome/README.md)         | 首頁。         |
+| IconInstagram    | [使用方式](icon/IconInstagram/README.md)    | Instagram。    |
+| IconLine         | [使用方式](icon/IconLine/README.md)         | LINE。         |
+| IconLocation     | [使用方式](icon/IconLocation/README.md)     | 位置。         |
+| IconMail         | [使用方式](icon/IconMail/README.md)         | 電子郵件。     |
+| IconPhone        | [使用方式](icon/IconPhone/README.md)        | 電話。         |
 | IconSearch       | [使用方式](icon/IconSearch/README.md)       | 搜尋。         |
+| IconX            | [使用方式](icon/IconX/README.md)            | X。            |
+| IconUpload       | [使用方式](icon/IconUpload/README.md)       | 上傳。         |
 | IconUser         | [使用方式](icon/IconUser/README.md)         | 使用者。       |
+| IconYoutube      | [使用方式](icon/IconYoutube/README.md)      | YouTube。      |
 
 ## Toast
 

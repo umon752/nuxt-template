@@ -1973,7 +1973,7 @@ const queryPaginatedItems = computed(() => {
         <header class="space-y-2">
           <h2 class="text-center text-2xl font-bold">SocialShare 社群分享</h2>
           <p class="text-center text-slate-600">
-            分享目前頁面至 Facebook、LINE、Twitter/X，或將分享連結複製到剪貼簿。
+            分享目前頁面至 Facebook、LINE、X，或將分享連結複製到剪貼簿。
           </p>
         </header>
 
@@ -1993,21 +1993,31 @@ const queryPaginatedItems = computed(() => {
             <div class="space-y-1">
               <h3 class="text-lg font-semibold text-slate-900">指定內容、平台與自訂 slot</h3>
               <p class="text-sm leading-6 text-slate-600">
-                指定分享網址與標題，只顯示 Facebook、LINE、複製連結，並自訂複製按鈕內容。
+                指定分享網址與標題，只顯示 Facebook、LINE、X、複製連結，並自訂複製按鈕內容。
               </p>
             </div>
 
             <SocialShare
               url="https://example.com/news/social-share"
               title="SocialShare 元件使用範例"
-              :platforms="['facebook', 'line', 'copy']"
+              :platforms="['facebook', 'line', 'x', 'copy']"
               :aria-label="$t('pages.sample.a11y.socialShareCustom')"
               button-class="gap-2 rounded-full px-4"
               @copied="handleSocialShareCopied"
               @error="handleSocialShareError"
             >
+              <template #facebook>
+                <IconFacebook class="h-6 w-6" aria-hidden="true" />
+              </template>
+              <template #line>
+                <IconLine class="h-6 w-6" aria-hidden="true" />
+              </template>
+              <template #x>
+                <IconX class="h-5 w-5" aria-hidden="true" />
+              </template>
               <template #copy="{ label, copied }">
-                <span aria-hidden="true">{{ copied ? '✓' : '⧉' }}</span>
+                <span v-if="copied" aria-hidden="true">✓</span>
+                <span v-else aria-hidden="true"><IconCopy class="h-4 w-4" /></span>
                 <span>{{ label }}</span>
               </template>
             </SocialShare>

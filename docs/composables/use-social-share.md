@@ -1,6 +1,6 @@
 # useSocialShare 使用說明
 
-`useSocialShare` 提供 Facebook、LINE、Twitter/X 分享與複製連結的共用邏輯，可搭配 `SocialShare` 元件，也能由連結、選單或其他自訂 UI 觸發。
+`useSocialShare` 提供 Facebook、LINE、X 分享與複製連結的共用邏輯，可搭配 `SocialShare` 元件，也能由連結、選單或其他自訂 UI 觸發。
 
 原始碼：[useSocialShare.ts](../../app/composables/useSocialShare.ts)
 
@@ -40,7 +40,7 @@ const handleShare = (platform: TSharePlatform): void => {
 | 選項             | 型別                                    | 預設值           | 說明                                                |
 | ---------------- | --------------------------------------- | ---------------- | --------------------------------------------------- |
 | `url`            | `MaybeRefOrGetter<string \| undefined>` | 目前頁網址       | 分享網址；於呼叫 `share` 時解析。                   |
-| `title`          | `MaybeRefOrGetter<string \| undefined>` | `document.title` | Twitter/X 分享文字；未提供時使用文件標題。          |
+| `title`          | `MaybeRefOrGetter<string \| undefined>` | `document.title` | X 分享文字；未提供時使用文件標題。                  |
 | `copiedDuration` | `MaybeRefOrGetter<number \| undefined>` | `2000`           | 複製回饋保留的毫秒數；小於或等於 `0` 時不自動清除。 |
 
 ### 回傳值
@@ -52,7 +52,7 @@ const handleShare = (platform: TSharePlatform): void => {
 | `share`           | `(platform) => Promise<TSocialShareResult>` | 分享或複製指定平台的網址。         |
 | `clearFeedback`   | `() => void`                                | 清除複製狀態、訊息與回饋計時器。   |
 
-`TSharePlatform` 為 `'facebook' | 'line' | 'twitter' | 'copy'`。`share` 成功時回傳 `{ platform, url }`；網址解析或剪貼簿操作失敗時 reject。
+`TSharePlatform` 為 `'facebook' | 'line' | 'x' | 'copy'`。`share` 成功時回傳 `{ platform, url }`；網址解析或剪貼簿操作失敗時 reject。
 
 ## 行為與限制
 

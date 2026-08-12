@@ -18,7 +18,7 @@ type TProps = {
 const {
   url = undefined,
   title = undefined,
-  platforms = ['facebook', 'line', 'twitter', 'copy'],
+  platforms = ['facebook', 'line', 'x', 'copy'],
   copiedDuration = 2000,
   buttonClass = '',
 } = defineProps<TProps>()
@@ -41,7 +41,7 @@ const visiblePlatforms = computed(() => [...new Set(platforms)])
 const platformLabels = computed<Record<TSharePlatform, string>>(() => ({
   facebook: t('components.socialShare.facebook'),
   line: t('components.socialShare.line'),
-  twitter: t('components.socialShare.twitter'),
+  x: t('components.socialShare.x'),
   copy: isCopied.value ? t('components.socialShare.copied') : t('components.socialShare.copy'),
 }))
 const resolvedAriaLabel = computed(() => {
@@ -61,7 +61,7 @@ const containerClassName = computed(() =>
 const platformClassNames: Record<TSharePlatform, string> = {
   facebook: 'border-[#1877f2] bg-[#1877f2] text-white hover:bg-[#166fe5]',
   line: 'border-[#06c755] bg-[#06c755] text-white hover:bg-[#05b84e]',
-  twitter: 'border-black bg-black text-white hover:bg-slate-800',
+  x: 'border-black bg-black text-white hover:bg-slate-800',
   copy: 'border-slate-700 bg-white text-slate-900 hover:bg-slate-100',
 }
 

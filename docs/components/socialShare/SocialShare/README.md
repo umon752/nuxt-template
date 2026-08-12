@@ -1,6 +1,6 @@
 # SocialShare
 
-提供 Facebook、LINE、Twitter/X 分享與複製連結的預設按鈕 UI。分享功能位於 `useSocialShare()`，也能由連結、選單項目或其他互動觸發。
+提供 Facebook、LINE、X 分享與複製連結的預設按鈕 UI。分享功能位於 `useSocialShare()`，也能由連結、選單項目或其他互動觸發。
 
 原始碼：[SocialShare.vue](../../../../app/components/socialShare/SocialShare.vue)
 
@@ -12,7 +12,7 @@
 <SocialShare />
 ```
 
-未提供 `url` 時，使用者點擊按鈕後才會讀取目前頁面的 `window.location.href`；Twitter/X 分享文字預設使用 `document.title`。所有網址都會透過 `URLSearchParams` 編碼。
+未提供 `url` 時，使用者點擊按鈕後才會讀取目前頁面的 `window.location.href`；X 分享文字預設使用 `document.title`。所有網址都會透過 `URLSearchParams` 編碼。
 
 ## 不使用預設按鈕 UI
 
@@ -90,23 +90,23 @@ const copyLink = (): void => {
 
 ## Props
 
-| Prop             | 型別                                              | 預設值                                    | 說明                                         |
-| ---------------- | ------------------------------------------------- | ----------------------------------------- | -------------------------------------------- |
-| `url`            | `string`                                          | `undefined`                               | 分享網址；未提供時於點擊當下使用目前頁網址。 |
-| `title`          | `string`                                          | `undefined`                               | Twitter/X 分享文字；未提供時使用文件標題。   |
-| `platforms`      | `('facebook' \| 'line' \| 'twitter' \| 'copy')[]` | `['facebook', 'line', 'twitter', 'copy']` | 顯示的平台與順序。                           |
-| `copiedDuration` | `number`                                          | `2000`                                    | 複製回饋保留毫秒數；`0` 代表不自動清除。     |
-| `buttonClass`    | `ClassValue`                                      | `''`                                      | 套用到每個分享按鈕的 class。                 |
+| Prop             | 型別                                        | 預設值                              | 說明                                         |
+| ---------------- | ------------------------------------------- | ----------------------------------- | -------------------------------------------- |
+| `url`            | `string`                                    | `undefined`                         | 分享網址；未提供時於點擊當下使用目前頁網址。 |
+| `title`          | `string`                                    | `undefined`                         | X 分享文字；未提供時使用文件標題。           |
+| `platforms`      | `('facebook' \| 'line' \| 'x' \| 'copy')[]` | `['facebook', 'line', 'x', 'copy']` | 顯示的平台與順序。                           |
+| `copiedDuration` | `number`                                    | `2000`                              | 複製回饋保留毫秒數；`0` 代表不自動清除。     |
+| `buttonClass`    | `ClassValue`                                | `''`                                | 套用到每個分享按鈕的 class。                 |
 
 ## Events
 
-| Event    | Payload                                                      | 觸發時機                             |
-| -------- | ------------------------------------------------------------ | ------------------------------------ |
-| `share`  | `(platform: 'facebook' \| 'line' \| 'twitter', url: string)` | 已嘗試開啟平台分享視窗。             |
-| `copied` | `(url: string)`                                              | 連結成功寫入剪貼簿。                 |
-| `error`  | `(error: unknown)`                                           | 網址解析、協定驗證或剪貼簿操作失敗。 |
+| Event    | Payload                                                | 觸發時機                             |
+| -------- | ------------------------------------------------------ | ------------------------------------ |
+| `share`  | `(platform: 'facebook' \| 'line' \| 'x', url: string)` | 已嘗試開啟平台分享視窗。             |
+| `copied` | `(url: string)`                                        | 連結成功寫入剪貼簿。                 |
+| `error`  | `(error: unknown)`                                     | 網址解析、協定驗證或剪貼簿操作失敗。 |
 
-Slots：`facebook`、`line`、`twitter`、`copy`。每個 slot 都接收 `{ platform, label, copied }`。
+Slots：`facebook`、`line`、`x`、`copy`。每個 slot 都接收 `{ platform, label, copied }`。
 
 ## 行為與無障礙
 
@@ -117,4 +117,4 @@ Slots：`facebook`、`line`、`twitter`、`copy`。每個 slot 都接收 `{ plat
 - 安全環境優先使用 Clipboard API，不支援時回退至 `document.execCommand('copy')`。
 - 分享視窗使用 `noopener,noreferrer`。瀏覽器仍可能依使用者設定阻擋 popup；`share` 代表已嘗試開啟，不代表分享完成。
 
-相關 i18n 鍵值：`components.socialShare.ariaLabel`、`facebook`、`line`、`twitter`、`copy`、`copied`、`copyError`、`invalidUrl`。不支援的網址協定與複製 fallback 失敗所拋出的錯誤訊息也會使用這些翻譯。
+相關 i18n 鍵值：`components.socialShare.ariaLabel`、`facebook`、`line`、`x`、`copy`、`copied`、`copyError`、`invalidUrl`。不支援的網址協定與複製 fallback 失敗所拋出的錯誤訊息也會使用這些翻譯。

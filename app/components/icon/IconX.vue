@@ -7,7 +7,7 @@
           fill="freeze"
           attributeName="d"
           dur="0.4s"
-          values="M1 2h2.5l0 0h-2.5ZM5.5 2h2.5l-0.8 0h-2.5Z;M1 2h2.5l15 20h-2.5ZM5.5 2h2.5l15 20h-2.5Z"
+          values="M1 2h2.5l0 0h-2.5ZM5.5 2h2.5l-.8 0h-2.5Z;M1 2h2.5l15 20h-2.5ZM5.5 2h2.5l15 20h-2.5Z"
         />
       </path>
       <path d="M3 2h5v0h-5ZM16 22h5v0h-5Z">
