@@ -30,13 +30,6 @@ export default defineNuxtConfig({
     colorMode: false,
   },
 
-  icon: {
-    clientBundle: {
-      // AppDatePicker 的 icon 透過 prop 預設值傳入，無法由 Nuxt Icon 靜態掃描推導。
-      icons: ['lucide:calendar-days'],
-    },
-  },
-
   i18n: {
     baseUrl: siteUrl,
     langDir: '../app/i18n/locales',

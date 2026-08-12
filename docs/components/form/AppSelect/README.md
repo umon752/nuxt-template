@@ -49,6 +49,8 @@ export type TAppSelectOption = {
 
 `class`、`id`、`name`、`aria-*`、`data-*` 與事件等未宣告 attrs 會轉交給 `USelect`。目前 wrapper 聚焦單選；多選、搜尋與複合選項若成為專案需求，應另定義明確 API，不直接把 Nuxt UI props 全部暴露出來。
 
+下拉箭頭由 Nuxt UI 全域設定統一使用 `IconChevronDown`；其他使用 `chevronDown` 預設圖示的 Nuxt UI 元件也會套用相同設定。
+
 ## 可存取性與限制
 
 - 下拉開啟、關閉、焦點與鍵盤導覽由內部 `USelect`／Reka UI 提供。

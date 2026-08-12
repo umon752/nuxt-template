@@ -1,7 +1,6 @@
 {
   "composables": {
     "app/composables/useBreadcrumb.ts": "864a66f695f8037efe8de4b2698f4e3ed0414c155cd7cb17da4872775930aa9c",
-    "app/composables/useDropdownMenuPosition.ts": "201517d64c9a976c1a86ff26c6d1e74b957e1dc99c1a50703343575e88e7b93e",
     "app/composables/useFullPageLoading.ts": "f32e734243a46d9dd7cef0224854c7de609702f354b0684ea801dee2e18c60b0",
     "app/composables/useGoTop.ts": "ec773bb447412b70b5673836242684dc463a1d031f775f1bdd8d43d073eba4e6",
     "app/composables/useLazyLoadObserver.ts": "2b1743fe70f8c1d535d8d6bd0ae0467ba683f350e568f5d738739ca6a48eb0ae",

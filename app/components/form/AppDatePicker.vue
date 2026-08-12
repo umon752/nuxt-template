@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { DateValue } from '@internationalized/date'
 import type { ClassValue } from 'clsx'
+import type { Component } from 'vue'
 
+import IconDate from '~/components/icon/IconDate.vue'
 import { cn } from '~/utils/cn'
 
 type TProps = {
@@ -13,7 +15,7 @@ type TProps = {
   locale?: string
   minValue?: DateValue
   maxValue?: DateValue
-  trailingIcon?: string
+  trailingIcon?: string | Component
   inputClass?: ClassValue
   calendarClass?: ClassValue
 }
@@ -29,7 +31,7 @@ const {
   locale = undefined,
   minValue = undefined,
   maxValue = undefined,
-  trailingIcon = 'i-lucide-calendar-days',
+  trailingIcon = IconDate,
   inputClass: inputClassProp = '',
   calendarClass: calendarClassProp = '',
 } = defineProps<TProps>()

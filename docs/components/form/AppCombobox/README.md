@@ -53,6 +53,8 @@ type TAppComboboxOption = {
 
 目前 wrapper 固定為單選，並以 `value` 作為 model value；未宣告的 `id`、`name`、`aria-*`、`data-*` 與事件會轉交給 `USelectMenu`。不包含多選、建立新項目或遠端搜尋 API，這些需求應另訂明確 API。
 
+下拉箭頭由 Nuxt UI 全域設定統一使用 `IconChevronDown`；其他使用 `chevronDown` 預設圖示的 Nuxt UI 元件也會套用相同設定。
+
 ## 可存取性與限制
 
 - 搜尋、選項篩選、鍵盤導覽、focus 與 disabled 行為由 Nuxt UI／Reka UI 提供。
