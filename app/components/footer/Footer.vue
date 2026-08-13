@@ -13,12 +13,12 @@ const copyrightYear = currentYear === START_YEAR ? `${currentYear}` : `${START_Y
       <nav :aria-label="$t('footer.navigationAriaLabel')" class="mb-2">
         <ul class="flex flex-wrap gap-x-4 gap-y-2">
           <li v-if="featureConfig.sitemap">
-            <NuxtLink to="/sitemap" class="hover:text-main-500">
+            <NuxtLink to="/sitemap" class="hover:text-primary-500">
               {{ $t('footer.sitemap') }}
             </NuxtLink>
           </li>
           <li v-if="featureConfig.privacyPolicy">
-            <NuxtLink to="/privacy" class="hover:text-main-500">
+            <NuxtLink to="/privacy" class="hover:text-primary-500">
               {{ $t('footer.privacy') }}
             </NuxtLink>
           </li>

@@ -9,7 +9,7 @@ Nuxt 自動匯入名稱為 `LoadingSpinner`。
 ## 使用方式
 
 ```vue
-<LoadingSpinner label="資料載入中" spinner-class="size-8 text-main-600" />
+<LoadingSpinner label="資料載入中" spinner-class="size-8 text-primary-600" />
 ```
 
 | Prop           | 型別         | 預設值      | 說明                         |

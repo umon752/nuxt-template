@@ -1,22 +1,15 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
 
-@layer theme, base, components, utilities;
+@layer theme, base, utilities;
 
 /* Base Layer */
 @import './base/_theme.css';
 @import './base/_root.css';
 @import './base/_base.css';
 
-/* Components Layer */
-@import './components/_c-skip-link.css';
-@import './components/_c-icon.css';
-
 /* Utilities Layer */
 @import './utilities/_utilities.css';
 @import './utilities/_container.css';
 @import './utilities/_editor.css';
 @import './utilities/_observer-fade.css';
-
-/* Modules Layer */
-/* Layout Layer */

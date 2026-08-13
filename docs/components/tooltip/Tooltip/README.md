@@ -17,7 +17,7 @@ Trigger 應使用可聚焦元素，例如 `button` 或 `a`。元件會將 Toolti
 ## 自訂內容
 
 ```vue
-<Tooltip placement="right" tooltip-class="bg-main-700">
+<Tooltip placement="right" tooltip-class="bg-primary-700">
   <BtnDefault text="查看說明" />
 
   <template #content>

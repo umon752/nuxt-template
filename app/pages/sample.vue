@@ -850,7 +850,7 @@ const queryPaginatedItems = computed(() => {
             data-fade="in"
             class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <p class="text-main-700 text-xs font-semibold tracking-wide">#1</p>
+            <p class="text-primary-700 text-xs font-semibold tracking-wide">#1</p>
             <h3 class="text-lg font-semibold text-slate-900">淡入一次</h3>
             <p class="text-sm leading-6 text-slate-600">進入 viewport 後執行一次 opacity 動畫。</p>
           </article>
@@ -860,7 +860,7 @@ const queryPaginatedItems = computed(() => {
             data-fade-timing='{"duration":800,"delay":150,"easing":"ease-out"}'
             class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <p class="text-main-700 text-xs font-semibold tracking-wide">#2</p>
+            <p class="text-primary-700 text-xs font-semibold tracking-wide">#2</p>
             <h3 class="text-lg font-semibold text-slate-900">向上淡入</h3>
             <p class="text-sm leading-6 text-slate-600">
               可透過 data-fade-timing 覆寫 duration、delay 與 easing。
@@ -872,7 +872,7 @@ const queryPaginatedItems = computed(() => {
             data-fade-once="false"
             class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <p class="text-main-700 text-xs font-semibold tracking-wide">#3</p>
+            <p class="text-primary-700 text-xs font-semibold tracking-wide">#3</p>
             <h3 class="text-lg font-semibold text-slate-900">離開後重播</h3>
             <p class="text-sm leading-6 text-slate-600">
               data-fade-once="false" 會在離開 viewport 時回到起始狀態。
@@ -884,7 +884,7 @@ const queryPaginatedItems = computed(() => {
             data-fade="in"
             class="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <p class="text-main-700 text-xs font-semibold tracking-wide">#4</p>
+            <p class="text-primary-700 text-xs font-semibold tracking-wide">#4</p>
             <h3 class="text-lg font-semibold text-slate-900">動態項目</h3>
             <p class="text-sm leading-6 text-slate-600">
               MutationObserver 會自動偵測並套用動畫，不需手動 refresh。
@@ -905,7 +905,7 @@ const queryPaginatedItems = computed(() => {
           class="mx-auto max-w-2xl space-y-3 rounded-2xl border border-slate-200 p-6 text-center shadow-sm"
         >
           <p class="text-sm text-slate-500">原始數值：{{ numberFormatSampleValue }}</p>
-          <p class="text-main-500 text-3xl font-bold tabular-nums">{{ numberFormatSample }}</p>
+          <p class="text-primary-500 text-3xl font-bold tabular-nums">{{ numberFormatSample }}</p>
           <code class="block text-sm text-slate-500">formatNumber(1234567.89)</code>
           <p class="text-sm text-slate-500">補零結果（1、9、10）：{{ numberPaddingSample }}</p>
           <code class="block text-sm text-slate-500">padNumber(1) → 01</code>
@@ -1107,7 +1107,7 @@ const queryPaginatedItems = computed(() => {
           >
             <FormAppDatePicker
               v-model="nuxtUiWrapperDate"
-              calendar-class="[&_[data-slot=headCell]]:text-main-500 [&_[data-slot=cellTrigger][data-today]]:text-main-500"
+              calendar-class="[&_[data-slot=headCell]]:text-primary-500 [&_[data-slot=cellTrigger][data-today]]:text-primary-500"
             />
           </FormAppFormField>
 
@@ -1257,9 +1257,9 @@ const queryPaginatedItems = computed(() => {
           <EmptyState
             title="找不到搜尋結果"
             description="請調整關鍵字或清除篩選條件。"
-            empty-class="border-main-300 bg-main-50"
-            title-class="text-main-700"
-            description-class="text-main-800"
+            empty-class="border-primary-300 bg-primary-50"
+            title-class="text-primary-700"
+            description-class="text-primary-800"
           />
         </div>
       </section>
@@ -1282,7 +1282,7 @@ const queryPaginatedItems = computed(() => {
               :duration="2000"
               :start-time="300"
               :delay="80"
-              count-up-class="text-3xl font-bold text-main-500"
+              count-up-class="text-3xl font-bold text-primary-500"
               @run="handleCountUpEvent('執行', $event)"
               @stop="handleCountUpEvent('暫停', $event)"
               @start="handleCountUpEvent('繼續', $event)"
@@ -1341,7 +1341,7 @@ const queryPaginatedItems = computed(() => {
             :start-value="0"
             :max-count="99999"
             :duration="1200"
-            odometer-class="text-5xl font-bold text-main-500"
+            odometer-class="text-5xl font-bold text-primary-500"
             @run="handleOdometerEvent('執行', $event)"
             @update="handleOdometerEvent('更新', $event)"
             @done="handleOdometerEvent('完成', $event)"
@@ -1408,7 +1408,7 @@ const queryPaginatedItems = computed(() => {
             <BtnDefault text="已停用" />
           </Tooltip>
 
-          <Tooltip placement="bottom" tooltip-class="bg-main-700 text-white">
+          <Tooltip placement="bottom" tooltip-class="bg-primary-700 text-white">
             <BtnDefault text="自訂樣式" />
 
             <template #content>
@@ -1620,14 +1620,14 @@ const queryPaginatedItems = computed(() => {
               :aria-label="$t('pages.sample.a11y.marqueeLeft')"
               marquee-class="rounded-xl border border-slate-200 bg-slate-50 py-4"
               item-class="w-56 sm:w-64"
-              active-class="rounded-xl ring-2 ring-main-500"
+              active-class="rounded-xl ring-2 ring-primary-500"
             >
               <template #item="{ item, index, isActive }">
                 <div
                   class="flex h-28 items-center justify-center rounded-xl border px-5 text-center font-semibold transition-colors"
                   :class="
                     isActive
-                      ? 'border-main-500 bg-main-500 text-white'
+                      ? 'border-primary-500 bg-primary-500 text-white'
                       : 'border-slate-200 bg-white text-slate-700'
                   "
                 >
@@ -1672,7 +1672,7 @@ const queryPaginatedItems = computed(() => {
                   :class="[
                     index % 2 === 0 ? 'w-52' : 'w-72',
                     isActive
-                      ? 'border-main-400 bg-main-500 text-white opacity-100'
+                      ? 'border-primary-400 bg-primary-500 text-white opacity-100'
                       : 'border-slate-600 bg-slate-800 text-slate-200 opacity-65',
                   ]"
                 >
@@ -1705,10 +1705,10 @@ const queryPaginatedItems = computed(() => {
                 :key="item.id"
                 ref="dragButtons"
                 type="button"
-                class="hover:border-main-500 hover:bg-main-50 w-64 shrink-0 space-y-2 rounded-xl border border-slate-200 bg-white p-5 text-left shadow-sm"
+                class="hover:border-primary-500 hover:bg-primary-50 w-64 shrink-0 space-y-2 rounded-xl border border-slate-200 bg-white p-5 text-left shadow-sm"
                 @click="handleDragItemClick(item.title)"
               >
-                <span class="text-main-700 block text-xs font-semibold tracking-wide">
+                <span class="text-primary-700 block text-xs font-semibold tracking-wide">
                   #{{ item.id }}
                 </span>
                 <span class="block text-lg font-semibold text-slate-900">{{ item.title }}</span>
@@ -2088,7 +2088,7 @@ const queryPaginatedItems = computed(() => {
             title="卡片標題範例五"
             content="自訂樣式"
             img-default-class="rounded-none"
-            img-loaded-class="rounded-none border-4 border-main-500 border-solid"
+            img-loaded-class="rounded-none border-4 border-primary-500 border-solid"
           />
         </div>
       </section>
@@ -2117,10 +2117,10 @@ const queryPaginatedItems = computed(() => {
               :alt="$t('pages.sample.a11y.imageCustomRatio')"
               aspect-ratio="3 / 2"
               class="rounded-xl"
-              skeleton-class="bg-main-100"
+              skeleton-class="bg-primary-100"
             >
               <template #skeleton>
-                <span class="text-main-700 flex h-full items-center justify-center text-sm">
+                <span class="text-primary-700 flex h-full items-center justify-center text-sm">
                   圖片載入中
                 </span>
               </template>
@@ -2353,7 +2353,7 @@ const queryPaginatedItems = computed(() => {
           :first-last-display-range="2"
           nav-class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-5"
           item-class="rounded-full border-slate-200 bg-white text-slate-600 shadow-sm"
-          active-class="border-main-500 bg-main-500 text-white"
+          active-class="border-primary-500 bg-primary-500 text-white"
           disabled-class="opacity-60"
           :aria-label="$t('pages.sample.a11y.customPagination')"
         >

@@ -122,7 +122,7 @@ const handleChildFocusout = (event: FocusEvent): void => {
           v-if="child.children?.length"
           :id="`menu-trigger-${child.id}`"
           type="button"
-          class="hover:text-main-500 relative block w-full px-4 py-2 pr-9 text-left whitespace-nowrap"
+          class="hover:text-primary-500 relative block w-full px-4 py-2 pr-9 text-left whitespace-nowrap"
           aria-haspopup="true"
           :aria-expanded="openChildId === child.id"
           :aria-controls="`submenu-${child.id}`"
@@ -132,7 +132,7 @@ const handleChildFocusout = (event: FocusEvent): void => {
         <NuxtLink
           v-else-if="child.href"
           :to="child.href"
-          class="hover:text-main-500 relative block px-4 py-2 pr-9 whitespace-nowrap"
+          class="hover:text-primary-500 relative block px-4 py-2 pr-9 whitespace-nowrap"
         >
           {{ child.title }}
         </NuxtLink>

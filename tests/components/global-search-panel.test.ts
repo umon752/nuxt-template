@@ -23,7 +23,7 @@ describe('GlobalSearchPanel', () => {
     await flushPanel()
 
     const input = wrapper.get('input')
-    expect(wrapper.get('button[aria-label="關閉搜尋"] svg.c-icon').exists()).toBe(true)
+    expect(wrapper.get('button[aria-label="關閉搜尋"] svg').exists()).toBe(true)
     expect(document.activeElement).toBe(input.element)
 
     await input.setValue('  Nuxt   4  ')

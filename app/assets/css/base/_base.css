@@ -32,7 +32,7 @@
   select:focus:focus-visible,
   textarea:focus:focus-visible,
   [tabindex]:focus:focus-visible {
-    @apply outline-main-500 outline-2 outline-solid;
+    @apply outline-primary-500 outline-2 outline-solid;
   }
 
   button,

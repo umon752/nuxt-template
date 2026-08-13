@@ -11,7 +11,7 @@
   text="儲存"
   :disabled="saving"
   aria-label="儲存資料"
-  btn-class="bg-main-500 hover:bg-main-600"
+  btn-class="bg-primary-500 hover:bg-primary-600"
   @click="save"
 />
 ```

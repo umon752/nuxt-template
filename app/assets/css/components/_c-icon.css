@@ -1,5 +1,0 @@
-@layer components {
-  .c-icon {
-    @apply inline-block h-6 w-6 fill-current stroke-current stroke-0 transition-colors duration-300;
-  }
-}

@@ -182,7 +182,7 @@ const selectSuggestion = (suggestion: string): void => {
               <li v-for="suggestion in suggestions" :key="suggestion">
                 <BtnDefault
                   type="button"
-                  btn-class="hover:bg-main-500 hover:border-main-500 border border-white/75 bg-transparent"
+                  btn-class="hover:bg-primary-500 hover:border-primary-500 border border-white/75 bg-transparent"
                   :text="suggestion"
                   @click="selectSuggestion(suggestion)"
                 />

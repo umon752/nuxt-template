@@ -19,9 +19,9 @@ Nuxt 自動匯入名稱為 `EmptyState`。
   v-if="!pending && !error && items.length === 0"
   title="找不到搜尋結果"
   description="請調整關鍵字或清除篩選條件。"
-  empty-class="border-main-300 bg-main-50"
-  title-class="text-main-700"
-  description-class="text-main-600"
+  empty-class="border-primary-300 bg-primary-50"
+  title-class="text-primary-700"
+  description-class="text-primary-600"
 />
 ```
 

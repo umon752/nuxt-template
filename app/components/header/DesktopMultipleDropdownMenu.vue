@@ -74,7 +74,7 @@ const panelClass = computed((): string => {
             <NuxtLink
               v-if="child.href"
               :to="child.href"
-              class="peer/submenu-trigger hover:text-main-500 relative block py-4 pr-9 text-lg leading-snug transition"
+              class="peer/submenu-trigger hover:text-primary-500 relative block py-4 pr-9 text-lg leading-snug transition"
             >
               {{ child.title }}
             </NuxtLink>

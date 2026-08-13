@@ -39,7 +39,7 @@
     }
 
     & a {
-      @apply text-main-500 underline;
+      @apply text-primary-500 underline;
     }
 
     & img {

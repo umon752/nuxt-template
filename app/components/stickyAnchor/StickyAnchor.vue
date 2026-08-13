@@ -130,7 +130,7 @@ const headingClassName = computed(() =>
 )
 const baseButtonClassName = computed(() =>
   cn(
-    'relative w-full whitespace-nowrap px-5 py-2.5 text-left text-sm font-semibold text-slate-800 transition-[padding,color,background-color] hover:bg-slate-50 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-slate-500 motion-reduce:transition-none lg:text-base before:absolute before:top-1/2 before:left-0 before:h-1 before:w-2.5 before:-translate-y-1/2 before:bg-slate-300 before:transition-colors before:content-["_"] hover:before:bg-main-500 motion-reduce:before:transition-none',
+    'relative w-full whitespace-nowrap px-5 py-2.5 text-left text-sm font-semibold text-slate-800 transition-[padding,color,background-color] hover:bg-slate-50 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-slate-500 motion-reduce:transition-none lg:text-base before:absolute before:top-1/2 before:left-0 before:h-1 before:w-2.5 before:-translate-y-1/2 before:bg-slate-300 before:transition-colors before:content-["_"] hover:before:bg-primary-500 motion-reduce:before:transition-none',
     buttonClassProp
   )
 )
@@ -141,7 +141,7 @@ const getButtonClassName = (item: TStickyAnchorItem): string =>
   cn(
     baseButtonClassName.value,
     Object.is(item.id, activeId.value) &&
-      cn('pl-7 text-slate-950 before:bg-main-500', activeButtonClassProp)
+      cn('pl-7 text-slate-950 before:bg-primary-500', activeButtonClassProp)
   )
 
 //----------------------------

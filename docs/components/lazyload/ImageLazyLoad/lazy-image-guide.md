@@ -66,7 +66,7 @@
   object-fit="contain"
   class="rounded-xl"
   img-class="p-4"
-  skeleton-class="bg-main-100"
+  skeleton-class="bg-primary-100"
 >
   <template #skeleton>
     <span class="flex h-full items-center justify-center">圖片載入中</span>

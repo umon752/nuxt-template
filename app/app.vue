@@ -36,7 +36,7 @@ useSiteSchema()
 
 <template>
   <NuxtLoadingIndicator
-    color="var(--color-main-500)"
+    color="var(--color-primary-500)"
     error-color="var(--color-error)"
     :height="3"
     :throttle="150"

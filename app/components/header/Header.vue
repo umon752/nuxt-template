@@ -260,7 +260,7 @@ onBeforeUnmount(() => {
             >
               <IconCart />
               <span
-                class="bg-main-500 absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-xs text-white"
+                class="bg-primary-500 absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-xs text-white"
               >
                 {{ 0 }}
               </span>
