@@ -24,6 +24,15 @@
       "ariaLabel": "切換主選單"
     }
   },
+  "search": {
+    "panel": {
+      "inputLabel": "搜尋網站內容",
+      "placeholder": "請輸入搜尋關鍵字",
+      "submit": "執行搜尋",
+      "close": "關閉搜尋",
+      "suggestionsTitle": "熱門搜尋"
+    }
+  },
   "footer": {
     "navigationAriaLabel": "頁尾導覽",
     "sitemap": "網站導覽",
@@ -40,6 +49,24 @@
         "title": "首頁",
         "description": "首頁描述"
       }
+    },
+    "search": {
+      "meta": {
+        "title": "搜尋結果",
+        "description": "搜尋網站中的頁面與內容。"
+      },
+      "inputLabel": "搜尋網站內容",
+      "placeholder": "輸入關鍵字搜尋網站內容",
+      "submit": "搜尋",
+      "resultsTitle": "搜尋結果",
+      "resultsListAriaLabel": "搜尋結果列表",
+      "intro": "輸入關鍵字開始搜尋。",
+      "loading": "搜尋中，請稍候。",
+      "error": "搜尋暫時無法使用，請稍後再試。",
+      "resultCount": "找到 {count} 筆結果",
+      "empty": "找不到符合「{query}」的結果。",
+      "emptyDescription": "請嘗試其他關鍵字或縮短搜尋內容。",
+      "paginationAriaLabel": "搜尋結果分頁"
     },
     "about": {
       "meta": {

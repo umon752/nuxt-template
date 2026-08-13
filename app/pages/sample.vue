@@ -16,6 +16,7 @@ import type { TAppComboboxOption } from '~/components/form/AppCombobox.vue'
 import type { TAppRadioOption } from '~/components/form/AppRadioGroup.vue'
 import type { TAppSelectOption } from '~/components/form/AppSelect.vue'
 import type { TFormValidationRules } from '~/composables/useFormValidation'
+import GlobalSearchPanel from '~/components/search/GlobalSearchPanel.vue'
 import { useToast } from '~/composables/useToast'
 import taiwanAddressData from '~/data/taiwan-address.json'
 
@@ -32,6 +33,18 @@ usePageSchema({
   name: '範例頁',
   description: '範例頁描述',
 })
+
+//----------------------------
+// global search panel
+//----------------------------
+const globalSearchPanelOpen = ref(false)
+const globalSearchSampleQuery = ref('')
+const globalSearchSampleSuggestions = ['Nuxt 4', 'Vue 3', 'TypeScript', 'Accordion']
+
+const handleGlobalSearchSampleSubmit = (query: string): void => {
+  globalSearchSampleQuery.value = query
+  globalSearchPanelOpen.value = false
+}
 
 //----------------------------
 // i18n and number format
@@ -762,6 +775,36 @@ const queryPaginatedItems = computed(() => {
           alt="16 比 9 橫幅範例"
           class="aspect-video"
           loading="lazy"
+        />
+      </div>
+    </section>
+
+    <section class="space-y-6 py-4">
+      <header class="container space-y-2">
+        <h2 class="text-center text-2xl font-bold">GlobalSearchPanel 全站搜尋面板</h2>
+        <p class="text-center text-slate-600">
+          展示搜尋面板的受控開關、關鍵字標籤、Escape／點擊外部關閉與 submit 事件。
+        </p>
+      </header>
+
+      <div class="relative container max-w-3xl rounded-2xl bg-slate-50 p-6">
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <BtnDefault
+            :text="globalSearchPanelOpen ? '關閉搜尋面板' : '開啟搜尋面板'"
+            @click="globalSearchPanelOpen = !globalSearchPanelOpen"
+          />
+          <p class="text-sm text-slate-600" role="status" aria-live="polite">
+            最近搜尋：{{ globalSearchSampleQuery || '尚未搜尋' }}
+          </p>
+        </div>
+
+        <GlobalSearchPanel
+          panel-id="sample-global-search-panel"
+          :open="globalSearchPanelOpen"
+          :initial-query="globalSearchSampleQuery"
+          :suggestions="globalSearchSampleSuggestions"
+          @close="globalSearchPanelOpen = false"
+          @submit="handleGlobalSearchSampleSubmit"
         />
       </div>
     </section>

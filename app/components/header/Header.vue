@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { nextTick } from 'vue'
+
 import { featureConfig } from '~/config/features'
+import { searchSuggestions } from '~/config/search'
 import { siteConfig } from '~/config/site'
+import GlobalSearchPanel from '~/components/search/GlobalSearchPanel.vue'
 //----------------------------
 // navigation state
 //----------------------------
@@ -26,8 +30,10 @@ const breakpointHideClasses: Record<TBreakpoint, string> = {
 
 const changeBreakpoint = ref<TBreakpoint>('md')
 const isMobileMenuOpen = ref(false)
+const isSearchOpen = ref(false)
 const openDesktopMenuId = ref<string>()
 const headerElement = useTemplateRef<HTMLElement>('headerElement')
+const searchTrigger = useTemplateRef<HTMLButtonElement>('searchTrigger')
 const navHeightCssVariable = '--nav-h'
 let resizeObserver: ResizeObserver | undefined
 let appliedNavHeight: string | undefined
@@ -36,15 +42,63 @@ const breakpointHideClass = computed(() => breakpointHideClasses[changeBreakpoin
 
 const homeData = computed(() => menuItems.value.find((item) => item.id === 'home'))
 const pageData = computed(() => menuItems.value.filter((item) => item.id !== 'home'))
+const searchQuery = computed(() => {
+  const value = route.query.q
+
+  return Array.isArray(value) ? (value[0] ?? '') : (value ?? '')
+})
 
 //----------------------------
 // menu interactions
 //----------------------------
+const closeSearch = (restoreFocus = true): void => {
+  if (!isSearchOpen.value) {
+    return
+  }
+
+  isSearchOpen.value = false
+
+  if (restoreFocus) {
+    void nextTick(() => searchTrigger.value?.focus())
+  }
+}
+
+const toggleSearch = (): void => {
+  if (isSearchOpen.value) {
+    closeSearch()
+    return
+  }
+
+  isMobileMenuOpen.value = false
+  openDesktopMenuId.value = undefined
+  isSearchOpen.value = true
+}
+
+const toggleMobileMenu = (): void => {
+  if (isMobileMenuOpen.value) {
+    isMobileMenuOpen.value = false
+    return
+  }
+
+  closeSearch(false)
+  openDesktopMenuId.value = undefined
+  isMobileMenuOpen.value = true
+}
+
+const submitSearch = async (query: string): Promise<void> => {
+  closeSearch(false)
+  await navigateTo({
+    path: '/search',
+    query: { q: query },
+  })
+}
+
 watch(
   () => route.fullPath,
   () => {
     isMobileMenuOpen.value = false
     openDesktopMenuId.value = undefined
+    closeSearch(false)
   }
 )
 
@@ -212,14 +266,19 @@ onBeforeUnmount(() => {
               </span>
             </NuxtLink>
 
-            <NuxtLink
+            <button
               v-if="featureConfig.search"
-              to="/search"
+              ref="searchTrigger"
+              type="button"
+              aria-controls="global-search-panel"
+              :aria-expanded="isSearchOpen"
               :aria-label="$t('header.search.ariaLabel')"
-              class="relative"
+              class="relative rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700"
+              @pointerdown.stop
+              @click="toggleSearch"
             >
               <IconSearch />
-            </NuxtLink>
+            </button>
           </div>
 
           <button
@@ -229,7 +288,7 @@ onBeforeUnmount(() => {
             :aria-label="$t('header.hamburger.ariaLabel')"
             class="rounded-1 relative flex h-9.5 w-11 items-center justify-center"
             :class="breakpointHideClass"
-            @click="isMobileMenuOpen = !isMobileMenuOpen"
+            @click="toggleMobileMenu"
           >
             <span
               aria-hidden="true"
@@ -261,5 +320,15 @@ onBeforeUnmount(() => {
         </li>
       </ul>
     </nav>
+
+    <GlobalSearchPanel
+      v-if="featureConfig.search"
+      panel-id="global-search-panel"
+      :open="isSearchOpen"
+      :initial-query="searchQuery"
+      :suggestions="searchSuggestions"
+      @close="closeSearch"
+      @submit="submitSearch"
+    />
   </header>
 </template>

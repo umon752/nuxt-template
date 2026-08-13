@@ -77,6 +77,12 @@
 | DesktopSingleDropdownMenu   | [使用方式](header/DesktopSingleDropdownMenu/README.md)   | 桌面受控下拉選單。 |
 | MobileMenuList              | [使用方式](header/MobileMenuList/README.md)              | 手機遞迴選單。     |
 
+## 搜尋
+
+| 元件              | 文件                                           | 說明                           |
+| ----------------- | ---------------------------------------------- | ------------------------------ |
+| GlobalSearchPanel | [使用方式](search/GlobalSearchPanel/README.md) | 全站搜尋展開面板與關鍵字入口。 |
+
 ## 圖示
 
 | 元件             | 文件                                        | 說明           |
@@ -87,6 +93,7 @@
 | IconChevronLeft  | [使用方式](icon/IconChevronLeft/README.md)  | 向左箭頭。     |
 | IconChevronRight | [使用方式](icon/IconChevronRight/README.md) | 向右箭頭。     |
 | IconChevronUp    | [使用方式](icon/IconChevronUp/README.md)    | 向上箭頭。     |
+| IconClose        | [使用方式](icon/IconClose/README.md)        | 關閉。         |
 | IconCopy         | [使用方式](icon/IconCopy/README.md)         | 複製。         |
 | IconDate         | [使用方式](icon/IconDate/README.md)         | 日期／日曆。   |
 | IconDownload     | [使用方式](icon/IconDownload/README.md)     | 下載。         |

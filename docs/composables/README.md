@@ -10,6 +10,7 @@
 | `useNumberFormat`         | [使用方式](use-number-format.md)          | 依語系格式化數字與千分位。                        |
 | `useObserverFade`         | [使用方式](use-observer-fade.md)          | IntersectionObserver 與 Web Animations 捲動淡入。 |
 | `usePaginationQuery`      | [使用方式](use-pagination-query.md)       | 同步分頁狀態與 route query。                      |
+| `useSiteSearch`           | [使用方式](use-site-search.md)            | SSR-safe 全站搜尋查詢與結果狀態。                 |
 | `useSocialShare`          | [使用方式](use-social-share.md)           | 分享連結與複製剪貼簿的共用邏輯。                  |
 
 尚未文件化的既有 composable 與目前內容 hash 記錄在 `scripts/docs-consistency-baseline.json`。新增或修改 baseline 內的 composable 時，必須建立文件並移除對應 baseline 項目。
