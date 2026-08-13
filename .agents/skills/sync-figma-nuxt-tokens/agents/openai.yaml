@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Sync Figma Nuxt Tokens'
+  short_description: 'Sync Figma tokens, CDN fonts, and utilities'
+  default_prompt: 'Use $sync-figma-nuxt-tokens to inventory Figma Variables, styles, used fonts, Google Fonts CDN availability, and typography utilities from the provided design, preview the mapping, and sync confirmed changes into this Nuxt project.'

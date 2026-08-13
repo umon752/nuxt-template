@@ -8,6 +8,7 @@
 
 - 優先使用 guard clause 與 early return，避免過度巢狀的條件判斷。
 - 保持主要流程能清楚表達意圖；當實作細節使主要流程不易理解時，請將其抽離。
+- 使用 Tailwind CSS class 時，優先採用 Tailwind 內建的 utility class（例如 `p-2`），避免使用 arbitrary value（例如 `p-[8px]`）產生額外 class；只有在 Tailwind 沒有對應的預設 class 時才使用 arbitrary value。
 
 ## 規範路由
 
