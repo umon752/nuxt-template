@@ -93,7 +93,7 @@ Nuxt 會自動匯入 `Cursor`。每個 `Cursor` 實例只管理預設 slot 內�
 </Cursor>
 ```
 
-同一個 `Cursor` 區域內，元件會優先讀取指標目前所在元素或其祖先的 `data-cursor-img`；若沒有，則使用作用區域內第一個設定的元素。圖片 URL 由使用端提供，應使用可信任且已驗證的來源。
+只有當指標位於帶有 `data-cursor-img` 的元素或其子元素時，元件才會提供 `imageSrc`；移到其他內容或離開作用區域後會是 `undefined`，因此 `content` slot 可以用 `v-if="imageSrc"` 控制圖片只在指定目標上顯示。圖片 URL 由使用端提供，應使用可信任且已驗證的來源。
 
 ## 行為與限制
 

@@ -13,6 +13,10 @@ type TProps = {
   checkboxClass?: ClassValue
 }
 
+type TSlotClass = string | ((defaults: string) => string)
+
+type TCheckboxUi = Record<string, TSlotClass | undefined>
+
 defineOptions({ inheritAttrs: false })
 
 const {
@@ -28,8 +32,27 @@ const {
 const attrs = useAttrs()
 const model = defineModel<boolean | 'indeterminate'>()
 
-const checkboxClass = computed(() => cn('w-full', attrs.class as ClassValue, checkboxClassProp))
+const checkboxClass = computed(() => cn(attrs.class as ClassValue, checkboxClassProp))
 const checkboxColor = computed(() => (invalid ? 'error' : 'neutral'))
+const mergeLabelClass = (label: TSlotClass | undefined): TSlotClass | undefined => {
+  if (disabled) {
+    return label
+  }
+
+  if (typeof label === 'function') {
+    return (defaults: string) => cn(label(defaults), 'cursor-pointer')
+  }
+
+  return cn(label, 'cursor-pointer')
+}
+const checkboxUi = computed<TCheckboxUi>(() => {
+  const ui = (attrs.ui ?? {}) as TCheckboxUi
+
+  return {
+    ...ui,
+    label: mergeLabelClass(ui.label),
+  }
+})
 </script>
 
 <template>
@@ -42,6 +65,7 @@ const checkboxColor = computed(() => (invalid ? 'error' : 'neutral'))
     :required="required"
     :color="checkboxColor"
     :size="size"
+    :ui="checkboxUi"
     :aria-invalid="invalid || undefined"
     :class="checkboxClass"
   />

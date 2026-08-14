@@ -936,6 +936,7 @@ const queryPaginatedItems = computed(() => {
             <FormAppInput
               v-model="nuxtUiWrapperForm.name"
               placeholder="請輸入姓名"
+              clearable
               :invalid="!!nuxtUiWrapperNameError"
               autocomplete="name"
             />
@@ -951,6 +952,7 @@ const queryPaginatedItems = computed(() => {
               v-model="nuxtUiWrapperForm.email"
               type="email"
               placeholder="name@example.com"
+              clearable
               required
               :invalid="!!nuxtUiWrapperErrors.email"
               autocomplete="email"
@@ -967,6 +969,7 @@ const queryPaginatedItems = computed(() => {
               v-model="nuxtUiWrapperForm.phone"
               type="tel"
               placeholder="09xx-xxx-xxx"
+              clearable
               required
               :invalid="!!nuxtUiWrapperErrors.phone"
               autocomplete="tel"
@@ -1017,6 +1020,7 @@ const queryPaginatedItems = computed(() => {
                 v-model="nuxtUiWrapperForm.address"
                 placeholder="請輸入完整地址"
                 autocomplete="street-address"
+                clearable
                 required
                 :invalid="!!nuxtUiWrapperAddressError"
               />
@@ -1034,6 +1038,7 @@ const queryPaginatedItems = computed(() => {
                 placeholder="A123456789"
                 maxlength="10"
                 autocomplete="off"
+                clearable
                 :invalid="!!nuxtUiWrapperErrors.idNumber"
               />
             </FormAppFormField>
@@ -1049,6 +1054,7 @@ const queryPaginatedItems = computed(() => {
                 maxlength="8"
                 inputmode="numeric"
                 autocomplete="off"
+                clearable
                 :invalid="!!nuxtUiWrapperErrors.taxId"
               />
             </FormAppFormField>
@@ -1068,6 +1074,7 @@ const queryPaginatedItems = computed(() => {
                 minlength="8"
                 maxlength="128"
                 autocomplete="new-password"
+                clearable
                 required
                 :invalid="!!nuxtUiWrapperPasswordError"
               />
@@ -1086,6 +1093,7 @@ const queryPaginatedItems = computed(() => {
                 minlength="8"
                 maxlength="128"
                 autocomplete="new-password"
+                clearable
                 required
                 :invalid="!!nuxtUiWrapperConfirmPasswordError"
               />
@@ -1534,8 +1542,8 @@ const queryPaginatedItems = computed(() => {
           <Cursor
             trigger-class="block lg:col-span-3"
             link-hover
-            cursor-class="size-auto rounded-none bg-transparent mix-blend-normal"
-            hover-class="size-auto mix-blend-screen"
+            cursor-class="size-auto rounded-none"
+            hover-class="bg-violet-950 p-1"
             @enter="recordCursorEvent('多圖片 enter')"
             @move="recordCursorEvent('多圖片 move')"
             @leave="recordCursorEvent('多圖片 leave')"
@@ -1574,12 +1582,7 @@ const queryPaginatedItems = computed(() => {
             </article>
 
             <template #content="{ imageSrc }">
-              <img
-                v-if="imageSrc"
-                :src="imageSrc"
-                alt=""
-                class="h-24 w-40 rounded-lg bg-white object-contain p-2 shadow-lg"
-              />
+              <img v-if="imageSrc" :src="imageSrc" alt="" class="h-24 w-40 object-contain" />
             </template>
           </Cursor>
         </div>

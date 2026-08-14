@@ -181,6 +181,9 @@
     "button": {
       "defaultText": "按鈕"
     },
+    "input": {
+      "clear": "清除輸入內容"
+    },
     "breadcrumb": {
       "ariaLabel": "麵包屑"
     },

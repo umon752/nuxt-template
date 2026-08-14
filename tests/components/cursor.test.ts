@@ -99,9 +99,52 @@ describe('Cursor', () => {
       },
     })
 
-    await wrapper.get('div').trigger('pointerenter', {
+    const trigger = wrapper.get('div')
+    const imageTarget = wrapper.get('[data-cursor-img]')
+
+    await trigger.trigger('pointerenter', {
       clientX: 10,
       clientY: 20,
+      pointerType: 'mouse',
+    })
+    await imageTarget.trigger('pointermove', {
+      clientX: 10,
+      clientY: 20,
+      pointerType: 'mouse',
+    })
+    await nextTick()
+
+    expect(getCursorElement()?.querySelector('img')?.getAttribute('src')).toBe(
+      '/images/demo/test-img.jpg'
+    )
+  })
+
+  it('does not fall back to an image target outside the pointer position', async () => {
+    const wrapper = mount(Cursor, {
+      slots: {
+        default: () =>
+          h('div', [
+            h('p', '說明文字'),
+            h('button', { 'data-cursor-img': '/images/demo/test-img.jpg' }, '圖片按鈕'),
+          ]),
+        content: ({ imageSrc }) => (imageSrc ? h('img', { src: imageSrc, alt: '' }) : undefined),
+      },
+    })
+
+    const trigger = wrapper.get('div')
+
+    await trigger.trigger('pointerenter', {
+      clientX: 10,
+      clientY: 20,
+      pointerType: 'mouse',
+    })
+    await nextTick()
+
+    expect(getCursorElement()?.querySelector('img')).toBeNull()
+
+    await wrapper.get('button').trigger('pointermove', {
+      clientX: 30,
+      clientY: 40,
       pointerType: 'mouse',
     })
     await nextTick()

@@ -16,7 +16,13 @@ Nuxt 自動匯入名稱：`FormAppFormField`
     :error="emailError"
     required
   >
-    <FormAppInput v-model="email" type="email" autocomplete="email" :invalid="!!emailError" />
+    <FormAppInput
+      v-model="email"
+      type="email"
+      autocomplete="email"
+      clearable
+      :invalid="!!emailError"
+    />
   </FormAppFormField>
 </template>
 ```
@@ -35,6 +41,8 @@ Nuxt 自動匯入名稱：`FormAppFormField`
 | `fieldClass`  | `ClassValue`           | `''`    | 欄位外層 class；會與根元素 `class` 合併   |
 
 元件只有 default slot，slot 內容通常是 `FormAppInput`、`FormAppSelect` 或 `FormAppDatePicker`。`class`、`id`、`name`、`aria-*`、`data-*` 與事件等未宣告 attrs 會轉交給 `UFormField`。
+
+若需要清除輸入值，請在 slot 內的 `FormAppInput` 使用 `clearable`。清除按鈕與 `IconClose` 由輸入元件管理，會透過該元件的 `v-model` 更新值；`FormAppFormField` 本身不直接操作 slot 內控制項的 value。
 
 ## 可存取性與限制
 

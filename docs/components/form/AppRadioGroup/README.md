@@ -54,6 +54,7 @@ type TAppRadioOption = {
 ## 可存取性與限制
 
 - 群組使用 fieldset／legend 結構；每個選項由 Nuxt UI／Reka UI 處理 label、keyboard 與 focus。
+- 啟用狀態的選項 label 會使用 `cursor-pointer`；停用群組或個別 disabled option 時，保留 Nuxt UI 的 `cursor-not-allowed`。
 - `invalid` 只負責視覺與 `aria-invalid`，驗證訊息建議由 `FormAppFormField` 顯示。
 - `options` 的 `value` 應保持唯一；disabled 選項不應由父層當成有效值送出。
 - 元件沒有額外瀏覽器 API 或 cleanup 需求，可安全 SSR。

@@ -82,7 +82,7 @@ const isLinkActive = computed(() => linkHover && isLink.value)
 
 const cursorClassName = computed(() =>
   cn(
-    'pointer-events-none fixed top-0 left-0 z-[9999] flex size-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white mix-blend-difference opacity-0 scale-0 transition-[opacity,transform,width,height] duration-200 motion-reduce:transition-none',
+    'pointer-events-none fixed top-0 left-0 z-[9999] flex size-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white opacity-0 scale-0 transition-[opacity,transform,width,height] duration-200 motion-reduce:transition-none',
     cursorClassProp,
     isLinkActive.value ? hoverClassProp : '',
     isVisible.value ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
@@ -113,13 +113,11 @@ const getImageSource = (event: PointerEvent): string | undefined => {
   const target = getElementFromEvent(event)
   const targetImage = target?.closest<HTMLElement>('[data-cursor-img]')
 
-  if (targetImage && triggerWrapper.value?.contains(targetImage)) {
-    return targetImage.dataset.cursorImg || undefined
+  if (!targetImage || !triggerWrapper.value?.contains(targetImage)) {
+    return undefined
   }
 
-  const areaImage = triggerWrapper.value?.querySelector<HTMLElement>('[data-cursor-img]')
-
-  return areaImage?.dataset.cursorImg || undefined
+  return targetImage.dataset.cursorImg || undefined
 }
 
 const syncTargetState = (event: PointerEvent): void => {

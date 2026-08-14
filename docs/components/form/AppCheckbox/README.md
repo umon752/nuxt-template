@@ -37,6 +37,7 @@ const accepted = ref(false)
 
 - 優先提供清楚的 `label`；沒有 label 時應由外層可見文字或欄位結構提供名稱。
 - `invalid` 只負責視覺與 `aria-invalid`，驗證訊息建議由 `FormAppFormField` 顯示。
+- 啟用狀態的 label 會使用 `cursor-pointer`，停用時保留 Nuxt UI 的 `cursor-not-allowed`。
 - 支援 `indeterminate` model value；若不需要此狀態，使用一般 `boolean` 即可。
 - 核取、鍵盤 focus 與 disabled 行為由 Nuxt UI／Reka UI 提供，元件沒有額外 client-side side effect，可安全 SSR。
 

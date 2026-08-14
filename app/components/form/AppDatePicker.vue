@@ -48,7 +48,9 @@ const attrs = useAttrs()
 const model = defineModel<DateValue | undefined>()
 const { locale: appLocale } = useI18n()
 
-const inputClass = computed(() => cn('w-full', attrs.class as ClassValue, inputClassProp))
+const inputClass = computed(() =>
+  cn('w-full cursor-pointer', attrs.class as ClassValue, inputClassProp)
+)
 const trailingIconClass = computed(() => cn(iconClassProp))
 const calendarClass = computed(() => cn('p-3', calendarClassProp))
 const calendarUi = computed<TCalendarUi>(() => ({

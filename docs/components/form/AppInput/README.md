@@ -18,6 +18,12 @@ const name = ref('')
 </template>
 ```
 
+需要提供清除按鈕時，可搭配 `clearable`：
+
+```vue
+<FormAppInput v-model="name" clearable placeholder="請輸入姓名" />
+```
+
 ## API
 
 | Prop           | 型別                                                          | 預設值  | 說明                                    |
@@ -32,6 +38,8 @@ const name = ref('')
 | `size`         | `'sm' \| 'md' \| 'lg'`                                        | `md`    | 專案統一尺寸                            |
 | `leadingIcon`  | `string \| undefined`                                         | —       | leading icon 名稱                       |
 | `trailingIcon` | `string \| undefined`                                         | —       | trailing icon 名稱                      |
+| `clearable`    | `boolean`                                                     | `false` | 有值時是否顯示 `IconClose` 清除按鈕     |
+| `clearLabel`   | `string \| undefined`                                         | i18n    | 清除按鈕的 accessible name              |
 | `inputClass`   | `ClassValue`                                                  | `''`    | 內部輸入 class；會與根元素 `class` 合併 |
 
 `class`、`id`、`name`、`autocomplete`、`aria-*`、`data-*` 與事件等未宣告 attrs 會轉交給 `UInput`。`inputClass` 與 `class` 使用 `cn` 合併，使用端 class 可覆寫預設 utility。
@@ -40,6 +48,8 @@ const name = ref('')
 
 - 這是單一輸入控制 wrapper；label、description、error 建議搭配 `FormAppFormField`。
 - `invalid` 只負責視覺與 `aria-invalid`，不負責驗證資料。
+- `clearable` 只在輸入有值且未設定 `disabled`／`readonly` 時顯示清除按鈕；清除字串值會更新為空字串，`type="number"` 則更新為 `undefined`。
+- 清除按鈕預設使用 `components.input.clear` i18n，亦可透過 `clearLabel` 覆寫；按鈕本身可使用鍵盤操作，並會保留輸入框 focus。
 - 元件沒有瀏覽器 API 或 client-only side effect，可安全 SSR。
 - 實際 keyboard、focus 與 disabled 行為由內部 `UInput` 與原生 input 提供。
 
