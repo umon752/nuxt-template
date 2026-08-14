@@ -248,6 +248,7 @@ onBeforeUnmount(() => {
               v-if="featureConfig.account"
               to="/account"
               :aria-label="$t('header.account.ariaLabel')"
+              class="hover:text-slate-500"
             >
               <IconUser />
             </NuxtLink>
@@ -256,11 +257,11 @@ onBeforeUnmount(() => {
               v-if="featureConfig.cart"
               to="/cart"
               :aria-label="$t('header.cart.ariaLabel')"
-              class="relative"
+              class="relative hover:text-slate-500"
             >
               <IconCart />
               <span
-                class="bg-primary-500 absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-xs text-white"
+                class="bg-primary-500 absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full text-xs text-white"
               >
                 {{ 0 }}
               </span>
@@ -273,7 +274,7 @@ onBeforeUnmount(() => {
               aria-controls="global-search-panel"
               :aria-expanded="isSearchOpen"
               :aria-label="$t('header.search.ariaLabel')"
-              class="relative rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700"
+              class="relative rounded-sm hover:text-slate-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700"
               @pointerdown.stop
               @click="toggleSearch"
             >

@@ -82,7 +82,7 @@ const containerClassName = computed(() =>
 )
 const imageClassName = computed(() =>
   cn(
-    'absolute inset-0 h-full w-full transition-[opacity,scale] duration-300 motion-reduce:transition-none',
+    'absolute inset-0 size-full transition-[opacity,scale] duration-300 motion-reduce:transition-none',
     objectFitClasses[objectFit],
     isLoading.value || hasError.value ? 'opacity-0' : 'opacity-100',
     imgClass

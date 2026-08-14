@@ -1107,6 +1107,8 @@ const queryPaginatedItems = computed(() => {
           >
             <FormAppDatePicker
               v-model="nuxtUiWrapperDate"
+              icon-class="size-5"
+              calendar-cell-class="hover:not-data-selected:bg-primary-100 data-selected:bg-primary-500 data-selected:text-white"
               calendar-class="[&_[data-slot=headCell]]:text-primary-500 [&_[data-slot=cellTrigger][data-today]]:text-primary-500"
             />
           </FormAppFormField>
@@ -1162,12 +1164,7 @@ const queryPaginatedItems = computed(() => {
                 {{ nuxtUiWrapperForm.notifications ? '已啟用' : '已關閉' }}
               </p>
             </div>
-            <button
-              type="submit"
-              class="rounded-md bg-slate-900 px-4 py-2 font-medium text-white transition-colors hover:bg-slate-700"
-            >
-              送出驗證
-            </button>
+            <BtnDefault type="submit" text="送出驗證" />
           </div>
         </FormAppForm>
       </section>
@@ -1842,7 +1839,7 @@ const queryPaginatedItems = computed(() => {
         >
           <template #slide="{ item }">
             <article
-              class="h-full w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+              class="size-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
             >
               <LazyloadImageLazyLoad
                 :src="item.image"
@@ -2050,17 +2047,17 @@ const queryPaginatedItems = computed(() => {
               @error="handleSocialShareError"
             >
               <template #facebook>
-                <IconFacebook class="h-6 w-6" aria-hidden="true" />
+                <IconFacebook class="size-6" aria-hidden="true" />
               </template>
               <template #line>
-                <IconLine class="h-6 w-6" aria-hidden="true" />
+                <IconLine class="size-6" aria-hidden="true" />
               </template>
               <template #x>
-                <IconX class="h-5 w-5" aria-hidden="true" />
+                <IconX class="size-5" aria-hidden="true" />
               </template>
               <template #copy="{ label, copied }">
                 <span v-if="copied" aria-hidden="true">✓</span>
-                <span v-else aria-hidden="true"><IconCopy class="h-4 w-4" /></span>
+                <span v-else aria-hidden="true"><IconCopy class="size-4" /></span>
                 <span>{{ label }}</span>
               </template>
             </SocialShare>
@@ -2220,7 +2217,7 @@ const queryPaginatedItems = computed(() => {
                 <img
                   src="https://i.ytimg.com/vi/aqz-KE-bpKQ/sddefault.jpg"
                   alt=""
-                  class="h-full w-full object-cover"
+                  class="size-full object-cover"
                 />
               </template>
             </LazyloadIframeLazyLoad>

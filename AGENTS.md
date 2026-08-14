@@ -9,6 +9,16 @@
 - 優先使用 guard clause 與 early return，避免過度巢狀的條件判斷。
 - 保持主要流程能清楚表達意圖；當實作細節使主要流程不易理解時，請將其抽離。
 - 使用 Tailwind CSS class 時，優先採用 Tailwind 內建的 utility class（例如 `p-2`），避免使用 arbitrary value（例如 `p-[8px]`）產生額外 class；只有在 Tailwind 沒有對應的預設 class 時才使用 arbitrary value。
+- 當元素的寬度與高度一致時，優先使用 Tailwind `size-*` utility，例如 `size-6`；只有寬高不同或需要個別控制時，才使用 `w-*` 與 `h-*`。
+- 當程式碼較複雜且包含多個功能區塊時，依功能區塊整理 `state`、`handlers`、資料與 `side effects`；每個區塊前使用固定三行分隔註解，格式如下：
+
+  ```ts
+  //----------------------------
+  // cursor state
+  //----------------------------
+  ```
+
+  此規範適用於 component、page、composable、utils、scripts 等程式碼。區塊名稱使用簡短、清楚的功能名稱；簡單檔案或單一功能不必強行加入，也不需要為單一變數或單一函式個別加上分隔標示。
 
 ## 規範路由
 

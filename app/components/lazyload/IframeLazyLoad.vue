@@ -88,7 +88,7 @@ const containerClassName = computed(() =>
 )
 const iframeClassName = computed(() =>
   cn(
-    'absolute inset-0 h-full w-full border-0 transition-opacity duration-300 motion-reduce:transition-none',
+    'absolute inset-0 size-full border-0 transition-opacity duration-300 motion-reduce:transition-none',
     isLoading.value || hasError.value ? 'opacity-0' : 'opacity-100',
     iframeClass
   )

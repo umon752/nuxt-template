@@ -56,7 +56,7 @@ describe('Cursor', () => {
     const wrapper = mount(Cursor, {
       props: {
         linkHover: true,
-        hoverClass: 'w-12 h-12',
+        hoverClass: 'size-12',
       },
       slots: {
         default: () => h('a', { href: '/about' }, '連結'),
@@ -80,8 +80,7 @@ describe('Cursor', () => {
 
     const cursor = getCursorElement()
 
-    expect(cursor?.classList).toContain('w-12')
-    expect(cursor?.classList).toContain('h-12')
+    expect(cursor?.classList).toContain('size-12')
     expect(cursor?.classList).toContain('opacity-100')
   })
 

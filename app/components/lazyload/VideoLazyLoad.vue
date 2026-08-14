@@ -132,7 +132,7 @@ const objectFitClasses: Record<TObjectFit, string> = {
 }
 const videoClassName = computed(() =>
   cn(
-    'absolute inset-0 h-full w-full transition-opacity duration-300 motion-reduce:transition-none',
+    'absolute inset-0 size-full transition-opacity duration-300 motion-reduce:transition-none',
     objectFitClasses[objectFit],
     isLoading.value || hasError.value ? 'opacity-0' : 'opacity-100',
     videoClass

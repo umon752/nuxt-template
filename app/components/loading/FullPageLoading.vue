@@ -45,7 +45,7 @@ onBeforeUnmount(restoreBodyOverflow)
   >
     <div
       v-if="isLoading"
-      class="fixed inset-0 z-[99999] flex h-full w-full items-center justify-center bg-slate-950/65 px-5 text-white backdrop-blur-sm"
+      class="fixed inset-0 z-[99999] flex size-full items-center justify-center bg-slate-950/65 px-5 text-white backdrop-blur-sm"
       role="status"
       aria-live="polite"
       aria-atomic="true"

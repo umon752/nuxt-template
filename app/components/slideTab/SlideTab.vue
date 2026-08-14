@@ -107,7 +107,7 @@ const viewportClassName = computed(() =>
 const listClassName = computed(() => cn('flex w-max min-w-full items-stretch', listClass))
 const controlClassName = computed(() =>
   cn(
-    'pointer-events-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-950 text-white shadow-lg transition-opacity hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500',
+    'pointer-events-auto inline-flex size-12 items-center justify-center rounded-full bg-slate-950 text-white shadow-lg transition-opacity hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500',
     controlClass
   )
 )

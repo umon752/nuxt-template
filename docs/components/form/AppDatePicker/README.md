@@ -22,22 +22,33 @@ const date = ref<DateValue>()
 
 ## API
 
-| Prop            | 型別                     | 預設值           | 說明                                   |
-| --------------- | ------------------------ | ---------------- | -------------------------------------- |
-| `modelValue`    | `DateValue \| undefined` | —                | 目前日期；支援 `v-model`               |
-| `disabled`      | `boolean`                | `false`          | 是否停用輸入與日曆                     |
-| `readonly`      | `boolean`                | `false`          | 日期輸入是否唯讀                       |
-| `required`      | `boolean`                | `false`          | 是否必填                               |
-| `invalid`       | `boolean`                | `false`          | 以錯誤色彩呈現並輸出 `aria-invalid`    |
-| `size`          | `'sm' \| 'md' \| 'lg'`   | `md`             | 輸入尺寸                               |
-| `locale`        | `string \| undefined`    | 目前 i18n locale | 日期顯示語系；未傳入時跟隨目前頁面語系 |
-| `minValue`      | `DateValue \| undefined` | —                | 可選最小日期                           |
-| `maxValue`      | `DateValue \| undefined` | —                | 可選最大日期                           |
-| `trailingIcon`  | `string \| Component`    | `IconDate`       | 輸入右側日曆圖示                       |
-| `inputClass`    | `ClassValue`             | `''`             | 日期輸入 class                         |
-| `calendarClass` | `ClassValue`             | `''`             | 彈出日曆 class                         |
+| Prop                | 型別                     | 預設值           | 說明                                           |
+| ------------------- | ------------------------ | ---------------- | ---------------------------------------------- |
+| `modelValue`        | `DateValue \| undefined` | —                | 目前日期；支援 `v-model`                       |
+| `disabled`          | `boolean`                | `false`          | 是否停用輸入與日曆                             |
+| `readonly`          | `boolean`                | `false`          | 日期輸入是否唯讀                               |
+| `required`          | `boolean`                | `false`          | 是否必填                                       |
+| `invalid`           | `boolean`                | `false`          | 以錯誤色彩呈現並輸出 `aria-invalid`            |
+| `size`              | `'sm' \| 'md' \| 'lg'`   | `md`             | 輸入尺寸                                       |
+| `locale`            | `string \| undefined`    | 目前 i18n locale | 日期顯示語系；未傳入時跟隨目前頁面語系         |
+| `minValue`          | `DateValue \| undefined` | —                | 可選最小日期                                   |
+| `maxValue`          | `DateValue \| undefined` | —                | 可選最大日期                                   |
+| `trailingIcon`      | `string \| Component`    | `IconDate`       | 輸入右側日曆圖示                               |
+| `iconClass`         | `ClassValue`             | `''`             | 日曆圖示的 Tailwind class                      |
+| `inputClass`        | `ClassValue`             | `''`             | 日期輸入 class                                 |
+| `calendarClass`     | `ClassValue`             | `''`             | 彈出日曆 class                                 |
+| `calendarCellClass` | `ClassValue`             | `''`             | 日期格按鈕 class，可調整 hover / selected 樣式 |
 
-`DateValue` 來自 `@internationalized/date`，可使用 `CalendarDate`、`CalendarDateTime` 或 `ZonedDateTime` 等符合 Nuxt UI 日期元件契約的值。`class` 會與 `inputClass` 合併；未宣告的 attrs 與事件會轉交給內部 `UInputDate`。
+`DateValue` 來自 `@internationalized/date`，可使用 `CalendarDate`、`CalendarDateTime` 或 `ZonedDateTime` 等符合 Nuxt UI 日期元件契約的值。`class` 會與 `inputClass` 合併；`iconClass` 會直接合併到右側圖示的根節點 class，包含預設的 `IconDate` component，因此可安全覆寫 `size-*` 等 Tailwind utility；`calendarCellClass` 會直接合併到 `UCalendar` 的 `cellTrigger` slot，可用 `hover:not-data-selected:*`、`data-selected:*`、`data-today:*` 等 utility 客製日期格狀態；未宣告的 attrs 與事件會轉交給內部 `UInputDate`。
+
+例如：
+
+```vue
+<FormAppDatePicker
+  v-model="date"
+  calendar-cell-class="hover:not-data-selected:bg-primary-100 data-selected:bg-primary-500 data-selected:text-white"
+/>
+```
 
 預設日曆圖示為專案的 `IconDate` component；如需使用其他 Nuxt Icon 或自訂 component，可透過 `trailingIcon` 覆寫。
 

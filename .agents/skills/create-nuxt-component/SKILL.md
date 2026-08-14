@@ -45,7 +45,7 @@ description: 在此 Nuxt 4 專案建立新的 Vue 元件與完整交付內容。
 - `docs/components/**/README.md` 的 API、使用方式、a11y、i18n、SSR、清理與限制。
 - `docs/components/README.md` 索引。
 - 必要的 i18n keys、types、composable 或設定，但不加入無關展示或重構。
-- 頁面、元件或其他 TypeScript 邏輯的功能區塊註解遵循 [sync-component-docs](../sync-component-docs/SKILL.md) 的固定三行分隔格式，不限於 sample `<script setup>`。
+- 頁面、元件或其他 TypeScript 邏輯的功能區塊註解遵循根目錄 `AGENTS.md` 的規範。
 
 從目前原始碼推導文件與範例，不得虛構尚未實作的 API。若元件明確是內部實作且使用者要求不提供 demo，記錄此例外。
 

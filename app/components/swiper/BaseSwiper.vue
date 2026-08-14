@@ -140,7 +140,7 @@ const getButtonClassName = (disabled: boolean): string =>
 
 const getBulletClassName = (isActive: boolean): string =>
   cn(
-    'h-3 w-3 rounded-full border border-slate-400 bg-white transition-[width,background-color,border-color] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500',
+    'size-3 rounded-full border border-slate-400 bg-white transition-[width,background-color,border-color] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500',
     bulletClass,
     isActive && 'bg-primary-500 border-primary-500 w-8',
     isActive && activeBulletClass

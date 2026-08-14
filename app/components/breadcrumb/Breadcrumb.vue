@@ -30,7 +30,7 @@ const isHomeItem = (item: TBreadcrumbItem, index: number): boolean => {
         <template v-else>
           <NuxtLink v-if="item.href" :to="item.href">
             <template v-if="isHomeItem(item, index)">
-              <IconHome class="size-4 shrink-0" />
+              <IconHome class="size-4 shrink-0 hover:text-slate-500" />
               <span class="sr-only">{{ item.title }}</span>
             </template>
             <template v-else>{{ item.title }}</template>
