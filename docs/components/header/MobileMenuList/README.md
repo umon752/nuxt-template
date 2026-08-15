@@ -1,6 +1,6 @@
 # MobileMenuList
 
-遞迴渲染手機版選單；有子項目的節點使用 Accordion，葉節點則輸出 NuxtLink 或純文字。
+遞迴渲染手機版選單；有子項目的節點會依 `href` 同時提供 NuxtLink 與展開按鈕，或只提供展開按鈕，葉節點則輸出 NuxtLink 或純文字。
 
 原始碼：[MobileMenuList.vue](../../../../app/components/header/MobileMenuList.vue)
 

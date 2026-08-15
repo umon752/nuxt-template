@@ -5,6 +5,8 @@ type TMenuApiItemBase = {
   title: string
   enabled: boolean
   order: number
+  targetId?: string
+  slug?: string | null
   children?: TMenuApiItem[]
 }
 
@@ -13,9 +15,6 @@ export type TSystemMenuApiItem = TMenuApiItemBase & {
   code: SystemMenuCode
 }
 
-export type TCustomMenuApiItem = TMenuApiItemBase & {
-  type: 'custom'
-  slug: string
-}
+export type TCustomMenuApiItem = TMenuApiItemBase & { type: 'custom' }
 
 export type TMenuApiItem = TSystemMenuApiItem | TCustomMenuApiItem

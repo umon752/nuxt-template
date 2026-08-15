@@ -4,7 +4,6 @@
     "app/composables/useFullPageLoading.ts": "f32e734243a46d9dd7cef0224854c7de609702f354b0684ea801dee2e18c60b0",
     "app/composables/useGoTop.ts": "ec773bb447412b70b5673836242684dc463a1d031f775f1bdd8d43d073eba4e6",
     "app/composables/useLazyLoadObserver.ts": "2b1743fe70f8c1d535d8d6bd0ae0467ba683f350e568f5d738739ca6a48eb0ae",
-    "app/composables/useMenu.ts": "c923121a7e12ba6a9de61309f70690848ea0c2a8b352d370be8fc0cd50502e38",
     "app/composables/useModalScrollLock.ts": "a22c14be7a8ad5c938db06024af978c71d5eaf6e08bf2cdd46aebda1a19b8569",
     "app/composables/usePageMeta.ts": "94f4ba59275b1e46da4c758a2e2573fb580fc49db804da84637ff7c8b17d4f6e",
     "app/composables/usePageSchema.ts": "ebb6ed23a477eb95df9010ef4c382e765148f6360d1ddb98bfb2f39b27d3ccc9",

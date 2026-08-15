@@ -209,24 +209,41 @@ onBeforeUnmount(() => {
               @focusin="openDesktopMenu(item.id, Boolean(item.children?.length))"
               @focusout="handleDesktopMenuFocusout"
             >
-              <button
-                v-if="item.children?.length"
-                :id="`menu-trigger-${item.id}`"
-                type="button"
-                class="inline-flex items-center gap-2 px-4 py-2 hover:bg-slate-100"
-                aria-haspopup="true"
-                :aria-expanded="openDesktopMenuId === item.id"
-                :aria-controls="`submenu-${item.id}`"
-              >
-                {{ item.title }}
-                <span
-                  aria-hidden="true"
-                  class="transition-transform duration-200"
-                  :class="{ 'rotate-180': openDesktopMenuId === item.id }"
-                >
-                  <IconChevronDown />
-                </span>
-              </button>
+              <template v-if="item.children?.length">
+                <div class="flex items-center hover:bg-slate-100">
+                  <NuxtLink
+                    v-if="item.href"
+                    :to="item.href"
+                    class="inline-flex items-center gap-2 px-4 py-2"
+                  >
+                    {{ item.title }}
+                  </NuxtLink>
+                  <button
+                    :id="`menu-trigger-${item.id}`"
+                    type="button"
+                    aria-haspopup="true"
+                    :aria-expanded="openDesktopMenuId === item.id"
+                    :aria-controls="`submenu-${item.id}`"
+                    :aria-label="
+                      item.href ? $t('header.menu.toggleSubmenu', { title: item.title }) : undefined
+                    "
+                    :class="[
+                      'inline-flex items-center gap-2 py-2',
+                      item.href ? 'shrink-0 px-3' : 'px-4',
+                    ]"
+                    @click="openDesktopMenu(item.id, true)"
+                  >
+                    <span v-if="!item.href">{{ item.title }}</span>
+                    <span
+                      aria-hidden="true"
+                      class="transition-transform duration-200"
+                      :class="{ 'rotate-180': openDesktopMenuId === item.id }"
+                    >
+                      <IconChevronDown />
+                    </span>
+                  </button>
+                </div>
+              </template>
               <NuxtLink v-else-if="item.href" :to="item.href" class="px-4 py-2 hover:bg-slate-100">
                 {{ item.title }}
               </NuxtLink>

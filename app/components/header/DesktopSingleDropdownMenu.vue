@@ -108,7 +108,7 @@ const handleChildFocusout = (event: FocusEvent): void => {
     @mouseenter="refreshPosition"
     @focusin="refreshPosition"
   >
-    <ul class="bg-white shadow-lg">
+    <ul class="rounded-xs bg-white shadow-lg">
       <li
         v-for="child in item.children"
         :key="child.id"
@@ -118,17 +118,35 @@ const handleChildFocusout = (event: FocusEvent): void => {
         @focusin="openChild(child.children?.length ? child.id : undefined)"
         @focusout="handleChildFocusout"
       >
-        <button
-          v-if="child.children?.length"
-          :id="`menu-trigger-${child.id}`"
-          type="button"
-          class="hover:text-primary-500 relative block w-full px-4 py-2 pr-9 text-left whitespace-nowrap"
-          aria-haspopup="true"
-          :aria-expanded="openChildId === child.id"
-          :aria-controls="`submenu-${child.id}`"
-        >
-          {{ child.title }}
-        </button>
+        <template v-if="child.children?.length">
+          <div class="hover:text-primary-500 flex items-center hover:bg-slate-100">
+            <NuxtLink
+              v-if="child.href"
+              :to="child.href"
+              class="relative inline-flex min-w-0 flex-1 items-center gap-2 px-4 py-2 whitespace-nowrap"
+            >
+              {{ child.title }}
+            </NuxtLink>
+            <button
+              :id="`menu-trigger-${child.id}`"
+              type="button"
+              aria-haspopup="true"
+              :aria-expanded="openChildId === child.id"
+              :aria-controls="`submenu-${child.id}`"
+              :aria-label="
+                child.href ? $t('header.menu.toggleSubmenu', { title: child.title }) : undefined
+              "
+              :class="[
+                'relative inline-flex items-center gap-2 px-4 py-2',
+                child.href ? 'shrink-0' : 'flex-1 justify-between text-left',
+              ]"
+              @click="openChild(child.id)"
+            >
+              <span v-if="!child.href">{{ child.title }}</span>
+              <IconChevronRight aria-hidden="true" />
+            </button>
+          </div>
+        </template>
         <NuxtLink
           v-else-if="child.href"
           :to="child.href"

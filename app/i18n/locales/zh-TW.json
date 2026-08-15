@@ -9,7 +9,8 @@
       "logoAlt": "{name} logo"
     },
     "menu": {
-      "ariaLabel": "主選單"
+      "ariaLabel": "主選單",
+      "toggleSubmenu": "切換 {title} 子選單"
     },
     "account": {
       "ariaLabel": "會員專區"

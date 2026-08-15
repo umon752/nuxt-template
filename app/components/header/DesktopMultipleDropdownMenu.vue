@@ -63,7 +63,7 @@ const panelClass = computed((): string => {
     @mouseenter="refreshPosition"
     @focusin="refreshPosition"
   >
-    <div class="rounded-md bg-white px-6 shadow-lg">
+    <div class="rounded-xs bg-white px-6 shadow-lg">
       <div class="grid auto-cols-fr grid-flow-col gap-x-8">
         <ul v-for="(column, columnIndex) in columns" :key="columnIndex">
           <li

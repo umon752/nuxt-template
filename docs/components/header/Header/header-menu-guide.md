@@ -8,7 +8,7 @@
 
 1. `server/api/menu.get.ts` 模擬後端回傳選單資料。
 2. `app/types/menu.ts` 定義前後端共同使用的資料格式。
-3. `app/config/menu.ts` 保存固定系統功能與前端 route、icon 的對照。
+3. `app/config/menu.ts` 保存固定系統功能與前端 icon 的對照。
 4. `app/composables/useMenu.ts` 呼叫 API，並將 API 資料轉換成 Header 可使用的格式。
 5. `app/components/header/Header.vue` 顯示桌面版與手機版選單。
 
@@ -21,7 +21,7 @@ TMenuApiItem[]
     ↓
 useMenu()
     ↓
-排序、過濾停用項目、解析 route 與 icon
+排序、過濾停用項目、組合 slug route 與 icon
     ↓
 TMenuItem[]
     ↓
@@ -30,15 +30,15 @@ Header.vue
 
 ## 相關檔案
 
-| 檔案                                                  | 用途                                    |
-| ----------------------------------------------------- | --------------------------------------- |
-| `app/config/menu.ts`                                  | 固定系統功能的 code、route 與 icon 對照 |
-| `app/types/menu.ts`                                   | API 選單與子選單的 TypeScript 型別      |
-| `app/composables/useMenu.ts`                          | 呼叫 API 並轉換選單資料                 |
-| `server/api/menu.get.ts`                              | 開發期間使用的 Mock Menu API            |
-| `app/components/header/Header.vue`                    | Header 與選單畫面                       |
-| `app/components/header/DesktopSingleDropdownMenu.vue` | 桌面版遞迴子選單                        |
-| `app/components/header/MobileMenuList.vue`            | 手機版遞迴子選單                        |
+| 檔案                                                  | 用途                               |
+| ----------------------------------------------------- | ---------------------------------- |
+| `app/config/menu.ts`                                  | 固定系統功能的 code 與 icon 對照   |
+| `app/types/menu.ts`                                   | API 選單與子選單的 TypeScript 型別 |
+| `app/composables/useMenu.ts`                          | 呼叫 API 並轉換選單資料            |
+| `server/api/menu.get.ts`                              | 開發期間使用的 Mock Menu API       |
+| `app/components/header/Header.vue`                    | Header 與選單畫面                  |
+| `app/components/header/DesktopSingleDropdownMenu.vue` | 桌面版遞迴子選單                   |
+| `app/components/header/MobileMenuList.vue`            | 手機版遞迴子選單                   |
 
 ## 選單類型
 
@@ -53,6 +53,7 @@ Header.vue
   id: 'members',
   type: 'system',
   code: 'members',
+  slug: 'members',
   title: '會員管理',
   enabled: true,
   order: 3,
@@ -61,28 +62,37 @@ Header.vue
 
 欄位說明：
 
-| 欄位       | 說明                               |
-| ---------- | ---------------------------------- |
-| `id`       | 選單唯一識別值                     |
-| `type`     | 固定為 `system`                    |
-| `code`     | 對應 `systemMenuConfig` 的功能代碼 |
-| `title`    | 畫面顯示名稱                       |
-| `enabled`  | 是否顯示                           |
-| `order`    | 同一層選單的排序值，數字越小越前面 |
-| `children` | 可選的子選單陣列                   |
+| 欄位       | 說明                                            |
+| ---------- | ----------------------------------------------- |
+| `id`       | 選單唯一識別值                                  |
+| `type`     | 固定為 `system`                                 |
+| `code`     | 對應 `systemMenuConfig` 的功能代碼              |
+| `slug`     | 可選的 URL path segment，會接在父層 `href` 後方 |
+| `title`    | 畫面顯示名稱                                    |
+| `enabled`  | 是否顯示                                        |
+| `order`    | 同一層選單的排序值，數字越小越前面              |
+| `children` | 可選的子選單陣列                                |
 
-System 選單不直接信任 API 提供的 route，而是透過 `app/config/menu.ts` 取得前端已知的路由：
+`systemMenuConfig` 提供固定系統功能的 code 與 icon 對照：
 
 ```ts
 export const systemMenuConfig = {
   members: {
-    route: '/members',
     icon: 'users',
   },
 } as const
 ```
 
-這樣可以避免後端任意指定前端頁面或外部網址。
+如果 API 提供 `slug`，`useMenu()` 會將它當作單一路徑片段，接在父層 `href` 後方；這讓後台可以建立多層選單，而前端不需要為每個選單項目維護 route 對照：
+
+```text
+父層 /examples + slug basic + slug button
+→ /examples/basic/button
+```
+
+沒有提供 `slug` 時，一般 System 項目的 `href` 會是空字串，不會渲染成連結；固定的 `code: 'home'` 會保留 `/` 供網站 Logo 與 Breadcrumb 使用。`slug` 會經過 `encodeURIComponent()` 處理，不接受完整 URL；正式後端仍應限制 slug 的格式與長度，並依權限回傳可見的選單。
+
+`slug` 為空、空白或省略時，代表該項目沒有連結；父層仍可保留 `children` 作為純分組節點。Header 會依轉換後的 `href` 判斷是否渲染連結。
 
 ### Custom 選單
 
@@ -92,6 +102,7 @@ export const systemMenuConfig = {
 {
   id: 'news',
   type: 'custom',
+  targetId: 'content-news',
   slug: 'news',
   title: '最新消息',
   enabled: true,
@@ -99,7 +110,7 @@ export const systemMenuConfig = {
 }
 ```
 
-Custom 選單不需要加入 `systemMenuConfig`。目前 `useMenu()` 會將 `slug` 接在父選單路徑後方；若沒有父層路徑，則從網站根目錄開始：
+Custom 選單不需要加入 `systemMenuConfig`。`targetId` 可用來對應後台內容資料，`slug` 則由 `useMenu()` 接在父選單路徑後方；若沒有父層路徑，則從網站根目錄開始：
 
 ```text
 {parentHref}/{slug}
@@ -123,6 +134,8 @@ type TMenuApiItemBase = {
   title: string
   enabled: boolean
   order: number
+  targetId?: string
+  slug?: string | null
   children?: TMenuApiItem[]
 }
 
@@ -131,15 +144,12 @@ type TSystemMenuApiItem = TMenuApiItemBase & {
   code: SystemMenuCode
 }
 
-type TCustomMenuApiItem = TMenuApiItemBase & {
-  type: 'custom'
-  slug: string
-}
+type TCustomMenuApiItem = TMenuApiItemBase & { type: 'custom' }
 
 type TMenuApiItem = TSystemMenuApiItem | TCustomMenuApiItem
 ```
 
-`type` 是辨識欄位。當 `type` 是 `system` 時必須提供 `code`；當 `type` 是 `custom` 時必須提供 `slug`。
+`type` 是辨識欄位。當 `type` 是 `system` 時必須提供 `code`；`slug` 可用來產生目前選單階層的路徑，省略時 `href` 為空字串。當 `type` 是 `custom` 時，可用 `targetId` 對應後台內容，並以 `slug` 產生內容路徑。沒有目標的父層節點可以省略 `slug`。
 
 ## Mock API
 
@@ -155,20 +165,21 @@ Nuxt 開發伺服器啟動後，可直接在瀏覽器開啟：
 http://localhost:3000/api/menu
 ```
 
-Starter 預設回傳首頁、範例頁，以及用來展示遞迴結構的「多層選單」。示範選單包含三層子選單，葉節點都沿用目前確實存在的範例頁 route：
+Starter 預設回傳首頁、範例頁，以及用來展示遞迴結構的「多層選單」。示範選單包含三層子選單，葉節點使用階層 slug 組合路徑：
 
 ```ts
 {
   id: 'examples-pagination',
   type: 'system',
   code: 'sample',
+  slug: 'pagination',
   title: 'Pagination',
   enabled: true,
   order: 1,
 }
 ```
 
-僅作為分組的節點使用 `examples` code，其 route 是空字串，因此只有最末層項目可導覽。建立正式專案時，可替換成實際的功能與 route。
+示範選單會依各節點提供的 slug 組合出 `/examples/basic/card`、`/examples/interactive/navigation/pagination` 等路徑；`examples-button` 的 slug 為空，因此不會渲染成連結。這些頁面尚未建立，因此目前點擊有效連結後出現 404 是預期結果；正式專案應由頁面檔案或動態路由處理這些路徑。
 
 正式 API 完成後，可以將 `useMenu.ts` 的 endpoint 換成正式網址；只要回傳格式符合 `TMenuApiItem[]`，Header 不需要重新實作。
 
@@ -179,8 +190,8 @@ Starter 預設回傳首頁、範例頁，以及用來展示遞迴結構的「多
 - 呼叫 `/api/menu`。
 - 將未啟用的項目排除。
 - 依照 `order` 進行各層排序。
-- 將 System code 轉換成固定 route 與 icon。
-- 將 Custom slug 轉換成 `/content/{slug}`。
+- 將 System code、slug 與父層路徑組合成 route，並從 System code 取得 icon。
+- 保留 Custom 的 `targetId`，並依 `slug` 與父層路徑產生 route。
 - 提供載入狀態、錯誤與重新取得資料的方法。
 
 使用方式：
@@ -205,8 +216,9 @@ const { menuItems, status: menuStatus, error: menuError, refresh } = useMenu()
 - 桌面版水平主選單。
 - 桌面版以 hover 展開、可遞迴的下拉子選單。
 - 手機版展開／收合按鈕。
-- 手機版可遞迴的 Accordion 子選單。
+- 手機版可遞迴的展開／收合子選單。
 - 使用 `NuxtLink` 進行站內導航。
+- 有 `href` 的父層同時提供父層 `NuxtLink` 與獨立的子選單切換按鈕；沒有 `href` 的父層只提供切換按鈕。
 - 路由變更後自動關閉桌面與手機選單。
 - 桌面版 trigger 提供 `aria-expanded`、`aria-controls`，鍵盤 focus 也能展開，並支援 Escape 關閉與焦點返回。
 
@@ -228,7 +240,6 @@ app/pages/orders.vue
 
 ```ts
 orders: {
-  route: '/orders',
   icon: 'orders',
 },
 ```
@@ -242,6 +253,7 @@ orders: {
   id: 'orders',
   type: 'system',
   code: 'orders',
+  slug: 'orders',
   title: '訂單管理',
   enabled: true,
   order: 5,
@@ -265,7 +277,7 @@ orders: {
 }
 ```
 
-若父層 System route 是 `/content`，前端會自動產生：
+若父層 route 是 `/content`，前端會自動產生：
 
 ```text
 /content/events
@@ -322,7 +334,7 @@ permission?: string
 正式上線前建議補上以下項目：
 
 1. 使用 runtime schema 驗證 API 回傳內容，避免 TypeScript 泛型被誤認為執行階段驗證。
-2. 限制 Custom slug 可接受的字元與長度。
+2. 限制 slug 可接受的字元與長度，沒有頁面連結的分組節點省略 slug。
 3. 確保每個 `id` 在整棵選單中唯一。
 4. 定義相同 `order` 的次要排序方式。
 5. 根據登入者權限由後端過濾選單。
@@ -333,7 +345,11 @@ permission?: string
 
 ### 選單有顯示，但點擊後出現 404
 
-確認 `systemMenuConfig` 的 route 或 Custom slug 對應的 Nuxt 頁面是否存在。目前專案只有 `/` 與 `/sample` 頁面；其他 Mock route 尚未建立。
+確認 slug 組合出的路徑是否有對應 Nuxt 頁面。目前 Mock 的多層 slug 頁面尚未建立，因此會連到 404；Custom route 也需要建立對應的動態頁面。
+
+### 為什麼父層有 children 時仍可以有連結
+
+父層的 `slug` 會產生自己的 `href`，例如 `examples` 會產生 `/examples`。Header 會將父層標題渲染為 `NuxtLink`，另外提供按鈕控制子選單；若父層沒有 `href`，則只渲染展開／收合按鈕。
 
 ### API 已增加 System code，但 TypeScript 報錯
 

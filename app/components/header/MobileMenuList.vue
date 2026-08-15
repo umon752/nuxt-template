@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { TAccordionItem } from '~/components/accordion/Accordion.vue'
 import type { TMenuItem } from '~/composables/useMenu'
 import { computed } from 'vue'
 
@@ -15,58 +14,62 @@ const activeItemsById = reactive<Record<string, number[]>>(
   Object.fromEntries(props.items.map((item) => [item.id, []]))
 )
 
-function isMenuItem(value: unknown): value is TMenuItem {
-  return (
-    typeof value === 'object' &&
-    value !== null &&
-    'id' in value &&
-    typeof value.id === 'string' &&
-    'title' in value &&
-    typeof value.title === 'string' &&
-    'href' in value &&
-    typeof value.href === 'string' &&
-    'icon' in value &&
-    typeof value.icon === 'string'
-  )
+const isItemExpanded = (itemId: string): boolean => {
+  return activeItemsById[itemId]?.includes(0) ?? false
 }
 
-function childrenOf(item: TAccordionItem): TMenuItem[] {
-  return Array.isArray(item.children) ? item.children.filter(isMenuItem) : []
+const toggleItem = (itemId: string): void => {
+  activeItemsById[itemId] = isItemExpanded(itemId) ? [] : [0]
+}
+
+function childrenOf(item: TMenuItem): TMenuItem[] {
+  return item.children ?? []
 }
 </script>
 
 <template>
   <ul>
     <li v-for="item in props.items" :key="item.id">
-      <div v-if="item.children?.length">
-        <Accordion
-          :active-items="activeItemsById[item.id] ?? []"
-          :items="[item]"
-          :collapse-others="false"
-          title-class="p-0"
-          content-class="p-0"
-          @update:active-items="activeItemsById[item.id] = $event"
+      <div v-if="item.children?.length" class="border-b border-solid border-gray-200">
+        <div class="flex items-center" :style="{ paddingLeft: `${level * 16}px` }">
+          <NuxtLink v-if="item.href" :to="item.href" class="min-w-0 flex-1 py-3">
+            {{ item.title }}
+          </NuxtLink>
+          <button
+            :id="`mobile-menu-trigger-${item.id}`"
+            type="button"
+            :aria-expanded="isItemExpanded(item.id)"
+            :aria-controls="`mobile-menu-content-${item.id}`"
+            :aria-label="
+              item.href ? $t('header.menu.toggleSubmenu', { title: item.title }) : undefined
+            "
+            :class="[
+              'inline-flex items-center py-3',
+              item.href ? 'shrink-0 px-3' : 'w-full justify-between px-0 text-left',
+            ]"
+            @click="toggleItem(item.id)"
+          >
+            <span v-if="!item.href">{{ item.title }}</span>
+            <IconChevronDown
+              aria-hidden="true"
+              class="transition-transform duration-200"
+              :class="{ 'rotate-180': isItemExpanded(item.id) }"
+            />
+          </button>
+        </div>
+        <div
+          :id="`mobile-menu-content-${item.id}`"
+          class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+          :class="isItemExpanded(item.id) ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
+          role="region"
+          :aria-labelledby="`mobile-menu-trigger-${item.id}`"
+          :aria-hidden="!isItemExpanded(item.id)"
+          :inert="!isItemExpanded(item.id)"
         >
-          <template #title="{ item: aItem, isActive }">
-            <div
-              class="flex items-center justify-between border-b border-solid border-gray-200 py-3"
-              :style="{ paddingLeft: `${level * 16}px` }"
-            >
-              <span>{{ aItem.title }}</span>
-              <span
-                aria-hidden="true"
-                class="transition-transform duration-200"
-                :class="{ 'rotate-180': isActive }"
-              >
-                <IconChevronDown />
-              </span>
-            </div>
-          </template>
-
-          <template #content="{ item: aItem }">
-            <MobileMenuList :items="childrenOf(aItem)" :level="level + 1" />
-          </template>
-        </Accordion>
+          <div class="overflow-hidden">
+            <MobileMenuList :items="childrenOf(item)" :level="level + 1" />
+          </div>
+        </div>
       </div>
 
       <div

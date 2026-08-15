@@ -22,4 +22,4 @@
 | `panelId` | `string`    | `submenu-{item.id}` | 面板 ID，需與 trigger 的 `aria-controls` 對應。 |
 | `open`    | `boolean`   | `false`             | 是否開啟面板。                                  |
 
-Event：`close`。按 Escape 時會觸發 `close` 並將焦點回到 `id="menu-trigger-{item.id}"` 的觸發按鈕。
+有子選單的項目如果有 `href`，會同時渲染父層 `NuxtLink` 與獨立的 submenu toggle button；沒有 `href` 時只渲染 toggle button。Event：`close`。按 Escape 時會觸發 `close` 並將焦點回到 `id="menu-trigger-{item.id}"` 的觸發按鈕。

@@ -6,6 +6,8 @@ export type TMenuItem = {
   title: string
   href: string
   icon: string
+  targetId?: string
+  slug?: string
   children?: TMenuItem[]
 }
 
@@ -18,23 +20,14 @@ function joinMenuPath(parentHref: string | undefined, slug: string): string {
 function transformMenuItem(item: TMenuApiItem, parentHref?: string): TMenuItem | undefined {
   if (!item.enabled) return undefined
 
-  let href = ''
-  let icon = ''
-
-  if (item.type === 'custom') {
-    // 若 slug 不存在或為空字串，就不要產生 href
-    const slug = (item.slug ?? '').toString().trim()
-    if (slug) {
-      href = joinMenuPath(parentHref, slug)
-    } else {
-      href = ''
-    }
-  } else {
-    const config = systemMenuConfig[item.code]
-
-    href = config.route
-    icon = config.icon
-  }
+  const slug = typeof item.slug === 'string' ? item.slug.trim() : ''
+  const config = item.type === 'system' ? systemMenuConfig[item.code] : undefined
+  const href = slug
+    ? joinMenuPath(parentHref, slug)
+    : item.type === 'system' && item.code === 'home'
+      ? '/'
+      : ''
+  const icon = config?.icon || ''
 
   const children = item.children
     ?.slice()
@@ -47,6 +40,8 @@ function transformMenuItem(item: TMenuApiItem, parentHref?: string): TMenuItem |
     title: item.title,
     href,
     icon,
+    targetId: item.targetId,
+    slug: slug || undefined,
     children: children?.length ? children : undefined,
   }
 }
