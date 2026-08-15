@@ -20,16 +20,17 @@ description: 驗證 repository 或 Git worktree 的變更並建立符合專案�
 
 1. 只格式化 commit scope 內的 changed files；不要執行會改寫大量無關檔案的全域格式化。
 2. 依 `AGENTS.md` 的驗證矩陣執行適用命令，通常包含 `npm run check`、`npm run check:docs` 與 `git diff --check`。
-3. 新元件、Nuxt config、server route、SSR、build 或 production 行為變更時執行 `npm run build`。
-4. 若檢查失敗，修正本次變更造成的問題後重跑；既有或無關失敗必須明確回報，不得假稱通過。
-5. 檢查最終 diff，確認沒有 debug code、暫存檔、secret、非預期 generated files 或無關格式變更。
+3. Commit 前執行測試時，確認測試流程是否會修改受 Git 管理、可能納入 commit 的檔案、snapshot、fixture 或其他測試內容；若會修改，先停止並回報命令、受影響檔案與預期變更，等待使用者確認後才可執行。格式化、lint、build 與其他非測試命令的內容變更不受此確認限制；已被 `.gitignore` 排除且不會納入 commit 的暫存 cache、coverage 或 runtime 產物亦不在此限。
+4. 新元件、Nuxt config、server route、SSR、build 或 production 行為變更時執行 `npm run build`。
+5. 若檢查失敗，修正本次變更造成的問題後重跑；既有或無關失敗必須明確回報，不得假稱通過。
+6. 檢查最終 diff，確認沒有 debug code、暫存檔、secret、非預期 generated files 或無關格式變更。
 
 ## Stage 與 Commit
 
 1. 使用明確檔案路徑 stage 確認過的 scope；避免在混合 worktree 中盲目執行 `git add -A`。
 2. 檢查 `git diff --cached --check`、`git diff --cached --stat` 與 staged diff。
 3. 依專案規範產生英文小寫 commit message：`<type>: <imperative verb> <description>`。
-4. 使用者已明確要求 commit 時，不因訊息措辭再要求一次確認；scope 或風險有實質歧義時才停下詢問。
+4. 使用者已明確要求 commit 時，不因訊息措辭再要求一次確認；但測試內容變更的確認規則除外；scope 或風險有實質歧義時才停下詢問。
 5. 建立 commit 後執行 `git status --short`，確認結果並記錄 commit hash。
 
 不得 amend、rebase、reset、刪除 Git lock、push 或改寫歷史，除非使用者明確要求對應操作。遇到 `.git/index.lock` 時，先確認是否有 Git process；不得未經確認直接刪除 lock。

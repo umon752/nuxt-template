@@ -49,6 +49,7 @@
 - 快速驗證（迭代預設）：只格式化本次變更檔案，並執行受影響的 docs consistency、targeted unit／component test 或 targeted integration test。純文件、sample 文字或不影響行為的樣式變更，不必啟動整合測試。
 - TypeScript、公開 API、SSR、hydration 或 browser API 變更：依風險補跑 typecheck、lint 與受影響測試。
 - 完整驗證（交付前、使用者要求，或新增元件／公開契約／Nuxt runtime／production 行為變更）：依適用範圍執行 `npm run check`、`npm run check:docs`、`npm run test` 與 `npm run build`。整合測試也可先以 `npm run test:integration -- <test-file>` targeted 執行，避免迭代時啟動整個 suite。
+- Commit 前執行測試時，若測試流程會修改受 Git 管理、可能納入 commit 的檔案、snapshot、fixture 或其他測試內容，必須先停止，回報命令、受影響檔案與預期變更，等待使用者確認後才可執行。格式化、lint、build 與其他非測試命令的內容變更不受此確認規則限制；已被 `.gitignore` 排除且不會納入 commit 的暫存 cache、coverage 或 runtime 產物亦不在此限。
 - 靜態輸出相關變更：`npm run generate`
 - 最後一律執行 `git diff --check` 並檢查完整 diff
 
