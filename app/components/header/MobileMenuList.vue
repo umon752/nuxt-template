@@ -28,7 +28,7 @@ function childrenOf(item: TMenuItem): TMenuItem[] {
 </script>
 
 <template>
-  <ul>
+  <ul :class="{ '[&>li:last-child>div]:border-b-0': level > 0 }">
     <li v-for="item in props.items" :key="item.id">
       <div v-if="item.children?.length" class="border-b border-solid border-gray-200">
         <div class="flex items-center" :style="{ paddingLeft: `${level * 16}px` }">

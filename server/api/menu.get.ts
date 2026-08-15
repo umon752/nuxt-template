@@ -1,3 +1,5 @@
+import { getLocale } from '#server/utils/getLocale'
+import { getMessages } from '#server/utils/getMessages'
 import type { TMenuApiItem } from '~/types/menu'
 
 const mockMenuItems: TMenuApiItem[] = [
@@ -129,4 +131,21 @@ const mockMenuItems: TMenuApiItem[] = [
   },
 ]
 
-export default defineEventHandler((): TMenuApiItem[] => mockMenuItems)
+function localizeMenuItem(
+  item: TMenuApiItem,
+  titles: Record<string, string>,
+  fallbackTitles: Record<string, string>
+): TMenuApiItem {
+  return {
+    ...item,
+    title: titles[item.id] ?? fallbackTitles[item.id] ?? item.title,
+    children: item.children?.map((child) => localizeMenuItem(child, titles, fallbackTitles)),
+  }
+}
+
+export default defineEventHandler((event): TMenuApiItem[] => {
+  const menuTitles = getMessages(getLocale(event)).header.menu.items
+  const fallbackMenuTitles = getMessages('zh-TW').header.menu.items
+
+  return mockMenuItems.map((item) => localizeMenuItem(item, menuTitles, fallbackMenuTitles))
+})

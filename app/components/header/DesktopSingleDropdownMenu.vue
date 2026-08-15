@@ -123,11 +123,13 @@ const handleChildFocusout = (event: FocusEvent): void => {
             <NuxtLink
               v-if="child.href"
               :to="child.href"
-              class="relative inline-flex min-w-0 flex-1 items-center gap-2 px-4 py-2 whitespace-nowrap"
+              class="relative inline-flex min-w-0 flex-1 items-center justify-between gap-2 px-4 py-2 whitespace-nowrap"
             >
               {{ child.title }}
+              <IconChevronRight aria-hidden="true" />
             </NuxtLink>
             <button
+              v-else
               :id="`menu-trigger-${child.id}`"
               type="button"
               aria-haspopup="true"
@@ -136,13 +138,10 @@ const handleChildFocusout = (event: FocusEvent): void => {
               :aria-label="
                 child.href ? $t('header.menu.toggleSubmenu', { title: child.title }) : undefined
               "
-              :class="[
-                'relative inline-flex items-center gap-2 px-4 py-2',
-                child.href ? 'shrink-0' : 'flex-1 justify-between text-left',
-              ]"
+              class="relative inline-flex items-center justify-between gap-2 px-4 py-2"
               @click="openChild(child.id)"
             >
-              <span v-if="!child.href">{{ child.title }}</span>
+              <span>{{ child.title }}</span>
               <IconChevronRight aria-hidden="true" />
             </button>
           </div>

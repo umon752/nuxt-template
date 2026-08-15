@@ -1,3 +1,4 @@
+import { DEFAULT_LOCALE, isLocaleCode, type TLocaleCode } from '~/constants/locales'
 import { systemMenuConfig } from '~/config/menu'
 import type { TMenuApiItem } from '~/types/menu'
 
@@ -47,7 +48,13 @@ function transformMenuItem(item: TMenuApiItem, parentHref?: string): TMenuItem |
 }
 
 function createMenuState() {
+  const { locale } = useI18n()
+  const menuLocale = computed<TLocaleCode>(() =>
+    isLocaleCode(locale.value) ? locale.value : DEFAULT_LOCALE
+  )
+  const requestQuery = computed(() => ({ locale: menuLocale.value }))
   const { data, status, error, refresh } = useFetch<TMenuApiItem[]>('/api/menu', {
+    query: requestQuery,
     default: () => [],
   })
 

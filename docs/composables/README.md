@@ -7,6 +7,7 @@
 | `useDrag`                 | [使用方式](use-drag.md)                   | Pointer Events 水平拖曳。                         |
 | `useDropdownMenuPosition` | [使用方式](use-dropdown-menu-position.md) | 計算桌面版下拉選單面板位置。                      |
 | `useFormValidation`       | [使用方式](use-form-validation.md)        | 共用 Email、電話、身分證與統編欄位驗證。          |
+| `useLocaleSwitcher`       | [使用方式](use-locale-switcher.md)        | 共用語系狀態、localized route 與切換方法。        |
 | `useMenu`                 | [使用方式](use-menu.md)                   | 取得、排序並轉換 Header 多層選單資料。            |
 | `useNumberFormat`         | [使用方式](use-number-format.md)          | 依語系格式化數字與千分位。                        |
 | `useObserverFade`         | [使用方式](use-observer-fade.md)          | IntersectionObserver 與 Web Animations 捲動淡入。 |

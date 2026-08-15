@@ -70,12 +70,13 @@
 
 ## Header 與選單
 
-| 元件                        | 文件                                                     | 說明               |
-| --------------------------- | -------------------------------------------------------- | ------------------ |
-| Header                      | [使用方式](header/Header/README.md)                      | 網站共用頁首。     |
-| DesktopMultipleDropdownMenu | [使用方式](header/DesktopMultipleDropdownMenu/README.md) | 桌面多欄下拉選單。 |
-| DesktopSingleDropdownMenu   | [使用方式](header/DesktopSingleDropdownMenu/README.md)   | 桌面受控下拉選單。 |
-| MobileMenuList              | [使用方式](header/MobileMenuList/README.md)              | 手機遞迴選單。     |
+| 元件                        | 文件                                                     | 說明                      |
+| --------------------------- | -------------------------------------------------------- | ------------------------- |
+| Header                      | [使用方式](header/Header/README.md)                      | 網站共用頁首。            |
+| LanguageSwitcher            | [使用方式](header/LanguageSwitcher/README.md)            | Header 語系切換下拉選單。 |
+| DesktopMultipleDropdownMenu | [使用方式](header/DesktopMultipleDropdownMenu/README.md) | 桌面多欄下拉選單。        |
+| DesktopSingleDropdownMenu   | [使用方式](header/DesktopSingleDropdownMenu/README.md)   | 桌面受控下拉選單。        |
+| MobileMenuList              | [使用方式](header/MobileMenuList/README.md)              | 手機遞迴選單。            |
 
 ## 搜尋
 

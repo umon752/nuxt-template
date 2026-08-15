@@ -39,11 +39,11 @@ export default defineNuxtConfig({
         language: 'zh-Hant',
         file: 'zh-TW.json',
       },
-      // {
-      //   code: 'en',
-      //   language: 'en-US',
-      //   file: 'en.json',
-      // },
+      {
+        code: 'en',
+        language: 'en-US',
+        file: 'en.json',
+      },
       // {
       //   code: 'ja',
       //   language: 'ja',
@@ -51,6 +51,12 @@ export default defineNuxtConfig({
       // },
     ],
     defaultLocale: 'zh-TW',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      fallbackLocale: 'zh-TW',
+      redirectOn: 'root',
+    },
   },
 
   site: {

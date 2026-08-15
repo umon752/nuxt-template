@@ -6,7 +6,7 @@
 
 目前選單採用「後端提供資料，前端控制功能對照與呈現」的方式：
 
-1. `server/api/menu.get.ts` 模擬後端回傳選單資料。
+1. `server/api/menu.get.ts` 依 query locale 模擬後端回傳選單資料。
 2. `app/types/menu.ts` 定義前後端共同使用的資料格式。
 3. `app/config/menu.ts` 保存固定系統功能與前端 icon 的對照。
 4. `app/composables/useMenu.ts` 呼叫 API，並將 API 資料轉換成 Header 可使用的格式。
@@ -15,13 +15,13 @@
 資料流程如下：
 
 ```text
-GET /api/menu
+GET /api/menu?locale=zh-TW
     ↓
 TMenuApiItem[]
     ↓
 useMenu()
     ↓
-排序、過濾停用項目、組合 slug route 與 icon
+依 locale 取得標題、排序、過濾停用項目、組合 slug route 與 icon
     ↓
 TMenuItem[]
     ↓
@@ -35,7 +35,7 @@ Header.vue
 | `app/config/menu.ts`                                  | 固定系統功能的 code 與 icon 對照   |
 | `app/types/menu.ts`                                   | API 選單與子選單的 TypeScript 型別 |
 | `app/composables/useMenu.ts`                          | 呼叫 API 並轉換選單資料            |
-| `server/api/menu.get.ts`                              | 開發期間使用的 Mock Menu API       |
+| `server/api/menu.get.ts`                              | 依 locale 回傳標題的 Mock Menu API |
 | `app/components/header/Header.vue`                    | Header 與選單畫面                  |
 | `app/components/header/DesktopSingleDropdownMenu.vue` | 桌面版遞迴子選單                   |
 | `app/components/header/MobileMenuList.vue`            | 手機版遞迴子選單                   |
@@ -159,6 +159,15 @@ type TMenuApiItem = TSystemMenuApiItem | TCustomMenuApiItem
 GET /api/menu
 ```
 
+可使用 `locale` query 指定回傳語系：
+
+```text
+GET /api/menu?locale=zh-TW
+GET /api/menu?locale=en
+```
+
+缺少或不支援的 locale 會回退 `zh-TW`。正式 API 也應依請求 locale 回傳已翻譯的 `title`，不應讓 Header 自行猜測後端內容語系。
+
 Nuxt 開發伺服器啟動後，可直接在瀏覽器開啟：
 
 ```text
@@ -187,7 +196,7 @@ Starter 預設回傳首頁、範例頁，以及用來展示遞迴結構的「多
 
 `useMenu()` 負責：
 
-- 呼叫 `/api/menu`。
+- 依目前 locale 呼叫 `/api/menu?locale={locale}`。
 - 將未啟用的項目排除。
 - 依照 `order` 進行各層排序。
 - 將 System code、slug 與父層路徑組合成 route，並從 System code 取得 icon。
@@ -221,6 +230,7 @@ const { menuItems, status: menuStatus, error: menuError, refresh } = useMenu()
 - 有 `href` 的父層同時提供父層 `NuxtLink` 與獨立的子選單切換按鈕；沒有 `href` 的父層只提供切換按鈕。
 - 路由變更後自動關閉桌面與手機選單。
 - 桌面版 trigger 提供 `aria-expanded`、`aria-controls`，鍵盤 focus 也能展開，並支援 Escape 關閉與焦點返回。
+- 右側工具列提供 `HeaderLanguageSwitcher`，可在 `zh-TW` 與 `en` 間切換並保留目前 route、query 與 hash。
 
 API 型別與桌面、手機選單元件都允許遞迴的 `children`。選單資料仍應控制合理深度，避免過深的導覽結構影響操作性。
 

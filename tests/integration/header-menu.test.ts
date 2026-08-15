@@ -22,7 +22,7 @@ const NuxtLinkStub = defineComponent({
 })
 
 describe('header menu integration', () => {
-  it('renders a linked parent with a separate submenu toggle', async () => {
+  it('renders a linked parent with an inline submenu indicator', async () => {
     const unregisterEndpoint = registerEndpoint('/api/menu', () => [
       {
         id: 'examples',
@@ -69,15 +69,11 @@ describe('header menu integration', () => {
 
       await vi.waitFor(() => expect(wrapper.text()).toContain('按鈕元件'), { timeout: 5000 })
       const parentLink = wrapper.findAll('a').find((link) => link.text() === '多層選單')
-      const parentToggle = wrapper.get('#menu-trigger-examples')
       const buttonLink = wrapper.findAll('a').find((link) => link.text() === '按鈕元件')
 
       expect(parentLink?.attributes('href')).toBe('/examples')
-      expect(parentToggle.attributes('aria-expanded')).toBe('false')
+      expect(parentLink?.find('[aria-hidden="true"]').exists()).toBe(true)
       expect(buttonLink?.attributes('href')).toBe('/examples/basic/button')
-
-      await parentToggle.trigger('click')
-      expect(parentToggle.attributes('aria-expanded')).toBe('true')
     } finally {
       unregisterEndpoint()
     }

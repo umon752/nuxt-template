@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { TLanguageSwitcherInstance } from '~/components/header/LanguageSwitcher.vue'
 import { nextTick } from 'vue'
 
 import { featureConfig } from '~/config/features'
@@ -33,6 +34,7 @@ const isMobileMenuOpen = ref(false)
 const isSearchOpen = ref(false)
 const openDesktopMenuId = ref<string>()
 const headerElement = useTemplateRef<HTMLElement>('headerElement')
+const languageSwitcher = useTemplateRef<TLanguageSwitcherInstance>('languageSwitcher')
 const searchTrigger = useTemplateRef<HTMLButtonElement>('searchTrigger')
 const navHeightCssVariable = '--nav-h'
 let resizeObserver: ResizeObserver | undefined
@@ -63,12 +65,23 @@ const closeSearch = (restoreFocus = true): void => {
   }
 }
 
+const closeLanguageSwitcher = (restoreFocus = false): void => {
+  languageSwitcher.value?.close(restoreFocus)
+}
+
+const handleLanguageSwitcherOpen = (): void => {
+  closeSearch(false)
+  isMobileMenuOpen.value = false
+  openDesktopMenuId.value = undefined
+}
+
 const toggleSearch = (): void => {
   if (isSearchOpen.value) {
     closeSearch()
     return
   }
 
+  closeLanguageSwitcher()
   isMobileMenuOpen.value = false
   openDesktopMenuId.value = undefined
   isSearchOpen.value = true
@@ -80,6 +93,7 @@ const toggleMobileMenu = (): void => {
     return
   }
 
+  closeLanguageSwitcher()
   closeSearch(false)
   openDesktopMenuId.value = undefined
   isMobileMenuOpen.value = true
@@ -99,6 +113,7 @@ watch(
     isMobileMenuOpen.value = false
     openDesktopMenuId.value = undefined
     closeSearch(false)
+    closeLanguageSwitcher()
   }
 )
 
@@ -217,8 +232,16 @@ onBeforeUnmount(() => {
                     class="inline-flex items-center gap-2 px-4 py-2"
                   >
                     {{ item.title }}
+                    <span
+                      aria-hidden="true"
+                      class="transition-transform duration-200"
+                      :class="{ 'rotate-180': openDesktopMenuId === item.id }"
+                    >
+                      <IconChevronDown />
+                    </span>
                   </NuxtLink>
                   <button
+                    v-else
                     :id="`menu-trigger-${item.id}`"
                     type="button"
                     aria-haspopup="true"
@@ -227,13 +250,10 @@ onBeforeUnmount(() => {
                     :aria-label="
                       item.href ? $t('header.menu.toggleSubmenu', { title: item.title }) : undefined
                     "
-                    :class="[
-                      'inline-flex items-center gap-2 py-2',
-                      item.href ? 'shrink-0 px-3' : 'px-4',
-                    ]"
+                    class="inline-flex items-center gap-2 py-2"
                     @click="openDesktopMenu(item.id, true)"
                   >
-                    <span v-if="!item.href">{{ item.title }}</span>
+                    <span>{{ item.title }}</span>
                     <span
                       aria-hidden="true"
                       class="transition-transform duration-200"
@@ -261,6 +281,8 @@ onBeforeUnmount(() => {
 
         <div class="flex items-center gap-2">
           <div class="flex items-center gap-2">
+            <HeaderLanguageSwitcher ref="languageSwitcher" @open="handleLanguageSwitcherOpen" />
+
             <NuxtLink
               v-if="featureConfig.account"
               to="/account"

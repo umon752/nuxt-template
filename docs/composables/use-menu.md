@@ -1,6 +1,6 @@
 # useMenu 使用說明
 
-`useMenu` 取得 Header 的遞迴選單資料，負責排序、排除停用項目，並將 API 的 System code 或 slug 轉換成可供 `NuxtLink` 使用的 `href`。
+`useMenu` 取得 Header 的遞迴選單資料，依目前 locale 請求 API，負責排序、排除停用項目，並將 API 的 System code 或 slug 轉換成可供 `NuxtLink` 使用的 `href`。
 
 原始碼：[useMenu.ts](../../app/composables/useMenu.ts)
 
@@ -18,12 +18,12 @@ const { menuItems, status, error, refresh } = useMenu()
 
 `useMenu()` 不接受 options，回傳值如下：
 
-| 欄位        | 型別                             | 說明                            |
-| ----------- | -------------------------------- | ------------------------------- |
-| `menuItems` | `ComputedRef<TMenuItem[]>`       | 排序與 route 轉換完成的選單樹。 |
-| `status`    | Nuxt `useFetch` status           | API 請求狀態。                  |
-| `error`     | Nuxt `useFetch` error            | API 錯誤，沒有錯誤時為 `null`。 |
-| `refresh`   | Nuxt `useFetch` refresh function | 重新取得 `/api/menu`。          |
+| 欄位        | 型別                             | 說明                                 |
+| ----------- | -------------------------------- | ------------------------------------ |
+| `menuItems` | `ComputedRef<TMenuItem[]>`       | 排序與 route 轉換完成的選單樹。      |
+| `status`    | Nuxt `useFetch` status           | API 請求狀態。                       |
+| `error`     | Nuxt `useFetch` error            | API 錯誤，沒有錯誤時為 `null`。      |
+| `refresh`   | Nuxt `useFetch` refresh function | 依目前 locale 重新取得 `/api/menu`。 |
 
 公開的 `TMenuItem` 包含：
 
@@ -41,9 +41,11 @@ type TMenuItem = {
 
 ## 資料來源與轉換
 
-Composable 使用 Nuxt `useFetch<TMenuApiItem[]>('/api/menu')` 取得選單。開發期間 `/api/menu` 由 `server/api/menu.get.ts` 提供 Mock 資料；正式環境可以替換 endpoint，只要回傳格式符合 `TMenuApiItem[]` 即可。
+Composable 使用 Nuxt `useFetch<TMenuApiItem[]>('/api/menu', { query: { locale } })` 取得選單。locale 改變時會重新請求；開發期間 `/api/menu` 由 `server/api/menu.get.ts` 提供依 locale 回傳標題的 Mock 資料。正式環境可以替換 endpoint，只要依 locale 回傳符合 `TMenuApiItem[]` 的資料即可。
 
 每一層都會依 `order` 由小到大排序，`enabled: false` 的節點與其整個分支會被排除。
+
+API 的 locale 只接受 `zh-TW` 與 `en`；缺少或不支援的值回退 `zh-TW`。前端也會將不支援的目前 locale 正規化為 `zh-TW`。
 
 ### System 選單
 
@@ -92,6 +94,7 @@ Custom 項目可以用 `targetId` 對應後台內容資料，使用 `slug` 產�
 ## SSR 與錯誤處理
 
 - `useFetch` 適合在 Nuxt setup context 使用，支援 SSR 初次取得資料與 hydration payload 重用。
+- `query` 會反映目前 locale，因此語系切換後 Header、Sitemap 與其他呼叫端會取得對應的選單標題。
 - `default: () => []` 讓 API 尚未完成或初始狀態時，`menuItems` 保持空陣列。
 - Composable 不會自行顯示錯誤 UI；呼叫端可依 `status` 與 `error` 決定顯示 fallback、重試按鈕或隱藏導覽。
 - API 回傳內容目前依 TypeScript 型別描述，沒有 runtime schema 驗證；正式後端串接時仍應驗證 `id`、`code`、`slug` 與 `children`。

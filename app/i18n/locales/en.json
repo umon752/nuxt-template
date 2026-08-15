@@ -1,0 +1,316 @@
+{
+  "site": {
+    "name": "Website Name",
+    "shortName": "Website Name",
+    "description": "Website description"
+  },
+  "header": {
+    "home": {
+      "logoAlt": "{name} logo"
+    },
+    "menu": {
+      "ariaLabel": "Main menu",
+      "toggleSubmenu": "Toggle {title} submenu",
+      "items": {
+        "home": "Home",
+        "sample": "Sample Page",
+        "examples": "Examples",
+        "examples-basic": "Basic Components",
+        "examples-button": "Button",
+        "examples-card": "Card",
+        "examples-interactive": "Interactive Components",
+        "examples-accordion": "Accordion",
+        "examples-navigation": "Navigation",
+        "examples-pagination": "Pagination",
+        "examples-breadcrumb": "Breadcrumb",
+        "examples-layout": "Layout Components",
+        "examples-header": "Page Header"
+      }
+    },
+    "language": {
+      "ariaLabel": "Change language",
+      "menuAriaLabel": "Language options",
+      "switchTo": "Switch to {language}",
+      "names": {
+        "zhTW": "中文",
+        "en": "English"
+      }
+    },
+    "account": {
+      "ariaLabel": "Member area"
+    },
+    "cart": {
+      "ariaLabel": "Shopping cart"
+    },
+    "search": {
+      "ariaLabel": "Search"
+    },
+    "hamburger": {
+      "ariaLabel": "Toggle main menu"
+    }
+  },
+  "search": {
+    "panel": {
+      "inputLabel": "Search site content",
+      "placeholder": "Enter search keywords",
+      "submit": "Submit search",
+      "close": "Close search",
+      "suggestionsTitle": "Popular searches"
+    }
+  },
+  "footer": {
+    "navigationAriaLabel": "Footer navigation",
+    "sitemap": "Sitemap",
+    "privacy": "Privacy policy",
+    "copyright": "Copyright © {year} {name} All Rights Reserved."
+  },
+  "common": {
+    "readMore": "Read more",
+    "submit": "Submit"
+  },
+  "pages": {
+    "home": {
+      "meta": {
+        "title": "Home",
+        "description": "Home page description"
+      }
+    },
+    "search": {
+      "meta": {
+        "title": "Search results",
+        "description": "Search the pages and content on this website."
+      },
+      "inputLabel": "Search site content",
+      "placeholder": "Search this website",
+      "submit": "Search",
+      "resultsTitle": "Search results",
+      "resultsListAriaLabel": "Search results list",
+      "intro": "Enter a keyword to start searching.",
+      "loading": "Searching, please wait.",
+      "error": "Search is temporarily unavailable. Please try again later.",
+      "resultCount": "Found {count} results",
+      "empty": "No results found for “{query}”.",
+      "emptyDescription": "Try another keyword or a shorter search phrase.",
+      "paginationAriaLabel": "Search results pagination"
+    },
+    "about": {
+      "meta": {
+        "title": "About us",
+        "description": "About us description"
+      },
+      "hero": {
+        "title": "About us",
+        "description": "..."
+      }
+    },
+    "sample": {
+      "a11y": {
+        "counterBasic": "Basic quantity selector",
+        "counterEditable": "Editable quantity selector",
+        "counterStep": "Quantity selector with increments of five",
+        "marqueeLeft": "Technology items marquee moving left",
+        "marqueeRight": "Technology items marquee moving right",
+        "swiperImage": "Slide {number} demo image",
+        "importantToast": "Important notification",
+        "socialShareBasic": "Default social sharing button group",
+        "socialShareCustom": "Custom social sharing button group",
+        "imageBasic": "ImageLazyLoad basic example",
+        "imageCustomRatio": "ImageLazyLoad custom ratio example",
+        "imageResponsive": "ImageLazyLoad responsive image and ratio example",
+        "imageRootMargin": "ImageLazyLoad custom early loading range example",
+        "imageFallback": "Fallback image on load failure example",
+        "imageErrorSlot": "Fallback slot on image load failure example",
+        "videoBasic": "Responsive VideoLazyLoad example",
+        "iframeBasic": "YouTube IframeLazyLoad example",
+        "articlePagination": "Article list pagination",
+        "customPagination": "Custom styled pagination",
+        "filteredPagination": "Filtered results pagination",
+        "editorImageLeft": "Left image and right text demo image",
+        "editorImageRight": "Right image and left text demo image",
+        "editorImageSingle": "Single demo image",
+        "editorImagesLeft": "Left image in two-image layout",
+        "editorImagesRight": "Right image in two-image layout",
+        "stickyAnchorImage": "StickyAnchor section demo image",
+        "stickyAnchorNavigation": "StickyAnchor example section navigation"
+      }
+    },
+    "sitemap": {
+      "meta": {
+        "title": "Sitemap",
+        "description": "A sitemap listing the main pages currently available on this website."
+      },
+      "linksTitle": "Page links",
+      "loading": "Loading page links, please wait.",
+      "empty": "There are no page links to display.",
+      "loadError": "Page links are temporarily unavailable. Please try again later."
+    },
+    "privacy": {
+      "meta": {
+        "title": "Privacy policy",
+        "description": "Learn how this website collects, uses, stores, and protects your personal data."
+      },
+      "intro": "We value your privacy. This privacy policy explains how we handle information that may be collected when you use this website.",
+      "lastUpdated": "Last updated: August 5, 2026",
+      "notice": "This page contains template content. Please review and adapt it to your actual services, data practices, and applicable laws before launch.",
+      "sections": {
+        "collection": {
+          "title": "1. Information we collect",
+          "description": "Depending on how you use our services and interact with us, we may collect the following information:",
+          "items": {
+            "provided": "Information you provide directly, such as your name, email address, and contact details.",
+            "technical": "Technical information generated when you use the website, such as your IP address, browser type, device information, and browsing history.",
+            "cookies": "Preferences and website usage information recorded through cookies or similar technologies."
+          }
+        },
+        "usage": {
+          "title": "2. How we use information",
+          "description": "We may use collected information for the following purposes:",
+          "items": {
+            "service": "Providing, maintaining, and improving website features and related services.",
+            "communication": "Responding to your questions, handling service requests, and sending necessary notices.",
+            "improvement": "Analyzing website usage to improve content, performance, and user experience."
+          }
+        },
+        "sharing": {
+          "title": "3. Sharing and disclosure",
+          "description": "Unless we have your consent, it is necessary to provide a service you requested, or the law requires it, we do not sell, rent, or exchange your personal data without authorization. When necessary, information may be provided to service providers that help operate the website, and they may process it only according to our instructions."
+        },
+        "cookies": {
+          "title": "4. Cookies and similar technologies",
+          "description": "We may use cookies to remember your preferences, maintain website functionality, and understand how the website is used. You can manage or delete cookies through your browser settings, but some features may not work properly as a result."
+        },
+        "security": {
+          "title": "5. Data security and retention",
+          "description": "We use reasonable technical and administrative measures to protect information and retain it only for as long as needed to fulfill the collection purpose or comply with applicable law. Online transmission and electronic storage cannot be guaranteed to be completely secure, so please also protect your account and devices."
+        },
+        "rights": {
+          "title": "6. Your rights",
+          "description": "Depending on applicable law, you may have the right to access, review, copy, supplement, correct, or request that we stop collecting, processing, or using your personal data. We may need to verify your identity when handling a request."
+        },
+        "children": {
+          "title": "7. Children’s privacy",
+          "description": "This website is not primarily directed at children. If you believe that a child has provided personal data without consent from a legal representative, please contact us so we can help address the situation."
+        },
+        "updates": {
+          "title": "8. Policy updates",
+          "description": "We may update this policy when our services, applicable laws, or operating practices change. Updated content will be posted on this page, with the effective date shown as the last updated date."
+        },
+        "contact": {
+          "title": "9. Contact us",
+          "description": "If you have questions about this policy or how we handle personal data, please contact us by email:"
+        }
+      }
+    }
+  },
+  "components": {
+    "button": {
+      "defaultText": "Button"
+    },
+    "input": {
+      "clear": "Clear input"
+    },
+    "breadcrumb": {
+      "ariaLabel": "Breadcrumb"
+    },
+    "counter": {
+      "ariaLabel": "Quantity selector",
+      "valueLabel": "Current quantity",
+      "decrementLabel": "Decrease quantity",
+      "incrementLabel": "Increase quantity"
+    },
+    "marquee": {
+      "ariaLabel": "Marquee"
+    },
+    "image": {
+      "error": "Image failed to load"
+    },
+    "video": {
+      "error": "Video failed to load"
+    },
+    "iframe": {
+      "error": "Embedded content failed to load"
+    },
+    "socialShare": {
+      "ariaLabel": "Share this page",
+      "facebook": "Share on Facebook",
+      "line": "Share on LINE",
+      "x": "Share on X",
+      "copy": "Copy link",
+      "copied": "Link copied",
+      "copyError": "Unable to copy link",
+      "invalidUrl": "Only HTTP and HTTPS sharing URLs are supported"
+    },
+    "slideTab": {
+      "ariaLabel": "Category navigation",
+      "previous": "Show previous categories",
+      "next": "Show next categories"
+    },
+    "stickyAnchor": {
+      "ariaLabel": "Page section navigation"
+    },
+    "swiperBase": {
+      "ariaLabel": "Content carousel",
+      "roleDescription": "carousel",
+      "itemRoleDescription": "slide",
+      "previous": "Previous slide",
+      "next": "Next slide",
+      "first": "This is the first slide",
+      "last": "This is the last slide",
+      "pagination": "Select a slide",
+      "goToSlide": "Go to slide {index}",
+      "slideLabel": "Slide {index} of {total}"
+    },
+    "pageHeader": {
+      "bannerAlt": "Page banner",
+      "defaultTitle": "Default title"
+    },
+    "pagination": {
+      "ariaLabel": "Pagination navigation",
+      "first": "First page",
+      "last": "Last page",
+      "prev": "Previous page",
+      "next": "Next page",
+      "currentPage": "Page {page}, current page",
+      "goToPage": "Go to page {page}"
+    },
+    "loading": {
+      "defaultLabel": "Loading, please wait"
+    },
+    "toast": {
+      "close": "Close notification"
+    },
+    "modal": {
+      "close": "Close dialog"
+    },
+    "goTop": {
+      "ariaLabel": "Back to top"
+    },
+    "datepicker": {
+      "today": "Today"
+    },
+    "combobox": {
+      "search": "Search options"
+    },
+    "contactForm": {
+      "name": "Name",
+      "email": "Email"
+    }
+  },
+  "error": {
+    "404": {
+      "title": "Page not found",
+      "description": "The page you requested may have been removed or the URL may be incorrect."
+    },
+    "500": {
+      "title": "System error",
+      "description": "Something went wrong. Please try again later."
+    },
+    "backToHome": "Back to home"
+  },
+  "a11y": {
+    "skipLink": "Skip to main content",
+    "header": "Header area, including the home link and main menu",
+    "main": "Main content area for this page",
+    "footer": "Footer information"
+  }
+}

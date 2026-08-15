@@ -12,5 +12,5 @@ usePageSchema({
 </script>
 
 <template>
-  <div>首頁</div>
+  <div>{{ $t('pages.home.meta.title') }}</div>
 </template>

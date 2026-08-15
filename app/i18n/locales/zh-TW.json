@@ -10,7 +10,31 @@
     },
     "menu": {
       "ariaLabel": "主選單",
-      "toggleSubmenu": "切換 {title} 子選單"
+      "toggleSubmenu": "切換 {title} 子選單",
+      "items": {
+        "home": "首頁",
+        "sample": "範例頁",
+        "examples": "多層選單",
+        "examples-basic": "基礎元件",
+        "examples-button": "按鈕元件",
+        "examples-card": "卡片元件",
+        "examples-interactive": "互動元件",
+        "examples-accordion": "Accordion",
+        "examples-navigation": "分頁與導覽",
+        "examples-pagination": "Pagination",
+        "examples-breadcrumb": "Breadcrumb",
+        "examples-layout": "版型元件",
+        "examples-header": "Page Header"
+      }
+    },
+    "language": {
+      "ariaLabel": "切換語言",
+      "menuAriaLabel": "語言選項",
+      "switchTo": "切換至 {language}",
+      "names": {
+        "zhTW": "中文",
+        "en": "English"
+      }
     },
     "account": {
       "ariaLabel": "會員專區"
