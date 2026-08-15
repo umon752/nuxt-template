@@ -43,7 +43,11 @@ npm run check        # 依序執行格式、lint 與 typecheck
 npm run test:unit    # 執行 unit／component tests
 npm run test         # 執行 unit 與 Nuxt integration tests
 npm run verify       # 執行完整檢查、測試與 production build
+npm run setup:hooks  # 啟用 repository 的 Git hooks
 ```
+
+首次 clone 後請執行 `npm run setup:hooks`。啟用後，每次 commit 會先檢查 staged diff
+與 component／composable 文件一致性；檢查失敗時會阻止 commit。
 
 目前已導入 Vitest，測試範圍、執行方式與後續 CI 決策請參考
 [測試說明](tests/README.md)。
