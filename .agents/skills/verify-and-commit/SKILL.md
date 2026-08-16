@@ -13,6 +13,7 @@ description: 驗證 repository 或 Git worktree 的變更並建立符合專案�
 2. 執行 `git status --short`、確認 branch／worktree，並查看 staged、unstaged 與 untracked files。
 3. 以使用者要求決定 commit scope；保留與任務無關的變更，不擅自擴大範圍。
 4. 若 scope 不明、包含疑似 secret、`.env`、憑證、衝突、detached HEAD 或其他高風險狀態，先停止並請使用者決定。
+5. 若 commit scope 新增或擴充對外功能，執行 feature flag audit：確認功能是否需要可切換啟用；若需要，檢查 `app/config/features.ts` 是否有對應或沿用的 key，並 review UI 入口、page route、server API／資料操作、權限驗證、測試與文件。既有 `account`、`cart` 等 key 的功能擴充必須沿用原 key；若是否需要開關或涵蓋範圍不明，先停止並請使用者決定。
 
 「提交全部變更」可包含目前 worktree 的所有合理變更，但仍須先 review。若使用者要求全部 worktree，逐一檢查並在各自 branch 建立獨立 commit；跳過乾淨的 worktree，不合併不同 worktree 的 diff。
 
@@ -30,7 +31,7 @@ description: 驗證 repository 或 Git worktree 的變更並建立符合專案�
 1. 使用明確檔案路徑 stage 確認過的 scope；避免在混合 worktree 中盲目執行 `git add -A`。
 2. 檢查 `git diff --cached --check`、`git diff --cached --stat` 與 staged diff。
 3. 依專案規範產生英文小寫 commit message：`<type>: <imperative verb> <description>`。
-4. 使用者已明確要求 commit 時，不因訊息措辭再要求一次確認；但測試內容變更的確認規則除外；scope 或風險有實質歧義時才停下詢問。
+4. 使用者已明確要求 commit 時，不因訊息措辭再要求一次確認；但測試內容變更的確認規則與 feature flag audit 例外；scope 或風險有實質歧義時才停下詢問。
 5. 建立 commit 後執行 `git status --short`，確認結果並記錄 commit hash。
 
 不得 amend、rebase、reset、刪除 Git lock、push 或改寫歷史，除非使用者明確要求對應操作。遇到 `.git/index.lock` 時，先確認是否有 Git process；不得未經確認直接刪除 lock。
@@ -43,4 +44,5 @@ description: 驗證 repository 或 Git worktree 的變更並建立符合專案�
 - 實際包含的檔案或 worktree。
 - 執行的驗證命令與結果。
 - 未執行或失敗的檢查及原因。
+- 若涉及對外功能，feature flag audit 的結果與仍未涵蓋的範圍。
 - Commit 後仍保留的未提交變更。

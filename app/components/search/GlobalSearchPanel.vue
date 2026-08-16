@@ -137,7 +137,7 @@ const selectSuggestion = (suggestion: string): void => {
         :aria-describedby="suggestions.length ? suggestionsTitleId : undefined"
         class="relative max-h-[calc(100dvh-var(--nav-h))] overflow-y-auto bg-[#202126] text-white shadow-2xl"
       >
-        <div class="container max-w-5xl py-7 sm:py-8">
+        <div class="container p-7! sm:py-8">
           <div class="flex items-start gap-4">
             <form class="min-w-0 flex-1" role="search" @submit.prevent="submitSearch">
               <label :for="inputId" class="sr-only">

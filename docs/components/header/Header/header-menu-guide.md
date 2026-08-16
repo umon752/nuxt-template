@@ -230,7 +230,7 @@ const { menuItems, status: menuStatus, error: menuError, refresh } = useMenu()
 - 有 `href` 的父層同時提供父層 `NuxtLink` 與獨立的子選單切換按鈕；沒有 `href` 的父層只提供切換按鈕。
 - 路由變更後自動關閉桌面與手機選單。
 - 桌面版 trigger 提供 `aria-expanded`、`aria-controls`，鍵盤 focus 也能展開，並支援 Escape 關閉與焦點返回。
-- 右側工具列提供 `HeaderLanguageSwitcher`，可在 `zh-TW` 與 `en` 間切換並保留目前 route、query 與 hash。
+- `featureConfig.languageSwitcher` 開啟時，右側工具列提供 `HeaderLanguageSwitcher`，可在 `zh-TW` 與 `en` 間切換並保留目前 route、query 與 hash；關閉時不渲染語系切換入口，直接進入非預設語系路徑也會回傳 404。
 
 API 型別與桌面、手機選單元件都允許遞迴的 `children`。選單資料仍應控制合理深度，避免過深的導覽結構影響操作性。
 

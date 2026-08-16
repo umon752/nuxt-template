@@ -42,6 +42,13 @@
 
 建立類 Skill 會自行載入對應的同步文件 Skill，不需要重複指定。
 
+## 功能開關
+
+- `app/config/features.ts` 控制對外功能的可見性與路由入口；新增或擴充會員、購物車等已有開關的功能時，必須沿用對應的 `featureConfig` key，不得只控制 Header 或其他 UI 入口。
+- 新增需要可切換啟用的對外功能時，應建立對應的 feature flag，並檢查 UI 入口、page route、server API／資料操作、權限驗證、測試與文件的涵蓋範圍。內部且不需要對外切換的功能可不新增 flag，但應在 review 時明確判斷。
+- `featureConfig` 不是權限或秘密保護機制；涉及資料或操作權限時，仍須由 server 端驗證。
+- Commit 前若 diff 新增或擴充對外功能，必須完成 feature flag audit；若應有開關卻缺少對應 flag、只隱藏 UI、或 UI／route／server／權限／測試／文件的範圍不明，先回報並等待使用者確認，不得直接 commit。
+
 ## 驗證
 
 依變更風險採用最小充分驗證。迭代期間預設不要每次都執行完整測試或 production build，因為這些指令可能啟動 Nuxt runtime 並消耗較多 CPU 與記憶體。

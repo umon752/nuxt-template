@@ -1,11 +1,29 @@
 import { mountSuspended, registerEndpoint } from '@nuxt/test-utils/runtime'
 import { getQuery } from 'h3'
 import { defineComponent, h, ref, type PropType } from 'vue'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import type { RouteLocationNormalized } from 'vue-router'
 
 import Header from '~/components/header/Header.vue'
 import LanguageSwitcher from '~/components/header/LanguageSwitcher.vue'
+import { featureConfig } from '~/config/features'
 import { useLocaleSwitcher } from '~/composables/useLocaleSwitcher'
+import localeFeatureMiddleware from '~/middleware/locale-feature.global'
+
+const mutableFeatureConfig = featureConfig as unknown as { languageSwitcher: boolean }
+const initialLanguageSwitcher = mutableFeatureConfig.languageSwitcher
+
+beforeEach(() => {
+  mutableFeatureConfig.languageSwitcher = true
+})
+
+afterEach(() => {
+  mutableFeatureConfig.languageSwitcher = initialLanguageSwitcher
+})
+
+const createRoute = (path: string): RouteLocationNormalized => {
+  return { path } as RouteLocationNormalized
+}
 
 const NuxtLinkStub = defineComponent({
   props: {
@@ -35,13 +53,14 @@ const LocaleSwitchButton = defineComponent({
 
     return { handleSwitch, result }
   },
-  template: '<button type="button" @click="handleSwitch">{{ result }}</button>',
+  template:
+    '<div id="results"><button type="button" @click="handleSwitch">{{ result }}</button></div>',
 })
 
 describe('language switcher integration', () => {
   it('provides an imperative locale switch action', async () => {
     const wrapper = await mountSuspended(LocaleSwitchButton, {
-      route: '/search?q=nuxt#results',
+      route: '/search?q=nuxt',
     })
 
     await wrapper.get('button').trigger('click')
@@ -131,6 +150,45 @@ describe('language switcher integration', () => {
       expect(wrapper.get('button[aria-label="Change language"]').text()).toContain('English')
     } finally {
       unregisterEndpoint()
+    }
+  })
+
+  it('hides the Header language switcher when its feature is disabled', async () => {
+    const previousValue = mutableFeatureConfig.languageSwitcher
+    const unregisterEndpoint = registerEndpoint('/api/menu', () => [])
+    mutableFeatureConfig.languageSwitcher = false
+
+    try {
+      const wrapper = await mountSuspended(Header, {
+        route: '/',
+        global: {
+          stubs: {
+            NuxtLink: NuxtLinkStub,
+          },
+        },
+      })
+
+      expect(wrapper.find('button[aria-label="Change language"]').exists()).toBe(false)
+    } finally {
+      mutableFeatureConfig.languageSwitcher = previousValue
+      unregisterEndpoint()
+    }
+  })
+
+  it('blocks non-default locale routes when the language feature is disabled', () => {
+    const previousValue = mutableFeatureConfig.languageSwitcher
+    mutableFeatureConfig.languageSwitcher = false
+
+    try {
+      expect(() => localeFeatureMiddleware(createRoute('/en'), createRoute('/'))).toThrowError(
+        'Locale route is disabled'
+      )
+      expect(() =>
+        localeFeatureMiddleware(createRoute('/en/sample'), createRoute('/'))
+      ).toThrowError('Locale route is disabled')
+      expect(localeFeatureMiddleware(createRoute('/'), createRoute('/'))).toBeUndefined()
+    } finally {
+      mutableFeatureConfig.languageSwitcher = previousValue
     }
   })
 })

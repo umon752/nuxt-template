@@ -45,7 +45,7 @@ Header 用它在搜尋面板或手機選單開啟前關閉語系 dropdown。
 
 目前支援 `zh-TW` 與 `en`。語系名稱、trigger accessible name、選單標籤與切換提示位於 `header.language.*`。`@nuxtjs/i18n` 以 `i18n_redirected` cookie 記住使用者明確選擇；首次造訪不依瀏覽器 `Accept-Language` 自動切換。
 
-`server/middleware/i18n-default-locale.ts` 會在沒有 cookie 的根路徑請求先固定 `zh-TW`，`app/plugins/i18n-default-locale.ts` 則避免 hydration 階段被瀏覽器語系覆寫；明確進入 `/en` 仍會使用英文。
+`server/middleware/i18n-default-locale.ts` 會在沒有 cookie 的根路徑請求先固定 `zh-TW`，`app/plugins/i18n-default-locale.ts` 則避免 hydration 階段被瀏覽器語系覆寫。`featureConfig.languageSwitcher` 開啟時，明確進入 `/en` 仍會使用英文；關閉時，`app/middleware/locale-feature.global.ts` 會阻擋 `/en` 與 `/en/...` 路徑並回傳 404。
 
 ## SSR、cleanup 與限制
 

@@ -21,8 +21,8 @@
 - 從 `useMenu()` 取得 `/api/menu` 資料。
 - 從 `siteConfig.logo` 取得 Logo。
 - 使用 i18n 的 `header.*` 文字作為導覽及圖示連結標籤。
-- 從 `featureConfig` 控制會員、購物車與搜尋入口是否顯示。
-- 右側工具列包含 `HeaderLanguageSwitcher`，提供 `zh-TW`／`en` 語系切換與目前語系標示。
+- 從 `featureConfig` 控制會員、購物車、搜尋與語系切換入口是否顯示。
+- `featureConfig.languageSwitcher` 開啟時，右側工具列包含 `HeaderLanguageSwitcher`，提供 `zh-TW`／`en` 語系切換與目前語系標示；關閉時不渲染入口，直接進入非預設語系路徑也會回傳 404。
 - 有 `href` 的父層選單同時提供父層連結與獨立的子選單切換按鈕；沒有 `href` 的父層只提供切換按鈕。
 - 點擊搜尋按鈕會切換 `GlobalSearchPanel` 的開／關狀態；送出後導向 `/search?q=<keyword>`。
 - 語系 dropdown、搜尋面板、手機選單與桌面下拉選單互斥；route 變更時關閉所有 header overlay。

@@ -281,7 +281,25 @@ onBeforeUnmount(() => {
 
         <div class="flex items-center gap-2">
           <div class="flex items-center gap-2">
-            <HeaderLanguageSwitcher ref="languageSwitcher" @open="handleLanguageSwitcherOpen" />
+            <HeaderLanguageSwitcher
+              v-if="featureConfig.languageSwitcher"
+              ref="languageSwitcher"
+              @open="handleLanguageSwitcherOpen"
+            />
+
+            <button
+              v-if="featureConfig.search"
+              ref="searchTrigger"
+              type="button"
+              aria-controls="global-search-panel"
+              :aria-expanded="isSearchOpen"
+              :aria-label="$t('header.search.ariaLabel')"
+              class="relative rounded-sm hover:text-slate-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700"
+              @pointerdown.stop
+              @click="toggleSearch"
+            >
+              <IconSearch />
+            </button>
 
             <NuxtLink
               v-if="featureConfig.account"
@@ -305,20 +323,6 @@ onBeforeUnmount(() => {
                 {{ 0 }}
               </span>
             </NuxtLink>
-
-            <button
-              v-if="featureConfig.search"
-              ref="searchTrigger"
-              type="button"
-              aria-controls="global-search-panel"
-              :aria-expanded="isSearchOpen"
-              :aria-label="$t('header.search.ariaLabel')"
-              class="relative rounded-sm hover:text-slate-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700"
-              @pointerdown.stop
-              @click="toggleSearch"
-            >
-              <IconSearch />
-            </button>
           </div>
 
           <button

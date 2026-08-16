@@ -5,6 +5,7 @@
  */
 export const featureConfig = {
   search: true,
+  languageSwitcher: true,
   account: true,
   cart: true,
   sitemap: true,
