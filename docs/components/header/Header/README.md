@@ -22,6 +22,7 @@
 - 從 `siteConfig.logo` 取得 Logo。
 - 使用 i18n 的 `header.*` 文字作為導覽及圖示連結標籤。
 - 從 `featureConfig` 控制會員、購物車、搜尋與語系切換入口是否顯示。
+- 從 `a11yConfig.accessKeyLinks` 控制根節點的 access key 錨點是否顯示，預設為啟用。
 - `featureConfig.languageSwitcher` 開啟時，右側工具列包含 `HeaderLanguageSwitcher`，提供 `zh-TW`／`en` 語系切換與目前語系標示；關閉時不渲染入口，直接進入非預設語系路徑也會回傳 404。
 - 有 `href` 的父層選單同時提供父層連結與獨立的子選單切換按鈕；沒有 `href` 的父層只提供切換按鈕。
 - 點擊搜尋按鈕會切換 `GlobalSearchPanel` 的開／關狀態；送出後導向 `/search?q=<keyword>`。
@@ -30,4 +31,4 @@
 - mounted 後以 `ResizeObserver` 取得根 `<header>` 高度，將結果同步到 `<html>` 的 `--nav-h` CSS variable；不支援 `ResizeObserver` 時回退到 `resize` 事件。
 - 元件卸載時會清理搜尋面板 focus／事件、observer、fallback listener，並移除仍由本元件設定的 `--nav-h` 值。
 
-根節點 ID 固定為 `U`，並內建 `accesskey="U"` 的 access key 錨點。
+根節點 ID 固定為 `U`；`a11yConfig.accessKeyLinks` 啟用時，內建 `accesskey="U"` 的 access key 錨點。

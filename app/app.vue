@@ -5,15 +5,10 @@ const { locale } = useI18n()
 const i18nHead = useLocaleHead()
 const { isLoading: isFullPageLoading } = useFullPageLoading()
 
-useServerHead({
-  htmlAttrs: {
-    class: 'no-js',
-  },
-})
-
 useHead(() => ({
   htmlAttrs: {
-    lang: i18nHead.value.htmlAttrs.lang,
+    ...i18nHead.value.htmlAttrs,
+    class: [i18nHead.value.htmlAttrs.class, 'no-js'].filter(Boolean).join(' '),
   },
   link: [
     ...((i18nHead.value.link || []) as unknown as ResolvableLink[]),

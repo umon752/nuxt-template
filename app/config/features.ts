@@ -13,3 +13,15 @@ export const featureConfig = {
 } as const satisfies Record<string, boolean>
 
 export type FeatureKey = keyof typeof featureConfig
+
+/**
+ * 控制網站無障礙導覽元件是否輸出。
+ *
+ * 這些設定只負責無障礙導覽 UI 的可見性，不影響頁面內容、路由或資料權限。
+ */
+export const a11yConfig = {
+  skipLink: true,
+  accessKeyLinks: true,
+} as const satisfies Record<string, boolean>
+
+export type A11yConfigKey = keyof typeof a11yConfig

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { featureConfig } from '~/config/features'
+import { a11yConfig, featureConfig } from '~/config/features'
 
 const START_YEAR = 2026
 const currentYear = new Date().getFullYear()
@@ -8,7 +8,13 @@ const copyrightYear = currentYear === START_YEAR ? `${currentYear}` : `${START_Y
 
 <template>
   <footer id="Z">
-    <A11yAccessKeyLink id="AZ" target="#Z" accesskey="Z" label-key="a11y.footer" />
+    <A11yAccessKeyLink
+      v-if="a11yConfig.accessKeyLinks"
+      id="AZ"
+      target="#Z"
+      accesskey="Z"
+      label-key="a11y.footer"
+    />
     <div class="container">
       <nav :aria-label="$t('footer.navigationAriaLabel')" class="mb-2">
         <ul class="flex flex-wrap gap-x-4 gap-y-2">

@@ -2,7 +2,7 @@
 import type { TLanguageSwitcherInstance } from '~/components/header/LanguageSwitcher.vue'
 import { nextTick } from 'vue'
 
-import { featureConfig } from '~/config/features'
+import { a11yConfig, featureConfig } from '~/config/features'
 import { searchSuggestions } from '~/config/search'
 import { siteConfig } from '~/config/site'
 import GlobalSearchPanel from '~/components/search/GlobalSearchPanel.vue'
@@ -194,7 +194,13 @@ onBeforeUnmount(() => {
     class="group sticky top-0 z-40 bg-white py-2 shadow-lg"
     :class="{ 'is-open': isMobileMenuOpen }"
   >
-    <A11yAccessKeyLink id="AU" target="#U" accesskey="U" label-key="a11y.header" />
+    <A11yAccessKeyLink
+      v-if="a11yConfig.accessKeyLinks"
+      id="AU"
+      target="#U"
+      accesskey="U"
+      label-key="a11y.header"
+    />
     <div class="container">
       <div class="flex items-center justify-between gap-2">
         <NuxtLink
